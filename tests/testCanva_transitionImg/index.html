@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>test Canva Image transitions</title>
+    
+    
+    <script type="text/javascript" src="jquery-3.4.1.js" ></script>
+    <script type="text/javascript" src="test.js" ></script>
+    
+</head>
+<body>
+    <div>
+	    <div class="bt_click_area" style="width: 480px; height: 270px;" >
+	        <canvas class="div_canva" width="480px" height="270px" />
+	    </div>
+	    <select class="cb_methodInterpolation" >
+		  <option value="NoInterpolation" >NoInterpolation</option>
+		  <option value="Linear_Fade" >Linear_Fade</option>
+		  <option value="Linear_Balayage" >Linear_Balayage</option>
+		  <option value="Linear_Balayage_Book_0" >Linear_Balayage_Book_0</option>
+		  <option value="Linear_Kikoulol" >Linear_Kikoulol</option>
+		  <option value="Boom" selected>Boom</option>
+		</select> 
+	
+		
+		<select class="cb_normal" >
+          <option value="0" selected>normal0</option>
+          <option value="1" >normal1</option>
+          <option value="2" >normal2</option>
+          <option value="3" >normal3</option>
+          <option value="4" >normal4</option>
+          <option value="5" >normal5</option>
+          <option value="6" >normal6</option>
+        </select> 
+	</div>
+    <div style="width: 960px; height: 270px; display:none;" >
+	    <img class="imgSource" src="matrix0.jpg" crossOrigin="" />
+	    <img class="imgSource" src="matrix1.jpg" crossOrigin="" />
+	    
+	    <img class="imgSourceNormal" src="normal0.jpg" crossOrigin="" />
+	    <img class="imgSourceNormal" src="normal1.jpg" crossOrigin="" />
+	    <img class="imgSourceNormal" src="normal2.jpg" crossOrigin="" />
+	    <img class="imgSourceNormal" src="normal3.jpg" crossOrigin="" />
+	    <img class="imgSourceNormal" src="normal4.jpg" crossOrigin="" />
+	    <img class="imgSourceNormal" src="normal5.jpg" crossOrigin="" />
+	    <img class="imgSourceNormal" src="normal6.jpg" crossOrigin="" />
+    </div>
+</body>
+</html>
+        
