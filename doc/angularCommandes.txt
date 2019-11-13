@@ -1,0 +1,115 @@
+
+#installation de node.js:
+npm install -g npm@latest
+
+#installation de angular:
+npm install -g @angular/cli
+
+#creation du projet:
+ng new nogashiFront
+
+#test:
+cd nogashiFront
+ng serve --open
+
+
+#installation de bootstrap dans le projet:
+ctrl+c pour arreter le serveur
+
+npm install bootstrap@3.3.7 --save
+
+#dans angular.json : 
+"styles": [
+  "node_modules/bootstrap/dist/css/bootstrap.css",
+  "src/styles.scss"  
+],
+
+ng serve --open
+
+
+
+#Résumé Angular:
+-pas besoin de redemarrer le server a chaque modif, ajout de component.
+
+-tout fonctionne avec des components
+-tous ce fait avec une seul page qu'il n'est pas nécessaire de rafraichir, car les modules/components communiquent avec le serveur et se rafraichissent de manière indépendantes.
+    -le multi-page pour l'utilisateur peut se faire mais en réalité ce n'est qu'une seule page et elle ne se recharge pas, il s'agit juste des components qui s'affichent ou pas. 
+
+-le component global appliqué a toute la page est app-root
+    -sont utilisation dans le index.html se fait avec la déclaration: <app-root></app-root>
+      
+-les modules/components utilisées sont dans le fichier app.module.ts
+-dans app.component.ts (le app-root), il y a la définition d'un component:
+    -nom du component ("selector"), ex "app-root"
+    -du template html ("templateUrl")
+    -des styles ("stylesUrls").
+    -le code de la classe du component (en typescript = javascript typed = javascript en mieux).
+
+
+#Ajouter un Nouveau Component:
+ng generate component testNewComponent
+
+#on ajoute au testNewComponent.component.ts:
+appareilName: string = 'Machine à laver';
+appareilStatus: string = 'éteint';
+isAuth = false;
+
+#et du coups on peut l'utiliser dans le html: 
+<li class="list-group-item">
+    <h4>Appareil : {{ appareilName }} -- Statut : {{ getStatus() }}</h4>
+</li>
+
+#et on peut rajouter "disable" sur un bouton si isAuth est a true :
+<button class="btn btn-success" [disabled]="!isAuth" (click)="onAllumer()">>Tout allume</button>
+
+#(click) va appeler sur l'evenement click la function onAllumer() :
+onAllumer() 
+{
+  console.log('On allume tout !');
+}
+
+
+# [( )] permet de faire du two-way binding, pour un update double direction :
+<input type="text" class="form-control" [(ngModel)]="appareilName">
+
+# pour faire du conditionnel (avec la directive structure *ngif, si la condition est fausse, le div ne sera pas la) 
+<div style="width:20px;height:20px;background-color:red;"  *ngIf="appareilStatus === 'éteint'"></div>
+
+# le *ngfor (directive structure)
+<app-appareil  *ngFor="let a of appareils" [appareilName]="a.name" [appareilStatus]="a.status"></app-appareil>
+
+
+# application d'un style en fonction d'un retour de function (directive par attribut, retounr etant une couleur ou nom de couleur):
+<h4 [ngStyle]="{color: getColor()}" >Appareil : {{ appareilName }} -- Statut : {{ getStatus() }}</h4>
+
+# de meme, conditionnement sur les class html (directive par attribut) : 
+<li [ngClass]="{'list-group-item': true,
+                'list-group-item-success': appareilStatus === 'allumé',
+                'list-group-item-danger': appareilStatus === 'éteint'}">
+
+
+# option d'affichage d'une date :
+lastUpdate = new Date();
+...
+<p>Mis à jour : {{ lastUpdate | date: 'short' }}</p>
+<p>Mis à jour : {{ lastUpdate | date: 'yMMMMEEEEd' }}</p>
+<p>Mis à jour : {{ lastUpdate | date: 'yMMMMEEEEd' | uppercase }}</p>
+
+# pour que l'affichage de la date attende la mise a jour de la date (async) :
+<p>Mis à jour : {{ lastUpdate | async | date: 'yMMMMEEEEd' | uppercase }}</p>
+
+#et pour simuler le delais du à l'acces au serveur:
+this.lastUpdate = new Promise((resolve, reject) => 
+{
+  const date = new Date();
+  setTimeout(
+    () => {
+      resolve(date);
+    }, 2000
+  );
+});
+
+
+
+
+
