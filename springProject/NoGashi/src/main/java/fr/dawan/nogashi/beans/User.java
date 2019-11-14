@@ -7,9 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+import org.springframework.stereotype.Component;
+
 import fr.dawan.nogashi.enums.UserRole;
 
 @Entity
+@Component
 public class User extends DbObject implements Serializable
 {
 	private static final long serialVersionUID = 1L;

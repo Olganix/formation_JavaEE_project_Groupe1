@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   lastUpdate;
 
-  readonly APP_URL = 'http://localhost:8080/nogashi';
+  readonly APP_URL = 'http://localhost:8080/nogashi/userscontrolerAngular';
 
   constructor(private appareilService: AppareilService, private _http: HttpClient) 
   {
