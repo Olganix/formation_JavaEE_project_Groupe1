@@ -13,6 +13,7 @@ export class AppareilComponent implements OnInit {
   @Input() appareilName: string;                //use attribut of same name in tag declared for display component
   @Input() appareilStatus: string;
   @Input() index: number;
+  @Input() id: number;
 
   constructor(private appareilService: AppareilService) { }
 
