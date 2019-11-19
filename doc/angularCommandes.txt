@@ -17,6 +17,7 @@ ng serve --open
 ctrl+c pour arreter le serveur
 
 npm install bootstrap@3.3.7 --save
+npm install rxjs-compat
 
 #dans angular.json : 
 "styles": [

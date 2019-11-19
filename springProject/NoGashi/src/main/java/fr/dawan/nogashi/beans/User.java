@@ -36,6 +36,8 @@ public class User extends DbObject implements Serializable
 	private String cityName;
 	private String stateName;
 	
+	private boolean emailValid = false;
+	private String token = null;												//for secure operations like email validation.
 	
 	//-----------------------------
 	
@@ -50,6 +52,15 @@ public class User extends DbObject implements Serializable
 		this.role = role;
 	}
 	
+	
+	
+	public User(String name, String email, String password) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
 		return "User [name=" + name + ", email=" + email + ", role=" + role + "]";
@@ -167,9 +178,26 @@ public class User extends DbObject implements Serializable
 		this.stateName = stateName;
 	}
 
+	public boolean isEmailValid() {
+		return emailValid;
+	}
+
+	public void setEmailValid(boolean emailValid) {
+		this.emailValid = emailValid;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	
 
 
+	
 
 	
 }

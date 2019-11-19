@@ -36,7 +36,8 @@ public abstract class DbObject implements Serializable
 		return "DbObject [id=" + id + "]";
 	}
 	
-	
+	//Todo clean
+	/*
 	@PrePersist
 	public void prePersist()
 	{
@@ -56,4 +57,5 @@ public abstract class DbObject implements Serializable
 		
 		//ex faire un calcul sur une variable non sauvegarder (transient)
 	}
+	*/
 }
