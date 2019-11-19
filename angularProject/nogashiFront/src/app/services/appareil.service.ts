@@ -1,6 +1,12 @@
+import { Subject } from 'rxjs/Subject';
+
+
 export class AppareilService
 {
-    appareils = 
+    appareilsSubject = new Subject<any[]>();
+
+
+    private appareils = 
     [
         {
           id: 1,
@@ -19,16 +25,23 @@ export class AppareilService
         }
     ];
 
+    emitAppareilSubject() 
+    {
+      this.appareilsSubject.next(this.appareils.slice());
+    }
 
     switchAppareil(i:number, enable: boolean) 
     {
         this.appareils[i].status = enable ? 'allumé' : 'éteint';
+        this.emitAppareilSubject();
     }
 
     switchAllAppareil(enable: boolean) 
     {
         for(let appareil of this.appareils)
             appareil.status = enable ? 'allumé' : 'éteint';
+        
+        this.emitAppareilSubject();
     }
 
     getAppareilById(id: number) 
