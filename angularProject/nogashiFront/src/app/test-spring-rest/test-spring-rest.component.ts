@@ -13,7 +13,7 @@ export class TestSpringRestComponent implements OnInit {
 
   
   users: any;
-  readonly APP_URL = 'http://localhost:8080/nogashi/userscontrolerAngular';
+  readonly APP_URL = 'http://localhost:8080/nogashi';
 
 
   constructor( private _http: HttpClient) 
@@ -22,7 +22,7 @@ export class TestSpringRestComponent implements OnInit {
     this._http.get(this.APP_URL + '/getUsers').subscribe(
       data => 
       {
-        this.users = data;
+        this.users = ("data" in data) ? data["data"] : data;
       },
       error => 
       {
