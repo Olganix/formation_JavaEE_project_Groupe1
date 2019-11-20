@@ -83,9 +83,8 @@ public class GenericDao
 	
 	public <T extends DbObject> List<T> findNamed(Class<T> tClass, String column, String name, EntityManager em, boolean closeConnection) throws Exception
 	{
-		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity where ?1=?2", tClass);
-		query.setParameter(1, column);
-		query.setParameter(2, name);
+		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity where "+ column +"=:name", tClass);
+		query.setParameter("name", name);
 		List<T> result = query.getResultList();
 		
 		if(closeConnection)

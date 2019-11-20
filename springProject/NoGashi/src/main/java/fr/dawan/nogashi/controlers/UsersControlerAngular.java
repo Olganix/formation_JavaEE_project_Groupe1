@@ -89,8 +89,8 @@ public class UsersControlerAngular
     	}
 		
     	
-    	password = BCrypt.hashpw("password", BCrypt.gensalt());				// Crypting the password before save in bdd.
-    	u = new User(name, email, password);
+    	String password_crypted = BCrypt.hashpw(password, BCrypt.gensalt());				// Crypting the password before save in bdd.
+    	u = new User(name, email, password_crypted);
     	
     	
     	//create token for email validation.
@@ -98,7 +98,7 @@ public class UsersControlerAngular
 		String token = BCrypt.hashpw(email + calendar.get(Calendar.DAY_OF_YEAR), BCrypt.gensalt());
 		System.out.println("hash: "+ email + calendar.get(Calendar.DAY_OF_YEAR) +" => "+ token);
 		u.setToken(token);
-    	
+    	//todo make a duration on validity token (ex: make a cron every 2 day 0h00, witch will set NULL on every token)
     	
 		try 
 		{
@@ -188,6 +188,81 @@ public class UsersControlerAngular
     }
 	
 	
+	/*****************************************************************************************
+	*										sendEmailValidation								 * 
+	*****************************************************************************************/
+	@RequestMapping(path="/sendemailvalidation", produces = "application/json")
+	//test : http://localhost:8080/nogashi/sendemailvalidation?email=aaa@toto.fr
+    public String sendEmailValidation(@PathParam("email") String email, HttpSession session, Locale locale, Model model)
+    {
+		//todo better check on email (rules of email) and name (not admin, root or god or ...etc see official list for that), could be done from angular, but it's may be safer to do it here
+		if( (email==null)  || (email.length()==0) )
+			return "Error: Not enought arguments";
+		
+		EntityManager em = StartListener.createEntityManager();
+		
+		User u = null;
+    	try 
+    	{
+    		List<User> listUsers = dao.findNamed(User.class, "email", email, em, false);
+    		if(listUsers.size()!=0)
+    			u = listUsers.get(0);
+    		
+		} catch (Exception e) {
+			u = null;
+			e.printStackTrace();
+		}
+		
+    	if(u==null)
+    	{
+    		em.close();
+    		return "Error: unknow Email";
+    	}
+		
+    	//create token for email validation.
+    	Calendar calendar = Calendar.getInstance();
+		String token = BCrypt.hashpw(email + calendar.get(Calendar.DAY_OF_YEAR), BCrypt.gensalt());
+		System.out.println("hash: "+ email + calendar.get(Calendar.DAY_OF_YEAR) +" => "+ token);
+		u.setToken(token);
+    	
+    	
+		try 
+		{
+			dao.saveOrUpdate(u, em, false);
+			
+			System.out.println("try send emailValidation login: "+ u.getName() +" role:"+ u.getRole());
+			
+			//send email for token.
+			{
+				Properties prop = new Properties();
+				prop.put("mail.smtp.host", "localhost");
+				prop.put("mail.smtp.port", "25");
+				
+				EmailTool mt = new EmailTool(prop, null);
+				try
+				{
+					//todo put email exp in properties
+					
+					//mt.sendMail_html(email, "noreply@nogashi.org", "Nogashi Email de Validation", "Merci de cliquer sur le lien pour valider votre adresse mail : <a href='http://localhost:8080/nogashi/emailvalidation?token="+ URLEncoder.encode(token, "UTF-8") +"'>Je valide mon adresse email</a>");
+					URI uri = new URI("http", "localhost:8080", "/nogashi/emailvalidation", "token="+ token, null);
+					mt.sendMail_html(email, "noreply@nogashi.org", "Nogashi Email de Validation", "Merci de cliquer sur le lien pour valider votre adresse mail : <a href='"+ uri.toASCIIString() +"'>Je valide mon adresse email</a>");
+					
+				}catch(MessagingException e){
+					u = null;
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e1) {
+			u = null;
+			e1.printStackTrace();
+		}
+		
+		
+		em.close();
+		return (u != null) ? "Success" : "Error";
+    }
+	
+	
 	
 	
 	/*****************************************************************************************
@@ -228,10 +303,8 @@ public class UsersControlerAngular
     		return "Error: User not Found or wrong Password";
     	}
 		
-    	password = BCrypt.hashpw("password", BCrypt.gensalt());				// compare with the Crypted password saved in bdd.
-    	
-    	
-    	if( ! BCrypt.checkpw(password, u.getPassword()) )
+    	System.out.println(password +" match with "+ u.getPassword() +" ? => "+ (BCrypt.checkpw(password, u.getPassword()) ? "true" : "false") );
+    	if( ! BCrypt.checkpw(password, u.getPassword()) )				// compare with the Crypted password saved in bdd.
     	{
     		em.close();
     		return "Error: User not Found or wrong Password";
@@ -266,9 +339,10 @@ public class UsersControlerAngular
 	//test : http://localhost:8080/nogashi/isloged
     public String isloged(HttpSession session, Locale locale, Model model)
     {
-    	User u = (User)session.getAttribute("user");
+		User u = (User)session.getAttribute("user");
     	
-    	System.out.println("isloged: "+ u.getName() +" role:"+ u.getRole());
+		if(u!=null)
+			System.out.println("isloged: "+ u.getName() +" role:"+ u.getRole());
     	
 		return (u!=null) ? "Success" : "Not Connected";
     }
@@ -282,14 +356,14 @@ public class UsersControlerAngular
 	//test : http://localhost:8080/nogashi/logout
     public String logout(HttpSession session, Locale locale, Model model)
     {
-    	User u = (User)session.getAttribute("user");
+		User u = (User)session.getAttribute("user");
     	if(u==null)
     		return "Not Connected";
     	
     	System.out.println("logout: "+ u.getName() +" role:"+ u.getRole());
     	
     	session.setAttribute("user", null);
-    	session.invalidate();
+    	//session.invalidate();
     	
 		return "Success";
     }
