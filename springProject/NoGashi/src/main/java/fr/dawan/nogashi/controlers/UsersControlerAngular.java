@@ -26,11 +26,12 @@ import fr.dawan.nogashi.beans.RestResponse;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.RestResponseStatus;
+import fr.dawan.nogashi.enums.UserRole;
 import fr.dawan.nogashi.listeners.StartListener;
 import fr.dawan.nogashi.tools.EmailTool;
 
 
-
+//TODO: utiliser ce que l'on a fait le dernier jours du cours spring MVC , pour se debarasser de  persistence.xml (peut etre mis dans le root-context.xml (a spring bean config file)) 
 //Todo rename controler => controller 
 
 
@@ -87,7 +88,7 @@ public class UsersControlerAngular
 		
     	
     	String password_crypted = BCrypt.hashpw(password, BCrypt.gensalt());				// Crypting the password before save in bdd.
-    	u = new User(name, email, password_crypted);
+    	u = new User(name, email, password_crypted, UserRole.INDIVIDUAL, false);			//todo add UserRole and newsletterEnable comme arguament de functions.
     	
     	
     	//create token for email validation.

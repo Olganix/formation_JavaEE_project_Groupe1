@@ -1,0 +1,36 @@
+         
+.footer 
+{
+    width: 100%;
+    height: 400px;
+    background-color: var(--couleurNoir);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    z-index: 0;
+}
+
+.lien-mentions {
+    
+    font-family: 'roboto', sans-serif;
+    font-size: 0.9em;
+    color: var(--couleurBlancCreme);
+    position: absolute;
+    bottom: 70px;
+    margin-left: 50%;
+    transform: translate(-50%,0%);
+}
+
+.informations-footer {
+    width: 100%;
+    height: 30px;
+    background-color: var(--couleurBlancCreme);
+    font-family: 'roboto', sans-serif;
+    font-size: 0.75em;
+    text-align: center;
+    padding-top: 10px;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    z-index: 0;
+}

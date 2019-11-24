@@ -1,0 +1,12 @@
+
+
+
+/* BACKGROUND */
+.background 
+{
+    min-height: 100vh;
+    background-color: var(--couleurBlancCreme);
+    box-shadow: 3px 3px 20px rgba(0,0,0, .4); 
+    position: relative;    
+    z-index: 1; 
+}

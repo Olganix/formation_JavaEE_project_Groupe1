@@ -18,6 +18,10 @@ ctrl+c pour arreter le serveur
 
 npm install bootstrap@3.3.7 --save
 npm install rxjs-compat
+npm install --save font-awesome angular-font-awesome
+
+
+
 
 #dans angular.json : 
 "styles": [
@@ -111,6 +115,6 @@ this.lastUpdate = new Promise((resolve, reject) =>
 });
 
 
-
+#pour utiliser font awsome dans angular : https://www.npmjs.com/package/angular-font-awesome
 
 

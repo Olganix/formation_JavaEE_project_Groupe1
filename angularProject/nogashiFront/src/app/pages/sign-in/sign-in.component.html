@@ -1,0 +1,52 @@
+<section class="section-inscription">
+        <div class="bloc-formulaire-inscription">
+             <div class="bloc-titre-inscription">
+                 <h1 class="titre-inscription">// INSCRIPTION</h1>
+                 <br>
+                 <br>
+                 <p class="texte-inscription col-8">Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis, iudices, nec descensurum</p>
+                 <br>   
+             </div>
+             
+             <form class="formulaire-inscription" action="" method="get">
+                 <label for="" class="label-formulaire"><i class="fas fa-asterisk"></i> Vous êtes :</label>
+                 <select id="liste-deroulante" class="liste-deroulante">
+                     <option>Particulier</option>
+                     <option>Commerçant</option>
+                     <option>Association</option>
+                 </select>
+                 
+                 <label for="pseudo" class="label-formulaire"><i class="fas fa-asterisk" value="Pseudo"></i> Pseudo</label>
+                 <input id="pseudo" class="pseudo" type="text" name="pseudo" placeholder="Pseudo " >
+                 <span id="pseudoRegex" class="pseudo-regex"></span>  
+                 
+                 <label for="email" class="label-formulaire"><i class="fas fa-asterisk"></i> Email</label>
+                 <input id="email" class="email" type="text" name="email" placeholder="@Email" >
+                 <span id="emailRegex" class="pseudo-regex"></span>  
+               
+                 <label for="mdp" class="label-formulaire"><i class="fas fa-asterisk"> </i> Mot de Passe</label> 
+                 <input id="mdp" class="mdp" type="password" name="mdp">
+                 <span id="mdpRegex" class="mdp-regex"></span>
+                  
+                 <label for="confirmation" class="label-formulaire"><i class="fas fa-asterisk"></i> Confirmation Mot de Passe</label> 
+                 <input id="confirmation" class="confirmation" type="password" name="confirmation">
+                 <span id="confirmationRegex" class="confirmation-regex"></span>
+                 
+                 <div class="bloc-checkbox">
+                    <input  id="checkbox" class="checkbox" type="checkbox">
+                    <label class="label" for="scales">J'ai lu et j'accepte les conditions générales <br> d'utilisation.</label>   
+                 </div>
+                 <div class="bloc-checkbox2">
+                      <input id="checkbox2" class="checkbox2" type="checkbox">
+                      <label class="label" for="scales">Je certifie sur l'honneur que les informations <br> fournies sont rigoureusement exactes</label>   
+                 </div>
+                 <div class="bloc-checkbox3">
+                     <input id="checkbox3" class="checkbox3" type="checkbox">
+                     <label class="label" for="scales">J'accepte de recevoir des annonces.</label> 
+                 </div>
+
+                 <a href=""><div id ="bouton-inscription" class="bouton-inscription">S'INSCRIRE</div></a>
+                 <p class="avertissement-inscription">* Veuillez remplir tous les champs pour valider votre inscription.</p>
+             </form>
+         </div>
+ </section>  

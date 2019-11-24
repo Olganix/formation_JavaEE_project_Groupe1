@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-
 import { AppareilService } from './services/appareil.service';
 import { ConnexionService } from './services/connexion.service';
 import { ConnexionGuard } from './services/connexion-guard.service';
@@ -13,12 +12,25 @@ import { ConnexionGuard } from './services/connexion-guard.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ConnexionComponent } from './connexion/connexion.component';
-import { AppareilViewComponent } from './appareil-view/appareil-view.component';
-import { AppareilComponent } from './appareil/appareil.component';
-import { SingleAppareilComponent } from './single-appareil/single-appareil.component';
-import { TestSpringRestComponent } from './test-spring-rest/test-spring-rest.component';
-import { ErrorPage404Component } from './error-page404/error-page404.component';
+import { ConnexionComponent } from './tests/connexion/connexion.component';
+import { AppareilViewComponent } from './tests/appareil-view/appareil-view.component';
+import { AppareilComponent } from './tests/appareil/appareil.component';
+import { SingleAppareilComponent } from './tests/single-appareil/single-appareil.component';
+import { TestSpringRestComponent } from './tests/test-spring-rest/test-spring-rest.component';
+import { ErrorPage404Component } from './pages/error-page404/error-page404.component';
+import { HeaderComponent } from './common/header/header.component';
+import { FooterComponent } from './common/footer/footer.component';
+import { SocialBoxComponent } from './modules/social-box/social-box.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { TestComponent } from './tests/test/test.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { PasswordRescueComponent } from './pages/password-rescue/password-rescue.component';
+import { EmailValidationComponent } from './pages/email-validation/email-validation.component';
+import { WelcomeIndividualComponent } from './pages/welcome-individual/welcome-individual.component';
+import { WelcomeMerchantComponent } from './pages/welcome-merchant/welcome-merchant.component';
+import { WelcomeAssociationComponent } from './pages/welcome-association/welcome-association.component';
+import { WelcomeAdminComponent } from './pages/welcome-admin/welcome-admin.component';
 
 
 
@@ -48,7 +60,20 @@ const appRoutes: Routes =
     AppareilViewComponent,
     SingleAppareilComponent,
     TestSpringRestComponent,
-    ErrorPage404Component
+    ErrorPage404Component,
+    HeaderComponent,
+    FooterComponent,
+    SocialBoxComponent,
+    WelcomeComponent,
+    TestComponent,
+    LoginComponent,
+    SignInComponent,
+    PasswordRescueComponent,
+    EmailValidationComponent,
+    WelcomeIndividualComponent,
+    WelcomeMerchantComponent,
+    WelcomeAssociationComponent,
+    WelcomeAdminComponent
   ],
   imports: [
     BrowserModule,

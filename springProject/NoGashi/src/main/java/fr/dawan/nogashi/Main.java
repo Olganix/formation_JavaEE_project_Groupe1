@@ -8,39 +8,49 @@ import javax.persistence.Persistence;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.enums.UserRole;
 
-public class Main {
-
-	public static void main(String[] args) {
-		System.out.println("Hello world");
-		
-		//test hibernate-jpa.
+public class Main 
+{
+	public static EntityManager em;
+	public static EntityTransaction et;
+	
+	
+	public static void main(String[] args) 
+	{
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("nogashi");
-		EntityManager em = emf.createEntityManager();				//il ne peut en avoir qu'un.
-		EntityTransaction et = em.getTransaction();
+		em = emf.createEntityManager();
+		et = em.getTransaction();
 		
-		User u = new User("testuser", "testuser@noghasi.org", UserRole.INDIVIDUAL);
-		u.setPassword("todoChange");
-		User u2 = new User("testuser2", "testuser@noghasi.org", UserRole.INDIVIDUAL);
-		u2.setPassword("todoChange");
 		
-		try 
+		setupDataBase();
+		
+		em.close();
+		emf.close();	
+	}
+
+	
+	public static void setupDataBase()
+	{
+		User a = new User("admin", "admin@noghasi.org", "admin", UserRole.ADMIN, false);
+		User m = new User("merchantTest", "merchant@noghasi.org", "toto", UserRole.MERCHANT, false);
+		User u = new User("userTest", "user@noghasi.org", "toto", UserRole.INDIVIDUAL, false);
+		User ass = new User("associationTest", "associationt@noghasi.org", "toto", UserRole.ASSOCIATION, false);
+		
+		try
 		{
 			et.begin();
 			
+			em.persist(a);
+			em.persist(m);
 			em.persist(u);
-			em.persist(u2);
+			em.persist(ass);
 			
 			et.commit();
 			
 		} catch (Exception e) {
-			
 			et.rollback();					//undo if troubles
 			e.printStackTrace();		
 		}
 		
-		em.close();
-		emf.close();
 		
 	}
-
 }

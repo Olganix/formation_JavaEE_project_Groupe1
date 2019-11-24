@@ -39,27 +39,35 @@ public class User extends DbObject implements Serializable
 	private boolean emailValid = false;
 	private String token = null;												//for secure operations like email validation.
 	
+	private boolean newsletterEnabled = false;
+	
 	//-----------------------------
 	
 	public User() {
 		super();
 	}
 	
-	public User(String name, String email, UserRole role) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.role = role;
-	}
 	
 	
 	
-	public User(String name, String email, String password) {
+	
+	
+	
+	public User(String name, String email, String password, UserRole role, boolean newsletterEnabled)		//for the moment of inscription.
+	{
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.role = role;
+		this.newsletterEnabled = newsletterEnabled;
 	}
+
+
+
+
+
+
 
 	@Override
 	public String toString() {
@@ -194,9 +202,18 @@ public class User extends DbObject implements Serializable
 		this.token = token;
 	}
 
+	public boolean isNewsletterEnabled() {
+		return newsletterEnabled;
+	}
+
+	public void setNewsletterEnabled(boolean newletterEnabled) {
+		this.newsletterEnabled = newletterEnabled;
+	}
+
 	
 
 
+	
 	
 
 	
