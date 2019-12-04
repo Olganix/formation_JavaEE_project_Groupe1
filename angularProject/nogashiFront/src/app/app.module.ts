@@ -45,7 +45,7 @@ const appRoutes: Routes =
   { path: 'appareils', canActivate: [ConnexionGuard], component: AppareilViewComponent },
   { path: 'appareils/:id', canActivate: [ConnexionGuard], component: SingleAppareilComponent },
   { path: 'connexion', component: ConnexionComponent },
-  { path: '', component: AppareilViewComponent },
+  { path: '', component: ConnexionComponent },
   { path: 'not-found', component: ErrorPage404Component },
   { path: '**', redirectTo: 'not-found' }
 ];

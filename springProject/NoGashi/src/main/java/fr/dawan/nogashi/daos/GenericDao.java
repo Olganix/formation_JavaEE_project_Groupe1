@@ -67,6 +67,31 @@ public class GenericDao
 		}
 	}
 	
+	public <T extends DbObject> void removeAll(Class<T> clazz, EntityManager em, boolean closeConnection) {
+
+		
+		EntityTransaction et = em.getTransaction();
+		
+		try 
+		{
+			et.begin();
+			
+			Query query = em.createQuery("Delete FROM " + clazz.getName());
+			query.executeUpdate();
+			
+			et.commit();
+			
+		} catch (Exception e) {
+			
+			et.rollback();
+			throw e;
+			
+		} finally {
+			if(closeConnection)
+				em.close();
+		}
+	}
+	
 	public <T extends DbObject> T find(Class<T> tClass, int id, EntityManager em, boolean closeConnection) throws Exception
 	{
 		if(id==0)

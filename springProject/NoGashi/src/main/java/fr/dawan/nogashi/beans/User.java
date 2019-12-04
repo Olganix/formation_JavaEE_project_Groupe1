@@ -13,7 +13,7 @@ import fr.dawan.nogashi.enums.UserRole;
 
 @Entity
 @Component
-public class User extends DbObject implements Serializable
+public class User extends RestObject
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -60,6 +60,33 @@ public class User extends DbObject implements Serializable
 		this.email = email;
 		this.password = password;
 		this.role = role;
+		this.newsletterEnabled = newsletterEnabled;
+	}
+
+
+
+	
+
+
+
+
+	public User(String name, String email, String password, UserRole role, String avatarFilename, String phoneNumber,
+			String adress, String adressExtra, String postalCode, String cityName, String stateName, boolean emailValid,
+			String token, boolean newsletterEnabled) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.avatarFilename = avatarFilename;
+		this.phoneNumber = phoneNumber;
+		this.adress = adress;
+		this.adressExtra = adressExtra;
+		this.postalCode = postalCode;
+		this.cityName = cityName;
+		this.stateName = stateName;
+		this.emailValid = emailValid;
+		this.token = token;
 		this.newsletterEnabled = newsletterEnabled;
 	}
 

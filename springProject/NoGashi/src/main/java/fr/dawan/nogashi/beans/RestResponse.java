@@ -16,7 +16,7 @@ public class RestResponse implements Serializable								//Class for Rest commun
 	private static final long serialVersionUID = 1L;
 	
 	private RestResponseStatus status;
-	private Object data = null;
+	private RestObject data = null;
 	private int errorCode = -1;													//for warning and error
 	private String errormessage = "";											//for specific informations.
 	
@@ -25,16 +25,14 @@ public class RestResponse implements Serializable								//Class for Rest commun
 		super();
 	}
 
-	public RestResponse(RestResponseStatus status, Object data) {
+	public RestResponse(RestResponseStatus status, RestObject data) {
 		super();
 		this.status = status;
 		this.data = data;
 	}
 
-	public RestResponse(RestResponseStatus status, Object data, int errorCode, String errormessage) {
-		super();
-		this.status = status;
-		this.data = data;
+	public RestResponse(RestResponseStatus status, RestObject data, int errorCode, String errormessage) {
+		this(status, data);
 		this.errorCode = errorCode;
 		this.errormessage = errormessage;
 	}
@@ -47,11 +45,11 @@ public class RestResponse implements Serializable								//Class for Rest commun
 		this.status = status;
 	}
 
-	public Object getData() {
+	public RestObject getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(RestObject data) {
 		this.data = data;
 	}
 

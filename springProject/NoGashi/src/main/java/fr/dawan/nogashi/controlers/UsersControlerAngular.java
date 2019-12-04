@@ -384,6 +384,7 @@ public class UsersControlerAngular
 	/*****************************************************************************************
 	*										getUsers										 * 
 	*****************************************************************************************/
+	/*
 	@RequestMapping(path="/getUsers", produces = "application/json")
 	//it's a test, TODO remove this from public access, could be use only for admin.
     public RestResponse getUsers()
@@ -402,6 +403,6 @@ public class UsersControlerAngular
 		em.close();
 		return new RestResponse(RestResponseStatus.SUCCESS, listUsers);
     }
-    
+    */
     
 }

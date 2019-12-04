@@ -18,7 +18,6 @@ ctrl+c pour arreter le serveur
 
 npm install bootstrap@3.3.7 --save
 npm install rxjs-compat
-npm install --save font-awesome angular-font-awesome
 
 
 
