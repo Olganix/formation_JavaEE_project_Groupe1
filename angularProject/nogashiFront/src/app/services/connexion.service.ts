@@ -27,12 +27,12 @@ export class ConnexionService
     
 
     
-    signIn(name: String, password : String, email : String)
+    signIn(name: String, password : String, email : String, role: String, newsletterEnabled: boolean)
     {
 
         return new Promise((resolve, reject) => 
         {
-            this._http.get(this.APP_URL + '/signin?name='+ name +"password="+ password +"&email="+ email).subscribe(
+            this._http.get(this.APP_URL + '/signin?name='+ name +"password="+ password +"&email="+ email + "&role="+ role + "&newsletterEnabled="+ newsletterEnabled).subscribe(
             data => 
             {
                 console.log(data["status"]);
