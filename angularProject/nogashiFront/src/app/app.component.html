@@ -2,25 +2,43 @@
 
 
 <div class="background"> <!-- Background => Dévoilement du footer -->          
-  
+
   <app-header></app-header>
 
-  <app-welcome></app-welcome>
-  
-  <app-sign-in></app-sign-in>
-  <app-email-validation></app-email-validation>
-  <app-login></app-login>
-  <app-password-rescue></app-password-rescue>
-  
-  <app-welcome-individual></app-welcome-individual>
+  <router-outlet></router-outlet>
 
-  <footer>
-    <app-footer></app-footer>
-  </footer>
+  <app-footer></app-footer>
+  
   
   <!-- here, we put everything front of the page -->
   <app-social-box></app-social-box>
   <app-test></app-test>
+
+
+
+  <!-- Todo remove -->
+  <nav class="navbar navbar-default" style="position: fixed; bottom: 0px; left: 0px; right: 0px;">
+        <div class="container-fluid">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li routerLinkActive="active"><a routerLink="welcome">Welcome</a></li>
+                    <li routerLinkActive="active"><a routerLink="signin">Signin</a></li>
+                    <li routerLinkActive="active"><a routerLink="emailValidation">EmailVal</a></li>
+                    <li routerLinkActive="active"><a routerLink="login">Login</a></li>
+                    <li routerLinkActive="active"><a routerLink="passwordRescue">PwdRescue</a></li>
+                    <li routerLinkActive="active"><a routerLink="individual/welcome">Wc Indiv</a></li>
+                    <li routerLinkActive="active"><a routerLink="merchant/welcome">Wc Merch</a></li>
+                    <li routerLinkActive="active"><a routerLink="association/welcome">Wc Asso</a></li>
+                    <li routerLinkActive="active"><a routerLink="admin/welcome">Wc Admin</a></li>
+                    <li routerLinkActive="active"><a routerLink="test/testSpringRest">test Rest</a></li>
+                    <li routerLinkActive="active"><a routerLink="test/appareils">test AppAll</a></li>
+                    <li routerLinkActive="active"><a routerLink="test/appareils/:id">test App</a></li>
+                    <li routerLinkActive="active"><a routerLink="test/connexion">test connexion</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
 
 </div>
 

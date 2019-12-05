@@ -3,50 +3,57 @@
 @import 'assets/css/reset.css', 'assets/css/loading';     //css files (notice: in next version it's will be @use)
 
 
-   /* VARIABLES COULEURS CSS */
+/* VARIABLES COULEURS CSS */
 
-   :root 
-   {
-     --couleurVerte: #03DAC5;
-     --couleurBleue: #6200EE;
-     
-     --couleurDegradeRose: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
-     --couleurDegradeVert: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-     --couleurDegradeNoir: linear-gradient(to right, rgba(18,18,18,1) 0%, rgba(48,48,48,1) 100%);  
-       
-     --couleurFondVert: #E9FFFD;
-     --couleurFondViolet: #E2E9FF;
+:root 
+{
+  --couleurVerte: #03DAC5;
+  --couleurBleue: #6200EE;
+
+  --couleurDegradeRose: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+  --couleurDegradeVert: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+  --couleurDegradeNoir: linear-gradient(to right, rgba(18,18,18,1) 0%, rgba(48,48,48,1) 100%);  
     
-     /* Element Noir, Blanc, Gris */ 
-     --couleurNoir: #3E3E3E;
-     --couleurGrisClair: #f6f6f6;    
-     --couleurBlancCreme: #fffdfd; 
-     
-     /* Element Noir & Blanc pur */ 
-     --couleurNoirPur: #000;    
-     --couleurBlanc: #fff; 
-       
-     /* Element Graphique */ 
-     --couleurEtoile: #e7711b; 
-       
-      /* Vrai & Faux - Correct & Incorrect */    
-     --couleurVertCorrect: #C4E538;
-     --couleurRougeIncorrect: #EA2027;   
-   }        
-          
-   
-   
-            /* DEFAUT */
-   
-   a, a:link 
-   {
-       text-decoration: none;
-   }
-           
-   body 
-   {
-       padding-bottom: 400px;
-   }
-          
+  --couleurFondVert: #E9FFFD;
+  --couleurFondViolet: #E2E9FF;
+
+  /* Element Noir, Blanc, Gris */ 
+  --couleurNoir: #3E3E3E;
+  --couleurGrisClair: #f6f6f6;    
+  --couleurBlancCreme: #fffdfd; 
+
+  /* Element Noir & Blanc pur */ 
+  --couleurNoirPur: #000;    
+  --couleurBlanc: #fff; 
+    
+  /* Element Graphique */ 
+  --couleurEtoile: #e7711b; 
+    
+  /* Vrai & Faux - Correct & Incorrect */    
+  --couleurVertCorrect: #C4E538;
+  --couleurRougeIncorrect: #EA2027;   
+}        
+    
+
+
+      /* DEFAUT */
+
+a, a:link 
+{
+  text-decoration: none;
+}
+      
+body 
+{
+  padding-bottom: 400px;
+}
+
+  
+  
+.header_space
+{
+  height: 100px;
+  width: 100%;
+}
            
    

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ConnexionService } from '../../services/connexion.service';
 
 @Component({
   selector: 'app-test-spring-rest',
@@ -9,31 +9,20 @@ import { HttpClient } from '@angular/common/http';
 
 //test communication spring MVC
 
-export class TestSpringRestComponent implements OnInit {
-
-  
+export class TestSpringRestComponent implements OnInit 
+{  
   users: any;
-  readonly APP_URL = 'http://localhost:8080/nogashi';
 
-
-  constructor( private _http: HttpClient) 
+  constructor(private connexionService: ConnexionService) 
   {
-
-    this._http.get(this.APP_URL + '/getUsers').subscribe(
-      data => 
-      {
-        this.users = ("data" in data) ? data["data"] : data;
-      },
-      error => 
-      {
-        console.log('Error occured', error);
-      }
-    );
-
+    
   }
 
   ngOnInit() 
   {
-    
+    this.connexionService.getUsers().then( (users) => 
+    {
+      this.users = users;
+    });
   }
 }

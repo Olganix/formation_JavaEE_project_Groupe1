@@ -11,12 +11,12 @@ import fr.dawan.nogashi.enums.RestResponseStatus;
 
 
 @Component
-public class RestResponse implements Serializable								//Class for Rest communication, for response specially.
+public class RestResponse<T> implements Serializable								//Class for Rest communication, for response specially.
 {
 	private static final long serialVersionUID = 1L;
 	
 	private RestResponseStatus status;
-	private RestObject data = null;
+	private T data = null;
 	private int errorCode = -1;													//for warning and error
 	private String errormessage = "";											//for specific informations.
 	
@@ -25,13 +25,13 @@ public class RestResponse implements Serializable								//Class for Rest commun
 		super();
 	}
 
-	public RestResponse(RestResponseStatus status, RestObject data) {
+	public RestResponse(RestResponseStatus status, T data) {
 		super();
 		this.status = status;
 		this.data = data;
 	}
 
-	public RestResponse(RestResponseStatus status, RestObject data, int errorCode, String errormessage) {
+	public RestResponse(RestResponseStatus status, T data, int errorCode, String errormessage) {
 		this(status, data);
 		this.errorCode = errorCode;
 		this.errormessage = errormessage;
@@ -45,11 +45,11 @@ public class RestResponse implements Serializable								//Class for Rest commun
 		this.status = status;
 	}
 
-	public RestObject getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(RestObject data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 

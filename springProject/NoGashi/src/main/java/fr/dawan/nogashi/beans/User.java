@@ -1,7 +1,5 @@
 package fr.dawan.nogashi.beans;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,8 +11,8 @@ import fr.dawan.nogashi.enums.UserRole;
 
 @Entity
 @Component
-public class User extends RestObject
-{
+public class User extends DbObject
+{	
 	private static final long serialVersionUID = 1L;
 	
 	@Basic(optional = false)

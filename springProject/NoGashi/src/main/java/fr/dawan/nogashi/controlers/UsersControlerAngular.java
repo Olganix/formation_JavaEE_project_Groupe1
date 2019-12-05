@@ -1,7 +1,6 @@
 package fr.dawan.nogashi.controlers;
 
 import java.net.URI;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -39,7 +38,6 @@ import fr.dawan.nogashi.tools.EmailTool;
 @CrossOrigin(origins="http://localhost:4200")                           // @CrossOrigin is used to handle the request from a difference origin.
 public class UsersControlerAngular 
 {
-	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LoggerFactory.getLogger(UsersControlerAngular.class);
        
 	@Autowired
@@ -52,11 +50,11 @@ public class UsersControlerAngular
 	*****************************************************************************************/
 	@RequestMapping(path="/signin", produces = "application/json")
 	//test : http://localhost:8080/nogashi/signin?name=aaa&password=toto&email=aaa@toto.fr
-    public RestResponse signin(@PathParam("name") String name, @PathParam("password") String password, @PathParam("email") String email, HttpSession session, Locale locale, Model model)
+    public RestResponse<User> signin(@PathParam("name") String name, @PathParam("password") String password, @PathParam("email") String email, HttpSession session, Locale locale, Model model)
     {
 		//todo better check on email (rules of email) and name (not admin, root or god or ...etc see official list for that), could be done from angular, but it's may be safer to do it here
 		if( (name==null) || (name.length()==0) || (password==null)  || (password.length()==0) || (email==null)  || (email.length()==0) )
-			return new RestResponse(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
 		
 		logger.info("Welcome home! The client locale is {}.", locale);		//todo better use log for server side.
 		//request.setCharacterEncoding("UTF-8");			//todo check if need equivalent for this, todo also check crypt password + utf8 saved in bdd are not good on read again (instead of manually create it and put it in bdd).
@@ -83,7 +81,7 @@ public class UsersControlerAngular
     	if(u!=null)
     	{
     		em.close();
-    		return new RestResponse(RestResponseStatus.FAIL, null, 1, "Error: User allready exist");
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User allready exist");
     	}
 		
     	
@@ -130,7 +128,7 @@ public class UsersControlerAngular
 		
 		em.close();
 		
-		return new RestResponse(RestResponseStatus.SUCCESS, null);
+		return new RestResponse<User>(RestResponseStatus.SUCCESS, null);
     }
 	
 	
@@ -142,10 +140,10 @@ public class UsersControlerAngular
 	*****************************************************************************************/
 	@RequestMapping(path="/emailvalidation", produces = "application/json")
 	//test (better click from mail (fake SMTP server)): http://localhost:8080/nogashi/emailvalidation?token=XXXXXX
-    public RestResponse emailvalidation(@PathParam("token") String token, HttpSession session, Locale locale, Model model)
+    public RestResponse<User> emailvalidation(@PathParam("token") String token, HttpSession session, Locale locale, Model model)
     {
 		if( (token==null) || (token.length()==0) )
-			return new RestResponse(RestResponseStatus.FAIL, null, 1, "Error: Not have token");
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not have token");
 		
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -164,7 +162,7 @@ public class UsersControlerAngular
     	if(u==null)
     	{
     		em.close();
-    		return new RestResponse(RestResponseStatus.FAIL, null, 1, "Error: token not valid or not found");
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: token not valid or not found");
     	}
 		
     	u.setEmailValid(true);
@@ -182,7 +180,7 @@ public class UsersControlerAngular
 		
 		em.close();
 		
-		return new RestResponse(RestResponseStatus.SUCCESS, null);
+		return new RestResponse<User>(RestResponseStatus.SUCCESS, null);
     }
 	
 	
@@ -191,11 +189,11 @@ public class UsersControlerAngular
 	*****************************************************************************************/
 	@RequestMapping(path="/sendemailvalidation", produces = "application/json")
 	//test : http://localhost:8080/nogashi/sendemailvalidation?email=aaa@toto.fr
-    public RestResponse sendEmailValidation(@PathParam("email") String email, HttpSession session, Locale locale, Model model)
+    public RestResponse<User> sendEmailValidation(@PathParam("email") String email, HttpSession session, Locale locale, Model model)
     {
 		//todo better check on email (rules of email) and name (not admin, root or god or ...etc see official list for that), could be done from angular, but it's may be safer to do it here
 		if( (email==null)  || (email.length()==0) )
-			return new RestResponse(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
 		
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -214,7 +212,7 @@ public class UsersControlerAngular
     	if(u==null)
     	{
     		em.close();
-    		return new RestResponse(RestResponseStatus.FAIL, null, 1, "Error: unknow Email");
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: unknow Email");
     	}
 		
     	//create token for email validation.
@@ -259,9 +257,9 @@ public class UsersControlerAngular
 		em.close();
 		
 		if(u != null)
-			return new RestResponse(RestResponseStatus.SUCCESS, u);				//todo avoid some information to be send to front
+			return new RestResponse<User>(RestResponseStatus.SUCCESS, u);				//todo avoid some information to be send to front
 		else
-			return new RestResponse(RestResponseStatus.FAIL, null, 1, "Error: on save or send email validation");
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: on save or send email validation");
     }
 	
 	
@@ -273,10 +271,10 @@ public class UsersControlerAngular
 	@RequestMapping(path="/login", produces = "application/json")
 	//test : http://localhost:8080/nogashi/login?name=aaa&password=toto
 	//test : http://localhost:8080/nogashi/login?name=aaa@toto.fr&password=toto
-    public RestResponse login(@PathParam("name") String name, @PathParam("password") String password, HttpSession session, Locale locale, Model model)
+    public RestResponse<User> login(@PathParam("name") String name, @PathParam("password") String password, HttpSession session, Locale locale, Model model)
     {
 		if( (name==null) || (name.length()==0) ||(password==null) || (password.length()==0) )
-			return new RestResponse(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
 		
 		//request.setCharacterEncoding("UTF-8");			//todo check if need equivalent for this, todo also check crypt password + utf8 saved in bdd are not good on read again (instead of manually create it and put it in bdd).
 		
@@ -302,20 +300,20 @@ public class UsersControlerAngular
     	if(u==null)
     	{
     		em.close();
-    		return new RestResponse(RestResponseStatus.FAIL, null, 1, "Error: User not Found or wrong Password");
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User not Found or wrong Password");
     	}
 		
     	System.out.println(password +" match with "+ u.getPassword() +" ? => "+ (BCrypt.checkpw(password, u.getPassword()) ? "true" : "false") );
     	if( ! BCrypt.checkpw(password, u.getPassword()) )				// compare with the Crypted password saved in bdd.
     	{
     		em.close();
-    		return new RestResponse(RestResponseStatus.FAIL, null, 1, "Error: User not Found or wrong Password");
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User not Found or wrong Password");
     	}
     	
     	if(!u.isEmailValid())
     	{
     		em.close();
-    		return new RestResponse(RestResponseStatus.FAIL, null, 2, "Error: Email no validated");
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 2, "Error: Email no validated");
     	}
     		
     	
@@ -327,7 +325,7 @@ public class UsersControlerAngular
 		
 		em.close();
 		
-		return new RestResponse(RestResponseStatus.SUCCESS, u);				//todo avoid some information to be send to front
+		return new RestResponse<User>(RestResponseStatus.SUCCESS, u);				//todo avoid some information to be send to front
     }
 	
 	
@@ -339,7 +337,7 @@ public class UsersControlerAngular
 	*****************************************************************************************/
 	@RequestMapping(path="/isloged", produces = "application/json")
 	//test : http://localhost:8080/nogashi/isloged
-    public RestResponse isloged(HttpSession session, Locale locale, Model model)
+    public RestResponse<User> isloged(HttpSession session, Locale locale, Model model)
     {
 		User u = (User)session.getAttribute("user");
     	
@@ -347,9 +345,9 @@ public class UsersControlerAngular
 		{
 			System.out.println("isloged: "+ u.getName() +" role:"+ u.getRole());
 			
-			return new RestResponse(RestResponseStatus.SUCCESS, u);				//todo avoid some information to be send to front
+			return new RestResponse<User>(RestResponseStatus.SUCCESS, u);				//todo avoid some information to be send to front
 		}else {
-			return new RestResponse(RestResponseStatus.FAIL, null, 1, "Not Connected");
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Not Connected");
 		}
     }
 	
@@ -360,18 +358,18 @@ public class UsersControlerAngular
 	*****************************************************************************************/
 	@RequestMapping(path="/logout", produces = "application/json")
 	//test : http://localhost:8080/nogashi/logout
-    public RestResponse logout(HttpSession session, Locale locale, Model model)
+    public RestResponse<User> logout(HttpSession session, Locale locale, Model model)
     {
 		User u = (User)session.getAttribute("user");
     	if(u==null)
-    		return new RestResponse(RestResponseStatus.FAIL, null, 1, "Not Connected");
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Not Connected");
     	
     	System.out.println("logout: "+ u.getName() +" role:"+ u.getRole());
     	
     	session.setAttribute("user", null);
     	//session.invalidate();
     	
-		return new RestResponse(RestResponseStatus.SUCCESS, null);
+		return new RestResponse<User>(RestResponseStatus.SUCCESS, null);
     }
 	
 	
@@ -384,10 +382,9 @@ public class UsersControlerAngular
 	/*****************************************************************************************
 	*										getUsers										 * 
 	*****************************************************************************************/
-	/*
 	@RequestMapping(path="/getUsers", produces = "application/json")
 	//it's a test, TODO remove this from public access, could be use only for admin.
-    public RestResponse getUsers()
+    public RestResponse<List<User>> getUsers()
     {
     	EntityManager em = StartListener.createEntityManager();
 		
@@ -401,8 +398,7 @@ public class UsersControlerAngular
 		}
 		
 		em.close();
-		return new RestResponse(RestResponseStatus.SUCCESS, listUsers);
+		return new RestResponse<List<User>>(RestResponseStatus.SUCCESS, listUsers);
     }
-    */
     
 }

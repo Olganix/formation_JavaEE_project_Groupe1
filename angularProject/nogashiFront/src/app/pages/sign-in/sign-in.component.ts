@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { ConnexionService } from '../../services/connexion.service';
+//import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+//import { ConnexionService } from '../../services/connexion.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,8 +11,9 @@ export class SignInComponent implements OnInit {
 
   isfail: boolean; 
 
-  constructor(private connexionService: ConnexionService,
-              private router: Router) { }
+  constructor(//private connexionService: ConnexionService,
+              //private router: Router
+              ) { }
 
   ngOnInit() {
   }
@@ -20,11 +21,12 @@ export class SignInComponent implements OnInit {
   signIn(name: String, password : String, email : String)
   {
     this.isfail = false;
+    /*
     if(this.connexionService.signIn(name, password, email))
       this.router.navigate(['/login']);
     else
       this.isfail = true;
-
+      */
   }
 
 }
