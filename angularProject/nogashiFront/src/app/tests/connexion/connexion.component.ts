@@ -22,7 +22,7 @@ export class ConnexionComponent implements OnInit
 
   onSignIn() 
   {
-    this.connexionService.signIn().then(() => 
+    this.connexionService.signIn_fake().then(() => 
     {
       console.log('Sign in successful!');
       this.authStatus = this.connexionService.isAuth;

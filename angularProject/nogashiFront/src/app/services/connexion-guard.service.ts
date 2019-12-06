@@ -9,16 +9,22 @@ import { Injectable } from '@angular/core';
 export class ConnexionGuard implements CanActivate 
 {
     constructor(private connexionService: ConnexionService,
-                private router: Router) { }
+                private router: Router) 
+    {
+
+    }
 
     canActivate(route: ActivatedRouteSnapshot,
                 state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean 
     {
-        if(this.connexionService.isAuth) 
+        return true;
+        /*
+        if(this.connexionService.isAuth)        //todo re-use
         {
             return true;
         } else {
             this.router.navigate(['/connexion']);
         }
+        */
     }
 }

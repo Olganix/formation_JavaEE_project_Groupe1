@@ -1,19 +1,11 @@
 
+
+
+<div class="header_space"></div>
+
 <button class="bt_displaytest" (click)="toggleTestdisplay()" >test</button>
 
 <div class="testPanel" *ngIf="displayTest == true" >
-
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li routerLinkActive="active"><a routerLink="connexion">Connexion</a></li>
-                    <li routerLinkActive="active"><a routerLink="appareils">Appareils</a></li>
-                    <li routerLinkActive="active"><a routerLink="testSpringRest">TestSpringRest</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
     <div style="text-align:center">
         <h1>
@@ -25,7 +17,7 @@
     <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <router-outlet></router-outlet>
+            
         </div>
     </div>
     </div>

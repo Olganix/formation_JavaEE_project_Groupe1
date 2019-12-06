@@ -313,6 +313,11 @@ position: relative;
     cursor: pointer;
 }
 
+.bouton-inscription:disabled
+{
+    filter: grayscale(1);        /* OV: validation Francis */
+}
+
 .bouton-inscription:hover, .bouton-inscription:focus, .bouton-inscription:active {
     background: rgba(204,2,204,1);
     background: var(--couleurDegradeVert);

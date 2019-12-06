@@ -1,17 +1,53 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable()
 export class ConnexionService 
 {
     isAuth = false;
+    readonly APP_URL = 'http://localhost:8080/nogashi';
 
-    signIn() 
+    constructor(private _http: HttpClient)
+    {
+
+    }
+
+    signIn_fake()
     {
 
         return new Promise((resolve, reject) => 
         {
-            setTimeout(() => 
+          setTimeout(()=>
+          {
+            this.isAuth = true;                 //simulation connexion aux serveur pour l'authentification.
+            resolve(true);
+          }, 1500);
+        });
+    }
+    
+
+    
+    signIn(name: String, password : String, email : String, role: String, newsletterEnabled: boolean)
+    {
+
+        return new Promise((resolve, reject) => 
+        {
+            this._http.get(this.APP_URL + '/signin?name='+ name +"password="+ password +"&email="+ email + "&role="+ role + "&newsletterEnabled="+ newsletterEnabled).subscribe(
+            data => 
             {
-                this.isAuth = true;                 //simulation connexion aux serveur pour l'authentification.
-                resolve(true);
-            }, 2000);
+                console.log(data["status"]);
+                
+                if(("status" in data) && (data["status"] == "success")) 
+                    resolve( true );
+                else
+                    reject(false);
+            },
+            error => 
+            {
+              console.log('Error occured', error);
+              reject(false);
+            }
+          );
         });
     }
 
@@ -19,4 +55,24 @@ export class ConnexionService
     {
         this.isAuth = false;
     }
+
+
+    
+    getUsers()
+    {
+        return new Promise((resolve, reject) => 
+        {
+          this._http.get(this.APP_URL + '/getUsers').subscribe(
+          data => 
+          {
+            resolve(("data" in data) ? data["data"] : data);
+          },
+          error => 
+          {
+            console.log('Error occured', error);
+            reject(null);
+          });
+        });
+    }
+    
   }
