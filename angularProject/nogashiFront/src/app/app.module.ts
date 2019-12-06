@@ -5,9 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 //services
-import { AppareilService } from './services/appareil.service';
 import { ConnexionService } from './services/connexion.service';
 import { ConnexionGuard } from './services/connexion-guard.service';
+import { InfoBoxNotificationsService } from './services/InfoBoxNotifications.services';
+
+import { AppareilService } from './services/appareil.service';
+
 
 //Root
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +44,7 @@ import { AppareilViewComponent } from './tests/appareil-view/appareil-view.compo
 import { AppareilComponent } from './tests/appareil/appareil.component';
 import { SingleAppareilComponent } from './tests/single-appareil/single-appareil.component';
 import { TestSpringRestComponent } from './tests/test-spring-rest/test-spring-rest.component';
+import { InfoBoxNotificationsComponent } from './common/info-box-notifications/info-box-notifications.component';
 
 
 
@@ -96,7 +100,8 @@ const appRoutes: Routes =
     WelcomeIndividualComponent,
     WelcomeMerchantComponent,
     WelcomeAssociationComponent,
-    WelcomeAdminComponent
+    WelcomeAdminComponent,
+    InfoBoxNotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +110,7 @@ const appRoutes: Routes =
     HttpClientModule,
     RouterModule.forRoot(appRoutes)               // les routes seront accessibles via la constante appRoutes
   ],
-  providers: [ConnexionService, AppareilService, ConnexionGuard],
+  providers: [ConnexionService, AppareilService, ConnexionGuard, InfoBoxNotificationsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

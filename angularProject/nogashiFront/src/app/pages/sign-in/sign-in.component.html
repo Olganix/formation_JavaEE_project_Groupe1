@@ -12,39 +12,41 @@
              </div>
              
              <form class="formulaire-inscription" (ngSubmit)="onSubmit(f)" #f="ngForm" >
+                 
+
                  <label for="role" class="label-formulaire"><i class="fas fa-asterisk"></i> Vous êtes :</label>
-                 <select id="role" class="liste-deroulante">
-                     <option value="INDIVIDUAL" selected>Particulier</option>
-                     <option value="MERCHANT" >Commerçant</option>
+                 <select [(ngModel)]="role" name="role" class="liste-deroulante" >
+                     <option value="INDIVIDUAL" selected="selected">Particulier</option><!-- todo find why it's not selected by default -->
+                     <option value="MERCHANT" >Commerçant</option> 
                      <option value="ASSOCIATION" >Association</option>
                  </select>
                  
                  <label for="name" class="label-formulaire"><i class="fas fa-asterisk" ></i> Pseudo</label>
-                 <input id="name" class="pseudo" type="text" placeholder="Pseudo " ngModel required>
+                 <input [(ngModel)]="name" name="name" class="pseudo" type="text" placeholder="Pseudo " required>
                  <span id="pseudoRegex" class="pseudo-regex"></span>  
                  
                  <label for="email" class="label-formulaire"><i class="fas fa-asterisk"></i> Email</label>
-                 <input id="email" class="email" type="text" placeholder="email@email.fr" ngModel required>
+                 <input [(ngModel)]="email" name="email" class="email" type="text" placeholder="email@email.fr" required>
                  <span id="emailRegex" class="pseudo-regex"></span>  
                
                  <label for="password" class="label-formulaire"><i class="fas fa-asterisk"> </i> Mot de Passe</label> 
-                 <input id="password" class="mdp" type="password" ngModel required>
+                 <input [(ngModel)]="password" name="password" class="mdp" type="password" required>
                  <span id="mdpRegex" class="mdp-regex"></span>
                   
                  <label for="confirmation" class="label-formulaire"><i class="fas fa-asterisk"></i> Confirmation Mot de Passe</label> 
-                 <input id="confirmation" class="confirmation" type="password" required> 
+                 <input [(ngModel)]="confirmation" name="confirmation" class="confirmation" type="password" required> 
                  <span id="confirmationRegex" class="confirmation-regex"></span>
                  
                  <div class="bloc-checkbox">
-                    <input  id="checkbox" class="checkbox" type="checkbox">
-                    <label class="label" for="checkbox">J'ai lu et j'accepte les conditions générales <br> d'utilisation.</label>   
+                    <input [(ngModel)]="accept_generale_condition" name="accept_generale_condition" class="checkbox" type="checkbox">
+                    <label class="label" for="accept_generale_condition">J'ai lu et j'accepte les conditions générales <br> d'utilisation.</label>   
                  </div>
-                 <div class="bloc-checkbox2">
-                      <input id="checkbox2" class="checkbox2" type="checkbox">
-                      <label class="label" for="checkbox2">Je certifie sur l'honneur que les informations <br> fournies sont rigoureusement exactes</label>   
+                 <div class="bloc-checkbox2" *ngIf="(role=='MERCHANT')||(role=='ASSOCIATION')" >
+                      <input [(ngModel)]="confirm_on_honor" name="confirm_on_honor" class="checkbox2" type="checkbox">
+                      <label class="label" for="confirm_on_honor">Je certifie sur l'honneur que les informations <br> fournies sont rigoureusement exactes</label>   
                  </div>
                  <div class="bloc-checkbox3">
-                     <input id="newsletterEnabled" class="checkbox3" type="checkbox" ngModel>
+                     <input [(ngModel)]="newsletterEnabled" name="newsletterEnabled" class="checkbox3" type="checkbox">
                      <label class="label" for="newsletterEnabled">J'accepte de recevoir des annonces.</label> 
                  </div>
 

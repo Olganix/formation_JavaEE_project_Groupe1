@@ -29,23 +29,22 @@ export class ConnexionService
     
     signIn(name: String, password : String, email : String, role: String, newsletterEnabled: boolean)
     {
-
         return new Promise((resolve, reject) => 
         {
-            this._http.get(this.APP_URL + '/signin?name='+ name +"password="+ password +"&email="+ email + "&role="+ role + "&newsletterEnabled="+ newsletterEnabled).subscribe(
+            this._http.get(this.APP_URL + '/signin?name='+ name +"&password="+ password +"&email="+ email + "&role="+ role + "&newsletterEnabled="+ newsletterEnabled).subscribe(
             data => 
             {
                 console.log(data["status"]);
                 
-                if(("status" in data) && (data["status"] == "success")) 
+                if(("status" in data) && (data["status"] == "SUCCESS")) 
                     resolve( true );
                 else
-                    reject(false);
+                    reject("no data in returned object");
             },
             error => 
             {
               console.log('Error occured', error);
-              reject(false);
+              reject(error);
             }
           );
         });

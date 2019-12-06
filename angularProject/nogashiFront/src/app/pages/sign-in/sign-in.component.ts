@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { ConnexionService } from '../../services/connexion.service';
 import { NgForm } from '@angular/forms';
+import { InfoBoxNotificationsService } from '../../services/InfoBoxNotifications.services';
 
 
 @Component({
@@ -13,7 +14,8 @@ export class SignInComponent implements OnInit
 {
 
     constructor(private connexionService: ConnexionService,
-            private router: Router
+                private infoBoxNotificationsService: InfoBoxNotificationsService,
+                private router: Router
             ) { }
 
     ngOnInit() 
@@ -21,6 +23,7 @@ export class SignInComponent implements OnInit
 
     }
 
+    //todo voir pour les validations des champs, l'affichage des errors, voir aussi du coté de bootstrap qui propose des trucs.
     onSubmit(form: NgForm) 
     {
         console.log(form.value);
@@ -28,12 +31,15 @@ export class SignInComponent implements OnInit
         this.connexionService.signIn(form.value['name'], form.value['password'], form.value['email'], form.value['role'], form.value['newsletterEnabled'])
         .then(()=>
         {
-            //todo information success, l'email validation dans un component de common qui retour des notifications.
+            console.log("tata");
+            
+            this.infoBoxNotificationsService.addMessage("info", "Votre inscription est bien prise en compte. Veuilliez consulter vos mails afin de repondre à la validation de votre email. Merci.", 10);
             this.router.navigate(['/login']);
 
-        }).catch( () =>
+        }).catch( (error) =>
         {
-            //todo information de fail component de common qui retour des notifications.
+            console.log("yoyo");
+            this.infoBoxNotificationsService.addMessage("error", "Echec de l'inscription : "+ error, 10);
         });
     }
 }
