@@ -2,7 +2,7 @@
 
 class Ajax {
     constructor() {
-       this.req = new XMLHttpRequest();
+       this.req = new XMLHttpRequest() ;
 }//Fin constructor()
        
          ajaxGet(url, callback) {
