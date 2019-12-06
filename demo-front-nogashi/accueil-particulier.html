@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<title>Accueil-particulier</title>
+	
+              <!-- FAVICON -->
+      <link rel="shortcut icon" href="../ico/favicon.png"> 
+            
+             <!-- GOOGLE-FONT -->
+      <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,700i&display=swap" rel="stylesheet"> 
+      <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">         
+              <!-- Bootstrap -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
+          <!-- BALISE FontAwesome -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+           
+             <!-- RESET CSS -->
+      <link rel="stylesheet" href="css/reset.css">
+             <!-- LOADING CSS-->
+      <link rel="stylesheet" href="css/loading.css">  
+                <!-- CSS -->
+      <link rel="stylesheet" href="css/accueil-particulier.css"> 
+                 
+      
+         
+
+
+</head>
+<body>
+        
+ <div class="background"> <!-- Background => Dévoilement du footer-->          
+        
+                    <!-- Menu-->
+                    <!-- Menu-->
+    <header>
+       <div class="menu">
+           <a href="index.html"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
+           <ul class="icones-menu">
+                <a href=""><li class="icones"><i class="fas fa-user-circle"></i></li>
+                    <i class="fas fa-sort-up"></i>
+                    <ul class="bloc-compte">
+                        <a href="connexion.html"><li class="onglet-menu">Se Connecter</li></a>
+                        <div class="trait-compte"></div>
+                        <a href="inscription.html"><li class="onglet-menu">S'inscrire</li></a>
+                    </ul>
+                </a>
+                <a href=""><li class="icones"><i class="fas fa-shopping-bag"></i></li>
+                    <div class="cercle-prix">3</div>
+                </a>
+                <li id="hamburger-menu" class="icones"><i class="fas fa-bars"></i></li>
+                <li  id="croix-menu" class="icones"><i class="fas fa-times"></i></li>
+            </ul>
+            
+            <div id="panneau-menu" class="panneau-menu">
+                <br>
+                <a href="index.html"><div class="onglet-panneau">Accueil</div></a>
+                <hr>
+                <a href="trouver.html"><div class="onglet-panneau">Ou Nous Trouver ?</div></a>
+                <hr>
+                <a href="faq.html"><div class="onglet-panneau">F.A.Q</div></a>
+                <hr>
+                <a href="contact.html"><div class="onglet-panneau">Contact</div></a>
+                <br>
+            </div>
+        </div> 
+    </header>
+    
+    <section class="section-details-commerce">
+        <div class="container">
+            <div class="row">
+                <div class="bloc-ouverture-commerce col-12 no-gutters">
+                    <div class="img-vitrine col-12 no-gutters">
+                        <img class="img-vitrine" src="css/img" alt="">    
+                    </div>
+                    <div class="detail-commerce col-12">
+                        <div class="bloc-information-commerce col-6">
+                            <h2 class="nom-commerce">Boulangerie Mathieu</h2>
+                            <p class="rue-commerce">82 Rue du Molinel, 59000 Lille</p>
+                            <div class="bloc-ouverture ">
+                                <a href=""><div id ="bouton-ouverture" class="bouton-ouverture">OUVERT</div></a>
+                            </div>
+                        </div>
+                        <div class="bloc-information-horaire col-6">
+                            <ul>
+                                <li class="detail-ouverture">Horaires d'ouverture :</li>
+                                <li class="detail-horaires">Lundi: <span class="details-fermer">fermer</span></li>
+                                <li class="detail-horaires">Mardi: <span class="italic-horaire">7h-19h</span></li>
+                                <li class="detail-horaires">Mercredi: <span class="italic-horaire"> 7h-19h</span></li>
+                                <li class="detail-horaires">Jeudi:<span class="italic-horaire"> 7h-19h</span></li>
+                                <li class="detail-horaires">Vendredi: <span class="italic-horaire">7h-19h</span> </li>
+                                <li class="detail-horaires">Samedi: <span class="italic-horaire"> 9h-16h30</span></li>
+                                <li class="detail-horaires">Dimanche: <span class="italic-horaire">9h-12h</span></li>
+                            </ul> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <section class="section-rechercher-produit">
+        <div class="container">
+            <div class="row">
+              <div class="bloc-map col-12">
+                  <h2 class="titre-rechercher-produit col-12">// VOUS RECHERCHEZ UN PRODUIT ? UN COMMERCE ?</h2>
+                  <div class="bloc-input-recherche col-12">
+                      <form class="display-input col-12" action="">
+                           <div class="bloc-ou col-5">
+                               <p class="text-input">OU ?</p>
+                               <input class="recherche-ou col-8" type="text" name="ou" placeholder="Ville - Nom commerce" >
+                           </div>
+                           <div class="bloc-quoi col-5">
+                               <p class="text-input">QUOI ?</p>
+                               <input class="recherche-quoi col-8" type="text" name="quoi" placeholder="Tous type de produits" >
+                           </div>
+                           <div class="bloc-rechercher col-2">
+                               <button class="bouton-rechercher" type="button">RECHERCHER</button>
+                           </div>
+                        </form>
+                   </div>
+                   <div id="mapid" class="mapid col-12"></div>    
+               </div> 
+            </div>
+        </div>
+    </section>
+    <section class="section-affichage-produit">
+        <div class="container">
+            <div class="row">
+                <div class="bloc-trie col-2">
+                    <form class="formulaire-inscription" action="" method="get">
+                       <label for="" class="label-formulaire"> Trier par :</label>
+                       <select id="liste-deroulante" class="liste-deroulante">
+                           <option>Prix</option>
+                           <option>Distance +</option>
+                           <option>Distance -</option>
+                       </select>
+                       
+                       <label for="" class="label-formulaire"> Commerces :</label>
+                       <select id="liste-deroulante" class="liste-deroulante">
+                           <option>Lille</option>
+                           <option>Amiens</option>
+                           <option>Douai</option>
+                       </select>
+                       <div class="bloc-checkbox">
+                          <input  id="checkbox" class="checkbox" type="checkbox">
+                          <label class="label-checkbox" for="scales">Tous</label>   
+                       </div>
+                       
+                       <p id="titre-avancee" class="titre-avancee col-12">Recherche Avancée <i id="fa-angle-up" class="fas fa-angle-up"></i><i id="fa-angle-down" class="fas fa-angle-down"></i></p>
+                       <div id="bloc-filtre-regime" class="bloc-filtre-regime">
+                           <p class="titre-filtre-regime">Régimes Alimentaires</p>
+                           <div class="bloc-checkbox-regime">
+                              <input  id="checkbox-regime" class="checkbox-regime" type="checkbox">
+                              <label class="label-regime" for="scales">Végétarien</label>
+                           </div>
+                           <div class="bloc-checkbox-regime">
+                              <input  id="checkbox-regime" class="checkbox-regime" type="checkbox">
+                              <label class="label-regime" for="scales">Végétalien</label>
+                           </div>
+                           <div class="bloc-checkbox-regime">
+                              <input  id="checkbox-regime" class="checkbox-regime" type="checkbox">
+                              <label class="label-regime" for="scales">Vegan</label>
+                           </div>
+                           <div class="bloc-checkbox-regime">
+                              <input  id="checkbox-regime" class="checkbox-regime" type="checkbox">
+                              <label class="label-regime" for="scales">Sans-gluten</label>
+                           </div>
+                           <div class="bloc-checkbox-regime">
+                              <input  id="checkbox-regime" class="checkbox-regime" type="checkbox">
+                              <label class="label-regime" for="scales">Sportif</label>
+                           </div>
+                           <div class="bloc-checkbox-regime">
+                              <input  id="checkbox-regime" class="checkbox-regime" type="checkbox">
+                              <label class="label-regime" for="scales">Méditerranéen</label>
+                           </div>
+                           <div class="bloc-checkbox-regime">
+                              <input  id="checkbox-regime" class="checkbox-regime" type="checkbox">
+                              <label class="label-regime" for="scales">Détox</label>
+                           </div>
+                           <div class="bloc-checkbox-regime">
+                              <input  id="checkbox-regime" class="checkbox-regime" type="checkbox">
+                              <label class="label-regime" for="scales">Anti-cholestérol</label>
+                           </div>
+                           <div class="bloc-checkbox-regime">
+                              <input  id="checkbox-regime" class="checkbox-regime" type="checkbox">
+                              <label class="label-regime" for="scales">Anti-diabéte</label>
+                           </div>
+                           <div class="bloc-checkbox-regime">
+                              <input  id="checkbox-regime" class="checkbox-regime" type="checkbox">
+                              <label class="label-regime" for="scales">Sans sel</label>
+                           </div>
+                       </div>
+                       
+                       <div id="bloc-filtre-allergene" class="bloc-filtre-allergene">
+                           <p class="titre-filtre-allergene">Allergénes</p>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Gluten</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Crustacés</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-regime" for="scales">Oeufs</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Poissons</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Arachides</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Soja</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Lait</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Fruits à coques</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Céleri</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Moutarde</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Sésame</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Sulfites</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Lupin</label>
+                           </div>
+                           <div class="bloc-checkbox-allergene">
+                              <input  id="checkbox-allergene" class="checkbox-allergene" type="checkbox">
+                              <label class="label-allergene" for="scales">Mollusques</label>
+                           </div>
+                       </div>
+                    </form>
+                </div>
+                
+            
+                <div class="bloc-affichage col-10">
+                       <div class="bloc-affichage-produit col-12">
+                           <div class="img-affichage col-6 no-gutters">
+                               <article>
+                                   <figure class="work-img no-gutters">
+                                       <img class="img col-12" src="css/img/produit/eclairchocoloat-mathieu.jpg" alt="image du produit">
+                                       <figcaption>
+                                           <div class="fond-filtre" ></div>
+                                           <div class="note">
+                                              <i class="fas fa-star"></i>
+                                              <i class="fas fa-star"></i>
+                                              <i class="fas fa-star"></i>
+                                              <i class="fas fa-star"></i>
+                                           </div>
+                                       </figcaption>    
+                                   </figure>
+                               </article>
+                               
+                           </div>
+
+                           <div class="informations-affichage col-6">
+                               <div class="commerce-affichage">
+                                    <h4>Daily Juicery </h4>
+                                    <p class="adresse-affichage"><i class="fas fa-location-arrow"></i> / 380 rue Léon Gambetta, 59000 LILLE </p>
+                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="fas fa-mobile-alt"> / </i> </span> 03 20 30 79 73 </p>
+                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="far fa-envelope"></i> / </span> thedailyjuicery@gmail.com </p>    
+                                </div>
+                                <h5>Jus de fruits frais :</h5>
+                                <p class="composition-affichage"> Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.
+                                Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.</p>
+                                <p class="key-allergene"> > Sans-gluten > Sportif </p>
+                                <div class="bloc-prix-affichage col-12">
+                                    <div class="affichage col-6">
+                                        <div class="prix-affichage">144,90 €</div> 
+                                        <div class="bloc-prix-barre">
+                                           <div class="prix-barre-affichage">25,00 €</div>
+                                           <div class="trait"></div>    
+                                        </div>    
+                                    </div>
+                                    <div class="bloc-quantite-produit col-6">
+                                        <input id="quantite-produit" class="quantite-produit" type="text" name="quantite" placeholder="1" >
+                                        <div class="plus-moins">
+                                           <i class="fas fa-plus-circle"></i>
+                                           <i class="fas fa-minus-circle"></i> 
+                                        </div>    
+                                    </div>  
+                                </div>
+                           </div>
+                           <div class="bloc-panier">
+                                <a href=""><div id ="bouton-panier" class="bouton-panier"><i class="fas fa-shopping-bag"></i>AJOUTER AU PANIER</div></a>
+                           </div>
+                       </div>
+                       
+                       <div class="bloc-affichage-produit col-12">
+                           <div class="img-affichage col-6 no-gutters">
+                               <img class="img col-12" src="css/img/produit/eclairchocoloat-mathieu.jpg" alt="">
+                           </div>
+
+                           <div class="informations-affichage col-6">
+                               <div class="commerce-affichage">
+                                    <h4>Daily Juicery </h4>
+                                    <p class="adresse-affichage"><i class="fas fa-location-arrow"></i> / 380 rue Léon Gambetta, 59000 LILLE </p>
+                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="fas fa-mobile-alt"> / </i> </span> 03 20 30 79 73 </p>
+                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="far fa-envelope"></i> / </span> thedailyjuicery@gmail.com </p>    
+                                </div>
+                                <h5>Jus de fruits frais :</h5>
+                                <p class="composition-affichage"> Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.
+                                Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.</p>
+                                <p class="key-allergene"> > Sans-gluten > Sportif Sportif Sportif > Sans-gluten > Sportif  </p>
+                                <div class="bloc-prix-affichage col-12">
+                                    <div class="affichage col-6">
+                                        <div class="prix-affichage">44,90 €</div> 
+                                        <div class="bloc-prix-barre">
+                                           <div class="prix-barre-affichage">25,00 €</div>
+                                           <div class="trait"></div>    
+                                        </div>    
+                                    </div>
+                                    <div class="bloc-quantite-produit col-6">
+                                        <input id="quantite-produit" class="quantite-produit" type="text" name="quantite" placeholder="1" >
+                                        <div class="plus-moins">
+                                           <i class="fas fa-plus-circle"></i>
+                                           <i class="fas fa-minus-circle"></i> 
+                                        </div>    
+                                    </div>  
+                                </div>
+                           </div>
+                           <div class="bloc-panier">
+                                <a href=""><div id ="bouton-panier" class="bouton-panier">AJOUTER AU PANIER</div></a>
+                           </div>
+                       </div>
+                       
+                       <div class="bloc-affichage-produit col-12">
+                           <div class="img-affichage col-6 no-gutters">
+                               <img class="img col-12" src="css/img/produit/eclairchocoloat-mathieu.jpg" alt="">
+                           </div>
+
+                           <div class="informations-affichage col-6">
+                               <div class="commerce-affichage">
+                                    <h4>Daily Juicery </h4>
+                                    <p class="adresse-affichage"><i class="fas fa-location-arrow"></i> / 380 rue Léon Gambetta, 59000 LILLE </p>
+                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="fas fa-mobile-alt"> / </i> </span> 03 20 30 79 73 </p>
+                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="far fa-envelope"></i> / </span> thedailyjuicery@gmail.com </p>    
+                                </div>
+                                <h5>Jus de fruits frais :</h5>
+                                <p class="composition-affichage"> Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.
+                                Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.</p>
+                                <p class="key-allergene"> > Sans-gluten > Sportif Sportif > Sans-gluten > Sportif > Sans-gluten > Sportif > Sans-gluten > Sportif </p>
+                                <div class="bloc-prix-affichage col-12">
+                                    <div class="affichage col-6">
+                                        <div class="prix-affichage">144,90 €</div> 
+                                        <div class="bloc-prix-barre">
+                                           <div class="prix-barre-affichage">25,00 €</div>
+                                           <div class="trait"></div>    
+                                        </div>    
+                                    </div>
+                                    <div class="bloc-quantite-produit col-6">
+                                        <input id="quantite-produit" class="quantite-produit" type="text" name="quantite" placeholder="1" >
+                                        <div class="plus-moins">
+                                           <i class="fas fa-plus-circle"></i>
+                                           <i class="fas fa-minus-circle"></i> 
+                                        </div>    
+                                    </div>  
+                                </div>
+                           </div>
+                           <div class="bloc-panier">
+                                <a href=""><div id ="bouton-panier" class="bouton-panier">AJOUTER AU PANIER</div></a>
+                           </div>
+                       </div>
+                       <div class="bloc-affichage-produit col-12">
+                           <div class="img-affichage col-6 no-gutters">
+                               <img class="img col-12" src="css/img/produit/eclairchocoloat-mathieu.jpg" alt="">
+                           </div>
+
+                           <div class="informations-affichage col-6">
+                               <div class="commerce-affichage">
+                                    <h4>Daily Juicery </h4>
+                                    <p class="adresse-affichage"><i class="fas fa-location-arrow"></i> / 380 rue Léon Gambetta, 59000 LILLE </p>
+                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="fas fa-mobile-alt"> / </i> </span> 03 20 30 79 73 </p>
+                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="far fa-envelope"></i> / </span> thedailyjuicery@gmail.com </p>    
+                                </div>
+                                <h5>Jus de fruits frais :</h5>
+                                <p class="composition-affichage"> Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.
+                                Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.</p>
+                                <p class="key-allergene"> > Sans-gluten > Sportif > Sans-gluten > Sportif > Sans-gluten > Sportif > Sans-gluten > Sportif > Sans-gluten > Sportif > Sans-gluten > Sportif  </p>
+                                <div class="bloc-prix-affichage col-12">
+                                    <div class="affichage col-6">
+                                        <div class="prix-affichage">4,90 €</div> 
+                                        <div class="bloc-prix-barre">
+                                           <div class="prix-barre-affichage">25,00 €</div>
+                                           <div class="trait"></div>    
+                                        </div>    
+                                    </div>
+                                    <div class="bloc-quantite-produit col-6">
+                                        <input id="quantite-produit" class="quantite-produit" type="text" name="quantite" placeholder="1" >
+                                        <div class="plus-moins">
+                                           <i class="fas fa-plus-circle"></i>
+                                           <i class="fas fa-minus-circle"></i> 
+                                        </div>    
+                                    </div>  
+                                </div>
+                           </div>
+                           <div class="bloc-panier">
+                                <a href=""><div id ="bouton-panier" class="bouton-panier">AJOUTER AU PANIER</div></a>
+                           </div>
+                       </div>
+                                   
+                       
+                          
+                          
+                       <div class="bloc-pagination col-12">
+                           <div class="pagination">
+                               <a href="">
+                                   <i class="fas fa-angle-double-left"></i>    
+                               </a>
+                               <a href="">
+                                   <i class="fas fa-angle-left"></i>    
+                               </a>
+                               <p class="text-page">page :</p>
+                               <a href="">
+                                   <div class="cercle-element">
+                                       <p class="elements-pagination">1</p>    
+                                   </div>    
+                               </a>
+                               <a href="">
+                                   <div class="cercle-element">
+                                       <p class="elements-pagination">2</p>    
+                                   </div>
+                               </a>
+                               <a href="">
+                                   <div class="cercle-element">
+                                       <p class="elements-pagination">3</p>    
+                                   </div> 
+                               </a>
+                               <a href="">
+                                   <div class="cercle-element">
+                                       <p class="elements-pagination">4</p>    
+                                   </div>    
+                               </a>
+                               <a href="">
+                                   <i class="fas fa-angle-right"></i>    
+                               </a>
+                               <a href="">
+                                   <i class="fas fa-angle-double-right"></i>        
+                               </a>    
+                           </div>
+                        </div>
+
+                </div>
+             </div>
+         </div>
+         
+         
+    </section>
+    
+    
+ 
+       <div class="container">
+            <div class="row">
+                   <div class="bloc-mes-produits col-12">
+                        <h2 class="titre-mes-produits col-5">// MES PRODUITS </h2>
+                        <div class="bloc-img-produits col-12">
+                              <figure class="element-img">
+                                   <a href="#"><img class="img-produit" src="css/img/produit/pain-tradition.jpg" alt="photo du produit"></a>
+                                   <a href="">
+                                       <div class="cercle-plus">
+                                          <span class="plus"><i class="fas fa-plus"></i></span>   
+                                       </div>
+                                   </a>
+                              </figure>
+                              <figure class="element-img">
+                                   <a href="#"><img class="img-produit" src="css/img/produit/eclairchocoloat-mathieu.jpg" alt="photo du produit"></a>
+                                   <a href="">
+                                       <div class="cercle-plus">
+                                          <span class="plus"><i class="fas fa-plus"></i></span>   
+                                       </div>
+                                   </a>                                      
+                              </figure>
+                              <figure class="element-img">
+                                   <a href="#"><img class="img-produit" src="css/img/produit/croissant-mathieu.jpg" alt="photo du produit"></a>
+                                   <a href="">
+                                       <div class="cercle-plus">
+                                          <span class="plus"><i class="fas fa-plus"></i></span>   
+                                       </div>
+                                   </a>
+                              </figure>
+                              <figure class="element-img">
+                                   <a href="#"><img class="img-produit" src="css/img/produit/painfromage-mathieu.jpg" alt="photo du produit"></a>
+                                   <a href="">
+                                       <div class="cercle-plus">
+                                          <span class="plus"><i class="fas fa-plus"></i></span>   
+                                       </div>    
+                                   </a>
+                              </figure>
+                              <figure class="element-img">
+                                   <a href="#"><img class="img-produit" src="css/img/produit/painolivesmathieujpg.jpg" alt="photo du produit"></a>
+                                   <a href="">
+                                       <div class="cercle-plus">
+                                          <span class="plus"><i class="fas fa-plus"></i></span>   
+                                       </div>    
+                                   </a>
+                              </figure>
+                              <figure class="element-img">
+                                   <a href="#"><img class="img-produit" src="css/img/produit/segles-mathieu.jpg" alt="photo du produit"></a>
+                                   <a href="">
+                                       <div class="cercle-plus">
+                                          <span class="plus"><i class="fas fa-plus"></i></span>   
+                                       </div>    
+                                   </a>
+                              </figure>
+                              <figure class="element-img">
+                                   <a href="#"><img class="img-produit" src="css/img/produit/tartelettePistacheGriottesCrumble-mathieu.jpg" alt="photo du produit"></a>
+                                   <a href="">
+                                       <div class="cercle-plus">
+                                          <span class="plus"><i class="fas fa-plus"></i></span>   
+                                       </div>    
+                                   </a>
+                              </figure>
+                              <figure class="element-img">
+                                   <a href="#"><img class="img-produit" src="css/img/produit/sandwich-subways.jpg" alt="photo du produit"></a>
+                                   <a href="">
+                                       <div class="cercle-plus">
+                                          <span class="plus"><i class="fas fa-plus"></i></span>   
+                                       </div>    
+                                   </a>
+                              </figure>
+                        </div> 
+                    </div>
+                    <div class="bloc-mes-commerces col-12">        
+                        <h2 class="titre-mes-commerces col-5">// MES COMMERCES </h2>
+                        <div class="bloc-img-commerces col-12">
+                             <a href=""><img class="img-commerce" src="css/img/commerce/basilic.png" alt=""></a>
+                             <a href=""><img class="img-commerce" src="css/img/commerce/freshway.jpg" alt=""></a>
+                             <a href=""><img class="img-commerce" src="css/img/commerce/daily-juicery.png" alt=""></a>
+                             <a href=""><img class="img-commerce" src="css/img/commerce/boulangerie-mathieu.jpeg" alt=""></a>
+                       </div>
+                  </div>
+             </div>     
+        </div>
+        
+        <section class="section-commande">    
+          <div class="container">
+            <div class="row">
+               </div>    
+                  <div class="bloc-titre-commandes">
+                    <h2 class="titre-commandes"><i class="fas fa-cube"></i> / MES COMMANDES EN COURS </h2>
+                    <br>
+                    <br>
+                    <p class="texte-commandes">Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis,  iudices, nec descensurum</p>
+                    <br> 
+                    
+                    <div class="bloc-facture-print col-12">
+                        <a href="">
+                            <div class="print">
+                                <i class="fas fa-print"></i>    
+                            </div>     
+                        </a>
+                        <a href="">
+                            <div class="pdf">
+                                <i class="far fa-file-pdf"></i>    
+                            </div>    
+                        </a>
+                    </div>
+                    
+                    <div class="bloc-commerce-commande">
+                       <h3 class="titre-commerce">- Boulangerie Mathieu -</h3>
+                       <table class="table-commande col-12">
+                             <tr class="tr-titre">
+                              <td class="td-titre col-4">Produits</td>
+                              <td class="td-titre col-3">Prix</td>
+                              <td class="td-titre col-2">Quantité</td>
+                              <td class="td-titre col-2">Total</td>
+                             </tr>
+                             <tr class="tr">
+                              <td class="td-produits col-4">Croissant</td>
+                              <td class="td col-3">1.10€</td>
+                              <td class="td col-3">02</td>
+                              <td class="td col-2">2.20€</td>
+                            </tr>
+                        </table> 
+                    </div> 
+                    <div class="bloc-commerce-commande">
+                       <h3 class="titre-commerce">- Daily Juicery -</h3>
+                       <table class="table-commande col-12">
+                            <tr class="tr-titre">
+                              <td class="td-titre col-4">Produits</td>
+                              <td class="td-titre col-3">Prix</td>
+                              <td class="td-titre col-3">Quantité</td>
+                              <td class="td-titre col-2">Total</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="td-produits col-4">ROOTS 1.2, Jus détox 100% naturel</td>
+                              <td class="td col-3">7.00€</td>
+                              <td class="td col-3">01</td>
+                              <td class="td col-2">7.00€</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="td-produits col-4">GREEN 5.0, Jus détox 100% naturel</td>
+                              <td class="td col-3">7.00€</td>
+                              <td class="td col-3">02</td>
+                              <td class="td col-2">14.00€</td>
+                            </tr>
+                        </table> 
+                    </div>
+                </div>
+            </div>
+         </section>
+    
+
+         <section class="section-historique">
+           <div class="container col-12 no-gutters">
+               <div class="row">
+                   <div class="bloc-historique-commande ">
+                        <p class="texte-historique-commande">Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis,  iudices, nec descensurum</p>
+                        <a href=""><div id ="bouton-historique-commande" class="bouton-historique-commande">Historique Commande</div></a>
+                   </div>   
+               </div>
+           </div>
+        </section>
+    
+    
+
+    
+    
+               <!-- RESEAUX SOCIAUX -->
+   <ul class="social-medias">
+        <li>
+            <a href="https://fr-fr.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+        </li>
+        <li class="twitter">
+            <a href="https://www.google.com/search?client=firefox-b&q=twitter"><i class="fab fa-twitter"></i></a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/discover"><i class="fab fa-google-plus-g"></i></a>
+        </li>
+    </ul>
+  	
+               <!-- BOUTON UP -->
+    <div class="fond-up">
+       <div id="bouton-up" class="bouton-up">
+           <i class="fas fa-chevron-up"></i>
+       </div> 
+    </div> 
+ </div> <!-- Fin du Background => Dévoilement du footer--> 
+   
+    
+    <footer>
+        <div class="footer">
+           <div class="container">
+               <div class="row">
+                   <div class="bloc-centre-footer col-12">
+                       <div class="adresse-footer col-4">
+                           <ul class="ul-menu-footer">
+                               <li class="titre-footer"><span class="trait-footer">//</span> CONTACTEZ-NOUS</li>
+                               <li class="menu-footer"><i class="fas fa-phone"></i> -  03.20.30.79.73</li>
+                               <li class="menu-footer"><i class="fas fa-map"></i> - 1 Rue Esquermoise, 59800</li>
+                               <a href=""><li class="menu-footer"><i class="fas fa-envelope"></i> - nogashis@gmail.com</li></a>
+                           </ul> 
+                           <hr>
+                       </div>
+                       <div class="ul col-4">
+                           <ul class="ul-menu-footer">
+                                <li class="titre-footer"><span class="trait-footer">//</span> NOTRE CONCEPT</li>
+                                <a href="index.html"><li class="menu-footer2">- Accueil -</li></a>
+                                <a href="trouver.html"><li class="menu-footer2"> - Ou Nous Trouver ? -</li></a>
+                               <a href="faq.html"><li class="menu-footer2">- F.A.Q -</li></a>
+                           </ul> 
+                           <hr>   
+                       </div>
+                       <div class="reseau-footer col-4">
+                           <ul class="ul-menu-footer">
+                               <li class="titre-footer"><span class="trait-footer">//</span> SUIVEZ-NOUS SUR </li>
+                               <a href="">
+                               <li class="menu-footer2"><i class="fab fa-facebook-square"></i> Facebook</li>
+                               </a>
+                               <a href=""><li class="menu-footer2"><i class="fab fa-twitter-square"></i> Twitter</li></a>
+                               <a href=""><li class="menu-footer2"><i class="fab fa-google-plus-square"></i> Google +</li></a>
+                           </ul>
+                           <hr>
+                       </div>
+                       <div class="trait-footer"></div>
+                   </div>    
+               </div>
+           </div>
+           <a href="mentions.html"><P class="lien-mentions">- Mentions légales -</P></a>
+        </div>  
+        <div class="informations-footer">Site réalisé par <span class="italic-footer">Anais Kordek - Olivier Vanhée - Joffrey Chassat - Francis Berthe.</span> Nom App - Formation Dawan, <span class="italic-footer">2019</span></div>  
+    </footer>
+      
+               
+                <!-- JQuery/ Loading -->
+          <script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous">
+          </script>
+     
+      
+     
+              
+              <!-- JavaScript/ PanneauAvancée -->
+          <script src="js/panneauAvancee.js"></script>      
+               
+               <!-- JavaScript/ BOUTON -->
+          <script src="js/bouton.js"></script>
+          
+                <!-- JavaScript/ MAIN -->
+          <script src="js/main3.js"></script>
+          
+          
+          
+          
+
+</body>
+</html>
