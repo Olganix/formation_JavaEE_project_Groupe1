@@ -31,14 +31,11 @@ export class SignInComponent implements OnInit
         this.connexionService.signIn(form.value['name'], form.value['password'], form.value['email'], form.value['role'], form.value['newsletterEnabled'])
         .then(()=>
         {
-            console.log("tata");
-            
             this.infoBoxNotificationsService.addMessage("info", "Votre inscription est bien prise en compte. Veuilliez consulter vos mails afin de repondre à la validation de votre email. Merci.", 10);
             this.router.navigate(['/login']);
 
         }).catch( (error) =>
         {
-            console.log("yoyo");
             this.infoBoxNotificationsService.addMessage("error", "Echec de l'inscription : "+ error, 10);
         });
     }

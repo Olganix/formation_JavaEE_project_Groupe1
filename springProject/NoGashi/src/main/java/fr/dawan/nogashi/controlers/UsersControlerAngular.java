@@ -114,7 +114,7 @@ public class UsersControlerAngular
 					//todo put email exp in properties
 					
 					//mt.sendMail_html(email, "noreply@nogashi.org", "Nogashi Email de Validation", "Merci de cliquer sur le lien pour valider votre adresse mail : <a href='http://localhost:8080/nogashi/emailvalidation?token="+ URLEncoder.encode(token, "UTF-8") +"'>Je valide mon adresse email</a>");
-					URI uri = new URI("http", "localhost:8080", "/nogashi/emailvalidation", "token="+ token, null);
+					URI uri = new URI("http", "localhost:4200", "/emailValidation", "token="+ token, null);
 					mt.sendMail_html(email, "noreply@nogashi.org", "Nogashi Email de Validation", "Merci de cliquer sur le lien pour valider votre adresse mail : <a href='"+ uri.toASCIIString() +"'>Je valide mon adresse email</a>");
 					
 				}catch(MessagingException e){
@@ -240,7 +240,7 @@ public class UsersControlerAngular
 					//todo put email exp in properties
 					
 					//mt.sendMail_html(email, "noreply@nogashi.org", "Nogashi Email de Validation", "Merci de cliquer sur le lien pour valider votre adresse mail : <a href='http://localhost:8080/nogashi/emailvalidation?token="+ URLEncoder.encode(token, "UTF-8") +"'>Je valide mon adresse email</a>");
-					URI uri = new URI("http", "localhost:8080", "/nogashi/emailvalidation", "token="+ token, null);
+					URI uri = new URI("http", "localhost:4200", "/emailValidation", "token="+ token, null);
 					mt.sendMail_html(email, "noreply@nogashi.org", "Nogashi Email de Validation", "Merci de cliquer sur le lien pour valider votre adresse mail : <a href='"+ uri.toASCIIString() +"'>Je valide mon adresse email</a>");
 					
 				}catch(MessagingException e){
@@ -313,7 +313,7 @@ public class UsersControlerAngular
     	if(!u.isEmailValid())
     	{
     		em.close();
-    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 2, "Error: Email no validated");
+    		return new RestResponse<User>(RestResponseStatus.FAIL, u, 2, "Error: Email no validated");
     	}
     		
     	
