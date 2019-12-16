@@ -1,0 +1,363 @@
+
+/* SECTION -> Trouver */
+.bloc-nous-trouver {
+  background-image: url("/assets/img/pattern/groovepaper2.png");
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+}
+
+.bloc-haut {
+  background-color: var(--couleurBlancCreme);
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+  display: flex;
+}
+
+.bloc-affichage-commerce {
+  width: 350px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.90);
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+  position: absolute;
+  z-index: 999;
+  display: block;
+}
+
+.croix-img {
+
+}
+
+.fa-times {
+  width: 35px;
+  height: 35px;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--couleurNoir);
+  background-color: var(--couleurVerte);
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+  top: 0px;
+  right: 0px;
+  padding-top: 5px;
+  padding-left: 10px;
+  position: absolute;
+  z-index: 99999;
+  cursor: pointer;
+}
+
+.bloc-trouver {
+  background-color: var(--couleurBlancCreme);
+  margin-top: 100px;
+}
+
+.titre-trouver {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  color: var(--couleurNoir);
+  padding-top: 50px;
+  margin-bottom: 30px;
+  margin-left: 60px;
+}
+
+.affichage-img {
+  width: 100%;
+  height: 250px;
+  background-color: var(--couleurNoir);
+  background-position: center;
+  background-size: cover;
+
+}
+
+.bloc-nom-affichage {
+  background-color: var(--couleurNoir);
+}
+
+.titre-affichage-commerce {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  color: var(--couleurVerte);
+  padding-top: 15px;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
+.fa-circle {
+  font-size: 0.45em;
+  color: var(--couleurBlancCreme);
+}
+
+.nom-affichage-commerce {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 400;
+  text-align: left;
+  color: var(--couleurBlancCreme);
+  margin-bottom: 15px;
+  margin-left: 45px;
+}
+
+.adresse-affichage-commerce {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 400;
+  text-align: left;
+  color: var(--couleurNoir);
+  padding-bottom: 10px;
+  margin-left: 30px;
+}
+
+.mapid {
+  width: 100%;
+  height: 500px;
+}
+
+
+
+/* SECTION -> liste */
+.section-liste {
+
+}
+
+h2 {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 90px;
+  margin-bottom: 20px;
+}
+
+.texte-partenaire {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.90em;
+  font-weight: 400;
+  line-height: 1.2em;
+  padding-left: 20%;
+  padding-right: 20%;
+  margin-bottom: 20px;
+}
+
+.grand-bloc-commerce {
+  background-color: var(--couleurNoir);
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+  margin-top: 10px;
+}
+
+.titre-commerce {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  color: var(--couleurBlancCreme);
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.grand-bloc-association {
+  background-color: var(--couleurBlancCreme);
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+  margin-top: 10px;
+}
+
+.nom-commerce {
+  background-color: var(--couleurNoir);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+  display: flex;
+  border-top: 1px solid var(--couleurBlanc);
+  border-bottom: 1px solid var(--couleurVerte);
+}
+
+.nom-commerce:hover .marque-commerce {
+  font-size: 1.05em;
+  color: var(--couleurVerte);
+  cursor: pointer;
+}
+
+.trait {
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+}
+
+.logo-commerce {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-left: 50px;
+  box-shadow: 5px 7px 10px 2px rgba(0,0,0,0.15);
+}
+
+.marque-commerce {
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 600;
+  font-style: italic;
+  text-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.20);
+  color: var(--couleurBlancCreme);
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.adresse-commerce {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.80em;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--couleurBlancCreme);
+  padding-left: 20px;
+}
+
+.titre-association {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  color: var(--couleurNoir);
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.texte-association {
+  width: 100%;
+  font-family: 'roboto', sans-serif;
+  font-size: 0.90em;
+  font-weight: 400;
+  margin-bottom: 40px;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.cercle-association {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 7px;
+  margin-left: 50%;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
+  transform: translate(-50%);
+  display: block;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.cercle-association:hover {
+  width: 110px;
+  height: 110px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.10);
+  cursor: pointer;
+}
+
+.nom-association {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 600;
+  font-style: italic;
+  text-align: center;
+  color: var(--couleurNoir);
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+
+/* SECTION -> Contactez-Nous */
+.section-contact {
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 100px;
+  margin-top: 70px;
+  background-image: url('/assets/img/trouver/city.jpg');
+  background-size: cover;
+}
+
+.titre-contact {
+  font-family: 'roboto', sans-serif;
+  font-size: 1.1em;
+  font-weight: 600;
+  font-style: italic;
+  text-align: center;
+  color: var(--couleurVerte);
+  background-color: var(--couleurNoir);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.20);
+  border-top: 1px solid var(--couleurVerte);
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
+.couleur-trait {
+  color: var(--couleurBlancCreme);
+}
+
+.ul-contact {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.90em;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.menu-contact {
+  color: var(--couleurBlancCreme);
+  padding-bottom: 10px;
+  padding-top: 5px;
+}
+
+.menu-contact2 {
+  color: var(--couleurBlancCreme);
+  cursor: pointer;
+}
+
+.menu-contact2:hover {
+  color: var(--couleurVerte);
+}
+
+
+/* SECTION -> Suivez-nous */
+.titre-suivez {
+  font-family: 'roboto', sans-serif;
+  font-size: 1.1em;
+  font-weight: 600;
+  font-style: italic;
+  text-align: center;
+  color: var(--couleurVerte);
+  background-color: var(--couleurNoir);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.20);
+  border-top: 1px solid var(--couleurVerte);
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
+.ul-suivez {
+  text-align: center;
+}
+
+.menu-suivez {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.90em;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--couleurBlancCreme);
+  padding-top: 10px;
+  cursor: pointer;
+}
+
+.menu-suivez:hover {
+  color: var(--couleurVerte);
+}
+

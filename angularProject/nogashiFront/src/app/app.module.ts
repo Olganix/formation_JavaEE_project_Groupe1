@@ -45,6 +45,19 @@ import { AppareilComponent } from './components/tests/appareil/appareil.componen
 import { SingleAppareilComponent } from './components/tests/single-appareil/single-appareil.component';
 import { TestSpringRestComponent } from './components/tests/test-spring-rest/test-spring-rest.component';
 import { InfoBoxNotificationsComponent } from './components/common/info-box-notifications/info-box-notifications.component';
+import { GeneralFaqComponent } from './components/pages/pages_anonyme/general-faq/general-faq.component';
+import { FaqMerchantComponent } from './components/pages/pages_merchant/faq-merchant/faq-merchant.component';
+import { LegalNoticesComponent } from './components/pages/pages_anonyme/legal-notices/legal-notices.component';
+import { FindUsComponent } from './components/pages/pages_anonyme/find-us/find-us.component';
+import { PasswordResetComponent } from './components/pages/pages_common/password-reset/password-reset.component';
+import { ShoppingCartComponent } from './components/pages/pages_common/shopping-cart/shopping-cart.component';
+import { CommandStepsComponent } from './components/pages/pages_common/command-steps/command-steps.component';
+import { CommandRecapComponent } from './components/pages/pages_common/command-recap/command-recap.component';
+import { CommandPaymentComponent } from './components/pages/pages_common/command-payment/command-payment.component';
+import { CommandConfirmationComponent } from './components/pages/pages_common/command-confirmation/command-confirmation.component';
+import { TchatComponent } from './components/pages/pages_common/tchat/tchat.component';
+import { ProductSheetComponent } from './components/pages/pages_common/product-sheet/product-sheet.component';
+import { CommentsComponent } from './components/modules/comments/comments.component';
 
 
 
@@ -60,10 +73,27 @@ const appRoutes: Routes =
   { path: 'emailValidation', component: EmailValidationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'passwordRescue', component: PasswordRescueComponent },
+  { path: 'generalFaq', component: GeneralFaqComponent },
+  { path: 'legalNotices', component: LegalNoticesComponent },
+  { path: 'findUs', component: FindUsComponent },
+
+  { path: 'passwordReset', component: PasswordResetComponent },
+  { path: 'commandSteps', component: CommandStepsComponent },
+  { path: 'shoppingCart', component: ShoppingCartComponent },
+  { path: 'commandRecap', component: CommandRecapComponent },
+  { path: 'commandPayment', component: CommandPaymentComponent },
+  { path: 'commandConfirmation', component: CommandConfirmationComponent },
+  { path: 'tchat', component: TchatComponent },
+  { path: 'comments', component: CommentsComponent },
+  { path: 'productSheet', component: ProductSheetComponent },
 
   { path: 'individual/welcome', canActivate: [ConnexionGuard], component: WelcomeIndividualComponent },
+
   { path: 'merchant/welcome', canActivate: [ConnexionGuard], component: WelcomeMerchantComponent },
+  { path: 'merchant/faq', canActivate: [ConnexionGuard], component: FaqMerchantComponent },
+
   { path: 'association/welcome', canActivate: [ConnexionGuard], component: WelcomeAssociationComponent },
+
   { path: 'admin/welcome', canActivate: [ConnexionGuard], component: WelcomeAdminComponent },
 
   { path: 'test', component: TestComponent },
@@ -101,7 +131,20 @@ const appRoutes: Routes =
     WelcomeMerchantComponent,
     WelcomeAssociationComponent,
     WelcomeAdminComponent,
-    InfoBoxNotificationsComponent
+    InfoBoxNotificationsComponent,
+    GeneralFaqComponent,
+    FaqMerchantComponent,
+    LegalNoticesComponent,
+    FindUsComponent,
+    PasswordResetComponent,
+    ShoppingCartComponent,
+    CommandStepsComponent,
+    CommandRecapComponent,
+    CommandPaymentComponent,
+    CommandConfirmationComponent,
+    TchatComponent,
+    ProductSheetComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,

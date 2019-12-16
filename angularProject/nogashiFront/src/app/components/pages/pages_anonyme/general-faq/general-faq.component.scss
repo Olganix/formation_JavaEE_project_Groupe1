@@ -1,0 +1,271 @@
+/* SECTION -> FAQ */
+
+.section-faq {
+  background-image: url("/assets/img/pattern/groovepaper2.png");
+}
+
+.bloc-faq {
+  margin-top: 120px;
+  margin-bottom: 300px;
+}
+
+.titre-faq {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.6em;
+  font-weight: 600;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  color: var(--couleurNoir);
+  margin-bottom: 30px;
+}
+
+.texte-faq {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.90em;
+  font-weight: 400;
+  color: dimgrey;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.bloc-input-search {
+  display: flex;
+}
+
+.input-search {
+  width: 370px;
+  height: 40px;
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  border: 0.2em solid #000;
+  border-radius: 40px;
+  padding-left: 15px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
+.bouton-search {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--couleurNoir);
+  color: var(--couleurVerte);
+}
+
+.bouton-search:hover {
+  background-color: var(--couleurVerte);
+  color: var(--couleurBlancCreme);
+}
+
+
+/* SECTION -> FAQ => Questions */
+
+.bloc-question {
+  width: 100%;
+  min-height: 300px;
+  background-color: var(--couleurBlancCreme);
+  padding-bottom: 80px;
+  -webkit-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+  -moz-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+}
+
+.question {
+  height: 50px;
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  border-bottom: 2px solid var(--couleurVerte);
+  background: rgba(23,23,23,1);
+  background: -moz-linear-gradient(left, rgba(23,23,23,1) 0%, rgba(69,69,69,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(23,23,23,1)), color-stop(100%, rgba(69,69,69,1)));
+  background: -webkit-linear-gradient(left, rgba(23,23,23,1) 0%, rgba(69,69,69,1) 100%);
+  background: -o-linear-gradient(left, rgba(23,23,23,1) 0%, rgba(69,69,69,1) 100%);
+  background: -ms-linear-gradient(left, rgba(23,23,23,1) 0%, rgba(69,69,69,1) 100%);
+  background: linear-gradient(to right, rgba(23,23,23,1) 0%, rgba(69,69,69,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#171717', endColorstr='#454545', GradientType=1 );
+  color: var(--couleurGrisClair);
+  margin-top: 20px;
+  margin-left: 50%;
+  transform: translate(-50%);
+  -webkit-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+  -moz-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+  cursor: pointer;
+}
+
+.titre-question {
+  font-style: italic;
+  padding-top: 15px;
+  padding-left: 20px;
+}
+
+.fa-circle {
+  font-size: 0.7em;
+  color: var(--couleurVerte);
+}
+
+.fa-angle-up {
+  font-size: 1.2em;
+  top: 15px;
+  right: 20px;
+  position: absolute;
+}
+
+.reponse {
+  min-height: 100px;
+  font-family: 'roboto', sans-serif;
+  font-size: 0.90em;
+  background-color: var(--couleurGrisClair);
+  color: var(--couleurNoir);
+  margin-left: 50%;
+  padding-top: 30px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 30px;
+  transform: translate(-50%);
+  -webkit-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+  -moz-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+  display: block;
+}
+
+.reponse.is-visible {
+  display: block;
+}
+
+
+/* SECTION -> FAQ => Connexion Tchat */
+
+.bloc-tchat {
+  width: 100%;
+  min-height: 240px;
+  background-color: var(--couleurBlancCreme);
+  background-color: #f2f2f2;
+  background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2303dac5' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+  padding-top: 20px;
+  margin-top: 10px;
+  -webkit-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+  -moz-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+}
+
+.titre-tchat {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2em;
+  font-weight: 600;
+  font-style: italic;
+  text-align: center;
+  color: var(--couleurNoir);
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+.texte-tchat {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.95em;
+  font-weight: 400;
+  text-align: center;
+  color: var(--couleurNoir);
+}
+
+
+
+@-webkit-keyframes effet-vertical {
+  16.65% {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+  }
+  33.3% {
+    -webkit-transform: translateY(-6px);
+    transform: translateY(-6px);
+  }
+  49.95% {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+  66.6% {
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+  }
+  83.25% {
+    -webkit-transform: translateY(1px);
+    transform: translateY(1px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+@keyframes effet-vertical {
+  16.65% {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+  }
+  33.3% {
+    -webkit-transform: translateY(-6px);
+    transform: translateY(-6px);
+  }
+  49.95% {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+  66.6% {
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+  }
+  83.25% {
+    -webkit-transform: translateY(1px);
+    transform: translateY(1px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+.bouton-tchat {
+  width: 220px;
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 0.90em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--couleurBlancCreme);
+  background: rgba(255, 82, 47, 1);
+  background: var(--couleurNoir);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff522f', endColorstr='#cc02cc', GradientType=1 );
+  border: none;
+  border-radius: 28px;
+  margin-top: 30px;
+  margin-left: 40%;
+  padding: 12px 15px 12px 15px;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
+  -webkit-transition: all 1s ease-out;
+  transition: all 1s ease-out;
+  cursor: pointer;
+}
+
+.bouton-tchat:hover, .bouton-tchat:focus, .bouton-tchat:active {
+  background: rgba(204,2,204,1);
+  background: var(--couleurDegradeVert);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc02cc', endColorstr='#ff522f', GradientType=1 );
+  -webkit-box-shadow: 0 21px 6px -12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 21px 6px -12px rgba(0, 0, 0, 0.2);
+  -webkit-animation-name: effet-vertical;
+  animation-name: effet-vertical;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+
+.bouton-tchat:disabled:hover {
+  -webkit-animation-name: none;
+  animation-name: none;
+}
+
