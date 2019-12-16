@@ -471,55 +471,124 @@ h2 {
     
 }
 
-.bloc-edition-profil {
-    background-color: var(--couleurBlancCreme);
-    box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.10);
-    padding-top: 50px;
-    padding-bottom: 40px;
-    margin-top: 30px;
-}
 
-.titre-edition {
-    font-family: 'ubuntu', sans-serif;
-    font-size: 1.4em;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 30px;
-}
+
 
   
 
    /* SECTION - Section-Edition-Profil */
 
-.figure-img-produit {
+           /* SECTION/ Commentaires */
+
+.section-edition-profil {
+    margin-top: 30px;
+}
+
+.bloc-commentaire {
+    display: flex;
+}
+
+.commentaires {
+    width: 100%;
     background-color: var(--couleurBlancCreme);
-    box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.10);
+    box-shadow: 4px 4px 6px 1px rgba(0, 0, 0, 0.30);
+    padding-left: 80px;
+    padding-right: 80px;
     padding-top: 40px;
     padding-bottom: 40px;
 }
 
-.img-produit {
-    width: 300px;
+.nom-auteur{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 10px;
 }
 
-.titre-produit {
-    font-family: 'roboto', sans-serif;
-    font-size: 1.1em;
-    font-weight: 600;
-    color: var(--couleurNoir);
-    margin-left: 80px;
-    margin-bottom: 10px;
+.star {
+    color: var(--couleurVerte);
+    padding-top: 8px;
+    margin-left: 20px;
+    display: flex;
 }
 
-.figcaption {
-
+.avatar {
+    width: 280px;
+    height: 150px;
+    background-image: url(img/produit/eclairchocoloat-mathieu.jpg);
+    background-size: cover;
+    background-position: center;
+    margin-right: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
 }
 
-.note {
-    display: none;
+.text-avatar {
+    font-size: 1.5em;
+    font-weight: 400; 
+    color: var(--couleurBlanc);
+    -webkit-transform: translate(45%, -5%);
+    transform: translate(45%, -5%);
 }
 
-           
+.auteur {
+     font-family: 'roboto', sans-serif;
+     font-weight: 600;
+     font-size: 1em;
+     padding-top: 10px;
+     margin-left: 5px;
+}
+
+.date {
+     font-family: 'roboto', sans-serif;
+     font-size: 0.80em;
+     font-weight: 400; 
+     padding-top: 10px;    
+     margin-left: 70px;
+}
+
+.fa-exclamation-triangle {
+     margin-left: 20px;
+}
+
+.commentaire {
+     max-width: 650px; 
+     height: auto; 
+     font-family: 'roboto', sans-serif;
+     font-size: 0.85em;
+     font-weight: 400;
+     line-height: 1.3em;
+     margin-top: 20px;
+     margin-bottom: 20px;
+}
+
+.espace {
+    width: 100%; 
+    height: 0px;
+    background-color: var(--couleurBlancCreme);
+    box-shadow: 4px 4px 6px 1px rgba(0, 0, 0, 0.30);
+    margin-bottom: 350px;
+}
+
+..commentaires {
+    width: 100%;
+    background-color: var(--couleurBlancCreme);
+    box-shadow: 4px 4px 6px 1px rgba(0, 0, 0, 0.30);
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.espace-bas {
+    width: 100%;
+    margin-top: 150px;
+}
+
+
+
+
 
 
 
