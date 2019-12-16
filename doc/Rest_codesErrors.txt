@@ -1,0 +1,5 @@
+
+1: Echec avec erreur, sans être spécifique (normalement pas d'actions requises)
+2: Email non validé.
+3: parse Email non valide.
+4: nom deja utilisé ou interdit.

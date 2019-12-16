@@ -6,17 +6,14 @@ import { Injectable } from '@angular/core';
 
 
 @Injectable()
-export class ConnexionGuard implements CanActivate 
+export class ConnexionGuard implements CanActivate
 {
     constructor(private connexionService: ConnexionService,
-                private router: Router) 
-    {
-
+                private router: Router) {
     }
 
     canActivate(route: ActivatedRouteSnapshot,
-                state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean 
-    {
+                state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         return true;
         /*
         if(this.connexionService.isAuth)        //todo re-use

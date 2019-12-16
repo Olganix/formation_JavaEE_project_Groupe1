@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-//services
+// services
 import { ConnexionService } from './services/connexion.service';
 import { ConnexionGuard } from './services/connexion-guard.service';
 import { InfoBoxNotificationsService } from './services/InfoBoxNotifications.services';
@@ -12,16 +12,16 @@ import { InfoBoxNotificationsService } from './services/InfoBoxNotifications.ser
 import { AppareilService } from './services/appareil.service';
 
 
-//Root
+// Root
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/root/app.component';
 
-//Common/Modules
+// Common/Modules
 import { HeaderComponent } from './components/common/header/header.component';
 import { FooterComponent } from './components/common/footer/footer.component';
 import { SocialBoxComponent } from './components/modules/social-box/social-box.component';
 
-//pages
+// pages
 import { WelcomeComponent } from './components/pages/pages_anonyme/welcome/welcome.component';
 import { SignInComponent } from './components/pages/pages_anonyme/sign-in/sign-in.component';
 import { EmailValidationComponent } from './components/pages/pages_anonyme/email-validation/email-validation.component';
@@ -31,13 +31,13 @@ import { ErrorPage404Component } from './components/pages/pages_anonyme/error-pa
 
 
 
-//pages with connexion
+// pages with connexion
 import { WelcomeIndividualComponent } from './components/pages/pages_individual/welcome-individual/welcome-individual.component';
 import { WelcomeMerchantComponent } from './components/pages/pages_merchant/welcome-merchant/welcome-merchant.component';
 import { WelcomeAssociationComponent } from './components/pages/pages_association/welcome-association/welcome-association.component';
 import { WelcomeAdminComponent } from './components/pages/pages_admin/welcome-admin/welcome-admin.component';
 
-//tests
+// tests
 import { TestComponent } from './components/tests/test/test.component';
 import { ConnexionComponent } from './components/tests/connexion/connexion.component';
 import { AppareilViewComponent } from './components/tests/appareil-view/appareil-view.component';
@@ -108,7 +108,9 @@ const appRoutes: Routes =
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)               // les routes seront accessibles via la constante appRoutes
+    RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
+    // les routes seront accessibles via la constante appRoutes
   ],
   providers: [ConnexionService, AppareilService, ConnexionGuard, InfoBoxNotificationsService],
   bootstrap: [AppComponent]

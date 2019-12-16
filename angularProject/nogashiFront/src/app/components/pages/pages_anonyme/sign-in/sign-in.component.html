@@ -8,54 +8,53 @@
             <br>
             <br>
             <p class="texte-inscription col-8">Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis, iudices, nec descensurum</p>
-            <br>   
+            <br>
         </div>
-        
-        <form class="formulaire-inscription" (ngSubmit)="onSubmit(f)" #f="ngForm" >
-            
 
-            <label for="role" class="label-formulaire"><i class="fas fa-asterisk"></i> Vous êtes :</label>
-            <select [(ngModel)]="role" name="role" class="liste-deroulante" >
+        <form class="formulaire-inscription" [formGroup]="form1" (submit)="onSubmit()" >
+
+
+            <label class="label-formulaire"><i class="fas fa-asterisk"></i> Vous êtes :</label>
+            <select formControlName="role" name="role" class="liste-deroulante"  #inputRole >
                 <option value="INDIVIDUAL" selected="selected">Particulier</option><!-- todo find why it's not selected by default -->
-                <option value="MERCHANT" >Commerçant</option> 
+                <option value="MERCHANT" >Commerçant</option>
                 <option value="ASSOCIATION" >Association</option>
             </select>
-            
-            <label for="name" class="label-formulaire"><i class="fas fa-asterisk" ></i> Pseudo</label>
-            <input [(ngModel)]="name" name="name" class="pseudo" type="text" placeholder="Pseudo " required>
-            <span id="pseudoRegex" class="pseudo-regex"></span>  
-            
-            <label for="email" class="label-formulaire"><i class="fas fa-asterisk"></i> Email</label>
-            <input [(ngModel)]="email" name="email" class="email" type="text" placeholder="@Email" required>
-            <span id="emailRegex" class="pseudo-regex"></span>  
-        
-            <label for="password" class="label-formulaire"><i class="fas fa-asterisk"> </i> Mot de Passe</label> 
-            <input [(ngModel)]="password" name="password" class="mdp" type="password" required>
-            <span id="mdpRegex" class="mdp-regex"></span>
-            
-            <label for="confirmation" class="label-formulaire"><i class="fas fa-asterisk"></i> Confirmation Mot de Passe</label> 
-            <input [(ngModel)]="confirmation" name="confirmation" class="confirmation" type="password" required> 
-            <span id="confirmationRegex" class="confirmation-regex"></span>
-            
+
+            <label class="label-formulaire"><i class="fas fa-asterisk" ></i> Pseudo</label>
+            <input formControlName="name" name="name" class="pseudo" type="text" placeholder="Pseudo" required>
+            <span class="text-danger" *ngIf="controlName(); let message">{{message}}</span>
+
+            <label class="label-formulaire"><i class="fas fa-asterisk"></i> Email</label>
+            <input formControlName="email" name="email" class="email" type="text" placeholder="@Email" required>
+            <span class="text-danger" *ngIf="controlEmail(); let message">{{message}}</span>
+
+            <label class="label-formulaire"><i class="fas fa-asterisk"> </i> Mot de Passe</label>
+            <input formControlName="password" name="password" class="mdp" type="password" required>
+            <span class="text-danger" *ngIf="controlPassword(); let message">{{message}}</span>
+
+            <label class="label-formulaire"><i class="fas fa-asterisk"></i> Confirmation Mot de Passe</label>
+            <input formControlName="confirm" name="confirm" class="confirmation" type="password" required>
+            <span class="text-danger" *ngIf="controlPasswordConfirm(); let message">{{message}}</span>
+
             <div class="bloc-checkbox">
-            <input [(ngModel)]="accept_generale_condition" name="accept_generale_condition" class="checkbox" type="checkbox">
-            <label class="label" for="accept_generale_condition">J'ai lu et j'accepte les conditions générales <br> d'utilisation.</label>   
+              <input formControlName="term" name="accept_generale_condition" class="checkbox" type="checkbox" required >
+              <label class="label" >J'ai lu et j'accepte les conditions générales <br> d'utilisation.</label>
+              <span class="text-danger" *ngIf="controlTerm(); let message">{{message}}</span>
             </div>
-            <div class="bloc-checkbox2" *ngIf="(role=='MERCHANT')||(role=='ASSOCIATION')" >
-                <input [(ngModel)]="confirm_on_honor" name="confirm_on_honor" class="checkbox2" type="checkbox">
-                <label class="label" for="confirm_on_honor">Je certifie sur l'honneur que les informations <br> fournies sont rigoureusement exactes</label>   
+            <div class="bloc-checkbox2" *ngIf="(inputRole.value==='MERCHANT')||(inputRole==='ASSOCIATION')" >
+              <input formControlName="declaration" name="confirm_on_honor" class="checkbox2" type="checkbox" [attr.required]="(inputRole.value==='MERCHANT')||(inputRole==='ASSOCIATION')" >
+              <label class="label" >Je certifie sur l'honneur que les informations <br> fournies sont rigoureusement exactes</label>
+              <span class="text-danger" *ngIf="controlDeclaration(); let message">{{message}}</span>
             </div>
             <div class="bloc-checkbox3">
-                <input [(ngModel)]="newsletterEnabled" name="newsletterEnabled" class="checkbox3" type="checkbox">
-                <label class="label" for="newsletterEnabled">J'accepte de recevoir des annonces.</label> 
+                <input formControlName="newsletterEnabled" name="newsletterEnabled" class="checkbox3" type="checkbox">
+                <label class="label" >J'accepte de recevoir des annonces.</label>
             </div>
 
-            <button id ="bt_signin_submit" class="bouton-inscription" type="submit" [disabled]="f.invalid" >S'INSCRIRE</button>
-            <p class="avertissement-inscription">* Veuillez remplir tous les champs pour valider votre inscription.</p>
+            <button id ="bt_signin_submit" class="bouton-inscription" type="submit" [disabled]="form1.invalid" >S'INSCRIRE</button>
+            <p *ngIf="form1.invalid" class="avertissement-inscription">* Veuillez remplir tous les champs pour valider votre inscription.</p>
         </form>
     </div>
- </section>  
+ </section>
 
- <div *ngIf="isfail">
-    Inscription Faild.
- </div>

@@ -28,8 +28,8 @@ public class User extends DbObject
 	private String avatarFilename = "NoAvatar.jpg";						//Todo do the upload system.
 	
 	private String phoneNumber;											//Todo many possible ?
-	private String adress;
-	private String adressExtra;
+	private String address;
+	private String addressExtra;
 	private String postalCode;
 	private String cityName;
 	private String stateName;
@@ -78,8 +78,8 @@ public class User extends DbObject
 		this.role = role;
 		this.avatarFilename = avatarFilename;
 		this.phoneNumber = phoneNumber;
-		this.adress = adress;
-		this.adressExtra = adressExtra;
+		this.address = adress;
+		this.addressExtra = adressExtra;
 		this.postalCode = postalCode;
 		this.cityName = cityName;
 		this.stateName = stateName;
@@ -162,23 +162,23 @@ public class User extends DbObject
 	}
 
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String adress) {
+		this.address = adress;
 	}
 
 
-	public String getAdressExtra() {
-		return adressExtra;
+	public String getAddressExtra() {
+		return addressExtra;
 	}
 
 
-	public void setAdressExtra(String adressExtra) {
-		this.adressExtra = adressExtra;
+	public void setAddressExtra(String adressExtra) {
+		this.addressExtra = adressExtra;
 	}
 
 
