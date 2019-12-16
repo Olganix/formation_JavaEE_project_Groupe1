@@ -1,0 +1,119 @@
+
+<app-command-steps></app-command-steps>
+
+<section class="section-paiement">
+  <div class="container">
+    <div class="row">
+      <div class="bloc-transaction col-12">
+
+        <div class="bloc-info-transaction col-3">
+          <h2>Détails Transaction</h2>
+          <div class="bloc-commerces-transaction">
+            <h4><i class="fas fa-store"></i> / Commerces</h4>
+            <ul class="">
+              <li class="nom-commerces"><i class="far fa-circle"></i> Boulangerie Mathieu</li>
+              <li class="nom-commerces"><i class="far fa-circle"></i> Daily Juicery</li>
+              <li class="nom-commerces"><i class="far fa-circle"></i> Subway</li>
+            </ul>
+          </div>
+          <hr class="trait-hr2">
+          <div class="bloc-montant">
+            <h4><i class="fas fa-money-bill-wave-alt"></i> / Montant</h4>
+            <p class="texte-transaction">14.00€</p>
+          </div>
+          <hr class="trait-hr2">
+          <div class="bloc-numero-transaction">
+            <h4><i class="fas fa-money-bill-wave-alt"></i> / Numero Transaction</h4>
+            <p class="texte-transaction">123456789</p>
+          </div>
+          <div class="bloc-annuler col-12">
+            <a href="accueil-particulier.html"><div id ="bouton-payer" class="bouton-annuler">ANNULER</div></a>
+          </div>
+          <div class="bloc-securite">
+            <p class="texte-transaction2">100% sécurisé <i class="fas fa-lock"></i></p>
+            <p class="texte-transaction3">Vos données bancaires sont protegées</p>
+          </div>
+        </div>
+
+        <div class="bloc-partie-carte col-9">
+          <h3><i class="far fa-credit-card"></i> / Moyen de Paiement</h3>
+
+          <form class="formulaire-inscription" action="" method="get">
+            <label for="titulaire" class="label-formulaire"><i class="fas fa-asterisk" value="titulaire"></i> Titulaire</label>
+            <input id="titulaire" class="titulaire" type="text" name="titulaire" placeholder="Titulaire de la carte" >
+
+
+            <div class="bloc-info-carte">
+              <div class="bloc-carte">
+                <label for="carte" class="label-formulaire"><i class="fas fa-asterisk" value="carte"></i> Votre Carte</label>
+                <input id="carte" class="carte" type="text" name="carte" placeholder="Numéro de carte" >
+              </div>
+              <div class="bloc-cvv">
+                <label for="cvv" class="label-formulaire"><i class="fas fa-asterisk" value="cvv"></i> CVV</label>
+                <input id="cvv" class="cvv" type="text" name="cvv" placeholder="123" >
+              </div>
+            </div>
+
+
+            <div class="bloc-date">
+              <div class="mois-carte">
+                <label for="mois" class="label-formulaire"><i class="fas fa-asterisk"></i> Mois</label>
+                <select id="liste-mois" class="liste-mois">
+                  <option>Janvier</option>
+                  <option>Fevrier</option>
+                  <option>Mars</option>
+                  <option>Avril</option>
+                  <option>Mai</option>
+                  <option>Juin</option>
+                  <option>Juillet</option>
+                  <option>Aout</option>
+                  <option>Septembre</option>
+                  <option>Octobre</option>
+                  <option>Novembre</option>
+                  <option>Decembre</option>
+                </select>
+              </div>
+              <div class="annee-carte">
+                <label for="annee" class="label-formulaire"><i class="fas fa-asterisk"></i> Annee</label>
+                <select id="liste-annee" class="liste-annee">
+                  <option>2019</option>
+                  <option>2020</option>
+                  <option>2021</option>
+                  <option>2022</option>
+                  <option>2023</option>
+                  <option>2024</option>
+                  <option>2025</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="bloc-checkbox">
+              <input  id="checkbox" class="checkbox" type="checkbox">
+              <label class="label" for="scales"> Sauvegarder la carte pour de futur achats</label>
+            </div>
+
+
+          </form>
+
+          <div class="bloc-payer col-12">
+            <a href="confirmation-commande.html"><div id ="bouton-payer" class="bouton-payer">VALIDATION PAIEMENT</div></a>
+          </div>
+          <p class="texte-privacy">By making a purchase, you accept the <span class="mot-privacy">Terms of Service</span> and <span class="mot-privacy">Privacy Policy</span>.
+            Any subscriptions will automatically renew and your credit card will be
+            charged the subscription fee. You can cancel or modify your plan at any
+            time from your account page.
+          </p>
+          <hr class="trait-hr">
+          <div class="logo-card">
+            <i class="fas fa-lock"></i>
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+

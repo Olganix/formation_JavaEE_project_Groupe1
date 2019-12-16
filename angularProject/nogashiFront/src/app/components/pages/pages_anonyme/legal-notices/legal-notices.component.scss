@@ -1,0 +1,69 @@
+/* SECTION -> Introduction Mentions */
+.section-mentions {
+  background-image: url("/assets/img/pattern/groovepaper2.png");
+}
+
+.bloc-mentions-legales {
+  font-family: 'roboto', sans-serif;
+  text-align: left;
+  margin-left: 12%;
+  margin-right: 12%;
+  margin-top: 120px;
+  margin-bottom: 300px;
+}
+
+.titre-mentions {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.8em;
+  font-weight: 600;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  color: var(--couleurNoir);
+  margin-bottom: 70px;
+}
+
+.proprietaire {
+  font-size: 1em;
+  margin-bottom: 70px;
+
+}
+
+.para-informations {
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+
+.mot-gras {
+  font-weight: 600;
+}
+
+hr {
+  background-color: var(--couleurVerte);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+mark {
+  background-color: var(--couleurVerte), var(--couleurNoir);
+  color: var(--couleurNoir);
+}
+
+.h2-mentions-legales {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--couleurNoir);
+  margin-bottom: 20px;
+}
+
+.p-mentions-legales {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.95em;
+  font-weight: 400;
+  color: var(--couleurNoir);
+  margin-bottom: 40px;
+}
+
+
