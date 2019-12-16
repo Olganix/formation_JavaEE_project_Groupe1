@@ -20,7 +20,12 @@ import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.RestResponseStatus;
 import fr.dawan.nogashi.listeners.StartListener;
 
-
+/**
+ * 
+ * @author Joffrey
+ * Tchat test
+ *
+ */
 @RestController
 @CrossOrigin(origins="http://localhost")                           // @CrossOrigin is used to handle the request from a difference origin.
 public class TchatControllerAngular 
