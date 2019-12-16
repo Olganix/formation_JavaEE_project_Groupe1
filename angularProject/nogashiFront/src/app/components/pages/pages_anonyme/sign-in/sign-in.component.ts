@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
-import { ConnexionService } from '../../services/connexion.service';
+import { ConnexionService } from '../../../../services/connexion.service';
 import { NgForm } from '@angular/forms';
-import { InfoBoxNotificationsService } from '../../services/InfoBoxNotifications.services';
+import { InfoBoxNotificationsService } from '../../../../services/InfoBoxNotifications.services';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { InfoBoxNotificationsService } from '../../services/InfoBoxNotifications
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent implements OnInit 
+export class SignInComponent implements OnInit
 {
 
     constructor(private connexionService: ConnexionService,
@@ -18,13 +18,13 @@ export class SignInComponent implements OnInit
                 private router: Router
             ) { }
 
-    ngOnInit() 
+    ngOnInit()
     {
 
     }
 
     //todo voir pour les validations des champs, l'affichage des errors, voir aussi du coté de bootstrap qui propose des trucs.
-    onSubmit(form: NgForm) 
+    onSubmit(form: NgForm)
     {
         console.log(form.value);
 

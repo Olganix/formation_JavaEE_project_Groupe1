@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppareilService } from '../../services/appareil.service';
+import { AppareilService } from '../../../services/appareil.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ export class SingleAppareilComponent implements OnInit {
   constructor(private appareilService: AppareilService,
               private route: ActivatedRoute) { }
 
-  ngOnInit() 
+  ngOnInit()
   {
     const id = this.route.snapshot.params['id'];
 

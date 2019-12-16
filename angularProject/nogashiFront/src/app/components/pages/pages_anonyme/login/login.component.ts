@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
-import { ConnexionService } from '../../services/connexion.service';
+import { ConnexionService } from '../../../../services/connexion.service';
 import { NgForm } from '@angular/forms';
-import { InfoBoxNotificationsService } from '../../services/InfoBoxNotifications.services';
+import { InfoBoxNotificationsService } from '../../../../services/InfoBoxNotifications.services';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
 
   //todo voir pour les validations des champs, l'affichage des errors, voir aussi du coté de bootstrap qui propose des trucs.
-  onSubmit(form: NgForm) 
+  onSubmit(form: NgForm)
   {
       console.log(form.value);
 
@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
           {
               case "INDIVIDUAL": this.router.navigate(['/individual/welcome']); break;
               case "MERCHANT": this.router.navigate(['/merchant/welcome']); break;
-              case "ASSOCIATION": this.router.navigate(['/association/welcome']); break; 
-              case "ADMIN": this.router.navigate(['/admin/welcome']); break; 
+              case "ASSOCIATION": this.router.navigate(['/association/welcome']); break;
+              case "ADMIN": this.router.navigate(['/admin/welcome']); break;
           }
 
       }).catch( (error) =>

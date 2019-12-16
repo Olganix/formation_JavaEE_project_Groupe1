@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConnexionService } from '../../services/connexion.service';
+import { ConnexionService } from '../../../services/connexion.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,22 +7,22 @@ import { Router } from '@angular/router';
   templateUrl: './connexion.component.html',
   styleUrls: ['./connexion.component.scss']
 })
-export class ConnexionComponent implements OnInit 
+export class ConnexionComponent implements OnInit
 {
 
   authStatus: boolean;
 
-  constructor(private connexionService: ConnexionService, 
+  constructor(private connexionService: ConnexionService,
               private router: Router) { }
 
-  ngOnInit() 
+  ngOnInit()
   {
     this.authStatus = this.connexionService.isAuth;
   }
 
-  onSignIn() 
+  onSignIn()
   {
-    this.connexionService.signIn_fake().then(() => 
+    this.connexionService.signIn_fake().then(() =>
     {
       console.log('Sign in successful!');
       this.authStatus = this.connexionService.isAuth;
@@ -30,7 +30,7 @@ export class ConnexionComponent implements OnInit
     });
   }
 
-  onSignOut() 
+  onSignOut()
   {
     this.connexionService.signOut();
     this.authStatus = this.connexionService.isAuth;

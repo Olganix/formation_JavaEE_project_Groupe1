@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConnexionService } from '../../services/connexion.service';
+import { ConnexionService } from '../../../services/connexion.service';
 
 @Component({
   selector: 'app-test-spring-rest',
@@ -9,18 +9,18 @@ import { ConnexionService } from '../../services/connexion.service';
 
 //test communication spring MVC
 
-export class TestSpringRestComponent implements OnInit 
-{  
+export class TestSpringRestComponent implements OnInit
+{
   users: any;
 
-  constructor(private connexionService: ConnexionService) 
+  constructor(private connexionService: ConnexionService)
   {
-    
+
   }
 
-  ngOnInit() 
+  ngOnInit()
   {
-    this.connexionService.getUsers().then( (users) => 
+    this.connexionService.getUsers().then( (users) =>
     {
       this.users = users;
     });
