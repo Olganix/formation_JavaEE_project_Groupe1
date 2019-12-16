@@ -389,7 +389,7 @@ h2 {
     background-color: var(--couleurNoir);
     padding: 10px;
     cursor: pointer;
-    opacity: 1;
+    opacity: 0.4;
 }
 
 .onglet2 {
@@ -429,7 +429,7 @@ h2 {
     -webkit-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
     cursor: pointer;
-    opacity: 0.4;
+    opacity: 1;
 }
 
 .onglet3:hover {
@@ -463,9 +463,6 @@ h2 {
     
 }
 
-
-/* SECTION -> Bloc Edition-Profil */
-
 .nom-commandes {
     
 }  
@@ -474,276 +471,84 @@ h2 {
     
 }
 
-.bloc-edition-profil {
-    background-color: var(--couleurBlancCreme);
-    box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.10);
-    padding-top: 50px;
-    padding-bottom: 40px;
+
+
+
+  
+
+   /* SECTION -> Bloc Commandee en Cours */
+
+.section-edition-profil {
     margin-top: 30px;
 }
 
-.titre-edition {
+.titre-commentaires {
     font-family: 'ubuntu', sans-serif;
     font-size: 1.4em;
     font-weight: 600;
     text-align: center;
-    margin-bottom: 30px;
-}
-
-.profil-avatar {
-    background-color: var(--couleurGrisClair);
-    display: block;
-    margin-bottom: 30px;
-}
-
-.photo-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-left: 50%;
-    transform: translate(-50%);
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
-
-.input-avatar {
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border: none;
-    margin-bottom: 30px;
-    margin-left: 50%;
-    transform: translate(-50%);
-}
-
-.profil {
-    width: 200px;
-    display: block;
-    color: var(--couleurNoir);
-    margin-left: 100px;
-}
-
-.label-formulaire {
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    margin-top: 15px;
-}
-
-.pseudo {
-    width: 350px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.pseudo-regex {
-    font-family: 'roboto', sans-serif;
-    font-size: 0.80em;
-    font-weight: 400;
-    color: var(--couleurRougeIncorrect);
-    margin-left: 10px;
-    display: block;
-}
-
-.prenom {
-    width: 350px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.nom {
-    width: 350px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.adresse {
-    width: 400px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.pseudo-regex-adresse {
-    font-family: 'roboto', sans-serif;
-    font-size: 0.80em;
-    font-weight: 400;
-    color: var(--couleurRougeIncorrect);
-    display: block;
-    margin-left: 10px;
-    margin-bottom: 15px;
-    
-}
-
-.profil-ville {
-    width: 200px;
-    display: flex;
-    margin-left: 100px;
-    margin-top: 20px;
-}
-
-.label-ville {
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    margin-left: 30px;
-    margin-top: 15px;
-}
-
-.ville {
-    width: 180px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 30px;
-}
-
-.pseudo-regex-ville {
-    font-family: 'roboto', sans-serif;
-    font-size: 0.80em;
-    font-weight: 400;
-    color: var(--couleurRougeIncorrect);
-    display: block;
-    margin-left: 40px;
-    margin-bottom: 15px;
-}
-
-.postal {
-    width: 180px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.profil-telephone {
-    width: 200px;
-    margin-left: 100px;
-}
-
-.telephone {
-    width: 350px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.telephone2 {
-    width: 350px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-select:focus {
-   background-color: var(--couleurVerte);
-   border: none;
-}
-
-input[type=text]:focus {
-   background-color: var(--couleurVerte);
-   border: none;
-}
-
-input[type=password]:focus {
-   background-color: var(--couleurVerte);
-   border: none;
-}
-
-.bouton-enregistrer {
-    font-family: sans-serif;
-    font-weight: 600;
-    font-size: 15px;
-    text-transform: uppercase;
-    text-align: center;
-    color: var(--couleurBlancCreme);
-    background: rgba(255, 82, 47, 1);
-    background: var(--couleurNoir);
-    border-radius: 20px;
-    border: none;
-    transform: translate(0%, 0%);
-    padding: 12px 20px 12px 20px;
-    -webkit-box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.5);
-    box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
-    margin-top: 30px;
-    margin-left: 130px;
-    -webkit-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out; 
-    cursor: pointer; 
-}
-
-.bouton-enregistrer:hover {
-    color: var(--couleurNoir);
-    background: var(--couleurVerte);
-}
-
-
-           
-      /* SECTION - Section-coordonnées bancaire */
-
-.bloc-coordonnees-bancaires {
-    background-color: var(--couleurGrisClair);
-    box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.10);
+    background: var(--couleurBlancCreme);
     padding-top: 50px;
-    padding-bottom: 50px;
-    margin-top: 30px;
+    padding-bottom: 30px;
+}
+
+.section-commande {
+    margin-top: 50px;
+}
+
+.bloc-titre-commandes {
+    width: 100%;
+    min-height: 480px;
+    background-color: var(--couleurBlancCreme);
+    box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.10);
+    margin-bottom: 30px;
+}
+
+.titre-commandes {
+     font-family: 'Ubuntu', sans-serif;
+     font-size: 1.6em;
+     font-weight: 600;
+     color: var(--couleurNoir);
+     text-align: center;
+     padding-top: 90px;
+}
+
+.texte-commandes {
+     font-family: 'roboto', sans-serif;
+     font-size: 1em;
+     font-weight: 400;
+     color: var(--couleurNoir);
+     margin-left: 50%;
+     -webkit-transform: translate(-50%,0);
+     transform: translate(-50%,0);
+}
+
+
+.bloc-commerce-commande {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+
+.titre-commerce {
+     width: 250px;
+     font-family: 'roboto', sans-serif;
+     font-size: 1em;
+     font-weight: 600;
+     text-align: center;
+     color: var(--couleurBlancCreme);
+     background-color: var(--couleurVerte);
+     padding-top: 10px;
+     padding-bottom: 10px;
+     margin-top: 30px;
 }
 
 .table-commande {
     width:: 100%;
     height: 40px;
     background-color: var(--couleurBlancCreme);
-    
+    text-align: center;
+    margin-top: 5px;
 }
 
 .tr-titre {
@@ -752,6 +557,7 @@ input[type=password]:focus {
     font-weight: 600;  
     background-color: var(--couleurNoir);
     color: var(--couleurBlancCreme);
+    
 }
 
 .tr {
@@ -760,293 +566,127 @@ input[type=password]:focus {
     font-weight: 600;
     font-style: italic;
     border-bottom: 1px solid var(--couleurVerte);
+    
 }
 
 .td {
+    padding-top: 14px;
+    padding-bottom: 14px;
     background-color: var(--couleurGrisClair);
-    padding-top: 14px;
-    padding-bottom: 14px;
-    text-align: center;
 }
 
-.fa-cc-mastercard {
-    margin-left: 50px;
-}
-
-.td-nom-carte {
-    font-family: 'roboto', sans-serif;
-    font-size: 0.95em;
-    font-weight: 600; 
-    color: var(--couleurBlancCreme);
-    background-color: var(--couleurNoir);
-    box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
-    padding-top: 14px;
-    padding-bottom: 14px;
-}
-
-.td-carte {
+.td-titre {
     font-family: 'roboto', sans-serif;
     font-size: 0.95em;
     font-weight: 600;  
-    text-align: center;
-    color: var(--couleurBlancCreme);
     background-color: var(--couleurNoir);
-    box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
+    color: var(--couleurBlancCreme);
     padding-top: 14px;
     padding-bottom: 14px;
 }
 
-.fa-cc-mastercard {
-    margin-right: 20px;
+.espace-bas {
+    width: 100%;
+    margin-top: 150px;
 }
 
-
-
-           /* SECTION - Section-bancaire */
-
-.section-bancaire {
-}
-
-.grand-bloc-bancaire {
-    background-color: var(--couleurNoir);
+ /* SECTION -> Bloc Ancienne Commande */
+.grand-bloc-commande {
+    background-color: var(--couleurGrisClair);
     box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.10);
-    padding-top: 50px;
-    padding-bottom: 50px;
-    margin-bottom: 30px;
-    
+    padding-top: 40px;
+    padding-bottom: 60px;
+    margin-top: 20px;
 }
 
-.titre-carte {
-    max-width: 400px;
+h5 {
     font-family: 'roboto', sans-serif;
     font-size: 1.1em;
-    font-weight: 600;
+    font-weight: 600; 
+    text-align: center;
     color: var(--couleurNoir);
-    border-bottom: 1px solid var(--couleurBlancCreme);
     background-color: var(--couleurVerte);
-    box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
-    margin-left: 90px;
-    margin-bottom: 40px; 
-    padding: 10px 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     
 }
 
-.carte {
-    width: 200px;
-    display: block;
-    color: var(--couleurNoir);
-    margin-left: 60px; 
+.date-commande {
+    font-size: 0.85em;
+    font-weight: 400; 
+    font-style: italic;
 }
 
-.label-bancaire {
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
+.bloc-titre-commandes2 {
+    width: 100%;
+    min-height: 600px;
+    background-color: var(--couleurNoir);
+    box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.10);
+    padding-bottom: 90px;
+}
+
+.titre-commentaires2 {
+    font-family: 'ubuntu', sans-serif;
+    font-size: 1.4em;
+    font-weight: 600;
+    text-align: center;
+    background: var(--couleurNoir);
     color: var(--couleurBlancCreme);
-    margin-left: 30px;
-    margin-top: 15px; 
+    padding-top: 50px;
+    padding-bottom: 30px;
 }
 
-.numero {
-    width: 350px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 30px;  
+.texte-commandes2 {
+     font-family: 'roboto', sans-serif;
+     font-size: 1em;
+     font-weight: 400;
+     color: var(--couleurBlancCreme);
+     margin-left: 50%;
+     -webkit-transform: translate(-50%,0);
+     transform: translate(-50%,0);
 }
 
-.bancaire-regex {
-    font-family: 'roboto', sans-serif;
-    font-size: 0.80em;
-    font-weight: 400;
-    color: var(--couleurRougeIncorrect);
-    margin-left: 40px;
-    display: block;
-}
-
-.titulaire {
-    width: 350px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 30px;  
-}
-
-.label-bancaire2 {
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    color: var(--couleurBlancCreme);
-    margin-left: 40px;
-    margin-top: 15px; 
-}
-
-.bloc-date-cvv {
-    display: flex;
-    margin-top: 30px;
-}
-
-.expiration {
-    width: 180px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 40px;  
-}
-
-.bancaire-regex2 {
-    font-family: 'roboto', sans-serif;
-    font-size: 0.80em;
-    font-weight: 400;
-    color: var(--couleurRougeIncorrect);
-    display: block; 
-}
-
-.cvv {
-    width: 180px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 0px;  
-}
-
-.bouton-enregistrer-carte {
+.bouton-envoyer {
+    width: 220px;
     font-family: sans-serif;
     font-weight: 600;
-    font-size: 15px;
     text-transform: uppercase;
     text-align: center;
+    font-size: 1em;
     color: var(--couleurNoir);
     background: rgba(255, 82, 47, 1);
     background: var(--couleurVerte);
-    border-radius: 20px;
     border: none;
+    border-radius: 5px;
     transform: translate(0%, 0%);
-    padding: 12px 20px 12px 20px;
+    padding: 12px 0px 12px 0px;
+    margin-bottom: 80px;
+    margin-left: 50%;
+    margin-top: 25px;
+    transform: translate(-50%);
     -webkit-box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.5);
     box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
-    margin-top: 30px;
-    margin-left: 190px;
-    -webkit-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out; 
-    cursor: pointer; 
+    -webkit-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out; 
+    cursor: pointer;
 }
 
-.bouton-enregistrer-carte:hover {
+.bouton-envoyer:hover {
     color: var(--couleurVerte);
     background: var(--couleurBlancCreme);
+    padding: 15px 22px 15px 22px;
 }
 
 
-           /* SECTION - Section-siren-entreprise */
-
-.section-siren-entreprise {
-    
-}
-
-.bloc-siren-entreprise {
-    background-color: var(--couleurBlancCreme);
-    padding-top: 70px;
-    padding-bottom: 50px;
-    margin-bottom: 200px;
-    display: block;
-}
-
-.siren {
-    width: 350px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.tva {
-    width: 350px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.titre-coordonnees-bancaires {
-    max-width: 400px;
-    font-family: 'roboto', sans-serif;
-    font-size: 1.1em;
-    font-weight: 600;
-    color: var(--couleurNoir);
-    border-bottom: 1px solid var(--couleurBlancCreme);
-    background-color: var(--couleurVerte);
-    box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
-    padding: 10px 10px;
-    margin-top: 30px;
-    margin-left: 90px;
-}
-
-.bic {
-    width: 350px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.iban {
-    width: 350px;
-    height: 30px;   
-    font-family: 'roboto', sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    border-radius: 10px;
-    border: 2px solid var(--couleurNoir);
-    padding-left: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-  
 
 
 
-           /* BOUTON-UP */
+
+
+
+
+
+        /* BOUTON-UP */
 
 .fond-up {
     background-color: var(--couleurBlanc);

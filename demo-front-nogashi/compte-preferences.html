@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Mon Compte - Mes Commentaires</title>
+	<title>Mon Compte - Mes Préférences</title>
 	
               <!-- FAVICON -->
       <link rel="shortcut icon" href="../ico/favicon.png"> 
@@ -23,7 +23,7 @@
              <!-- LOADING CSS-->
       <link rel="stylesheet" href="css/loading.css">  
                 <!-- CSS -->
-      <link rel="stylesheet" href="css/compte-commentaires.css"> 
+      <link rel="stylesheet" href="css/compte-preferences.css"> 
                  
       
          
@@ -126,83 +126,133 @@
             </div>
         </div>
     </section>
-   
-       
     <section class="section-edition-profil">
         <div class="container">
-           <div class="row">
-               <h1 class="titre-commentaires col-12"><i class="fas fa-comments"></i> / Vos Commentaires</h1>  
-               <div class="commentaires"> 
-                  <div class="bloc-commentaire">
-                      <div class="avatar">
-                          <p class="text-avatar"></p>
-                      </div>
-                      <div class="commentaire-auteur">
-                         <div class="nom-auteur">
-                            <p class="auteur">Eclair Au Chocolat</p>
-                            <div class="star">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <p class="date">publié il y a 1 mois <i class="fas fa-trash-alt"></i></p>
+               <div class="row">
+                    <div class="bloc-edition-profil col-12">
+                        <h1 class="titre-edition"><i class="fas fa-cog"></i> / Edition Préférences</h1>  
+                        <form action="" method="get">
+                           <div class="profil">
+                               <label for="interface" class="label-formulaire">Interface</label>
+                               <select id="liste-deroulante" class="liste-deroulante">
+                                  <option>Français</option>
+                                  <option>Anglais</option>
+                                  <option>Allemand</option>
+                                  <option>Espagnol</option>
+                                  <option>Italien</option>
+                               </select>
+                   
+                               <label for="interface" class="label-formulaire">Newsletter</label>
+                                <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Recevoir la newsletter.</label>   
+                                </div> 
+                               
+                               <label for="interface" class="label-formulaire"> Réception Notifications</label>
+                               <select id="liste-deroulante" class="liste-deroulante">
+                                  <option>Email</option>
+                                  <option>Sms</option>
+                               </select>
+                               <div class="bloc-bouton-commande col-12">
+                               <div class="bloc-enregistrer">
+                                    <input type="submit" id="bouton-enregistrer" class="bouton-enregistrer" value="ENREGISTRER MODIFICATIONS">
+                               </div>
+                           </div>
+                                
+                               <p class="titre-formulaire"> // Contraintes et Préférences Alimentaires</p>
+                               <label for="interface" class="label-formulaire"> Produits Emballés</label>
+                               <select id="liste-deroulante" class="liste-deroulante">
+                                  <option>Oui</option>
+                                  <option>Non</option>
+                               </select>
+                           <br>
+                           
+                           <label for="interface" class="label-formulaire"> Régimes Alimentaires</label>
+                           <div class="bloc-regime-alimentaire col-12 ">
+                               <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Hallal</label> 
+                               </div>
+                               <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Hallal</label> 
+                               </div>
+                                <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Hallal</label> 
+                               </div>
+                                <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Hallal</label> 
+                               </div>
+                                <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Hallal</label> 
+                               </div>
+                                <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Hallal</label> 
+                               </div>
+                               <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Hallal</label> 
+                               </div>
+                                <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Hallal</label> 
+                               </div>
+                           </div>
+                           <br>
+                           
+                           <label for="interface" class="label-formulaire"> Allérgies Alimentaires</label>
+                            <div class="bloc-regime-alimentaire  ">
+                               <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Gluten</label> 
+                               </div>
+                               <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Lactose</label> 
+                               </div>
+                                <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Fruit à Coques</label> 
+                               </div>
+                                <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Soja</label> 
+                               </div>
+                                <div class="bloc-checkbox">
+                                   <input  id="checkbox" class="checkbox" type="checkbox">
+                                   <label class="label" for="scales">Pamplemousse</label> 
+                               </div>
+                           </div>
+                           
+                           <div class="bloc-bouton-commande col-12">
+                               <div class="bloc-enregistrer">
+                                    <input type="submit" id="bouton-enregistrer" class="bouton-enregistrer" value="ENREGISTRER PREFERENCES">
+                               </div>
+                           </div>
                          </div>
-                         <hr class="separation-commentaire">
-                         <p class="commentaire">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos magni sit in tenetur eius, non officiis eligendi et modi iste quisquam quia ipsam ipsa deleniti, impedit reiciendis dolorum. Tempora, dolorum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos magni sit in tenetur eius, non officiis eligendi et modi iste quisquam quia ipsam ipsa deleniti, impedit reiciendis dolorum. Tempora, dolorum.</p>
-                    </div>    
-                 </div>
+                       </form>   
+                    </div>
                </div>
-               
-               <div class="commentaires"> 
-                  <div class="bloc-commentaire">
-                      <div class="avatar">
-                          <p class="text-avatar"></p>
-                      </div>
-                      <div class="commentaire-auteur">
-                         <div class="nom-auteur">
-                            <p class="auteur">Eclair Au Chocolat</p>
-                            <div class="star">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <p class="date">publié il y a 1 mois <i class="fas fa-trash-alt"></i></p>
-                         </div>
-                         <hr class="separation-commentaire"> 
-                         <p class="commentaire">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos magni sit in tenetur eius, non officiis.</p>
-                    </div>    
-                 </div>
-               </div>
-               
-               <div class="commentaires"> 
-                  <div class="bloc-commentaire">
-                      <div class="avatar">
-                          <p class="text-avatar"></p>
-                      </div>
-                      <div class="commentaire-auteur">
-                         <div class="nom-auteur">
-                            <p class="auteur">Eclair Au Chocolat</p>
-                            <div class="star">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <p class="date">publié il y a 1 mois <i class="fas fa-trash-alt"></i></p>
-                         </div>
-                         <hr class="separation-commentaire">
-                         <p class="commentaire">Lorem ipsum dolor sit amet.</p>
-                    </div>    
-                 </div>
-               </div>
-               <div class="espace-bas"></div>
-            </div>
-          </div>    
+           </div>
       </section>
       
-
+      <section class="section-recherche-defaut">
+        <div class="container">
+               <div class="row">
+                    <div class="bloc-edition-profil2 col-12">
+                        <h1 class="titre-edition"><i class="fas fa-cog"></i> / Recherche Par Défaut</h1>  
+                        
+                    </div>
+               </div>
+           </div>
+      </section>
+      
+      
+                 
     
     
      

@@ -484,6 +484,16 @@ h2 {
     margin-top: 30px;
 }
 
+.titre-commentaires {
+    font-family: 'ubuntu', sans-serif;
+    font-size: 1.4em;
+    font-weight: 600;
+    text-align: center;
+    background: var(--couleurBlancCreme);
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
 .bloc-commentaire {
     display: flex;
 }
@@ -502,7 +512,6 @@ h2 {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    margin-top: 10px;
 }
 
 .star {
@@ -548,7 +557,7 @@ h2 {
      margin-left: 70px;
 }
 
-.fa-exclamation-triangle {
+.fa-trash-alt {
      margin-left: 20px;
 }
 
