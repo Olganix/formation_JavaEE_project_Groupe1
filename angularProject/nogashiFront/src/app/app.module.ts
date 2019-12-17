@@ -58,6 +58,7 @@ import { CommandConfirmationComponent } from './components/pages/pages_common/co
 import { TchatComponent } from './components/pages/pages_common/tchat/tchat.component';
 import { ProductSheetComponent } from './components/pages/pages_common/product-sheet/product-sheet.component';
 import { CommentsComponent } from './components/modules/comments/comments.component';
+import { DeactivateAccountComponent } from './components/pages/pages_common/deactivate-account/deactivate-account.component';
 
 
 
@@ -78,6 +79,7 @@ const appRoutes: Routes =
   { path: 'findUs', component: FindUsComponent },
 
   { path: 'passwordReset', component: PasswordResetComponent },
+  { path: 'deactivateAccount', component: DeactivateAccountComponent },
   { path: 'commandSteps', component: CommandStepsComponent },
   { path: 'shoppingCart', component: ShoppingCartComponent },
   { path: 'commandRecap', component: CommandRecapComponent },
@@ -144,7 +146,8 @@ const appRoutes: Routes =
     CommandConfirmationComponent,
     TchatComponent,
     ProductSheetComponent,
-    CommentsComponent
+    CommentsComponent,
+    DeactivateAccountComponent
   ],
   imports: [
     BrowserModule,
