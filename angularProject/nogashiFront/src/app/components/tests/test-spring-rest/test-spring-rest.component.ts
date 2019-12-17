@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConnexionService } from '../../../services/connexion.service';
+import {RestResponse} from '../../../classes/rest-response';
+import {environment} from '../../../../environments/environment';
+import {log} from 'util';
 
 @Component({
   selector: 'app-test-spring-rest',
@@ -7,7 +10,7 @@ import { ConnexionService } from '../../../services/connexion.service';
   styleUrls: ['./test-spring-rest.component.scss']
 })
 
-//test communication spring MVC
+// test communication spring MVC
 
 export class TestSpringRestComponent implements OnInit
 {
@@ -18,11 +21,19 @@ export class TestSpringRestComponent implements OnInit
 
   }
 
-  ngOnInit()
-  {
-    this.connexionService.getUsers().then( (users) =>
-    {
-      this.users = users;
-    });
+  ngOnInit() {
+
+    this.connexionService.getUsers().subscribe(
+      (rrp: RestResponse) => {
+
+        if (rrp.status === 'SUCCESS') {
+          this.users = rrp.data;
+        } else {
+          console.log('Echec de la recuperation de la liste des users : ' + rrp.errormessage);
+        }
+      },
+      error => {
+        console.log('Echec de la recuperation de la liste des users : ', error);
+      });
   }
 }

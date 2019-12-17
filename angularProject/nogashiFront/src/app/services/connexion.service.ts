@@ -17,8 +17,7 @@ export class ConnexionService {
     }
 
 
-  signIn(user: User): Observable<RestResponse>
-  {
+  signIn(user: User): Observable<RestResponse> {
     return this._http.post<RestResponse>(environment.nogashiRestUrl + '/signin', user.toHttpObject_signin()).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
@@ -27,6 +26,13 @@ export class ConnexionService {
   }
 
 
+  getUsers() {
+    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/getUsers').pipe(
+      retry(3),
+      map( (rrp: RestResponse) => {
+        return new RestResponse(rrp);
+      }));
+  }
 
     /*
     signIn(name: string, password: string, email: string, role: string, newsletterEnabled: boolean) {

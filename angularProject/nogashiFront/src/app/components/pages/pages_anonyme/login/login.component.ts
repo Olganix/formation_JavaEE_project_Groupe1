@@ -20,9 +20,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() { }
 
 
-  //todo voir pour les validations des champs, l'affichage des errors, voir aussi du coté de bootstrap qui propose des trucs.
-  onSubmit(form: NgForm)
-  {
+  // todo voir pour les validations des champs, l'affichage des errors, voir aussi du coté de bootstrap qui propose des trucs.
+  onSubmit(form: NgForm) {
+
+    /*
       console.log(form.value);
 
       this.connexionService.login(form.value['login'], form.value['password'])
@@ -43,6 +44,8 @@ export class LoginComponent implements OnInit {
           else
             this.infoBoxNotificationsService.addMessage("error", "Echec de connexion : "+ error, 10);
       });
+
+     */
   }
 
 }

@@ -54,7 +54,7 @@ export class SignInComponent implements OnInit {
       this.confirm = new FormControl(null, [Validators.required]);
 
       this.term = new FormControl(false, [Validators.requiredTrue]);
-      //this.declaration = new FormControl(false, [Validators.requiredTrue]);     // Todo resolve
+      // this.declaration = new FormControl(false, [Validators.requiredTrue]);     // Todo resolve
       this.declaration = new FormControl(false);
       this.newsletterEnabled = new FormControl(false);
 
@@ -84,7 +84,7 @@ export class SignInComponent implements OnInit {
           const user = new User();
           user.setSignin(this.form1.value.name, this.form1.value.password, this.form1.value.email, this.form1.value.role, this.form1.value.newsletterEnabled);
 
-          this.connexionService.signIn( user ) .subscribe(
+          this.connexionService.signIn( user ).subscribe(
             (rrp: RestResponse) => {
 
               console.log('component.signIn: ');

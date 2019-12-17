@@ -15,24 +15,26 @@ export class ConnexionComponent implements OnInit
   constructor(private connexionService: ConnexionService,
               private router: Router) { }
 
-  ngOnInit()
-  {
-    this.authStatus = this.connexionService.isAuth;
+  ngOnInit() {
+    // this.authStatus = this.connexionService.isAuth;
+    this.authStatus = false;
   }
 
-  onSignIn()
-  {
+  onSignIn() {
+    /*
     this.connexionService.signIn_fake().then(() =>
     {
       console.log('Sign in successful!');
       this.authStatus = this.connexionService.isAuth;
       this.router.navigate(['appareils']);
     });
+    */
   }
 
-  onSignOut()
-  {
+  onSignOut() {
+    /*
     this.connexionService.signOut();
     this.authStatus = this.connexionService.isAuth;
+    */
   }
 }

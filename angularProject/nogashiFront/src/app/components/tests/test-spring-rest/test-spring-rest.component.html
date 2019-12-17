@@ -9,25 +9,29 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Avatar</th>
+                <th>EmlVal</th>
                 <th>phoneNumber</th>
                 <th>Address</th>
                 <th>adressExtra</th>
                 <th>postalCode</th>
                 <th>cityName</th>
                 <th>stateName</th>
+                <th>token</th>
+                <th>Avatar</th>
             </thead>
             <tbody>
                 <tr *ngFor="let user of users">
                     <td>{{user.id}} </td>
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
+                    <td>{{user.emailValid}}</td>
                     <td>{{user.phoneNumber}}</td>
                     <td>{{user.adress}}</td>
                     <td>{{user.adressExtra}}</td>
                     <td>{{user.postalCode}}</td>
                     <td>{{user.cityName}}</td>
                     <td>{{user.stateName}}</td>
+                    <td>{{user.token}}</td>
 
                     <td><img src="{{user.avatarFilename}}" alt="avatar" class="img-thumbnail mx-auto d-block" style="width: 30%" /></td>
                 </tr>
