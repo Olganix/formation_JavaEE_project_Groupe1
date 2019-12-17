@@ -147,9 +147,9 @@ public class UsersControlerAngular
 	/*****************************************************************************************
 	*										EmailValidation									 * 
 	*****************************************************************************************/
-	@RequestMapping(path="/emailvalidation", produces = "application/json")
+	@PostMapping(path="/emailvalidation", produces = "application/json")
 	//test (better click from mail (fake SMTP server)): http://localhost:8080/nogashi/emailvalidation?token=XXXXXX
-    public RestResponse<User> emailvalidation(@PathParam("token") String token, HttpSession session, Locale locale, Model model)
+    public RestResponse<User> emailvalidation(@RequestBody String token, HttpSession session, Locale locale, Model model)
     {
 		if( (token==null) || (token.length()==0) )
 			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not have token");

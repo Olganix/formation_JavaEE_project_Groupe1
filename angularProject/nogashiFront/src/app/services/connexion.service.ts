@@ -25,6 +25,14 @@ export class ConnexionService {
       }));
   }
 
+  emailValidation(token: string): Observable<RestResponse> {
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/emailvalidation', token).pipe(
+      retry(3),
+      map( (rrp: RestResponse) => {
+        return new RestResponse(rrp);
+      }));
+  }
+
 
   getUsers() {
     return this._http.get<RestResponse>(environment.nogashiRestUrl + '/getUsers').pipe(
