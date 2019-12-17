@@ -529,7 +529,7 @@ nav {
 }
 
 .bloc-filtre-regime {
-    visibility: hidden;
+    visibility: visible;
 }
 
 .titre-filtre-regime {
@@ -560,7 +560,7 @@ nav {
 }
 
 .bloc-filtre-allergene {
-    visibility: hidden;
+    visibility: visible;
 }
 
 .titre-filtre-allergene {
@@ -645,7 +645,6 @@ input[type="checkbox"]:checked {
     display: flex;
 }
 
-
 .commerce-affichage {
     background-color: var(--couleurNoir);
     padding-top: 7px;
@@ -707,8 +706,6 @@ figure:hover figcaption {
     -webkit-transition: all 1s ease;
     transition: all 1s ease;
 }
-
-
 
 .fond-filtre {
     width: 600px;  

@@ -318,30 +318,29 @@ nav {
 
 
            /* SECTION - Bonjour */
+
 .bloc-bonjour-compte {
     background-color: var(--couleurGrisClair);
-    border-top: 1px solid var(--couleurNoir);
-    border-bottom: 1px solid var(--couleurVerte);
+    border-bottom: 2px solid var(--couleurNoir);
     display: flex;
-    margin-top: 150px;
+    margin-top: 55px;
     padding-top: 20px;
     padding-bottom: 20px;
-    
 }
 
 .bloc-avatar {
-    margin-left: 50px;
+    margin-left: 90px;
 }
 
 .img {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%; 
 }
 
 .bloc-bonjour {
-    margin-left: 50px;
-    margin-top: 60px;
+    margin-left: 40px;
+    margin-top: 40px;
 }
 
 h2 {
@@ -367,11 +366,18 @@ h2 {
 
            /* SECTION - Bonjour-Compte */
 
+.grand-bloc-onglets {
+    width: 100%;
+    border-bottom: 1px solid var(--couleurNoir);
+    background-color: var(--couleurVerte);
+    padding-bottom: 30px;
+}
+
 .bloc-onglet {
     display: flex;
+    margin-top: 30px;
     margin-left: 50%;
     transform: translate(-50%);
-    margin-top: 50px;
     box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.10);
 }
 
@@ -389,8 +395,13 @@ h2 {
     background-color: var(--couleurNoir);
     padding: 10px;
     cursor: pointer;
-    opacity: 0.4;
+    opacity: 0.5;
 }
+
+.onglet:hover {
+    opacity: 1;
+}
+
 
 .onglet2 {
     width: 150px;
@@ -407,7 +418,7 @@ h2 {
     -webkit-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
     cursor: pointer;
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .onglet2:hover {
@@ -429,7 +440,7 @@ h2 {
     -webkit-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
     cursor: pointer;
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .onglet3:hover {
@@ -459,24 +470,9 @@ h2 {
     opacity: 1;
 }
 
-.nom-onglet {
-    
-}
-
-.nom-commandes {
-    
-}  
-
-.nom-commentaires {
-    
-}
 
 
-
-
-  
-
-   /* SECTION - Section-Edition-Profil */
+  /* SECTION - Section-Edition-Profil */
 
            /* SECTION/ Commentaires */
 
@@ -561,7 +557,14 @@ h2 {
      margin-left: 20px;
 }
 
+.separation-commentaire {
+    height: 1px;
+    background-color: var(--couleurVerte);
+    margin-top: 8px;
+}
+
 .commentaire {
+     min-width: 650px;
      max-width: 650px; 
      height: auto; 
      font-family: 'roboto', sans-serif;
@@ -580,7 +583,7 @@ h2 {
     margin-bottom: 350px;
 }
 
-..commentaires {
+.commentaires {
     width: 100%;
     background-color: var(--couleurBlancCreme);
     box-shadow: 4px 4px 6px 1px rgba(0, 0, 0, 0.30);
