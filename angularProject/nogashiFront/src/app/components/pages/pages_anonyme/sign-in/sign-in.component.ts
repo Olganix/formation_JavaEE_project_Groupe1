@@ -25,8 +25,6 @@ export class SignInComponent implements OnInit {
 
   form1: FormGroup;
 
-  passwordRules = {minLength: 8, maxLength: 16, pattern: ''};        // Todo partern
-
     constructor(private connexionService: ConnexionService,
                 private infoBoxNotificationsService: InfoBoxNotificationsService,
                 private router: Router,
@@ -49,7 +47,7 @@ export class SignInComponent implements OnInit {
       ]);
       this.password = new FormControl(null, [
         Validators.required,
-        Validators.minLength(this.passwordRules.minLength)
+        Validators.minLength(CustomValidators.passwordRules.minLength)
       ]);
       this.confirm = new FormControl(null, [Validators.required]);
 
@@ -145,7 +143,7 @@ export class SignInComponent implements OnInit {
       }
 
       if (this.password.hasError('minlength')) {
-        return `La password doit contenir au moins ${this.passwordRules.minLength} caractères. or il n'y en a ${this.password.value.length}.`;
+        return `La password doit contenir au moins ${CustomValidators.passwordRules.minLength} caractères. or il n'y en a ${this.password.value.length}.`;
       }
     }
     return null;

@@ -46,11 +46,6 @@ public class User extends DbObject
 	}
 	
 	
-	
-	
-	
-	
-	
 	public User(String name, String email, String password, UserRole role, boolean newsletterEnabled)		//for the moment of inscription.
 	{
 		super();
@@ -59,6 +54,12 @@ public class User extends DbObject
 		this.password = password;
 		this.role = role;
 		this.newsletterEnabled = newsletterEnabled;
+	}
+	public User(String name, String password)		//for the moment of login. Notice: in case name is pseudo or email 
+	{
+		super();
+		this.name = name;
+		this.password = password;
 	}
 
 

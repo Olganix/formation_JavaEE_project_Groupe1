@@ -36,9 +36,17 @@ export class User {
     this._role = role;
     this._newsletterEnabled = newsletterEnabled;
   }
+  setLogin(name: string, password: string) {
+    this._name = name;
+    this._password = password;
+  }
+
 
   toHttpObject_signin(): any {
-    return {id: this._id, name: this._name, email: this._email, password: this._password, role: this._role, newsletterEnabled: this._newsletterEnabled };
+    return {name: this._name, email: this._email, password: this._password, role: this._role, newsletterEnabled: this._newsletterEnabled };
+  }
+  toHttpObject_login(): any {
+    return {name: this._name, password: this._password };
   }
 
 
@@ -162,8 +170,11 @@ export class User {
     this._newsletterEnabled = value;
   }
 
-
   get id(): string {
     return this._id;
+  }
+
+  set id(value: string) {
+    this._id = value;
   }
 }

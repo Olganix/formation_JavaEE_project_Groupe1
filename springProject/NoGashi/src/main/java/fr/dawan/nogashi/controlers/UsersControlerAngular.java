@@ -59,6 +59,14 @@ public class UsersControlerAngular
     {
 		System.out.println(u);
 		
+		if(	(u==null) || 
+			(u.getName()==null) || ( u.getName().trim().length() ==0) ||
+			(u.getEmail()==null) || ( u.getEmail().trim().length() ==0) ||
+			(u.getPassword()==null) || ( u.getPassword().trim().length() ==0) )
+		{
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+		}
+		
 		
 		if( (u.getRole() != UserRole.INDIVIDUAL) && (u.getRole() != UserRole.MERCHANT) && (u.getRole() != UserRole.ASSOCIATION))
 			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Role no good");
@@ -196,9 +204,9 @@ public class UsersControlerAngular
 	/*****************************************************************************************
 	*										sendEmailValidation								 * 
 	*****************************************************************************************/
-	@RequestMapping(path="/sendemailvalidation", produces = "application/json")
+	@PostMapping(path="/sendemailvalidation", produces = "application/json")
 	//test : http://localhost:8080/nogashi/sendemailvalidation?email=aaa@toto.fr
-    public RestResponse<User> sendEmailValidation(@PathParam("email") String email, HttpSession session, Locale locale, Model model)
+    public RestResponse<User> sendEmailValidation(@RequestBody String email, HttpSession session, Locale locale, Model model)
     {
 		//todo better check on email (rules of email) and name (not admin, root or god or ...etc see official list for that), could be done from angular, but it's may be safer to do it here
 		if( (email==null)  || (email.length()==0) )
@@ -280,12 +288,17 @@ public class UsersControlerAngular
 	@RequestMapping(path="/login", produces = "application/json")
 	//test : http://localhost:8080/nogashi/login?name=aaa&password=toto
 	//test : http://localhost:8080/nogashi/login?name=aaa@toto.fr&password=toto
-    public RestResponse<User> login(@PathParam("name") String name, @PathParam("password") String password, HttpSession session, Locale locale, Model model)
+    public RestResponse<User> login(@RequestBody User user, HttpSession session, Locale locale, Model model)
     {
-		if( (name==null) || (name.length()==0) ||(password==null) || (password.length()==0) )
-			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+		System.out.println("login : "+ user);
 		
-		//request.setCharacterEncoding("UTF-8");			//todo check if need equivalent for this, todo also check crypt password + utf8 saved in bdd are not good on read again (instead of manually create it and put it in bdd).
+		if(	(user==null) || 
+				(user.getName()==null) || ( user.getName().trim().length() ==0) ||
+				(user.getPassword()==null) || ( user.getPassword().trim().length() ==0) )
+		{
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+		}
+		
 		
 		
 		EntityManager em = StartListener.createEntityManager();
@@ -294,9 +307,9 @@ public class UsersControlerAngular
 		User u = null;
     	try 
     	{
-    		List<User> listUsers = dao.findNamed(User.class, "name", name, em, false);
+    		List<User> listUsers = dao.findNamed(User.class, "name", user.getName(), em, false);
     		if(listUsers.size()==0)
-    			listUsers = dao.findNamed(User.class, "email", name, em, false);
+    			listUsers = dao.findNamed(User.class, "email", user.getName(), em, false);
     		
     		if(listUsers.size()!=0)
     			u = listUsers.get(0);
@@ -312,8 +325,8 @@ public class UsersControlerAngular
     		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User not Found or wrong Password");
     	}
 		
-    	System.out.println(password +" match with "+ u.getPassword() +" ? => "+ (BCrypt.checkpw(password, u.getPassword()) ? "true" : "false") );
-    	if( ! BCrypt.checkpw(password, u.getPassword()) )				// compare with the Crypted password saved in bdd.
+    	System.out.println(user.getPassword() +" match with "+ u.getPassword() +" ? => "+ (BCrypt.checkpw(user.getPassword(), u.getPassword()) ? "true" : "false") );
+    	if( ! BCrypt.checkpw(user.getPassword(), u.getPassword()) )				// compare with the Crypted password saved in bdd.
     	{
     		em.close();
     		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User not Found or wrong Password");
@@ -334,7 +347,7 @@ public class UsersControlerAngular
 		
 		em.close();
 		
-		return new RestResponse<User>(RestResponseStatus.SUCCESS, u);				//todo avoid some information to be send to front
+		return new RestResponse<User>(RestResponseStatus.SUCCESS, u);				//todo avoid to give All user informations , because front don't need it, and it's a security issue.
     }
 	
 	

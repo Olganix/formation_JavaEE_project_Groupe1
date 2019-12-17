@@ -6,24 +6,25 @@
             <br>
             <br>
             <p class="texte-connexion col-8">Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis, iudices, nec descensurum</p>
-            <br>   
+            <br>
         </div>
-        
-        <form class="formulaire-connexion" (ngSubmit)="onSubmit(f)" #f="ngForm" >
 
-            <label for="login" class="label-formulaire"><i class="fas fa-asterisk"></i> Email</label>
-            <input [(ngModel)]="login" name="login" class="email" type="text" placeholder="@Email ou Pseudo" required>
-            <span id="emailRegex" class="pseudo-regex"></span>  
-        
-            <label for="password" class="label-formulaire"><i class="fas fa-asterisk"> </i> Mot de Passe</label> 
-            <input [(ngModel)]="password" name="password" class="mdp" type="password" required>
-            <span id="mdpRegex" class="mdp-regex"></span>
-            
-            <button id ="bt_login_submit" class="bouton-connexion" [disabled]="f.invalid" >CONNEXION</button>
+        <form class="formulaire-connexion" [formGroup]="form1" (submit)="onSubmit()" >
+
+          <label class="label-formulaire"><i class="fas fa-asterisk" ></i> Pseudo</label>
+          <input formControlName="name" name="name" class="email" type="text" placeholder="@Email ou Pseudo" required>
+          <span class="text-danger" *ngIf="controlName(); let message">{{message}}</span>
+
+          <label class="label-formulaire"><i class="fas fa-asterisk"> </i> Mot de Passe</label>
+          <input formControlName="password" name="password" class="mdp" type="password" required>
+          <span class="text-danger" *ngIf="controlPassword(); let message">{{message}}</span>
+
+          <button id ="bt_login_submit" class="bouton-connexion" type="submit" [disabled]="form1.invalid" >CONNEXION</button>
         </form>
-        
-        <a href="/signin" class="lien-compte"><p>Créer un compte</p></a>
+
+        <a routerLink="/signin" class="lien-compte"><p>Créer un compte</p></a>
         <br>
-        <a href="/passwordRescue" class="lien-compte"><p>Mot de passe oublié</p></a>
+        <a routerLink="/passwordRescue" class="lien-compte"><p>Mot de passe oublié</p></a>
+        <p *ngIf="userEmailNotValidate!=null" >Votre pseudo et mot de passe sont bons mais votre email n'est pas validée. <br>Un email de validation vous a été envoyé précédement (vérifiez dans les courriers indésirables au besoin)<a (click)="sendEmailValidation()" >Cliquez sur ce lien pour demande l'envois d'un nouveau mail</a></p>
     </div>
- </section>  
+ </section>
