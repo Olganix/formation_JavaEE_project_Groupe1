@@ -40,7 +40,7 @@ import fr.dawan.nogashi.tools.EmailTool;
 
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")                           // @CrossOrigin is used to handle the request from a difference origin.
+@CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
 public class UsersControlerAngular 
 {
 	private static final Logger logger = LoggerFactory.getLogger(UsersControlerAngular.class);
