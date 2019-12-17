@@ -354,14 +354,11 @@ nav {
     
 }
 
-
 .bloc-affichage-produit {
     margin-top: 30px;
     margin-bottom: 30px;
     display: flex;
 }
-
-
 
 .fa-bookmark {
     font-size: 1.2em;
@@ -369,8 +366,6 @@ nav {
     margin-top: 50%;
     transform: translate(-50%, -50%);
 }
-
-
 
 .img-affichage {
     background-color: var(--couleurBlancCreme);
@@ -380,8 +375,6 @@ nav {
     background-color: var(--couleurNoir);
     padding-bottom: 7px;
 }
-
-
 
 .icones-affichage {
     font-family: 'roboto', sans-serif;
