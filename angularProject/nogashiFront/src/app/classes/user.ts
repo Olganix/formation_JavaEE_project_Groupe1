@@ -48,6 +48,10 @@ export class User {
   toHttpObject_login(): any {
     return {name: this._name, password: this._password };
   }
+  toHttpObject_passwordRescueModification(): any {
+    return {token: this._token, password: this._password };
+  }
+
 
 
   get name(): string {

@@ -44,9 +44,6 @@ export class ConnexionService {
 
   login(user: User): Observable<RestResponse> {
 
-    console.log('service login:');
-    console.log(user.toHttpObject_login());
-
     return this._http.post<RestResponse>(environment.nogashiRestUrl + '/login', user.toHttpObject_login()).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
@@ -74,6 +71,29 @@ export class ConnexionService {
         return rrpTmp;
       }));
   }
+
+
+  passwordRescue(user: User): Observable<RestResponse> {
+
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/passwordRescue', user.email).pipe(
+      retry(3),
+      map( (rrp: RestResponse) => {
+        return new RestResponse(rrp);
+      }));
+  }
+
+  passwordRescueModification(user: User): Observable<RestResponse> {
+
+    console.log('service.passwordRescueModification()');
+    console.log(user.toHttpObject_passwordRescueModification());
+
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/passwordRescueModification', user.toHttpObject_passwordRescueModification()).pipe(
+      retry(3),
+      map( (rrp: RestResponse) => {
+        return new RestResponse(rrp);
+      }));
+  }
+
 
 
   getUsers() {

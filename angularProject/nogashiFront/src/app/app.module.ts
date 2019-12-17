@@ -67,6 +67,7 @@ import { TchatComponent } from './components/pages/pages_common/tchat/tchat.comp
 import { ProductSheetComponent } from './components/pages/pages_common/product-sheet/product-sheet.component';
 import { CommentsComponent } from './components/modules/comments/comments.component';
 import { DeactivateAccountComponent } from './components/pages/pages_common/deactivate-account/deactivate-account.component';
+import { PasswordRescueModificationComponent } from './components/pages/pages_anonyme/password-rescue-modification/password-rescue-modification.component';
 
 
 
@@ -83,6 +84,7 @@ const appRoutes: Routes =
   { path: 'emailValidation', component: EmailValidationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'passwordRescue', component: PasswordRescueComponent },
+  { path: 'passwordRescueModification', component: PasswordRescueModificationComponent },
   { path: 'generalFaq', component: GeneralFaqComponent },
   { path: 'legalNotices', component: LegalNoticesComponent },
   { path: 'findUs', component: FindUsComponent },
@@ -157,7 +159,8 @@ const appRoutes: Routes =
     TchatComponent,
     ProductSheetComponent,
     CommentsComponent,
-    DeactivateAccountComponent
+    DeactivateAccountComponent,
+    PasswordRescueModificationComponent
   ],
   imports: [
     BrowserModule,

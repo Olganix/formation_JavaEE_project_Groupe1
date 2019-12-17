@@ -83,8 +83,6 @@ export class LoginComponent implements OnInit {
           console.log('Error occured', error);
           this.infoBoxNotificationsService.addMessage('error', 'Echec de la connexion : ' + error, 10);
         });
-
-      this.form1.reset();
     }
   }
 

@@ -274,7 +274,7 @@ public class UsersControlerAngular
 		em.close();
 		
 		if(u != null)
-			return new RestResponse<User>(RestResponseStatus.SUCCESS, u);				//todo avoid some information to be send to front
+			return new RestResponse<User>(RestResponseStatus.SUCCESS, null);
 		else
 			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: on save or send email validation");
     }
@@ -395,6 +395,152 @@ public class UsersControlerAngular
     }
 	
 	
+	
+	
+
+	/*****************************************************************************************
+	*										passwordRescue									 * 
+	*****************************************************************************************/
+	@RequestMapping(path="/passwordRescue", produces = "application/json")
+	//test : http://localhost:8080/nogashi/passwordRescue?email=aaa@toto.fr
+    public RestResponse<User> passwordRescue(@RequestBody String email, HttpSession session, Locale locale, Model model)
+    {
+		if(	(email==null) || ( email.trim().length() ==0) )
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+		
+		
+		
+		EntityManager em = StartListener.createEntityManager();
+		
+		
+		User u = null;
+    	try 
+    	{
+    		List<User> listUsers = dao.findNamed(User.class, "email", email, em, false);
+    		if(listUsers.size()!=0)
+    			u = listUsers.get(0);
+    		
+		} catch (Exception e) {
+			u = null;
+			e.printStackTrace();
+		}
+		
+    	if(u==null)
+    	{
+    		em.close();
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User not Found");
+    	}
+		
+    	
+    	
+
+    	//create token for email validation.
+    	Calendar calendar = Calendar.getInstance();
+		String token = BCrypt.hashpw(email + calendar.get(Calendar.DAY_OF_YEAR), BCrypt.gensalt());
+		System.out.println("hash: "+ email + calendar.get(Calendar.DAY_OF_YEAR) +" => "+ token);
+		u.setToken(token);
+    	
+    	
+		try 
+		{
+			dao.saveOrUpdate(u, em, false);
+			
+			System.out.println("try send emailValidation login: "+ u.getName() +" role:"+ u.getRole());
+			
+			//send email for token.
+			{
+				Properties prop = new Properties();
+				prop.put("mail.smtp.host", "localhost");
+				prop.put("mail.smtp.port", "25");
+				
+				EmailTool mt = new EmailTool(prop, null);
+				try
+				{
+					//todo put email exp in properties 
+					//Todo make a function for sending mail + try catch
+					URI uri = new URI("http", "localhost:4200", "/passwordRescueModification", "token="+ token, null);
+					mt.sendMail_html(email, "noreply@nogashi.org", "Nogashi Email modification de mot de passe", "Merci de cliquer sur le lien pour modifier votre mot de passe: <a href='"+ uri.toASCIIString() +"'>Aller vers la page de modification de mot de passe</a>");
+					
+				}catch(MessagingException e){
+					u = null;
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e1) {
+			u = null;
+			e1.printStackTrace();
+		}
+		
+		
+		em.close();
+		
+		if(u != null)
+			return new RestResponse<User>(RestResponseStatus.SUCCESS, null);
+		else
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: on save or send email validation");
+    }
+	
+	
+	//
+	
+	
+
+	/*****************************************************************************************
+	*										passwordRescueModification						 * 
+	*****************************************************************************************/
+	@PostMapping(path="/passwordRescueModification", produces = "application/json")
+	//test : http://localhost:8080/nogashi/passwordRescueModification?password=toto&token=xxxxxxxxxxxxx
+	public RestResponse<User> passwordRescueModification(@RequestBody User user, HttpSession session, Locale locale, Model model)
+    {
+		System.out.println(user);
+		
+		if(	(user==null) || 
+			(user.getToken()==null) || ( user.getToken().trim().length() ==0) ||
+			(user.getPassword()==null) || ( user.getPassword().trim().length() ==0) )
+		{
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+		}
+		
+		
+		EntityManager em = StartListener.createEntityManager();
+		
+		
+
+		User u = null;
+    	try 
+    	{
+    		List<User> listUsers = dao.findNamed(User.class, "token", user.getToken(), em, false);
+    		if(listUsers.size()!=0)
+    			u = listUsers.get(0);
+		} catch (Exception e) {
+			u = null;
+			e.printStackTrace();
+		}
+		
+    	if(u==null)
+    	{
+    		em.close();
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: token not valid or not found");
+    	}
+		
+    	String password_crypted = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());				// Crypting the password before save in bdd.
+    	u.setPassword(password_crypted);
+    	u.setToken(null);
+    	
+		try 
+		{
+			dao.saveOrUpdate(u, em, false);
+			System.out.println("password modified for login: "+ u.getName() +" role:"+ u.getRole());
+			
+		} catch (Exception e1) {
+			u = null;
+			e1.printStackTrace();
+		}
+		
+		em.close();
+		
+		return new RestResponse<User>(RestResponseStatus.SUCCESS, null);
+    }
 	
 	
 	
