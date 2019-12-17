@@ -59,6 +59,7 @@ import { TchatComponent } from './components/pages/pages_common/tchat/tchat.comp
 import { ProductSheetComponent } from './components/pages/pages_common/product-sheet/product-sheet.component';
 import { CommentsComponent } from './components/modules/comments/comments.component';
 import { DeactivateAccountComponent } from './components/pages/pages_common/deactivate-account/deactivate-account.component';
+import { ListProductsTemplatesComponent } from './components/pages/pages_merchant/list-products-templates/list-products-templates.component';
 
 
 
@@ -93,6 +94,7 @@ const appRoutes: Routes =
 
   { path: 'merchant/welcome', canActivate: [ConnexionGuard], component: WelcomeMerchantComponent },
   { path: 'merchant/faq', canActivate: [ConnexionGuard], component: FaqMerchantComponent },
+  { path: 'merchant/listProductsTemplates', canActivate: [ConnexionGuard], component: ListProductsTemplatesComponent },
 
   { path: 'association/welcome', canActivate: [ConnexionGuard], component: WelcomeAssociationComponent },
 
@@ -147,7 +149,8 @@ const appRoutes: Routes =
     TchatComponent,
     ProductSheetComponent,
     CommentsComponent,
-    DeactivateAccountComponent
+    DeactivateAccountComponent,
+    ListProductsTemplatesComponent
   ],
   imports: [
     BrowserModule,

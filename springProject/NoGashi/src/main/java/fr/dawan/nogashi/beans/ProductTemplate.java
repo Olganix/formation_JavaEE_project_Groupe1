@@ -36,6 +36,8 @@ public class ProductTemplate extends DbObject implements Serializable {
 	private int maxDurationCart;
 	//private Store listStores;
 	
+	private String imageFilename = "NoAvatar.jpg";						//Todo do the upload system.
+	
 
 	public ProductTemplate() {
 	}
