@@ -2,8 +2,6 @@ package fr.dawan.nogashi.beans;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 

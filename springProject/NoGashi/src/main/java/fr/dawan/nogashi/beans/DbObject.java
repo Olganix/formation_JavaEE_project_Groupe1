@@ -15,7 +15,8 @@ public abstract class DbObject implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)				//Todo clean if it's work
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int id;
 	
 	@Version

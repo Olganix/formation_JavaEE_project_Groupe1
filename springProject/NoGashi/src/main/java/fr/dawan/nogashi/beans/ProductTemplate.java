@@ -1,12 +1,12 @@
 package fr.dawan.nogashi.beans;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,33 +16,39 @@ import org.springframework.stereotype.Component;
  *
  */
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Component
-public class ProductTemplate extends DbObject implements Serializable {
+public class ProductTemplate extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Basic(optional = false)
-	private int id;
 	private String name;
-	//private List<productDetails> listDetails;
 	private String description;
 	private String externalCode;
-	private boolean isWrapped; // est emballé
+	private boolean isWrapped; 							// est emballé => OV : isPackaged ? Todo answer
 	private float price;
 	private float salePrice;
 	private Date saleTime;
 	private Date unsoldTime;
 	private boolean timeControlStatus;
 	private int maxDurationCart;
-	//private Store listStores;
 	
-
-	public ProductTemplate() {
-	}
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Merchant merchant;
+	//@OneToMany(mappedBy = "productTemplate")
+	//private List<ProductDetail> productDetails;
+	//private List<Commerce> commerces;
+	
+	
+	
+	
+	
+	
+	
 	public ProductTemplate(int id, String name, String description, String externalCode, boolean isWrapped, float price,
 			float salePrice, Date saleTime) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.externalCode = externalCode;
@@ -51,12 +57,25 @@ public class ProductTemplate extends DbObject implements Serializable {
 		this.salePrice = salePrice;
 		this.saleTime = saleTime;
 	}
-	public int getId() {
-		return id;
+	
+	public ProductTemplate( ProductTemplate other)
+	{
+		super();
+		this.name = other.name;
+		this.description = other.description;
+		this.externalCode = other.externalCode;
+		this.isWrapped = other.isWrapped;
+		this.price = other.price;
+		this.salePrice = other.salePrice;
+		this.saleTime = other.saleTime;
 	}
-	public void setId(int id) {
-		this.id = id;
+	
+	//--------------------------------------------
+	
+	public ProductTemplate() {
 	}
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -118,9 +137,19 @@ public class ProductTemplate extends DbObject implements Serializable {
 		this.maxDurationCart = maxDurationCart;
 	}
 	
+	
+	
+	public Merchant getMerchant() {
+		return merchant;
+	}
+
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+
 	@Override
 	public String toString() {
-		return "ProductTemplate [id=" + id + ", name=" + name + ", description=" + description + ", externalCode="
+		return "ProductTemplate [name=" + name + ", description=" + description + ", externalCode="
 				+ externalCode + ", isWrapped=" + isWrapped + ", price=" + price + ", salePrice=" + salePrice
 				+ ", saleTime=" + saleTime + ", unsoldTime=" + unsoldTime + ", timeControlStatus=" + timeControlStatus
 				+ ", maxDurationCart=" + maxDurationCart + "]";

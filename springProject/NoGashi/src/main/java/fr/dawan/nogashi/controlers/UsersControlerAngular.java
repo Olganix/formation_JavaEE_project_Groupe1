@@ -10,10 +10,6 @@ import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
-
-import org.hibernate.annotations.Parameter;
-import org.jboss.logging.Param;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +19,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.RestResponse;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
@@ -115,7 +111,16 @@ public class UsersControlerAngular
     	
 		try 
 		{
-			dao.saveOrUpdate(u, em, false);
+			switch(u.getRole())
+			{
+			case MERCHANT: dao.saveOrUpdate(new Merchant(u), em, false); break;
+			//case ASSOCIATION: dao.saveOrUpdate(new Association(u), em, false); break;		//Todo
+			//case ADMIN: dao.saveOrUpdate(new Admin(u), em, false); break;					//Todo
+			case INDIVIDUAL:
+			default:
+				dao.saveOrUpdate(u, em, false); break;
+			}
+			
 			
 			System.out.println("create login: "+ u.getName() +" role:"+ u.getRole());
 			

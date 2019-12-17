@@ -5,6 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.enums.UserRole;
 
@@ -31,9 +32,11 @@ public class Main
 	public static void setupDataBase()
 	{
 		User a = new User("admin", "admin@noghasi.org", "admin", UserRole.ADMIN, false);
-		User m = new User("merchantTest", "merchant@noghasi.org", "toto", UserRole.MERCHANT, false);
+		Merchant m = new Merchant(new User("merchantTest", "merchant@noghasi.org", "toto", UserRole.MERCHANT, false));
 		User u = new User("userTest", "user@noghasi.org", "toto", UserRole.INDIVIDUAL, false);
 		User ass = new User("associationTest", "associationt@noghasi.org", "toto", UserRole.ASSOCIATION, false);
+		
+		
 		
 		try
 		{

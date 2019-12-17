@@ -25,7 +25,7 @@ export class InfoBoxNotificationsService
         this.emitMessagesSubject();
     }
 
-    removeMessage(id) {
+    removeMessage(id: number) {
         for(let i = 0, nb = this.messages.length; i < nb; i++) {
             if(this.messages[i].id === id) {
                 if (this.messages[i].handler != null) {
