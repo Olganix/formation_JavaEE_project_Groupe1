@@ -4,12 +4,20 @@ import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-// services
+// Services
 import { ConnexionService } from './services/connexion.service';
 import { ConnexionGuard } from './services/connexion-guard.service';
 import { InfoBoxNotificationsService } from './services/InfoBoxNotifications.services';
 
 import { AppareilService } from './services/appareil.service';
+
+
+// Guards
+import {ConnexionMerchantGuard} from './services/guards/connexion-merchant.guard';
+import {ConnexionIndividualGuard} from './services/guards/connexion-individual.guard';
+import {ConnexionAdminGuard} from './services/guards/connexion-admin.guard';
+import {ConnexionAssociationGuard} from './services/guards/connexion-association.guard';
+
 
 
 // Root
@@ -21,7 +29,7 @@ import { HeaderComponent } from './components/common/header/header.component';
 import { FooterComponent } from './components/common/footer/footer.component';
 import { SocialBoxComponent } from './components/modules/social-box/social-box.component';
 
-// pages
+// Pages
 import { WelcomeComponent } from './components/pages/pages_anonyme/welcome/welcome.component';
 import { SignInComponent } from './components/pages/pages_anonyme/sign-in/sign-in.component';
 import { EmailValidationComponent } from './components/pages/pages_anonyme/email-validation/email-validation.component';
@@ -31,13 +39,13 @@ import { ErrorPage404Component } from './components/pages/pages_anonyme/error-pa
 
 
 
-// pages with connexion
+// Pages with connexion
 import { WelcomeIndividualComponent } from './components/pages/pages_individual/welcome-individual/welcome-individual.component';
 import { WelcomeMerchantComponent } from './components/pages/pages_merchant/welcome-merchant/welcome-merchant.component';
 import { WelcomeAssociationComponent } from './components/pages/pages_association/welcome-association/welcome-association.component';
 import { WelcomeAdminComponent } from './components/pages/pages_admin/welcome-admin/welcome-admin.component';
 
-// tests
+// Tests
 import { TestComponent } from './components/tests/test/test.component';
 import { ConnexionComponent } from './components/tests/connexion/connexion.component';
 import { AppareilViewComponent } from './components/tests/appareil-view/appareil-view.component';
@@ -59,6 +67,7 @@ import { TchatComponent } from './components/pages/pages_common/tchat/tchat.comp
 import { ProductSheetComponent } from './components/pages/pages_common/product-sheet/product-sheet.component';
 import { CommentsComponent } from './components/modules/comments/comments.component';
 import { DeactivateAccountComponent } from './components/pages/pages_common/deactivate-account/deactivate-account.component';
+
 
 
 
@@ -89,14 +98,15 @@ const appRoutes: Routes =
   { path: 'comments', component: CommentsComponent },
   { path: 'productSheet', component: ProductSheetComponent },
 
-  { path: 'individual/welcome', canActivate: [ConnexionGuard], component: WelcomeIndividualComponent },
+  { path: 'individual/welcome',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
 
-  { path: 'merchant/welcome', canActivate: [ConnexionGuard], component: WelcomeMerchantComponent },
-  { path: 'merchant/faq', canActivate: [ConnexionGuard], component: FaqMerchantComponent },
+  { path: 'merchant/welcome',     canActivate: [ConnexionMerchantGuard],    component: WelcomeMerchantComponent },
+  { path: 'merchant/faq',         canActivate: [ConnexionMerchantGuard],    component: FaqMerchantComponent },
 
-  { path: 'association/welcome', canActivate: [ConnexionGuard], component: WelcomeAssociationComponent },
+  { path: 'association/welcome',  canActivate: [ConnexionAssociationGuard], component: WelcomeAssociationComponent },
 
-  { path: 'admin/welcome', canActivate: [ConnexionGuard], component: WelcomeAdminComponent },
+  { path: 'admin/welcome',        canActivate: [ConnexionAdminGuard],       component: WelcomeAdminComponent },
+
 
   { path: 'test', component: TestComponent },
   { path: 'test/testSpringRest', canActivate: [ConnexionGuard], component: TestSpringRestComponent },

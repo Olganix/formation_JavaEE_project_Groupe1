@@ -100,6 +100,9 @@ export class ConnexionService {
   isLocalConnected() {
     return (this.connectedUser != null);
   }
+  getLocalConnectedRole() {
+    return (this.connectedUser != null) ? this.connectedUser.role : null;
+  }
 
 
 

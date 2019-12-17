@@ -16,7 +16,7 @@ export class ConnexionGuard implements CanActivate
                 state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         return true;
         /*
-        if(this.connexionService.isAuth)        //todo re-use
+        if(this.connexionService.getLocalConnectedRole())
         {
             return true;
         } else {
