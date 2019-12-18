@@ -1,0 +1,65 @@
+
+
+
+<div class="background"> <!-- Background => Dévoilement du footer -->
+
+  <app-header></app-header>
+
+  <router-outlet></router-outlet>
+
+  <!-- here, we put everything front of the page -->
+  <app-social-box></app-social-box>
+  <app-test></app-test>
+</div>
+
+<app-footer></app-footer>
+<app-info-box-notifications></app-info-box-notifications>
+
+<!-- Todo remove -->
+<nav class="navbar navbar-default" style="position: fixed; bottom: 0px; left: 0px; right: 0px; z-index: 999;">
+    <div class="container-fluid">
+        <div class="navbar-collapse">
+            <ul class="nav navbar-nav">
+              <!-- Pages anonyme -->
+                <li routerLinkActive="active"><a routerLink="welcome">Accueil</a></li>
+                <li routerLinkActive="active"><a routerLink="signin">Inscription</a></li>
+                <li routerLinkActive="active"><a routerLink="emailValidation">Validation d'e-email</a></li>
+                <li routerLinkActive="active"><a routerLink="login">Connexion</a></li>
+                <li routerLinkActive="active"><a routerLink="passwordRescue">Récupération de mot-de-passe</a></li>
+                <li routerLinkActive="active"><a routerLink="generalFaq">F.A.Q. générale</a></li>
+                <li routerLinkActive="active"><a routerLink="legalNotices">Mentions légales</a></li>
+                <li routerLinkActive="active"><a routerLink="findUs">Où nous trouver</a></li>
+
+              <!-- Pages Common -->
+                <li routerLinkActive="active"><a routerLink="passwordReset">Réinitialisation de mot-de-passe</a></li>
+                <li routerLinkActive="active"><a routerLink="deactivateAccount">Désactivation du compte</a></li>
+                <li routerLinkActive="active"><a routerLink="shoppingCart">1.Panier-commande</a></li>
+                <li routerLinkActive="active"><a routerLink="commandRecap">2.Résumé-commande</a></li>
+                <li routerLinkActive="active"><a routerLink="commandPayment">3.Paiement-commande</a></li>
+                <li routerLinkActive="active"><a routerLink="commandConfirmation">4.Confirmation-commande</a></li>
+                <li routerLinkActive="active"><a routerLink="tchat">Tchat</a></li>
+                <li routerLinkActive="active"><a routerLink="productSheet">Fiche produit</a></li>
+
+              <!-- Pages individual -->
+                <li routerLinkActive="active"><a routerLink="individual/welcome">Accueil - Compte particulier</a></li>
+
+              <!-- Pages merchant -->
+                <li routerLinkActive="active"><a routerLink="merchant/welcome">Accueil - Compte commerçant</a></li>
+                <li routerLinkActive="active"><a routerLink="merchant/faq">F.A.Q. $merchant</a></li>
+                <li routerLinkActive="active"><a routerLink="merchant/listProductsTemplates">Liste des fiches produits (test)</a></li>
+
+              <!-- Pages association -->
+                <li routerLinkActive="active"><a routerLink="association/welcome">Wc Asso</a></li>
+
+              <!-- Pages admin -->
+                <li routerLinkActive="active"><a routerLink="admin/welcome">Wc Admin</a></li>
+
+              <!-- Tests -->
+                <li routerLinkActive="active"><a routerLink="test/testSpringRest">test Rest</a></li>
+                <li routerLinkActive="active"><a routerLink="test/appareils">test AppAll</a></li>
+                <li routerLinkActive="active"><a routerLink="test/appareils/:id">test App</a></li>
+                <li routerLinkActive="active"><a routerLink="test/connexion">test connexion</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

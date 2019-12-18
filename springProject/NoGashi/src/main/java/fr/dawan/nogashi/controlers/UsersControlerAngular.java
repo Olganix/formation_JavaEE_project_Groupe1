@@ -12,13 +12,18 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 
+import org.hibernate.annotations.Parameter;
+import org.jboss.logging.Param;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.RestResponse;
@@ -48,13 +53,17 @@ public class UsersControlerAngular
 	/*****************************************************************************************
 	*										SignIn											 * 
 	*****************************************************************************************/
-	@RequestMapping(path="/signin", produces = "application/json")
-	//test : http://localhost:8080/nogashi/signin?name=aaa&password=toto&email=aaa@toto.fr
-    public RestResponse<User> signin(@PathParam("name") String name, @PathParam("password") String password, @PathParam("email") String email, HttpSession session, Locale locale, Model model)
+	@PostMapping(path="/signin", produces = "application/json")
+	//test : http://localhost:8080/nogashi/signin?name=aaa&password=toto&email=aaa@toto.fr&role=INDIVIDUAL&newsletterEnabled=1
+	public RestResponse<User> signin(@RequestBody User u, HttpSession session, Locale locale, Model model)
     {
-		//todo better check on email (rules of email) and name (not admin, root or god or ...etc see official list for that), could be done from angular, but it's may be safer to do it here
-		if( (name==null) || (name.length()==0) || (password==null)  || (password.length()==0) || (email==null)  || (email.length()==0) )
-			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+		System.out.println(u);
+		
+		
+		if( (u.getRole() != UserRole.INDIVIDUAL) && (u.getRole() != UserRole.MERCHANT) && (u.getRole() != UserRole.ASSOCIATION))
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Role no good");
+		
+		
 		
 		logger.info("Welcome home! The client locale is {}.", locale);		//todo better use log for server side.
 		//request.setCharacterEncoding("UTF-8");			//todo check if need equivalent for this, todo also check crypt password + utf8 saved in bdd are not good on read again (instead of manually create it and put it in bdd).
@@ -63,36 +72,36 @@ public class UsersControlerAngular
 		EntityManager em = StartListener.createEntityManager();
 		
 		
-		User u = null;
+		User u_tmp = null;
     	try 
     	{
-    		List<User> listUsers = dao.findNamed(User.class, "name", name, em, false);
+    		List<User> listUsers = dao.findNamed(User.class, "name", u.getName(), em, false);
     		if(listUsers.size()==0)
-    			listUsers = dao.findNamed(User.class, "email", email, em, false);
+    			listUsers = dao.findNamed(User.class, "email", u.getEmail(), em, false);
 			
     		if(listUsers.size()!=0)
-    			u = listUsers.get(0);
+    			u_tmp = listUsers.get(0);
     		
 		} catch (Exception e) {
-			u = null;
+			u_tmp = null;
 			e.printStackTrace();
 		}
 		
-    	if(u!=null)
+    	if(u_tmp!=null)
     	{
     		em.close();
     		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User allready exist");
     	}
 		
     	
-    	String password_crypted = BCrypt.hashpw(password, BCrypt.gensalt());				// Crypting the password before save in bdd.
-    	u = new User(name, email, password_crypted, UserRole.INDIVIDUAL, false);			//todo add UserRole and newsletterEnable comme arguament de functions.
+    	String password_crypted = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt());				// Crypting the password before save in bdd.
+    	u.setPassword(password_crypted);
     	
     	
     	//create token for email validation.
     	Calendar calendar = Calendar.getInstance();
-		String token = BCrypt.hashpw(email + calendar.get(Calendar.DAY_OF_YEAR), BCrypt.gensalt());
-		System.out.println("hash: "+ email + calendar.get(Calendar.DAY_OF_YEAR) +" => "+ token);
+		String token = BCrypt.hashpw(u.getEmail() + calendar.get(Calendar.DAY_OF_YEAR), BCrypt.gensalt());
+		System.out.println("hash: "+ u.getEmail() + calendar.get(Calendar.DAY_OF_YEAR) +" => "+ token);
 		u.setToken(token);
     	//todo make a duration on validity token (ex: make a cron every 2 day 0h00, witch will set NULL on every token)
     	
@@ -114,8 +123,8 @@ public class UsersControlerAngular
 					//todo put email exp in properties
 					
 					//mt.sendMail_html(email, "noreply@nogashi.org", "Nogashi Email de Validation", "Merci de cliquer sur le lien pour valider votre adresse mail : <a href='http://localhost:8080/nogashi/emailvalidation?token="+ URLEncoder.encode(token, "UTF-8") +"'>Je valide mon adresse email</a>");
-					URI uri = new URI("http", "localhost:8080", "/nogashi/emailvalidation", "token="+ token, null);
-					mt.sendMail_html(email, "noreply@nogashi.org", "Nogashi Email de Validation", "Merci de cliquer sur le lien pour valider votre adresse mail : <a href='"+ uri.toASCIIString() +"'>Je valide mon adresse email</a>");
+					URI uri = new URI("http", "localhost:4200", "/emailValidation", "token="+ token, null);
+					mt.sendMail_html(u.getEmail(), "noreply@nogashi.org", "Nogashi Email de Validation", "Merci de cliquer sur le lien pour valider votre adresse mail : <a href='"+ uri.toASCIIString() +"'>Je valide mon adresse email</a>");
 					
 				}catch(MessagingException e){
 					e.printStackTrace();
@@ -138,9 +147,9 @@ public class UsersControlerAngular
 	/*****************************************************************************************
 	*										EmailValidation									 * 
 	*****************************************************************************************/
-	@RequestMapping(path="/emailvalidation", produces = "application/json")
+	@PostMapping(path="/emailvalidation", produces = "application/json")
 	//test (better click from mail (fake SMTP server)): http://localhost:8080/nogashi/emailvalidation?token=XXXXXX
-    public RestResponse<User> emailvalidation(@PathParam("token") String token, HttpSession session, Locale locale, Model model)
+    public RestResponse<User> emailvalidation(@RequestBody String token, HttpSession session, Locale locale, Model model)
     {
 		if( (token==null) || (token.length()==0) )
 			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not have token");
@@ -240,7 +249,7 @@ public class UsersControlerAngular
 					//todo put email exp in properties
 					
 					//mt.sendMail_html(email, "noreply@nogashi.org", "Nogashi Email de Validation", "Merci de cliquer sur le lien pour valider votre adresse mail : <a href='http://localhost:8080/nogashi/emailvalidation?token="+ URLEncoder.encode(token, "UTF-8") +"'>Je valide mon adresse email</a>");
-					URI uri = new URI("http", "localhost:8080", "/nogashi/emailvalidation", "token="+ token, null);
+					URI uri = new URI("http", "localhost:4200", "/emailValidation", "token="+ token, null);
 					mt.sendMail_html(email, "noreply@nogashi.org", "Nogashi Email de Validation", "Merci de cliquer sur le lien pour valider votre adresse mail : <a href='"+ uri.toASCIIString() +"'>Je valide mon adresse email</a>");
 					
 				}catch(MessagingException e){
@@ -313,7 +322,7 @@ public class UsersControlerAngular
     	if(!u.isEmailValid())
     	{
     		em.close();
-    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 2, "Error: Email no validated");
+    		return new RestResponse<User>(RestResponseStatus.FAIL, u, 2, "Error: Email no validated");
     	}
     		
     	

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<title>Page admin</title>
+	
+              <!-- FAVICON -->
+      <link rel="shortcut icon" href="../ico/favicon.png"> 
+            
+             <!-- GOOGLE-FONT -->
+      <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,700i&display=swap" rel="stylesheet"> 
+      <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">         
+              <!-- Bootstrap -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
+          <!-- BALISE FontAwesome -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+           
+             <!-- RESET CSS -->
+      <link rel="stylesheet" href="css/reset.css">
+             <!-- LOADING CSS-->
+      <link rel="stylesheet" href="css/loading.css">  
+                <!-- CSS -->
+      <link rel="stylesheet" href="css/gestion-sous-comptes.css"> 
+                 
+      
+         
+
+
+</head>
+<body>
+        
+ <div class="background"> <!-- Background => Dévoilement du footer-->          
+        
+                    <!-- Menu-->
+    <header>
+       <div class="menu">
+           <a href="index.html"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
+           <div class="icones-menu">
+             <div class="icones-user">
+                   <i class="fas fa-user-circle"></i>
+                   <div class="bloc-compte">
+                        <i class="fas fa-sort-up"></i>
+                        <ul class="compte">
+                            <a href="connexion.html"><li class="onglet-menu">Se Connecter</li></a>
+                            <div class="trait-compte"></div>
+                            <a href="inscription.html"><li class="onglet-menu">S'inscrire</li></a>
+                            <div class="trait-compte"></div>
+                            <a href="inscription.html"><li class="onglet-menu">S'inscrire</li></a>
+                            <div class="trait-compte"></div>
+                            <a href="inscription.html"><li
+                            class="onglet-menu">S'inscrire</li></a>
+                            <div class="trait-compte"></div>
+                        </ul> 
+                    </div> 
+               </div>
+               <div class="icone-panier">
+                   <a href=""><div class="icones"><i class="fas fa-shopping-bag"></i></div>
+                       <div class="cercle-prix">3</div>
+                   </a>    
+               </div>
+               <div class="icone-hamburger">
+                   <div id="hamburger-menu" class="icones"><i class="fas fa-bars"></i></div>
+               </div>
+           </div>
+            
+           <div id="bloc-menu" class="bloc-menu col-12">
+                <a href="index.html">
+                     <div id="bloc-quitter" class="bloc-quitter">
+                         <div class="croix-quitter">
+                               <span class="barre-croix"></span>
+                               <span class="barre-croix2"></span>
+                         </div>
+                     </div>
+                </a>  
+                <nav>
+                   <ul>
+                       <a href="index.html"><li class="onglet-menu-principal">Accueil</li></a>
+                       <a href="trouver.html"><li class="onglet-menu-principal">Ou Nous Trouver ?</li></a>
+                       <a href="faq.html"><li class="onglet-menu-principal">F.A.Q</li></a>
+                       <a href="contact.html"><li class="onglet-menu-principal">Contact</li></a>
+                   </ul> 
+               </nav>
+           </div>    
+        </div> 
+    </header>
+    
+    
+    
+    
+    
+    <nav class="menu-admin-commercant">
+        <ul class="z">
+            <li class="onglet-menu-admin-commercant"><a href="#"> Mes commerces</a></li>
+            <li class="onglet-menu-admin-commercant"><a href="#"><i class="fas fa-apple-crate"></i> Mes produits</a><li>
+            <li class="onglet-menu-admin-commercant"><a href="#"> Commandes en cours</a></li>
+            <li class="onglet-menu-admin-commercant"><a href="#"> Comptes employés</a></li>  
+        </ul>
+    </nav>
+   
+    
+    <section class="section-resumer-commande">
+        <div class="container">
+            <div class="row">
+               </div>    
+                  <div class="bloc-titre-commandes">
+                    <h2 class="titre-commandes"><i class="fas fa-cube"></i> / CONFIRMATION COMMANDE </h2>
+                    <br>
+                    <br>
+                    <p class="texte-commandes col-12">Merci, votre commande à bien été prise en compte.</p>
+                    <br> 
+                    
+                    <ul class="detail-resume col-12">
+                        <li class="texte-resume"><span class="titre-resume">Commande:</span> #fac-00000000001</li>
+                        <li class="texte-resume"><span class="titre-resume">Date:</span> 13 novembre 2019</li>
+                        <li class="texte-resume"><span class="titre-resume">Total: </span> 14€</li>
+                        <li class="texte-resume"><span class="titre-resume">Méthode de paiement:</span> Carte de crédit</li>
+                    </ul>
+                    
+                    <div class="bloc-facture-print col-12">
+                        <a href="">
+                            <div class="print">
+                                <i class="fas fa-print"></i>    
+                            </div>     
+                        </a>
+                        <a href="">
+                            <div class="pdf">
+                                <i class="far fa-file-pdf"></i>    
+                            </div>    
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="bloc-commerce-commande">
+                       <h3 class="titre-commerce">- Boulangerie Mathieu -</h3>
+                       <table class="table-commande col-12">
+                             <tr class="tr-titre">
+                              <td class="td-titre col-4">Produits</td>
+                              <td class="td-titre col-3">Prix</td>
+                              <td class="td-titre col-2">Quantité</td>
+                              <td class="td-titre col-3">Total</td>
+                             </tr>
+                             <tr class="tr">
+                              <td class="td-produits col-4">Croissant</td>
+                              <td class="td col-3">1.10€</td>
+                              <td class="td col-3">02</td>
+                              <td class="td col-2">2.20€</td>
+                             </tr>
+                        </table> 
+                        <div class="time">
+                            <p class="texte-time"><i class="fas fa-exclamation-circle"></i> Veuillez récupérer vos produits avant : 20h15</p>    
+                        </div>
+                        
+                    </div> 
+                    <div class="bloc-commerce-commande">
+                       <h3 class="titre-commerce">- Daily Juicery -</h3>
+                       <table class="table-commande col-12">
+                            <tr class="tr-titre">
+                              <td class="td-titre col-4">Produits</td>
+                              <td class="td-titre col-3">Prix</td>
+                              <td class="td-titre col-2">Quantité</td>
+                              <td class="td-titre col-3">Total</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="td-produits col-4">ROOTS 1.2, Jus détox 100% naturel</td>
+                              <td class="td col-3">7.00€</td>
+                              <td class="td col-3">01</td>
+                              <td class="td col-2">7.00€</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="td-produits col-4">GREEN 5.0, Jus détox 100% naturel</td>
+                              <td class="td col-3">7.00€</td>
+                              <td class="td col-3">02</td>
+                              <td class="td col-2">14.00€</td>
+                            </tr>
+                        </table>
+                        <div class="time">
+                            <p class="texte-time"><i class="fas fa-exclamation-circle"></i> Veuillez récupérer vos produits avant : 17h30</p>    
+                        </div> 
+                    </div>
+                                        <div class="bloc-commerce-commande">
+                       <h3 class="titre-commerce">- Subway -</h3>
+                       <table class="table-commande col-12">
+                            <tr class="tr-titre">
+                              <td class="td-titre col-4">Produits</td>
+                              <td class="td-titre col-3">Prix</td>
+                              <td class="td-titre col-2">Quantité</td>
+                              <td class="td-titre col-3">Total</td>
+                              
+                            </tr>
+                            <tr class="tr">
+                              <td class="td-produits col-4">Sandwich - Poulet</td>
+                              <td class="td col-3">3.40€</td>
+                              <td class="td col-3">01</td>
+                              <td class="td col-2">3.40€</td>
+                            </tr>
+                        </table> 
+                        <div class="time">
+                            <p class="texte-time"><i class="fas fa-exclamation-circle"></i> Veuillez récupérer vos produits avant : 18h00</p>    
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+    </section>
+    
+ 
+   
+    
+    
+               <!-- RESEAUX SOCIAUX -->
+   <ul class="social-medias">
+        <li>
+            <a href="https://fr-fr.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+        </li>
+        <li class="twitter">
+            <a href="https://www.google.com/search?client=firefox-b&q=twitter"><i class="fab fa-twitter"></i></a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/discover"><i class="fab fa-google-plus-g"></i></a>
+        </li>
+    </ul>
+  	
+               <!-- BOUTON UP -->
+    <div class="fond-up">
+       <div id="bouton-up" class="bouton-up">
+           <i class="fas fa-chevron-up"></i>
+       </div> 
+    </div> 
+ </div> <!-- Fin du Background => Dévoilement du footer--> 
+   
+    
+    <footer>
+        <div class="footer">
+           <div class="container">
+               <div class="row">
+                   <div class="bloc-centre-footer col-12">
+                       <div class="adresse-footer col-4">
+                           <ul class="ul-menu-footer">
+                               <li class="titre-footer"><span class="trait-footer">//</span> CONTACTEZ-NOUS</li>
+                               <li class="menu-footer"><i class="fas fa-phone"></i> -  03.20.30.79.73</li>
+                               <li class="menu-footer"><i class="fas fa-map"></i> - 1 Rue Esquermoise, 59800</li>
+                               <a href=""><li class="menu-footer"><i class="fas fa-envelope"></i> - nogashis@gmail.com</li></a>
+                           </ul> 
+                           <hr>
+                       </div>
+                       <div class="ul col-4">
+                           <ul class="ul-menu-footer">
+                                <li class="titre-footer"><span class="trait-footer">//</span> NOTRE CONCEPT</li>
+                                <a href="index.html"><li class="menu-footer2">- Accueil -</li></a>
+                                <a href="trouver.html"><li class="menu-footer2"> - Ou Nous Trouver ? -</li></a>
+                               <a href="faq.html"><li class="menu-footer2">- F.A.Q -</li></a>
+                           </ul> 
+                           <hr>   
+                       </div>
+                       <div class="reseau-footer col-4">
+                           <ul class="ul-menu-footer">
+                               <li class="titre-footer"><span class="trait-footer">//</span> SUIVEZ-NOUS SUR </li>
+                               <a href="">
+                               <li class="menu-footer2"><i class="fab fa-facebook-square"></i> Facebook</li>
+                               </a>
+                               <a href=""><li class="menu-footer2"><i class="fab fa-twitter-square"></i> Twitter</li></a>
+                               <a href=""><li class="menu-footer2"><i class="fab fa-google-plus-square"></i> Google +</li></a>
+                           </ul>
+                           <hr>
+                       </div>
+                       <div class="trait-footer"></div>
+                   </div>    
+               </div>
+           </div>
+           <a href="mentions.html"><P class="lien-mentions">- Mentions légales -</P></a>
+        </div>  
+        <div class="informations-footer">Site réalisé par <span class="italic-footer">Anais Kordek - Olivier Vanhée - Joffrey Chassat - Francis Berthe.</span> Nom App - Formation Dawan, <span class="italic-footer">2019</span></div>  
+    </footer>
+      
+               
+                <!-- JQuery/ Loading -->
+          <script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous">
+          </script>
+     
+       
+         
+                <!-- JavaScript/ LOADING 
+          <script src="js/loading.js"></script> -->
+               
+                <!-- JavaScript/ MENUAPP -->
+          <script src="js/menuApp.js"></script>
+                
+                <!-- JavaScript/ DIAPORAMA 
+          <script src="js/diaporama.js"></script> -->
+                
+                <!-- JavaScript/ BOUTON -->
+          <script src="js/bouton.js"></script>
+          
+                 <!-- JavaScript/ MAIN -->
+          <script src="js/main.js"></script>
+          
+          
+          
+          
+
+</body>
+</html>

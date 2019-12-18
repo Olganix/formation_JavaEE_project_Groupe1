@@ -1,3 +1,26 @@
 
 
 -liaison angular & spring Mvc: https://examples.javacodegeeks.com/enterprise-java/spring/mvc/spring-mvc-and-angular-6-example/
+
+
+-pour recuperer une positoin gps depuis une adresse nommée : https://www.vertuoz.fr/fr/blog/9265-utiliser-api-geocoding-google-pour-recuperer-des-coordonnees-gps.html
+    https://www.torop.net/coordonnees-gps.php
+    https://www.coordonnees-gps.fr/
+    
+-infos sur les notfications javascript : 
+    https://serviceworke.rs/push-payload_demo.html
+    https://developer.mozilla.org/fr/docs/Web/API/Service_Worker_API
+    https://developer.mozilla.org/fr/docs/Web/API/Service_Worker_API/Using_Service_Workers
+    https://www.html5rocks.com/en/tutorials/websockets/basics/
+    https://stackoverflow.com/questions/32501619/how-can-i-do-push-notifications-in-an-html5-web-application
+    https://developers.google.com/web/fundamentals/push-notifications
+    https://developers.google.com/web/fundamentals/primers/service-workers
+    https://github.com/GoogleChrome/samples/tree/gh-pages/push-messaging-and-notifications
+    
+
+-websocket:
+    https://www.html5rocks.com/en/tutorials/websockets/basics/
+    
+-Sass
+    https://la-cascade.io/se-lancer-dans-sass/
+    

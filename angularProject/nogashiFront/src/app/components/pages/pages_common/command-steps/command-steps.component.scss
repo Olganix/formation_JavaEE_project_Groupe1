@@ -1,0 +1,92 @@
+
+/* SECTION ETAPES-COMMANDE */
+
+.section-etapes-commande {
+  padding-top: 150px;
+  padding-bottom: 50px;
+  background-color: var(--couleurGrisClair);
+}
+
+
+.bloc-etapes {
+  display: flex;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
+.etape-panier {
+  width: 170px;
+  height: 40px;
+  background-color: var(--couleurNoir);
+  border: 2px solid var(--couleurVerte);
+  color: var(--couleurBlancCreme);
+  margin-right: 10px;
+}
+
+.mot-panier {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.fa-angle-double-right {
+  margin-top: 12px;
+  margin-right: 10px;
+}
+
+.etape-resumer-commande {
+  width: 170px;
+  height: 40px;
+  border: 2px solid #000;
+  color: var(--couleurNoir);
+  margin-right: 10px;
+  opacity: 0.3;
+}
+
+.mot-etape-resumer {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.etape-paiement {
+  width: 170px;
+  height: 40px;
+  border: 2px solid #000;
+  color: var(--couleurNoir);
+  margin-right: 10px;
+  opacity: 0.3;
+}
+
+.mot-paiement {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.etape-confirmation-commande {
+  width: 170px;
+  height: 40px;
+  border: 2px solid #000;
+  color: var(--couleurNoir);
+  margin-right: 10px;
+  opacity: 0.3;
+}
+
+.mot-etape-confirmation {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 12px;
+}
+
+
+
+

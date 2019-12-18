@@ -1,0 +1,30 @@
+
+
+
+
+.infobox_container
+{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+}
+
+
+.infobox
+{
+    background: #FFFFFF;
+    padding: 15px;
+    margin-bottom: 5px;
+    border: 1px solid #aaaaaa;
+    border-radius: 10px;
+}
+
+.infobox.error
+{
+    color: #FF0000;
+}
+
