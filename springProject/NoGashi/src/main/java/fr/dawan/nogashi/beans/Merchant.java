@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import org.springframework.stereotype.Component;
@@ -18,10 +19,11 @@ public class Merchant extends User {
 	private String codeIBAN;
 	private String codeBic;
 	
-	@OneToMany(mappedBy = "merchant")
+	
+	@OneToMany(mappedBy = "merchant", fetch = FetchType.LAZY)
 	List<Commerce> commerces = new ArrayList<Commerce>();
-	@OneToMany(mappedBy = "merchant")
-	List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
+	//@OneToMany(mappedBy = "merchant")
+	//List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
 	
 	//List<Employee> employees = new ArrayList();								//todo think about it (add RoleUser ?)
 	//Todo AddEmployee, witch create a template list of rights specifics for Merchant.
@@ -37,6 +39,7 @@ public class Merchant extends User {
 	public Merchant(User other) {
 		super(other);
 	}
+	
 	
 	public void addCommerces(Commerce c) {
 		
@@ -56,7 +59,7 @@ public class Merchant extends User {
 		}	
 	}
 	
-	
+	/*
 	public void addProductTemplate(ProductTemplate pt) {
 		
 		if(!this.productTemplates.contains(pt))
@@ -73,6 +76,7 @@ public class Merchant extends User {
 			this.productTemplates.remove(pt);	
 		}	
 	}
+	*/
 	
 
 	
@@ -100,6 +104,7 @@ public class Merchant extends User {
 	public void setCodeBic(String codeBic) {
 		this.codeBic = codeBic;
 	}
+	
 	public List<Commerce> getCommerces() {
 		return commerces;
 	}
@@ -107,6 +112,7 @@ public class Merchant extends User {
 		this.commerces = commerces;
 	}
 
+	/*
 	public List<ProductTemplate> getProductTemplates() {
 		return productTemplates;
 	}
@@ -114,6 +120,8 @@ public class Merchant extends User {
 	public void setProductTemplates(List<ProductTemplate> productTemplates) {
 		this.productTemplates = productTemplates;
 	}
+	*/
+	
 	
 	
 }

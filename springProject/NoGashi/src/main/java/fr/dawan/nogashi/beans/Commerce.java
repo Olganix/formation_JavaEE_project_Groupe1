@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
 
@@ -46,6 +47,7 @@ public class Commerce extends DbObject {
 	@OneToMany(mappedBy = "commerce")
 	private List<Product> products = new ArrayList<Product>();
 	
+	@OneToOne
 	private Faq faq = null;
 
 

@@ -6,6 +6,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
 
@@ -13,14 +14,14 @@ import fr.dawan.nogashi.enums.UserRole;
 
 @Entity
 //@Inheritance(strategy = InheritanceType.JOINED)
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Component
 public class User extends DbObject
 {	
 	private static final long serialVersionUID = 1L;
 	
-	@Basic(optional = false)
+	@Basic(optional = false)					//DEPRECIATE ? TODO USE @Column(nullable = false)
 	private String name;
 	@Basic(optional = false)
 	private String email;
@@ -34,6 +35,7 @@ public class User extends DbObject
 	
 	private String phoneNumber;
 	private String phoneNumber2;
+	@OneToOne
 	private Address address;
 	
 	private boolean emailValid = false;

@@ -1,7 +1,9 @@
 package fr.dawan.nogashi.daos;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
@@ -119,9 +121,24 @@ public class GenericDao
 		
 	}
 	
+	
 	public <T extends DbObject> List<T> findAll(Class<T> tClass, EntityManager em, boolean closeConnection) throws Exception
 	{		
-		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity", tClass);
+		//TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity", tClass);
+		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity WHERE TYPE(entity) = "+ tClass.getName(), tClass);		//to have only User , and not Merchant and all child classes of User.
+		List<T> result = query.getResultList();
+		
+		if(closeConnection)
+			em.close();
+	
+		return result;
+	}
+	
+	public <T extends DbObject> List<T> findAll(Class<T> tClass, EntityManager em, boolean closeConnection, EntityGraph graph) throws Exception
+	{		
+		//TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity", tClass);
+		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity WHERE TYPE(entity) = "+ tClass.getName(), tClass);		//to have only User , and not Merchant and all child classes of User.
+		query.setHint("javax.persistence.loadgraph", graph);				//for loading sub class (class attribut using class).		// methode 5 : https://thoughts-on-java.org/5-ways-to-initialize-lazy-relations-and-when-to-use-them/
 		List<T> result = query.getResultList();
 		
 		if(closeConnection)

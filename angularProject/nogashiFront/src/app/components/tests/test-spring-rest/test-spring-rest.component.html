@@ -39,4 +39,41 @@
             </tbody>
         </table>
     </div>
+
+  <div *ngIf="merchants">
+    <h2>List Merchants :</h2>
+    <table class="table table-bordered table-hover">
+      <thead>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>EmlVal</th>
+      <th>phoneNumber</th>
+      <th>Address</th>
+      <th>adressExtra</th>
+      <th>postalCode</th>
+      <th>cityName</th>
+      <th>stateName</th>
+      <th>token</th>
+      <th>Avatar</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let merchant of merchants">
+        <td>{{merchant.id}} </td>
+        <td>{{merchant.name}}</td>
+        <td>{{merchant.email}}</td>
+        <td>{{merchant.emailValid}}</td>
+        <td>{{merchant.phoneNumber}}</td>
+        <td>{{merchant.adress}}</td>
+        <td>{{merchant.adressExtra}}</td>
+        <td>{{merchant.postalCode}}</td>
+        <td>{{merchant.cityName}}</td>
+        <td>{{merchant.stateName}}</td>
+        <td>{{merchant.token}}</td>
+
+        <td><img src="{{merchant.avatarFilename}}" alt="avatar" class="img-thumbnail mx-auto d-block" style="width: 30%" /></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

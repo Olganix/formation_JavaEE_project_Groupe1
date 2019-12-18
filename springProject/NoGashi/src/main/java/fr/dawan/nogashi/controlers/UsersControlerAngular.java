@@ -3,12 +3,16 @@ package fr.dawan.nogashi.controlers;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.MessagingException;
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
+import javax.persistence.Subgraph;
 import javax.servlet.http.HttpSession;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
@@ -573,5 +577,38 @@ public class UsersControlerAngular
 		em.close();
 		return new RestResponse<List<User>>(RestResponseStatus.SUCCESS, listUsers);
     }
+	
+	/*****************************************************************************************
+	*										getMerchants										 * 
+	*****************************************************************************************/
+	@RequestMapping(path="/getMerchants", produces = "application/json")
+	//it's a test, TODO remove this from public access, could be use only for admin.
+    public RestResponse<List<Merchant>> getMerchants()
+    {
+    	EntityManager em = StartListener.createEntityManager();
+		
+    	List<Merchant> listMerchants = new ArrayList<Merchant>();
+		
+    	
+    	
+    	EntityGraph<Merchant> graph = em.createEntityGraph(Merchant.class);
+    	graph.addSubgraph("commerces");
+    	
+    	//Subgraph<Merchant> itemGraph = graph.addSubgraph("commerces");    
+    	//Map hints = new HashMap();
+    	//hints.put("javax.persistence.loadgraph", graph);
+    	
+		try 
+		{	
+			listMerchants = dao.findAll(Merchant.class, em, false, graph);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		em.close();
+		return new RestResponse<List<Merchant>>(RestResponseStatus.SUCCESS, listMerchants);
+    }
+	
+	
     
 }
