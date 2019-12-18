@@ -43,6 +43,7 @@ public class ProductsTemplatesControllerAngular
 	@RequestMapping(path="/getProductsTemplates", produces = "application/json")
 	public RestResponse<List<ProductTemplate>> getProducts()
     {
+		System.out.println("salut");
     	EntityManager em = StartListener.createEntityManager();
 		
     	List<ProductTemplate> listProductsTemplates = new ArrayList<ProductTemplate>();

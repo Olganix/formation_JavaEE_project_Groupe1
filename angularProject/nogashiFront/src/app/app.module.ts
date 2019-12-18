@@ -60,6 +60,7 @@ import { ProductSheetComponent } from './components/pages/pages_common/product-s
 import { CommentsComponent } from './components/modules/comments/comments.component';
 import { DeactivateAccountComponent } from './components/pages/pages_common/deactivate-account/deactivate-account.component';
 import { ListProductsTemplatesComponent } from './components/pages/pages_merchant/list-products-templates/list-products-templates.component';
+import {ListingService} from './services/listing.service';
 
 
 
@@ -161,7 +162,7 @@ const appRoutes: Routes =
     ReactiveFormsModule,
     // les routes seront accessibles via la constante appRoutes
   ],
-  providers: [ConnexionService, AppareilService, ConnexionGuard, InfoBoxNotificationsService],
+  providers: [ConnexionService, AppareilService, ConnexionGuard, InfoBoxNotificationsService, ListingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

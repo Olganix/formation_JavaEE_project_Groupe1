@@ -1,7 +1,5 @@
 package fr.dawan.nogashi.beans;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 
 import org.springframework.stereotype.Component;
@@ -15,7 +13,7 @@ import fr.dawan.nogashi.enums.ProductStatus;
  */
 @Entity
 @Component
-public class Product extends ProductTemplate implements Serializable {
+public class Product extends ProductTemplate {
 
 	private static final long serialVersionUID = 1L;
 	private ProductStatus status;

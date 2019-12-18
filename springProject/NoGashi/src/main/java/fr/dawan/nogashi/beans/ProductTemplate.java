@@ -1,6 +1,5 @@
 package fr.dawan.nogashi.beans;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -9,27 +8,20 @@ import javax.persistence.Entity;
 
 import org.springframework.stereotype.Component;
 
-/**
- * 
- * @author Joffrey
- * Fiche produit
- *
- */
+
 @Entity
 @Component
-public class ProductTemplate extends DbObject implements Serializable {
+public class ProductTemplate extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Basic(optional = false)
-	private int id;
 	private String name;
 	//private List<productDetails> listDetails;
 	private String description;
 	private String externalCode;
 	private boolean isWrapped; // est emballé
-	private float price;
-	private float salePrice;
+	private double price;
+	private double salePrice;
 	private Date saleTime;
 	private Date unsoldTime;
 	private boolean timeControlStatus;
@@ -41,24 +33,19 @@ public class ProductTemplate extends DbObject implements Serializable {
 
 	public ProductTemplate() {
 	}
-	public ProductTemplate(int id, String name, String description, String externalCode, boolean isWrapped, float price,
-			float salePrice, Date saleTime) {
+	
+	
+	public ProductTemplate(String name, String description, String externalCode, boolean isWrapped, double price,
+			double salePrice) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.externalCode = externalCode;
 		this.isWrapped = isWrapped;
 		this.price = price;
 		this.salePrice = salePrice;
-		this.saleTime = saleTime;
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 	public String getName() {
 		return name;
 	}
@@ -83,16 +70,16 @@ public class ProductTemplate extends DbObject implements Serializable {
 	public void setWrapped(boolean isWrapped) {
 		this.isWrapped = isWrapped;
 	}
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
-	public float getSalePrice() {
+	public double getSalePrice() {
 		return salePrice;
 	}
-	public void setSalePrice(float salePrice) {
+	public void setSalePrice(double salePrice) {
 		this.salePrice = salePrice;
 	}
 	public Date getSaleTime() {
@@ -122,7 +109,7 @@ public class ProductTemplate extends DbObject implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "ProductTemplate [id=" + id + ", name=" + name + ", description=" + description + ", externalCode="
+		return "ProductTemplate [name=" + name + ", description=" + description + ", externalCode="
 				+ externalCode + ", isWrapped=" + isWrapped + ", price=" + price + ", salePrice=" + salePrice
 				+ ", saleTime=" + saleTime + ", unsoldTime=" + unsoldTime + ", timeControlStatus=" + timeControlStatus
 				+ ", maxDurationCart=" + maxDurationCart + "]";

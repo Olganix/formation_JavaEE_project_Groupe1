@@ -5,6 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import fr.dawan.nogashi.beans.ProductTemplate;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.enums.UserRole;
 
@@ -35,6 +36,8 @@ public class Main
 		User u = new User("userTest", "user@noghasi.org", "toto", UserRole.INDIVIDUAL, false);
 		User ass = new User("associationTest", "associationt@noghasi.org", "toto", UserRole.ASSOCIATION, false);
 		
+		ProductTemplate pt = new ProductTemplate("orange", "orange", "136511", true, 15.2, 10.1);
+		
 		try
 		{
 			et.begin();
@@ -43,6 +46,7 @@ public class Main
 			em.persist(m);
 			em.persist(u);
 			em.persist(ass);
+			em.persist(pt);
 			
 			et.commit();
 			

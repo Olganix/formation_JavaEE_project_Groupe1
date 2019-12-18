@@ -32,7 +32,7 @@ public class User extends DbObject
 	private String addressExtra;
 	private String postalCode;
 	private String cityName;
-	private String stateName;
+	private String countryName;
 	
 	private boolean emailValid = false;
 	private String token = null;												//for secure operations like email validation.
@@ -82,7 +82,7 @@ public class User extends DbObject
 		this.addressExtra = adressExtra;
 		this.postalCode = postalCode;
 		this.cityName = cityName;
-		this.stateName = stateName;
+		this.countryName = stateName;
 		this.emailValid = emailValid;
 		this.token = token;
 		this.newsletterEnabled = newsletterEnabled;
@@ -203,12 +203,12 @@ public class User extends DbObject
 
 
 	public String getStateName() {
-		return stateName;
+		return countryName;
 	}
 
 
-	public void setStateName(String stateName) {
-		this.stateName = stateName;
+	public void setStateName(String countryName) {
+		this.countryName = countryName;
 	}
 
 	public boolean isEmailValid() {
