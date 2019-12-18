@@ -7,22 +7,27 @@
                 <div class="bloc-compte">
                      <i class="fas fa-sort-up"></i>
                      <ul class="compte">
-                         <a href="connexion.html"><li class="onglet-menu">Se Connecter</li></a>
+                       <div *ngIf="!connexionService.isLocalConnected(); else divlogged" >
+                         <a routerLink="/login" ><li class="onglet-menu">Se Connecter</li></a>
                          <div class="trait-compte"></div>
-                         <a href="inscription.html"><li class="onglet-menu">S'inscrire</li></a>
-                     </ul> 
-                 </div> 
+                         <a routerLink="/signin" ><li class="onglet-menu">S'inscrire</li></a>
+                       </div>
+                       <ng-template #divlogged >
+                         <a (click)="logout()" ><li class="onglet-menu">Se Déconnecter</li></a>
+                       </ng-template>
+                     </ul>
+                 </div>
             </div>
             <div class="icone-panier">
                 <a href=""><div class="icones"><i class="fas fa-shopping-bag"></i></div>
                     <div class="cercle-prix">3</div>
-                </a>    
+                </a>
             </div>
             <div class="icone-hamburger">
                 <div id="hamburger-menu" class="icones"><i class="fas fa-bars"></i></div>
             </div>
         </div>
-         
+
         <div id="bloc-menu" class="bloc-menu col-12">
              <a href="index.html">
                   <div id="bloc-quitter" class="bloc-quitter">
@@ -31,15 +36,15 @@
                             <span class="barre-croix2"></span>
                       </div>
                   </div>
-             </a>  
+             </a>
              <nav>
                 <ul>
                     <a href="index.html"><li class="onglet-menu-principal">Accueil</li></a>
                     <a href="trouver.html"><li class="onglet-menu-principal">Ou Nous Trouver ?</li></a>
                     <a href="faq.html"><li class="onglet-menu-principal">F.A.Q</li></a>
                     <a href="contact.html"><li class="onglet-menu-principal">Contact</li></a>
-                </ul> 
+                </ul>
             </nav>
-        </div>    
-     </div> 
+        </div>
+     </div>
  </header>

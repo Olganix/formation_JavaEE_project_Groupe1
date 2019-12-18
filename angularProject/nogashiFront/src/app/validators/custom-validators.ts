@@ -4,7 +4,7 @@ import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
 export class CustomValidators {
 
   private static listForbiddenName = ['admin', 'root', '', 'login', 'god'];     // todo complet the list
-
+  public static passwordRules = {minLength: 8, maxLength: 16, pattern: ''};        // Todo partern
 
 
   public static nameCheck(): ValidatorFn {

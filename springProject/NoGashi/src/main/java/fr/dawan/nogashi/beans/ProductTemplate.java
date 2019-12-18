@@ -1,38 +1,42 @@
 package fr.dawan.nogashi.beans;
 
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import org.springframework.stereotype.Component;
 
 
+
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Component
 public class ProductTemplate extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String name;
-	//private List<productDetails> listDetails;
+		private String name;
 	private String description;
 	private String externalCode;
-	private boolean isWrapped; // est emballé
+	private boolean isWrapped; 							// est emballé => OV : isPackaged ? Todo answer
+
 	private double price;
 	private double salePrice;
 	private Date saleTime;
 	private Date unsoldTime;
 	private boolean timeControlStatus;
 	private int maxDurationCart;
-	//private Store listStores;
-	
-	private String imageFilename = "NoAvatar.jpg";						//Todo do the upload system.
-	
 
-	public ProductTemplate() {
-	}
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Merchant merchant;
+	//@OneToMany(mappedBy = "productTemplate")
+	//private List<ProductDetail> productDetails;
+	//private List<Commerce> commerces;
 	
 	
 	public ProductTemplate(String name, String description, String externalCode, boolean isWrapped, double price,
@@ -45,6 +49,21 @@ public class ProductTemplate extends DbObject {
 		this.price = price;
 		this.salePrice = salePrice;
 	}
+	
+	public ProductTemplate( ProductTemplate other)
+	{
+		super();
+		this.name = other.name;
+		this.description = other.description;
+		this.externalCode = other.externalCode;
+		this.isWrapped = other.isWrapped;
+		this.price = other.price;
+		this.salePrice = other.salePrice;
+		this.saleTime = other.saleTime;
+	}
+	//-----------------
+	public ProductTemplate() {
+	}	
 	
 	public String getName() {
 		return name;
@@ -73,12 +92,15 @@ public class ProductTemplate extends DbObject {
 	public double getPrice() {
 		return price;
 	}
+
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
 	public double getSalePrice() {
 		return salePrice;
 	}
+
 	public void setSalePrice(double salePrice) {
 		this.salePrice = salePrice;
 	}
@@ -107,6 +129,16 @@ public class ProductTemplate extends DbObject {
 		this.maxDurationCart = maxDurationCart;
 	}
 	
+	
+	
+	public Merchant getMerchant() {
+		return merchant;
+	}
+
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductTemplate [name=" + name + ", description=" + description + ", externalCode="

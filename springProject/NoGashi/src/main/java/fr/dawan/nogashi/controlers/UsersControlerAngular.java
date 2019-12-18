@@ -3,17 +3,17 @@ package fr.dawan.nogashi.controlers;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.MessagingException;
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
+import javax.persistence.Subgraph;
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
-
-import org.hibernate.annotations.Parameter;
-import org.jboss.logging.Param;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.RestResponse;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
@@ -40,7 +40,7 @@ import fr.dawan.nogashi.tools.EmailTool;
 
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")                           // @CrossOrigin is used to handle the request from a difference origin.
+@CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
 public class UsersControlerAngular 
 {
 	private static final Logger logger = LoggerFactory.getLogger(UsersControlerAngular.class);
@@ -58,6 +58,14 @@ public class UsersControlerAngular
 	public RestResponse<User> signin(@RequestBody User u, HttpSession session, Locale locale, Model model)
     {
 		System.out.println(u);
+		
+		if(	(u==null) || 
+			(u.getName()==null) || ( u.getName().trim().length() ==0) ||
+			(u.getEmail()==null) || ( u.getEmail().trim().length() ==0) ||
+			(u.getPassword()==null) || ( u.getPassword().trim().length() ==0) )
+		{
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+		}
 		
 		
 		if( (u.getRole() != UserRole.INDIVIDUAL) && (u.getRole() != UserRole.MERCHANT) && (u.getRole() != UserRole.ASSOCIATION))
@@ -107,7 +115,16 @@ public class UsersControlerAngular
     	
 		try 
 		{
-			dao.saveOrUpdate(u, em, false);
+			switch(u.getRole())
+			{
+			case MERCHANT: dao.saveOrUpdate(new Merchant(u), em, false); break;
+			//case ASSOCIATION: dao.saveOrUpdate(new Association(u), em, false); break;		//Todo
+			//case ADMIN: dao.saveOrUpdate(new Admin(u), em, false); break;					//Todo
+			case INDIVIDUAL:
+			default:
+				dao.saveOrUpdate(u, em, false); break;
+			}
+			
 			
 			System.out.println("create login: "+ u.getName() +" role:"+ u.getRole());
 			
@@ -196,9 +213,9 @@ public class UsersControlerAngular
 	/*****************************************************************************************
 	*										sendEmailValidation								 * 
 	*****************************************************************************************/
-	@RequestMapping(path="/sendemailvalidation", produces = "application/json")
+	@PostMapping(path="/sendemailvalidation", produces = "application/json")
 	//test : http://localhost:8080/nogashi/sendemailvalidation?email=aaa@toto.fr
-    public RestResponse<User> sendEmailValidation(@PathParam("email") String email, HttpSession session, Locale locale, Model model)
+    public RestResponse<User> sendEmailValidation(@RequestBody String email, HttpSession session, Locale locale, Model model)
     {
 		//todo better check on email (rules of email) and name (not admin, root or god or ...etc see official list for that), could be done from angular, but it's may be safer to do it here
 		if( (email==null)  || (email.length()==0) )
@@ -266,7 +283,7 @@ public class UsersControlerAngular
 		em.close();
 		
 		if(u != null)
-			return new RestResponse<User>(RestResponseStatus.SUCCESS, u);				//todo avoid some information to be send to front
+			return new RestResponse<User>(RestResponseStatus.SUCCESS, null);
 		else
 			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: on save or send email validation");
     }
@@ -280,12 +297,17 @@ public class UsersControlerAngular
 	@RequestMapping(path="/login", produces = "application/json")
 	//test : http://localhost:8080/nogashi/login?name=aaa&password=toto
 	//test : http://localhost:8080/nogashi/login?name=aaa@toto.fr&password=toto
-    public RestResponse<User> login(@PathParam("name") String name, @PathParam("password") String password, HttpSession session, Locale locale, Model model)
+    public RestResponse<User> login(@RequestBody User user, HttpSession session, Locale locale, Model model)
     {
-		if( (name==null) || (name.length()==0) ||(password==null) || (password.length()==0) )
-			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+		System.out.println("login : "+ user);
 		
-		//request.setCharacterEncoding("UTF-8");			//todo check if need equivalent for this, todo also check crypt password + utf8 saved in bdd are not good on read again (instead of manually create it and put it in bdd).
+		if(	(user==null) || 
+				(user.getName()==null) || ( user.getName().trim().length() ==0) ||
+				(user.getPassword()==null) || ( user.getPassword().trim().length() ==0) )
+		{
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+		}
+		
 		
 		
 		EntityManager em = StartListener.createEntityManager();
@@ -294,9 +316,9 @@ public class UsersControlerAngular
 		User u = null;
     	try 
     	{
-    		List<User> listUsers = dao.findNamed(User.class, "name", name, em, false);
+    		List<User> listUsers = dao.findNamed(User.class, "name", user.getName(), em, false);
     		if(listUsers.size()==0)
-    			listUsers = dao.findNamed(User.class, "email", name, em, false);
+    			listUsers = dao.findNamed(User.class, "email", user.getName(), em, false);
     		
     		if(listUsers.size()!=0)
     			u = listUsers.get(0);
@@ -312,8 +334,8 @@ public class UsersControlerAngular
     		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User not Found or wrong Password");
     	}
 		
-    	System.out.println(password +" match with "+ u.getPassword() +" ? => "+ (BCrypt.checkpw(password, u.getPassword()) ? "true" : "false") );
-    	if( ! BCrypt.checkpw(password, u.getPassword()) )				// compare with the Crypted password saved in bdd.
+    	System.out.println(user.getPassword() +" match with "+ u.getPassword() +" ? => "+ (BCrypt.checkpw(user.getPassword(), u.getPassword()) ? "true" : "false") );
+    	if( ! BCrypt.checkpw(user.getPassword(), u.getPassword()) )				// compare with the Crypted password saved in bdd.
     	{
     		em.close();
     		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User not Found or wrong Password");
@@ -334,7 +356,7 @@ public class UsersControlerAngular
 		
 		em.close();
 		
-		return new RestResponse<User>(RestResponseStatus.SUCCESS, u);				//todo avoid some information to be send to front
+		return new RestResponse<User>(RestResponseStatus.SUCCESS, u);				//todo avoid to give All user informations , because front don't need it, and it's a security issue.
     }
 	
 	
@@ -384,6 +406,152 @@ public class UsersControlerAngular
 	
 	
 	
+
+	/*****************************************************************************************
+	*										passwordRescue									 * 
+	*****************************************************************************************/
+	@RequestMapping(path="/passwordRescue", produces = "application/json")
+	//test : http://localhost:8080/nogashi/passwordRescue?email=aaa@toto.fr
+    public RestResponse<User> passwordRescue(@RequestBody String email, HttpSession session, Locale locale, Model model)
+    {
+		if(	(email==null) || ( email.trim().length() ==0) )
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+		
+		
+		
+		EntityManager em = StartListener.createEntityManager();
+		
+		
+		User u = null;
+    	try 
+    	{
+    		List<User> listUsers = dao.findNamed(User.class, "email", email, em, false);
+    		if(listUsers.size()!=0)
+    			u = listUsers.get(0);
+    		
+		} catch (Exception e) {
+			u = null;
+			e.printStackTrace();
+		}
+		
+    	if(u==null)
+    	{
+    		em.close();
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User not Found");
+    	}
+		
+    	
+    	
+
+    	//create token for email validation.
+    	Calendar calendar = Calendar.getInstance();
+		String token = BCrypt.hashpw(email + calendar.get(Calendar.DAY_OF_YEAR), BCrypt.gensalt());
+		System.out.println("hash: "+ email + calendar.get(Calendar.DAY_OF_YEAR) +" => "+ token);
+		u.setToken(token);
+    	
+    	
+		try 
+		{
+			dao.saveOrUpdate(u, em, false);
+			
+			System.out.println("try send emailValidation login: "+ u.getName() +" role:"+ u.getRole());
+			
+			//send email for token.
+			{
+				Properties prop = new Properties();
+				prop.put("mail.smtp.host", "localhost");
+				prop.put("mail.smtp.port", "25");
+				
+				EmailTool mt = new EmailTool(prop, null);
+				try
+				{
+					//todo put email exp in properties 
+					//Todo make a function for sending mail + try catch
+					URI uri = new URI("http", "localhost:4200", "/passwordRescueModification", "token="+ token, null);
+					mt.sendMail_html(email, "noreply@nogashi.org", "Nogashi Email modification de mot de passe", "Merci de cliquer sur le lien pour modifier votre mot de passe: <a href='"+ uri.toASCIIString() +"'>Aller vers la page de modification de mot de passe</a>");
+					
+				}catch(MessagingException e){
+					u = null;
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e1) {
+			u = null;
+			e1.printStackTrace();
+		}
+		
+		
+		em.close();
+		
+		if(u != null)
+			return new RestResponse<User>(RestResponseStatus.SUCCESS, null);
+		else
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: on save or send email validation");
+    }
+	
+	
+	//
+	
+	
+
+	/*****************************************************************************************
+	*										passwordRescueModification						 * 
+	*****************************************************************************************/
+	@PostMapping(path="/passwordRescueModification", produces = "application/json")
+	//test : http://localhost:8080/nogashi/passwordRescueModification?password=toto&token=xxxxxxxxxxxxx
+	public RestResponse<User> passwordRescueModification(@RequestBody User user, HttpSession session, Locale locale, Model model)
+    {
+		System.out.println(user);
+		
+		if(	(user==null) || 
+			(user.getToken()==null) || ( user.getToken().trim().length() ==0) ||
+			(user.getPassword()==null) || ( user.getPassword().trim().length() ==0) )
+		{
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+		}
+		
+		
+		EntityManager em = StartListener.createEntityManager();
+		
+		
+
+		User u = null;
+    	try 
+    	{
+    		List<User> listUsers = dao.findNamed(User.class, "token", user.getToken(), em, false);
+    		if(listUsers.size()!=0)
+    			u = listUsers.get(0);
+		} catch (Exception e) {
+			u = null;
+			e.printStackTrace();
+		}
+		
+    	if(u==null)
+    	{
+    		em.close();
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: token not valid or not found");
+    	}
+		
+    	String password_crypted = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());				// Crypting the password before save in bdd.
+    	u.setPassword(password_crypted);
+    	u.setToken(null);
+    	
+		try 
+		{
+			dao.saveOrUpdate(u, em, false);
+			System.out.println("password modified for login: "+ u.getName() +" role:"+ u.getRole());
+			
+		} catch (Exception e1) {
+			u = null;
+			e1.printStackTrace();
+		}
+		
+		em.close();
+		
+		return new RestResponse<User>(RestResponseStatus.SUCCESS, null);
+    }
+	
+	
 	
 	
 	
@@ -409,5 +577,38 @@ public class UsersControlerAngular
 		em.close();
 		return new RestResponse<List<User>>(RestResponseStatus.SUCCESS, listUsers);
     }
+	
+	/*****************************************************************************************
+	*										getMerchants										 * 
+	*****************************************************************************************/
+	@RequestMapping(path="/getMerchants", produces = "application/json")
+	//it's a test, TODO remove this from public access, could be use only for admin.
+    public RestResponse<List<Merchant>> getMerchants()
+    {
+    	EntityManager em = StartListener.createEntityManager();
+		
+    	List<Merchant> listMerchants = new ArrayList<Merchant>();
+		
+    	
+    	
+    	EntityGraph<Merchant> graph = em.createEntityGraph(Merchant.class);
+    	graph.addSubgraph("commerces");
+    	
+    	//Subgraph<Merchant> itemGraph = graph.addSubgraph("commerces");    
+    	//Map hints = new HashMap();
+    	//hints.put("javax.persistence.loadgraph", graph);
+    	
+		try 
+		{	
+			listMerchants = dao.findAll(Merchant.class, em, false, graph);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		em.close();
+		return new RestResponse<List<Merchant>>(RestResponseStatus.SUCCESS, listMerchants);
+    }
+	
+	
     
 }

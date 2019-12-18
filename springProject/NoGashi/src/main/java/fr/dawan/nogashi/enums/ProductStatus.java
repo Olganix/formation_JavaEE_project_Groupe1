@@ -4,9 +4,10 @@ public enum ProductStatus {
 
 	UNAVAILABLE,
 	AVAILABLE,
-	ON_SALE,
-	UNSOLD,
+	PROMOTION,
 	RESERVED,
-	SOLD
+	SOLD,
+	UNSOLD
+
 	
 }
