@@ -3,3 +3,4 @@
 2: Email non validé.
 3: parse Email non valide.
 4: nom deja utilisé ou interdit.
+5: Utilisateur n'a pas le bon role pour l'operation 

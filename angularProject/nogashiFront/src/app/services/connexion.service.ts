@@ -113,6 +113,13 @@ export class ConnexionService {
         return new RestResponse(rrp);
       }));
   }
+  getMerchantCommerces() {
+    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/getCommerces', { withCredentials: true }).pipe(
+      retry(3),
+      map( (rrp: RestResponse) => {
+        return new RestResponse(rrp);
+      }));
+  }
 
 
 

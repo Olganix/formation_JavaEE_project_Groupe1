@@ -1,5 +1,6 @@
 package fr.dawan.nogashi.daos;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,12 +95,20 @@ public class GenericDao
 		}
 	}
 	
-	public <T extends DbObject> T find(Class<T> tClass, int id, EntityManager em, boolean closeConnection) throws Exception
+	public <T extends DbObject> T find(Class<T> tClass, int id, EntityManager em, boolean closeConnection, EntityGraph<T> graph) throws Exception
 	{
 		if(id==0)
 			return null;
-				
-		T elm = em.find( tClass, id);
+		
+		T elm = null;
+		if(graph!=null)
+		{
+			Map<String, Object> hints = new HashMap<String, Object>();
+			hints.put("javax.persistence.loadgraph", graph);
+			elm = em.find(tClass, id, hints);
+		}else {
+			elm = em.find( tClass, id);
+		}
 		
 		if(closeConnection)
 			em.close();
@@ -108,10 +117,15 @@ public class GenericDao
 	}
 	
 	
-	public <T extends DbObject> List<T> findNamed(Class<T> tClass, String column, String name, EntityManager em, boolean closeConnection) throws Exception
+	
+	public <T extends DbObject> List<T> findNamed(Class<T> tClass, String column, String name, EntityManager em, boolean closeConnection, EntityGraph<T> graph) throws Exception
 	{
-		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity where "+ column +"=:name", tClass);
+		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity WHERE "+ column +"=:name AND TYPE(entity) = "+ tClass.getName(), tClass);
 		query.setParameter("name", name);
+		
+		if(graph!=null)
+			query.setHint("javax.persistence.loadgraph", graph);				//for loading sub class (class attribut using class).		// methode 5 : https://thoughts-on-java.org/5-ways-to-initialize-lazy-relations-and-when-to-use-them/
+		
 		List<T> result = query.getResultList();
 		
 		if(closeConnection)
@@ -122,10 +136,13 @@ public class GenericDao
 	}
 	
 	
-	public <T extends DbObject> List<T> findAll(Class<T> tClass, EntityManager em, boolean closeConnection) throws Exception
+	
+	
+	public <T extends DbObject> List<T> findAll(Class<T> tClass, EntityManager em, boolean closeConnection, EntityGraph<T> graph) throws Exception
 	{		
-		//TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity", tClass);
 		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity WHERE TYPE(entity) = "+ tClass.getName(), tClass);		//to have only User , and not Merchant and all child classes of User.
+		if(graph!=null)
+			query.setHint("javax.persistence.loadgraph", graph);				//for loading sub class (class attribut using class).		// methode 5 : https://thoughts-on-java.org/5-ways-to-initialize-lazy-relations-and-when-to-use-them/
 		List<T> result = query.getResultList();
 		
 		if(closeConnection)
@@ -134,23 +151,11 @@ public class GenericDao
 		return result;
 	}
 	
-	public <T extends DbObject> List<T> findAll(Class<T> tClass, EntityManager em, boolean closeConnection, EntityGraph graph) throws Exception
-	{		
-		//TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity", tClass);
-		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity WHERE TYPE(entity) = "+ tClass.getName(), tClass);		//to have only User , and not Merchant and all child classes of User.
-		query.setHint("javax.persistence.loadgraph", graph);				//for loading sub class (class attribut using class).		// methode 5 : https://thoughts-on-java.org/5-ways-to-initialize-lazy-relations-and-when-to-use-them/
-		List<T> result = query.getResultList();
-		
-		if(closeConnection)
-			em.close();
 	
-		return result;
-	}
 	
 	public <T extends DbObject> long count(Class<T> tClass, EntityManager em, boolean closeConnection) throws Exception
 	{		
-		Query query = em.createQuery("SELECT COUNT(entity.id) from "+ tClass.getName() + " as entity");
-		//query.setHint("org.hibernate.cacheable", true);
+		Query query = em.createQuery("SELECT COUNT(entity.id) from "+ tClass.getName() + " as entity WHERE TYPE(entity) = "+ tClass.getName());
 		long result = (long)query.getSingleResult();
 		
 		if(closeConnection)
@@ -160,9 +165,11 @@ public class GenericDao
 	}
 	
 	
-	public <T extends DbObject> List<T> findPartial(Class<T> tClass, EntityManager em, boolean closeConnection, int startindex, int nbElements) throws Exception
+	public <T extends DbObject> List<T> findPartial(Class<T> tClass, EntityManager em, boolean closeConnection, int startindex, int nbElements, EntityGraph<T> graph) throws Exception
 	{		
-		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity", tClass);
+		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity WHERE TYPE(entity) = "+ tClass.getName(), tClass);
+		if(graph!=null)
+			query.setHint("javax.persistence.loadgraph", graph);				//for loading sub class (class attribut using class).		// methode 5 : https://thoughts-on-java.org/5-ways-to-initialize-lazy-relations-and-when-to-use-them/
 		
 		List<T> result = query.setFirstResult(startindex).setMaxResults(startindex + nbElements).getResultList();
 		
@@ -171,4 +178,41 @@ public class GenericDao
 	
 		return result;
 	}
+	
+	//---------------------------------------
+
+	public <T extends DbObject> T find(Class<T> tClass, int id, EntityManager em, boolean closeConnection) throws Exception
+	{
+		return find(tClass, id, em, closeConnection, null);
+	}
+	public <T extends DbObject> T find(Class<T> tClass, int id, EntityManager em) throws Exception
+	{
+		return find(tClass, id, em, false, null);
+	}
+	public <T extends DbObject> List<T> findNamed(Class<T> tClass, String column, String name, EntityManager em, boolean closeConnection) throws Exception
+	{
+		return findNamed(tClass, column, name, em, closeConnection, null); 
+	}
+	public <T extends DbObject> List<T> findNamed(Class<T> tClass, String column, String name, EntityManager em) throws Exception
+	{
+		return findNamed(tClass, column, name, em, false, null); 
+	}
+	
+	public <T extends DbObject> List<T> findAll(Class<T> tClass, EntityManager em) throws Exception
+	{		
+		return findAll(tClass, em, false, null);
+	}
+	public <T extends DbObject> List<T> findAll(Class<T> tClass, EntityManager em, boolean closeConnection) throws Exception
+	{		
+		return findAll(tClass, em, closeConnection, null);
+	}
+	public <T extends DbObject> List<T> findPartial(Class<T> tClass, EntityManager em, int startindex, int nbElements) throws Exception
+	{		
+		return findPartial(tClass, em, false, startindex, nbElements, null);
+	}
+	public <T extends DbObject> List<T> findPartial(Class<T> tClass, EntityManager em, boolean closeConnection, int startindex, int nbElements) throws Exception
+	{		
+		return findPartial(tClass, em, closeConnection, startindex, nbElements, null);
+	}
 }
+	

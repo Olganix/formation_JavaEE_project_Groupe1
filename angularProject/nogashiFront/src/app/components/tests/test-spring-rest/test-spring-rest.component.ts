@@ -16,6 +16,7 @@ export class TestSpringRestComponent implements OnInit
 {
   users: any;
   merchants: any;
+  commerces: any;
 
   constructor(private connexionService: ConnexionService)
   {
@@ -38,7 +39,7 @@ export class TestSpringRestComponent implements OnInit
         console.log('Echec de la recuperation de la liste des users : ', error);
       });
 
-     
+
 
     this.connexionService.getMerchants().subscribe(
       (rrp: RestResponse) => {
@@ -53,6 +54,20 @@ export class TestSpringRestComponent implements OnInit
         console.log('Echec de la recuperation de la liste des merchants : ', error);
       });
 
+
+
+    this.connexionService.getMerchantCommerces().subscribe(
+      (rrp: RestResponse) => {
+
+        if (rrp.status === 'SUCCESS') {
+          this.commerces = rrp.data;
+        } else {
+          console.log('Echec de la recuperation de la liste des merchants : ' + rrp.errormessage);
+        }
+      },
+      error => {
+        console.log('Echec de la recuperation de la liste des merchants : ', error);
+      });
 
   }
 }
