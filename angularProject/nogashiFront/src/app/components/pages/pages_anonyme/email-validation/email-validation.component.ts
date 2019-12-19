@@ -12,6 +12,7 @@ import {ConnexionService} from '../../../../services/connexion.service';
 export class EmailValidationComponent implements OnInit {
 
   token = null;
+  haveCkeckToken = false;
   haveRet = false;
   isValidate = false;
 
@@ -22,24 +23,27 @@ export class EmailValidationComponent implements OnInit {
 
     this.route.queryParamMap.subscribe( (queryparam: ParamMap) => {
 
+      this.haveCkeckToken = true;
       this.token =  queryparam.get('token');
       console.log(this.token);
 
-      this.connexionService.emailValidation( this.token ).subscribe(
-        (rrp: RestResponse) => {
+      if(this.token !== null) {
 
-          console.log('component.emailValidation: ');
-          console.log(rrp);
+        this.connexionService.emailValidation(this.token).subscribe(
+          (rrp: RestResponse) => {
 
-          this.haveRet = true;
-          this.isValidate = (rrp.status === 'SUCCESS');
-        },
-        error => {
-          console.log('Error occured', error);
-          this.haveRet = true;
-          this.isValidate = false;
-        });
+            console.log('component.emailValidation: ');
+            console.log(rrp);
 
+            this.haveRet = true;
+            this.isValidate = (rrp.status === 'SUCCESS');
+          },
+          error => {
+            console.log('Error occured', error);
+            this.haveRet = true;
+            this.isValidate = false;
+          });
+      }
     });
 
     /*

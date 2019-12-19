@@ -1,64 +1,70 @@
 package fr.dawan.nogashi.beans;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import org.springframework.stereotype.Component;
 
-/**
- * 
- * @author Joffrey
- * Fiche produit
- *
- */
+
+
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Component
-public class ProductTemplate extends DbObject implements Serializable {
+public class ProductTemplate extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Basic(optional = false)
-	private int id;
-	private String name;
-	//private List<productDetails> listDetails;
+		private String name;
 	private String description;
 	private String externalCode;
-	private boolean isWrapped; // est emballé
-	private float price;
-	private float salePrice;
+	private boolean isWrapped; 							// est emballé => OV : isPackaged ? Todo answer
+
+	private double price;
+	private double salePrice;
 	private Date saleTime;
 	private Date unsoldTime;
 	private boolean timeControlStatus;
 	private int maxDurationCart;
-	//private Store listStores;
-	
-	private String imageFilename = "NoAvatar.jpg";						//Todo do the upload system.
-	
 
-	public ProductTemplate() {
-	}
-	public ProductTemplate(int id, String name, String description, String externalCode, boolean isWrapped, float price,
-			float salePrice, Date saleTime) {
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Merchant merchant;
+	//@OneToMany(mappedBy = "productTemplate")
+	//private List<ProductDetail> productDetails;
+	//private List<Commerce> commerces;
+	
+	
+	public ProductTemplate(String name, String description, String externalCode, boolean isWrapped, double price,
+			double salePrice) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.externalCode = externalCode;
 		this.isWrapped = isWrapped;
 		this.price = price;
 		this.salePrice = salePrice;
-		this.saleTime = saleTime;
 	}
-	public int getId() {
-		return id;
+	
+	public ProductTemplate( ProductTemplate other)
+	{
+		super();
+		this.name = other.name;
+		this.description = other.description;
+		this.externalCode = other.externalCode;
+		this.isWrapped = other.isWrapped;
+		this.price = other.price;
+		this.salePrice = other.salePrice;
+		this.saleTime = other.saleTime;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	//-----------------
+	public ProductTemplate() {
+	}	
+	
 	public String getName() {
 		return name;
 	}
@@ -83,16 +89,19 @@ public class ProductTemplate extends DbObject implements Serializable {
 	public void setWrapped(boolean isWrapped) {
 		this.isWrapped = isWrapped;
 	}
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(float price) {
+
+	public void setPrice(double price) {
 		this.price = price;
 	}
-	public float getSalePrice() {
+
+	public double getSalePrice() {
 		return salePrice;
 	}
-	public void setSalePrice(float salePrice) {
+
+	public void setSalePrice(double salePrice) {
 		this.salePrice = salePrice;
 	}
 	public Date getSaleTime() {
@@ -120,9 +129,19 @@ public class ProductTemplate extends DbObject implements Serializable {
 		this.maxDurationCart = maxDurationCart;
 	}
 	
+	
+	
+	public Merchant getMerchant() {
+		return merchant;
+	}
+
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+
 	@Override
 	public String toString() {
-		return "ProductTemplate [id=" + id + ", name=" + name + ", description=" + description + ", externalCode="
+		return "ProductTemplate [name=" + name + ", description=" + description + ", externalCode="
 				+ externalCode + ", isWrapped=" + isWrapped + ", price=" + price + ", salePrice=" + salePrice
 				+ ", saleTime=" + saleTime + ", unsoldTime=" + unsoldTime + ", timeControlStatus=" + timeControlStatus
 				+ ", maxDurationCart=" + maxDurationCart + "]";

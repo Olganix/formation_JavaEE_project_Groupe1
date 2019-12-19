@@ -2,10 +2,9 @@ package fr.dawan.nogashi.beans;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
 
@@ -21,6 +20,7 @@ public class TchatMessage extends DbObject implements Serializable {
 	@Basic(optional = false)
 	private LocalDateTime date;
 	
+	@OneToOne
 	private User authorMessage;
 		
 	

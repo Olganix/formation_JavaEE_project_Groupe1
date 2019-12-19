@@ -4,18 +4,24 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
 
 import fr.dawan.nogashi.enums.UserRole;
 
 @Entity
+//@Inheritance(strategy = InheritanceType.JOINED)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Component
 public class User extends DbObject
 {	
 	private static final long serialVersionUID = 1L;
 	
-	@Basic(optional = false)
+	@Basic(optional = false)					//DEPRECIATE ? TODO USE @Column(nullable = false)
 	private String name;
 	@Basic(optional = false)
 	private String email;
@@ -27,13 +33,10 @@ public class User extends DbObject
 	
 	private String avatarFilename = "NoAvatar.jpg";						//Todo do the upload system.
 	
-	private String phoneNumber;											//Todo many possible ?
-	private String address;
-	private String addressExtra;
-	private String postalCode;
-	private String cityName;
-	private String stateName;
-	
+		private String phoneNumber;
+	private String phoneNumber2;
+	@OneToOne
+	private Address address;	
 	private boolean emailValid = false;
 	private String token = null;												//for secure operations like email validation.
 	
@@ -46,11 +49,6 @@ public class User extends DbObject
 	}
 	
 	
-	
-	
-	
-	
-	
 	public User(String name, String email, String password, UserRole role, boolean newsletterEnabled)		//for the moment of inscription.
 	{
 		super();
@@ -60,7 +58,28 @@ public class User extends DbObject
 		this.role = role;
 		this.newsletterEnabled = newsletterEnabled;
 	}
+	public User(String name, String password)		//for the moment of login. Notice: in case name is pseudo or email 
+	{
+		super();
+		this.name = name;
+		this.password = password;
+	}
 
+	public User(User other)
+	{
+		super();
+		this.name = (other.name!= null) ? (new String(other.name)) : null;			//todo check if not Reference the same value. if it's the case , do = new String(other.name) and apply it everywhere there is a "other". 
+		this.email = (other.email!= null) ? (new String(other.email)) : null;
+		this.password = (other.password!= null) ? (new String(other.password)) : null;
+		this.role = other.role;
+		this.avatarFilename = (other.avatarFilename!= null) ? (new String(other.avatarFilename)) : null;
+		this.phoneNumber = (other.phoneNumber!= null) ? (new String(other.phoneNumber)) : null;
+		this.phoneNumber2 = (other.phoneNumber2!= null) ? (new String(other.phoneNumber2)) : null;
+		this.address = (other.address!= null) ? (new Address(other.address)) : null;
+		this.emailValid = other.emailValid;
+		this.token = (other.token!= null) ? (new String(other.token)) : null;
+		this.newsletterEnabled = other.newsletterEnabled;
+	}
 
 
 	
@@ -68,8 +87,9 @@ public class User extends DbObject
 
 
 
-	public User(String name, String email, String password, UserRole role, String avatarFilename, String phoneNumber,
-			String adress, String adressExtra, String postalCode, String cityName, String stateName, boolean emailValid,
+
+	public User(String name, String email, String password, UserRole role, String avatarFilename, String phoneNumber, String phoneNumber2,
+			Address address, boolean emailValid,
 			String token, boolean newsletterEnabled) {
 		super();
 		this.name = name;
@@ -78,11 +98,8 @@ public class User extends DbObject
 		this.role = role;
 		this.avatarFilename = avatarFilename;
 		this.phoneNumber = phoneNumber;
-		this.address = adress;
-		this.addressExtra = adressExtra;
-		this.postalCode = postalCode;
-		this.cityName = cityName;
-		this.stateName = stateName;
+		this.phoneNumber2 = phoneNumber2;
+		this.setAddress(address);		
 		this.emailValid = emailValid;
 		this.token = token;
 		this.newsletterEnabled = newsletterEnabled;
@@ -161,56 +178,21 @@ public class User extends DbObject
 		this.phoneNumber = phoneNumber;
 	}
 
+	
+	public String getPhoneNumber2() {
+		return phoneNumber2;
+	}
 
-	public String getAddress() {
-		return address;
+	public void setPhoneNumber2(String phoneNumber2) {
+		this.phoneNumber2 = phoneNumber2;
 	}
 
 
-	public void setAddress(String adress) {
-		this.address = adress;
-	}
 
 
-	public String getAddressExtra() {
-		return addressExtra;
-	}
+	
 
-
-	public void setAddressExtra(String adressExtra) {
-		this.addressExtra = adressExtra;
-	}
-
-
-	public String getPostalCode() {
-		return postalCode;
-	}
-
-
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
-
-
-	public String getCityName() {
-		return cityName;
-	}
-
-
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
-	}
-
-
-	public String getStateName() {
-		return stateName;
-	}
-
-
-	public void setStateName(String stateName) {
-		this.stateName = stateName;
-	}
-
+	
 	public boolean isEmailValid() {
 		return emailValid;
 	}
@@ -233,6 +215,16 @@ public class User extends DbObject
 
 	public void setNewsletterEnabled(boolean newletterEnabled) {
 		this.newsletterEnabled = newletterEnabled;
+	}
+
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	

@@ -1,3 +1,4 @@
+import {Address} from './address';
 
 
 export class User {
@@ -12,11 +13,7 @@ export class User {
 
   private _phoneNumber: string;
   private _phoneNumber2: string;
-  private _address: string;
-  private _addressExtra: string;
-  private _postalCode: string;
-  private _cityName: string;
-  private _stateName: string;
+  private _address: Address;
 
   private _emailValid = false;
   private _token: string = null;												// for security operations
@@ -36,11 +33,21 @@ export class User {
     this._role = role;
     this._newsletterEnabled = newsletterEnabled;
   }
-
-  toHttpObject_signin(): any {
-    return {id: this._id, name: this._name, email: this._email, password: this._password, role: this._role, newsletterEnabled: this._newsletterEnabled };
+  setLogin(name: string, password: string) {
+    this._name = name;
+    this._password = password;
   }
 
+
+  toHttpObject_signin(): any {
+    return {name: this._name, email: this._email, password: this._password, role: this._role, newsletterEnabled: this._newsletterEnabled };
+  }
+  toHttpObject_login(): any {
+    return {name: this._name, password: this._password };
+  }
+  toHttpObject_passwordRescueModification(): any {
+    return {token: this._token, password: this._password };
+  }
 
   get name(): string {
     return this._name;
@@ -98,44 +105,12 @@ export class User {
     this._phoneNumber2 = value;
   }
 
-  get address(): string {
-    return this._address;
-  }
 
-  set address(value: string) {
+  set address(value: Address) {
     this._address = value;
   }
-
-  get addressExtra(): string {
-    return this._addressExtra;
-  }
-
-  set addressExtra(value: string) {
-    this._addressExtra = value;
-  }
-
-  get postalCode(): string {
-    return this._postalCode;
-  }
-
-  set postalCode(value: string) {
-    this._postalCode = value;
-  }
-
-  get cityName(): string {
-    return this._cityName;
-  }
-
-  set cityName(value: string) {
-    this._cityName = value;
-  }
-
-  get stateName(): string {
-    return this._stateName;
-  }
-
-  set stateName(value: string) {
-    this._stateName = value;
+  get address(): Address {
+    return this._address;
   }
 
   get emailValid(): boolean {
@@ -162,8 +137,11 @@ export class User {
     this._newsletterEnabled = value;
   }
 
-
   get id(): string {
     return this._id;
+  }
+
+  set id(value: string) {
+    this._id = value;
   }
 }
