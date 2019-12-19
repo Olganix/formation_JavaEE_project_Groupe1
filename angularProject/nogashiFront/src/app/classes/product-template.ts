@@ -14,12 +14,17 @@ export class ProductTemplate {
   private _imageFilename = 'NoAvatar.jpg'; // Todo do the upload system.
 
 
-  constructor(id: number, name: string, description: string, price: number) {
-    this._id = id;
+  constructor() {
+  }
+
+
+  setAddProductTemplate(name: string, description: string, price: number, isWrapped: boolean) {
     this._name = name;
     this._description = description;
     this._price = price;
+    this._isWrapped = isWrapped;
   }
+
 
   get id(): number {
     return this._id;

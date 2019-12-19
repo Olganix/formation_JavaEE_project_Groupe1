@@ -18,7 +18,7 @@ public class ProductTemplate extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
-		private String name;
+	private String name;
 	private String description;
 	private String externalCode;
 	private boolean isWrapped; 							// est emballé => OV : isPackaged ? Todo answer

@@ -43,7 +43,6 @@ public class ProductsTemplatesControllerAngular
 	@RequestMapping(path="/getProductsTemplates", produces = "application/json")
 	public RestResponse<List<ProductTemplate>> getProducts()
     {
-		System.out.println("salut");
     	EntityManager em = StartListener.createEntityManager();
 		
     	List<ProductTemplate> listProductsTemplates = new ArrayList<ProductTemplate>();
@@ -70,8 +69,8 @@ public class ProductsTemplatesControllerAngular
 	//test : http://localhost:8080/nogashi/
 	public RestResponse<ProductTemplate> addProductTemplate(@RequestBody ProductTemplate pt, User u, HttpSession session, Locale locale, Model model)
     {
-		System.out.println("fiche produit : " + pt + " ; user : " + u);
-		
+		System.out.println("fiche produit : " + pt);
+		System.out.println("user : " + u);
 		
 		if( (u.getRole() != UserRole.MERCHANT) || (u.getRole() != UserRole.ADMIN))
 			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: Role no good");
