@@ -71,11 +71,12 @@ import { CommentsComponent } from './components/modules/comments/comments.compon
 import { DeactivateAccountComponent } from './components/pages/pages_common/deactivate-account/deactivate-account.component';
 import { PasswordRescueModificationComponent } from './components/pages/pages_anonyme/password-rescue-modification/password-rescue-modification.component';
 import { ListProductsTemplatesComponent } from './components/pages/pages_merchant/list-products-templates/list-products-templates.component';
-import {ListingService} from './services/listing.service';
+import { ListingService } from './services/listing.service';
 import { CompteComponent } from './components/pages/pages_common/compte/compte.component';
 import { CompteCommandesComponent } from './components/pages/pages_common/compte-commandes/compte-commandes.component';
 import { ComptePreferencesComponent } from './components/pages/pages_common/compte-preferences/compte-preferences.component';
 import { CompteCommentairesComponent } from './components/pages/pages_common/compte-commentaires/compte-commentaires.component';
+
 
 
 
@@ -96,6 +97,7 @@ const appRoutes: Routes =
   { path: 'legalNotices', component: LegalNoticesComponent },
   { path: 'findUs', component: FindUsComponent },
 
+
   { path: 'passwordReset', component: PasswordResetComponent },
   { path: 'deactivateAccount', component: DeactivateAccountComponent },
   { path: 'commandSteps', component: CommandStepsComponent },
@@ -110,7 +112,6 @@ const appRoutes: Routes =
   { path: 'myOrders', component: CompteCommandesComponent },
   { path: 'myPreferences', component: ComptePreferencesComponent },
   { path: 'myComments', component: CompteCommentairesComponent },
-
   { path: 'individual/welcome',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
 
 

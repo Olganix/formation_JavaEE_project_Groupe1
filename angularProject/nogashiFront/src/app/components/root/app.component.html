@@ -1,6 +1,3 @@
-
-
-
 <div class="background"> <!-- Background => Dévoilement du footer -->
 
   <app-header></app-header>
@@ -16,54 +13,79 @@
 <app-info-box-notifications></app-info-box-notifications>
 
 <!-- Todo remove -->
-<nav class="navbar navbar-default" style="position: fixed; bottom: 0px; left: 0px; right: 0px; z-index: 999;">
-    <div class="container-fluid">
-        <div class="navbar-collapse">
-            <ul class="nav navbar-nav">
-              <!-- Pages anonyme -->
-                <li routerLinkActive="active"><a routerLink="welcome">Accueil</a></li>
-                <li routerLinkActive="active"><a routerLink="signin">Inscription</a></li>
-                <li routerLinkActive="active"><a routerLink="emailValidation">Validation d'e-email</a></li>
-                <li routerLinkActive="active"><a routerLink="login">Connexion</a></li>
-                <li routerLinkActive="active"><a routerLink="passwordRescue">Récupération de mot-de-passe</a></li>
-                <li routerLinkActive="active"><a routerLink="generalFaq">F.A.Q. générale</a></li>
-                <li routerLinkActive="active"><a routerLink="legalNotices">Mentions légales</a></li>
-                <li routerLinkActive="active"><a routerLink="findUs">Où nous trouver</a></li>
+<div class="container ">
+  <div class="row">
+    <div class="bloc-navbar col-12">
 
-              <!-- Pages Common -->
-                <li routerLinkActive="active"><a routerLink="passwordReset">Réinitialisation de mot-de-passe</a></li>
-                <li routerLinkActive="active"><a routerLink="deactivateAccount">Désactivation du compte</a></li>
-                <li routerLinkActive="active"><a routerLink="shoppingCart">1.Panier-commande</a></li>
-                <li routerLinkActive="active"><a routerLink="commandRecap">2.Résumé-commande</a></li>
-                <li routerLinkActive="active"><a routerLink="commandPayment">3.Paiement-commande</a></li>
-                <li routerLinkActive="active"><a routerLink="commandConfirmation">4.Confirmation-commande</a></li>
-                <li routerLinkActive="active"><a routerLink="tchat">Tchat</a></li>
-                <li routerLinkActive="active"><a routerLink="productSheet">Fiche produit</a></li>
-                <li routerLinkActive="active"><a routerLink="myProfile">Compte utilisateur</a></li>
-                <li routerLinkActive="active"><a routerLink="myOrders">Compte utilisateur - commandes</a></li>
-                <li routerLinkActive="active"><a routerLink="myPreferences">Compte utilisateur - préférences</a></li>
-                <li routerLinkActive="active"><a routerLink="myComments">Compte utilisateur - commentaires</a></li>
-
-              <!-- Pages individual -->
-                <li routerLinkActive="active"><a routerLink="individual/welcome">Accueil - Compte particulier</a></li>
-
-              <!-- Pages merchant -->
-                <li routerLinkActive="active"><a routerLink="merchant/welcome">Accueil - Compte commerçant</a></li>
-                <li routerLinkActive="active"><a routerLink="merchant/faq">F.A.Q. $merchant</a></li>
-                <li routerLinkActive="active"><a routerLink="merchant/listProductsTemplates">Liste des fiches produits (test)</a></li>
-
-              <!-- Pages association -->
-                <li routerLinkActive="active"><a routerLink="association/welcome">Wc Asso</a></li>
-
-              <!-- Pages admin -->
-                <li routerLinkActive="active"><a routerLink="admin/welcome">Wc Admin</a></li>
-
-              <!-- Tests -->
-                <li routerLinkActive="active"><a routerLink="test/testSpringRest">test Rest</a></li>
-                <li routerLinkActive="active"><a routerLink="test/appareils">test AppAll</a></li>
-                <li routerLinkActive="active"><a routerLink="test/appareils/:id">test App</a></li>
-                <li routerLinkActive="active"><a routerLink="test/connexion">test connexion</a></li>
-            </ul>
+<div class="grand-bloc col-12">
+        <div class="bloc-lien col-3">
+          <!-- Pages anonyme -->
+          <h5>PAGES ANONYME</h5>
+          <p routerLinkActive="active"><a routerLink="welcome" class="lien-router">Accueil</a></p>
+          <p routerLinkActive="active"><a routerLink="signin" class="lien-router">Inscription</a></p>
+          <p routerLinkActive="active"><a routerLink="emailValidation" class="lien-router">Validation d'e-email</a></p>
+          <p routerLinkActive="active"><a routerLink="login" class="lien-router">Connexion</a></p>
+          <p routerLinkActive="active"><a routerLink="passwordRescue" class="lien-router">Récupération de mot-de-passe</a></p>
+          <p routerLinkActive="active"><a routerLink="generalFaq" class="lien-router">F.A.Q. générale</a></p>
+          <p routerLinkActive="active"><a routerLink="legalNotices" class="lien-router">Mentions légales</a></p>
+          <p routerLinkActive="active"><a routerLink="findUs" class="lien-router">Où nous trouver</a></p>
         </div>
+        <div class="bloc-lien col-3">
+          <!-- Pages Common -->
+          <h5>PAGE COMMON</h5>
+          <p routerLinkActive="active"><a routerLink="passwordReset" class="lien-router">Réinitialisation de mot-de-passe</a></p>
+          <p routerLinkActive="active"><a routerLink="deactivateAccount" class="lien-router">Désactivation du compte</a></p>
+          <p routerLinkActive="active"><a routerLink="shoppingCart" class="lien-router">1.Panier-commande</a></p>
+          <p routerLinkActive="active"><a routerLink="commandRecap" class="lien-router">2.Résumé-commande</a></p>
+          <p routerLinkActive="active"><a routerLink="commandPayment" class="lien-router">3.Paiement-commande</a></p>
+          <p routerLinkActive="active"><a routerLink="commandConfirmation" class="lien-router">4.Confirmation-commande</a></p>
+          <p routerLinkActive="active"><a routerLink="tchat" class="lien-router">Tchat</a></p>
+          <p routerLinkActive="active"><a routerLink="productSheet" class="lien-router">Fiche produit</a></p>
+          <p routerLinkActive="active"><a routerLink="myProfile" class="lien-router">Compte utilisateur</a></p>
+          <p routerLinkActive="active"><a routerLink="myPreferences" class="lien-router">Compte utilisateur - préférences</a></p>
+          <p routerLinkActive="active"><a routerLink="myOrders" class="lien-router">Compte utilisateur - commandes</a></p>
+          <p routerLinkActive="active"><a routerLink="myComments" class="lien-router">Compte utilisateur - commentaires</a></p>
+        </div>
+
+        <div class="bloc-lien col-3">
+          <!-- Pages individual -->
+          <h5>PAGES INDIVIDUAL</h5>
+          <p routerLinkActive="active"><a routerLink="individual/welcome" class="lien-router">Accueil - Compte particulier</a></p>
+        </div>
+
+
+        <div class="bloc-lien col-3" >
+          <!-- Pages merchant -->
+          <h5>PAGES MERCHANT</h5>
+          <p routerLinkActive="active"><a routerLink="merchant/welcome" class="lien-router">Accueil - Compte commerçant</a></p>
+          <p routerLinkActive="active"><a routerLink="merchant/faq" class="lien-router">F.A.Q. $merchant</a></p>
+          <p routerLinkActive="active"><a routerLink="merchant/listProductsTemplates" class="lien-router">Liste des fiches produits (test)</a></p>
+        </div>
+      </div>
+
+      <div class="grand-bloc2 col-12">
+        <div class="bloc-lien col-3">
+          <!-- Pages association -->
+          <h5>PAGE ASSOCIATION</h5>
+          <p routerLinkActive="active"><a routerLink="association/welcome"  class="lien-router">Wc Asso</a></p>
+        </div>
+
+        <div class="bloc-lien col-3">
+          <!-- Pages admin -->
+          <h5>PAGE ADMIN</h5>
+          <p routerLinkActive="active"><a routerLink="admin/welcome" class="lien-router">Wc Admin</a></p>
+        </div>
+
+        <div class="bloc-lien col-3" >
+          <!-- Tests -->
+          <h5>TESTS</h5>
+          <p routerLinkActive="active"><a routerLink="test/testSpringRest" class="lien-router">test Rest</a></p>
+          <p routerLinkActive="active"><a routerLink="test/appareils" class="lien-router">test AppAll</a></p>
+          <p routerLinkActive="active"><a routerLink="test/appareils/:id" class="lien-router">test App</a></p>
+          <p routerLinkActive="active"><a routerLink="test/connexion" class="lien-router">test connexion</a></p>
+        </div>
+
+      </div>
     </div>
-</nav>
+  </div>
+</div>

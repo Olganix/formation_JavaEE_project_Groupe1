@@ -139,6 +139,7 @@
         .section-concept {
             background-image: url(/assets/img/pattern/funky-lines2.jpg);
             background-repeat: repeat;
+            padding-bottom: 50px;
         }
 
         .fond-texte {
@@ -147,7 +148,6 @@
              margin-top: 120px;
              position: relative;
         }
-
 
         .titre {
              font-family: 'Ubuntu', sans-serif;
@@ -187,123 +187,122 @@
 
 
 
-                  /* SECTION OFFRE */
+        /* SECTION OFFRE */
 
         .section-offre {
-            background-color: dimgrey;
+          background-color: dimgrey;
         }
 
         .titre-offre {
-            font-size: 1.4em;
-            font-family: 'nunito', sans-serif;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: var(--couleurBlancCreme);
-            margin-top: 50px;
+          font-size: 1.4em;
+          font-family: 'nunito', sans-serif;
+          font-weight: 600;
+          text-transform: uppercase;
+          color: var(--couleurBlancCreme);
+          margin-top: 50px;
         }
 
 
         .bloc-offre {
-            padding-left: 30px;
-            padding-right: 30px;
-            margin-top: 50px;
-            margin-bottom: 90px;
-            display: flex;
+          padding-left: 30px;
+          padding-right: 30px;
+          margin-top: 50px;
+          margin-bottom: 90px;
+          display: flex;
         }
 
         .titre-particulier {
-            font-family: 'Shadows Into Light Two', cursive;
-            font-size: 2.7em;
-            font-style: italic;
-            font-weight: 600;
-            color: var(--couleurBlancCreme);
-            margin-left: 25%;
-            margin-top: 35%;
-            position: absolute;
+          font-family: 'Shadows Into Light Two', cursive;
+          font-size: 2.7em;
+          font-style: italic;
+          font-weight: 600;
+          color: var(--couleurBlancCreme);
+          margin-left: 10%;
+          margin-top: 35%;
+          position: absolute;
         }
 
         .texte-particulier {
-            font-family: 'roboto', cursive;
-            font-size: 1em;
-            font-style: italic;
-            font-weight: 400;
-            color: var(--couleurBlancCreme);
-            bottom: 15px;
-            position: absolute;
+          font-family: 'roboto', cursive;
+          font-size: 0.85em;
+          font-style: italic;
+          font-weight: 400;
+          color: var(--couleurBlancCreme);
+          bottom: 15px;
+          position: absolute;
         }
 
         .particulier {
-            height: 250px;
-            background-image: url(/assets/img/offre/particulier3.jpg);
-            background-position: center;
-            background-size: cover;
-            box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
-            -webkit-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
-            -moz-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+          height: 250px;
+          background-image: url(/assets/img/offre/particulier3.jpg);
+          background-position: center;
+          background-size: cover;
+          -webkit-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+          -moz-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
 
         }
 
 
         .titre-commercant {
-            font-family: 'Shadows Into Light Two', cursive;
-            font-size: 2.7em;
-            font-style: italic;
-            font-weight: 600;
-            color: var(--couleurBlancCreme);
-            margin-left: 20%;
-            margin-top: 35%;
-            position: absolute;
+          font-family: 'Shadows Into Light Two', cursive;
+          font-size: 2.7em;
+          font-style: italic;
+          font-weight: 600;
+          color: var(--couleurBlancCreme);
+          margin-left: 10%;
+          margin-top: 35%;
+          position: absolute;
         }
 
         .texte-commercant {
-            font-family: 'roboto', cursive;
-            font-size: 1em;
-            font-style: italic;
-            font-weight: 400;
-            color: var(--couleurBlancCreme);
-            bottom: 15px;
-            position: absolute;
+          font-family: 'roboto', cursive;
+          font-size: 0.85em;
+          font-style: italic;
+          font-weight: 400;
+          color: var(--couleurBlancCreme);
+          bottom: 15px;
+          position: absolute;
         }
 
 
         .commercant {
-            height: 250px;
-            background-image: url(/assets/img/offre/commercant.jpg);
-            background-position: center;
-            background-size: cover;
-            -webkit-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
-            -moz-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
-            box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+          height: 250px;
+          background-image: url(/assets/img/offre/commercant.jpg);
+          background-position: center;
+          background-size: cover;
+          -webkit-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+          -moz-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+          box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
         }
 
         .titre-association {
-            font-family: 'Shadows Into Light Two', cursive;
-            font-size: 2.7em;
-            font-style: italic;
-            font-weight: 600;
-            color: var(--couleurBlancCreme);
-            margin-left: 20%;
-            margin-top: 35%;
-            position: absolute;
+          font-family: 'Shadows Into Light Two', cursive;
+          font-size: 2.7em;
+          font-style: italic;
+          font-weight: 600;
+          color: var(--couleurBlancCreme);
+          margin-left: 10%;
+          margin-top: 35%;
+          position: absolute;
         }
 
         .texte-association {
-            font-family: 'roboto', cursive;
-            font-size: 1em;
-            font-style: italic;
-            font-weight: 400;
-            color: var(--couleurBlancCreme);
-            bottom: 15px;
-            position: absolute;
+          font-family: 'roboto', cursive;
+          font-size: 0.85em;
+          font-style: italic;
+          font-weight: 400;
+          color: var(--couleurBlancCreme);
+          bottom: 15px;
+          position: absolute;
         }
 
         .association {
-            height: 250px;
-            background-image: url(/assets/img/offre/association.jpg);
-            background-size: cover;
-            -webkit-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
-            -moz-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
-            box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+          height: 250px;
+          background-image: url(/assets/img/offre/association.jpg);
+          background-size: cover;
+          -webkit-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+          -moz-box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
+          box-shadow: 10px 10px 21px -4px rgba(0,0,0,0.16);
         }
 
 
