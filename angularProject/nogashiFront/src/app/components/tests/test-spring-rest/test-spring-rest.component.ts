@@ -3,6 +3,7 @@ import { ConnexionService } from '../../../services/connexion.service';
 import {RestResponse} from '../../../classes/rest-response';
 import {environment} from '../../../../environments/environment';
 import {log} from 'util';
+import {InfoBoxNotificationsService} from '../../../services/InfoBoxNotifications.services';
 
 @Component({
   selector: 'app-test-spring-rest',
@@ -18,10 +19,8 @@ export class TestSpringRestComponent implements OnInit
   merchants: any;
   commerces: any;
 
-  constructor(private connexionService: ConnexionService)
-  {
-
-  }
+  constructor(private infoBoxNotificationsService: InfoBoxNotificationsService,
+              private connexionService: ConnexionService) { }
 
   ngOnInit() {
 
@@ -62,11 +61,16 @@ export class TestSpringRestComponent implements OnInit
         if (rrp.status === 'SUCCESS') {
           this.commerces = rrp.data;
         } else {
-          console.log('Echec de la recuperation de la liste des merchants : ' + rrp.errormessage);
+
+          console.log('Echec de la recuperation de la liste des Commerces : ' + rrp.errormessage);
+          if (rrp.errorCode === 5)                        // you have to be connected as Merchant to get is Commerce
+          {
+            this.infoBoxNotificationsService.addMessage('warn', 'Vous devez connecté en tant que Commerçant pour voir la liste de vos commerces', 10);
+          }
         }
       },
       error => {
-        console.log('Echec de la recuperation de la liste des merchants : ', error);
+        console.log('Echec de la recuperation de la liste des Commerces : ', error);
       });
 
   }

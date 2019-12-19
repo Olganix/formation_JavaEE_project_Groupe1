@@ -45,8 +45,49 @@ public class MerchantControllerAngular
 	public boolean checkAllowToDoThat(HttpSession session)
 	{
 		User u = (User)session.getAttribute("user");
+		
+		System.out.println("MerchantControllerAngular.checkAllowToDoThat : "+ u);
+		
 		return ( (u!=null) && (u.getRole() == UserRole.MERCHANT) );
 	}
+	
+	
+
+	/*****************************************************************************************
+	*										getCommerces									 * 
+	*****************************************************************************************/
+	@RequestMapping(path="/getCommerces", produces = "application/json")
+	public RestResponse<List<Commerce>> getMerchants(HttpSession session)
+    {
+		if(!checkAllowToDoThat(session))
+			return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 5, "Error: User don't be allowed on this operation");
+		
+		
+    	EntityManager em = StartListener.createEntityManager();
+		
+    	List<Commerce> listCommerces = new ArrayList<Commerce>();
+		
+    	
+    	
+    	EntityGraph<Commerce> graph = em.createEntityGraph(Commerce.class);
+    	/*
+    	graph.addSubgraph("commerceCategories");
+    	graph.addSubgraph("productTemplates");
+    	graph.addSubgraph("products");
+    	*/
+    	
+		try 
+		{	
+			listCommerces = dao.findAll(Commerce.class, em, false, graph);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		em.close();
+		return new RestResponse<List<Commerce>>(RestResponseStatus.SUCCESS, listCommerces);
+    }
+	
+	
 	
 	
 	/*****************************************************************************************
@@ -54,11 +95,13 @@ public class MerchantControllerAngular
 	*****************************************************************************************/
 	@PostMapping(path="/addCommerce", produces = "application/json")
 	//test : http://localhost:8080/nogashi/addCommerce
-	public RestResponse<Commerce> signin(@RequestBody Commerce c, HttpSession session, Locale locale, Model model)
+	public RestResponse<Commerce> addCommerce(@RequestBody Commerce c, HttpSession session, Locale locale, Model model)
     {
 		System.out.println(c);
 		if(!checkAllowToDoThat(session))
 			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: User don't be allowed on this operation");
+		
+		
 		
 		if(	(c==null) || 
 			(c.getName()==null) || ( c.getName().trim().length() ==0) ||
@@ -131,38 +174,5 @@ public class MerchantControllerAngular
     }
 	
 	
-	
-	/*****************************************************************************************
-	*										getCommerces										 * 
-	*****************************************************************************************/
-	@RequestMapping(path="/getCommerces", produces = "application/json")
-	public RestResponse<List<Commerce>> getMerchants(HttpSession session)
-    {
-		if(!checkAllowToDoThat(session))
-			return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 5, "Error: User don't be allowed on this operation");
-		
-		
-    	EntityManager em = StartListener.createEntityManager();
-		
-    	List<Commerce> listCommerces = new ArrayList<Commerce>();
-		
-    	
-    	
-    	EntityGraph<Commerce> graph = em.createEntityGraph(Commerce.class);
-    	graph.addSubgraph("commerceCategories");
-    	graph.addSubgraph("productTemplates");
-    	graph.addSubgraph("products");
-    	
-    	
-		try 
-		{	
-			listCommerces = dao.findAll(Commerce.class, em, false, graph);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		em.close();
-		return new RestResponse<List<Commerce>>(RestResponseStatus.SUCCESS, listCommerces);
-    }
 	
 }
