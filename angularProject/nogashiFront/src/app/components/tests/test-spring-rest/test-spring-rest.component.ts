@@ -4,7 +4,8 @@ import {RestResponse} from '../../../classes/rest-response';
 import {environment} from '../../../../environments/environment';
 import {log} from 'util';
 import {InfoBoxNotificationsService} from '../../../services/InfoBoxNotifications.services';
-import {ProductTemplate} from "../../../classes/product-template";import {MerchantService} from '../../../services/merchant.service';
+import {ProductTemplate} from "../../../classes/product-template";
+import {MerchantService} from '../../../services/merchant.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from '../../../validators/custom-validators';
 import {User} from '../../../classes/user';
@@ -40,9 +41,7 @@ export class TestSpringRestComponent implements OnInit {
   commerce_longitude: FormControl;
   commerce_latitude: FormControl;
 
-  formAddCommerce: FormGroup;  constructor(private infoBoxNotificationsService: InfoBoxNotificationsService,
-              private connexionService: ConnexionService) { }
-
+  formAddCommerce: FormGroup; constructor(private infoBoxNotificationsService: InfoBoxNotificationsService,
               private connexionService: ConnexionService,
               private merchantService: MerchantService,
               private fb: FormBuilder
@@ -94,8 +93,9 @@ export class TestSpringRestComponent implements OnInit {
       });
 
 
-    this.connexionService.getMerchantCommerces().subscribe(    // Commerces                        // TiynyMCE: https://www.npmjs.com/package/@tinymce/tinymce-angular  https://www.tiny.cloud/docs/quick-start/
-    this.merchantService.getCommerces().subscribe(      (rrp: RestResponse) => {
+	// Commerces                        // TiynyMCE: https://www.npmjs.com/package/@tinymce/tinymce-angular  https://www.tiny.cloud/docs/quick-start/
+    this.merchantService.getCommerces().subscribe(
+      (rrp: RestResponse) => {
 
         if (rrp.status === 'SUCCESS') {
           this.commerces = rrp.data;

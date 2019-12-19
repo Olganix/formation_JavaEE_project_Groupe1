@@ -175,8 +175,10 @@ const appRoutes: Routes =
     ProductSheetComponent,
     CommentsComponent,
     DeactivateAccountComponent,
-	CompteComponent,
-    CompteCommandesComponent,  ],
+	  CompteComponent,
+    CompteCommandesComponent,
+    PasswordRescueModificationComponent,
+    ListProductsTemplatesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
