@@ -535,14 +535,14 @@ nav {
     font-style: italic;
     font-weight: 600;
     color: var(--couleurBlancCreme);
-    margin-left: 25%;
+    margin-left: 15%;
     margin-top: 35%;
     position: absolute;
 }
 
 .texte-particulier {
     font-family: 'roboto', cursive;
-    font-size: 1em;
+    font-size: 0.85em;
     font-style: italic;
     font-weight: 400;
     color: var(--couleurBlancCreme);
@@ -567,14 +567,14 @@ nav {
     font-style: italic;
     font-weight: 600;
     color: var(--couleurBlancCreme);
-    margin-left: 20%;
+    margin-left: 10%;
     margin-top: 35%;
     position: absolute;
 }
 
 .texte-commercant {
     font-family: 'roboto', cursive;
-    font-size: 1em;
+    font-size: 0.85em;
     font-style: italic;
     font-weight: 400;
     color: var(--couleurBlancCreme);
@@ -599,14 +599,14 @@ nav {
     font-style: italic;
     font-weight: 600;
     color: var(--couleurBlancCreme);
-    margin-left: 20%;
+    margin-left: 10%;
     margin-top: 35%;
     position: absolute;
 }
 
 .texte-association {
     font-family: 'roboto', cursive;
-    font-size: 1em;
+    font-size: 0.85em;
     font-style: italic;
     font-weight: 400;
     color: var(--couleurBlancCreme);

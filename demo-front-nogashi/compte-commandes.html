@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<title>Mon Compte - Mes Commandes</title>
+	
+              <!-- FAVICON -->
+      <link rel="shortcut icon" href="../ico/favicon.png"> 
+            
+             <!-- GOOGLE-FONT -->
+      <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,700i&display=swap" rel="stylesheet"> 
+      <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">         
+              <!-- Bootstrap -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
+          <!-- BALISE FontAwesome -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+           
+             <!-- RESET CSS -->
+      <link rel="stylesheet" href="css/reset.css">
+             <!-- LOADING CSS-->
+      <link rel="stylesheet" href="css/loading.css">  
+                <!-- CSS -->
+      <link rel="stylesheet" href="css/compte-commandes.css"> 
+                 
+      
+         
+
+
+</head>
+<body>
+        
+ <div class="background"> <!-- Background => Dévoilement du footer-->          
+        
+                    <!-- Menu-->
+    <header>
+       <div class="menu">
+           <a href="index.html"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
+           <div class="icones-menu">
+             <div class="icones-user">
+                   <i class="fas fa-user-circle"></i>
+                   <div class="bloc-compte">
+                        <i class="fas fa-sort-up"></i>
+                        <ul class="compte">
+                            <a href="connexion.html"><li class="onglet-menu">Se Connecter</li></a>
+                            <div class="trait-compte"></div>
+                            <a href="inscription.html"><li class="onglet-menu">S'inscrire</li></a>
+                        </ul> 
+                    </div> 
+               </div>
+               <div class="icone-panier">
+                   <a href=""><div class="icones"><i class="fas fa-shopping-bag"></i></div>
+                       <div class="cercle-prix">3</div>
+                   </a>    
+               </div>
+               <div class="icone-hamburger">
+                   <div id="hamburger-menu" class="icones"><i class="fas fa-bars"></i></div>
+               </div>
+           </div>
+            
+           <div id="bloc-menu" class="bloc-menu col-12">
+                <a href="index.html">
+                     <div id="bloc-quitter" class="bloc-quitter">
+                         <div class="croix-quitter">
+                               <span class="barre-croix"></span>
+                               <span class="barre-croix2"></span>
+                         </div>
+                     </div>
+                </a>  
+                <nav>
+                   <ul>
+                       <a href="index.html"><li class="onglet-menu-principal">Accueil</li></a>
+                       <a href="trouver.html"><li class="onglet-menu-principal">Ou Nous Trouver ?</li></a>
+                       <a href="faq.html"><li class="onglet-menu-principal">F.A.Q</li></a>
+                   </ul> 
+               </nav>
+           </div>    
+        </div> 
+    </header>
+    
+    <section class="section-bonjour-compte">
+        <div class="container">
+            <div class="row">
+                <div class="bloc-bonjour-compte col-12">
+                    <div class="bloc-avatar">
+                        <img class="img" src="css/img/profil/profil.png" alt="photo de l'utilisateur">
+                    </div>
+                    <div class="bloc-bonjour">
+                        <h2>Bonjour John Doe</h2>
+                        <p class="message-bonjour"><i class="fas fa-quote-left"></i> Bienvenue sur votre compte. Retrouvez toutes vos informations personnelles et vos préférences. <i class="fas fa-quote-right"></i>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="grand-bloc-onglets"> 
+                    <div class="bloc-onglet">
+                        <a href="compte.html">
+                            <div class="onglet">
+                                <p class="nom-onglet">
+                                   <i class="fas fa-user"></i> Profil
+                                </p>
+                            </div>
+                        </a>
+                        <a href="compte-preferences.html">
+                            <div class="onglet2">
+                                <p class="nom-onglet">
+                                    <i class="fas fa-cog"></i> Préférences
+                                </p>
+                            </div>
+                        </a>
+                        <a href="compte-commandes.html">
+                            <div class="onglet3">
+                                <p class="nom-commandes">
+                                    <i class="fas fa-cube"></i> Commandes
+                                </p>
+                            </div>
+                        </a>
+                        <a href="compte-commentaires.html">
+                            <div class="onglet4">
+                                <p class="nom-commentaires">
+                                    <i class="fas fa-comments"></i> Commentaires
+                                </p>
+                            </div>
+                        </a>
+                    </div> 
+                </div>
+                    
+            </div>
+        </div>
+    </section>
+   
+       
+    <section class="section-edition-profil">
+        <div class="container">
+           <div class="row">
+                   <h1 class="titre-commentaires col-12"><i class="fas fa-cube"></i> / Commandes En Cours</h1>  
+                   <div class="bloc-titre-commandes">
+                        <p class="texte-commandes">Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis,  iudices, nec descensurum</p>
+                        <br> 
+
+                        <div class="bloc-commerce-commande">
+                           <h3 class="titre-commerce">- Boulangerie Mathieu -</h3>
+                           <table class="table-commande col-12">
+                                 <tr class="tr-titre">
+                                  <td class="td-titre col-4">Produits</td>
+                                  <td class="td-titre col-3">Prix</td>
+                                  <td class="td-titre col-2">Quantité</td>
+                                  <td class="td-titre col-2">Total</td>
+                                 </tr>
+                                 <tr class="tr">
+                                  <td class="td-produits col-4">Croissant</td>
+                                  <td class="td col-3">1.10€</td>
+                                  <td class="td col-3">02</td>
+                                  <td class="td col-2">2.20€</td>
+                                </tr>
+                            </table> 
+                        </div> 
+                        <div class="bloc-commerce-commande">
+                           <h3 class="titre-commerce">- Daily Juicery -</h3>
+                           <table class="table-commande col-12">
+                                <tr class="tr-titre">
+                                  <td class="td-titre col-4">Produits</td>
+                                  <td class="td-titre col-3">Prix</td>
+                                  <td class="td-titre col-3">Quantité</td>
+                                  <td class="td-titre col-2">Total</td>
+                                </tr>
+                                <tr class="tr">
+                                  <td class="td-produits col-4">ROOTS 1.2, Jus détox 100% naturel</td>
+                                  <td class="td col-3">7.00€</td>
+                                  <td class="td col-3">01</td>
+                                  <td class="td col-2">7.00€</td>
+                                </tr>
+                                <tr class="tr">
+                                  <td class="td-produits col-4">GREEN 5.0, Jus détox 100% naturel</td>
+                                  <td class="td col-3">7.00€</td>
+                                  <td class="td col-3">02</td>
+                                  <td class="td col-2">14.00€</td>
+                                </tr>
+                            </table> 
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <h1 class="titre-commentaires2 col-12"><i class="fas fa-cube"></i> / Anciennes Commandes</h1> 
+                    <div class="bloc-titre-commandes2">
+                        <p class="texte-commandes2">Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis,  iudices, nec descensurum</p>
+                        <br> 
+                        
+                        
+                        <div class="grand-bloc-commande col-10 offset-1">
+                            <div class="bloc-commerce-commande">
+                               <h5 class="col-8 offset-2">Commande effectuée le : <span class="date-commande">16/12/2019 à 12h00</span> </h5>
+                               <h3 class="titre-commerce">- Boulangerie Mathieu -</h3>
+                               <table class="table-commande col-12">
+                                     <tr class="tr-titre">
+                                      <td class="td-titre col-4">Produits</td>
+                                      <td class="td-titre col-3">Prix</td>
+                                      <td class="td-titre col-2">Quantité</td>
+                                      <td class="td-titre col-2">Total</td>
+                                     </tr>
+                                     <tr class="tr">
+                                      <td class="td-produits col-4">Croissant</td>
+                                      <td class="td col-3">1.10€</td>
+                                      <td class="td col-3">02</td>
+                                      <td class="td col-2">2.20€</td>
+                                    </tr>
+                                </table> 
+                            </div> 
+                            <div class="bloc-commerce-commande">
+                               <h3 class="titre-commerce">- Daily Juicery -</h3>
+                               <table class="table-commande col-12">
+                                    <tr class="tr-titre">
+                                      <td class="td-titre col-4">Produits</td>
+                                      <td class="td-titre col-3">Prix</td>
+                                      <td class="td-titre col-3">Quantité</td>
+                                      <td class="td-titre col-2">Total</td>
+                                    </tr>
+                                    <tr class="tr">
+                                      <td class="td-produits col-4">ROOTS 1.2, Jus détox 100% naturel</td>
+                                      <td class="td col-3">7.00€</td>
+                                      <td class="td col-3">01</td>
+                                      <td class="td col-2">7.00€</td>
+                                    </tr>
+                                    <tr class="tr">
+                                      <td class="td-produits col-4">GREEN 5.0, Jus détox 100% naturel</td>
+                                      <td class="td col-3">7.00€</td>
+                                      <td class="td col-3">02</td>
+                                      <td class="td col-2">14.00€</td>
+                                    </tr>
+                                </table> 
+                            </div>
+                        </div>
+                        
+                        <div class="grand-bloc-commande col-10 offset-1">
+                            <div class="bloc-commerce-commande">
+                               <h5 class="col-8 offset-2">Commande effectuée le : <span class="date-commande">16/12/2019 à 12h00</span> </h5>
+                               <h3 class="titre-commerce">- Boulangerie Mathieu -</h3>
+                               <table class="table-commande col-12">
+                                     <tr class="tr-titre">
+                                      <td class="td-titre col-4">Produits</td>
+                                      <td class="td-titre col-3">Prix</td>
+                                      <td class="td-titre col-2">Quantité</td>
+                                      <td class="td-titre col-2">Total</td>
+                                     </tr>
+                                     <tr class="tr">
+                                      <td class="td-produits col-4">Croissant</td>
+                                      <td class="td col-3">1.10€</td>
+                                      <td class="td col-3">02</td>
+                                      <td class="td col-2">2.20€</td>
+                                    </tr>
+                                </table> 
+                            </div> 
+                            
+                            <div class="bloc-commerce-commande">
+                               <h3 class="titre-commerce">- Daily Juicery -</h3>
+                               <table class="table-commande col-12">
+                                    <tr class="tr-titre">
+                                      <td class="td-titre col-4">Produits</td>
+                                      <td class="td-titre col-3">Prix</td>
+                                      <td class="td-titre col-3">Quantité</td>
+                                      <td class="td-titre col-2">Total</td>
+                                    </tr>
+                                    <tr class="tr">
+                                      <td class="td-produits col-4">ROOTS 1.2, Jus détox 100% naturel</td>
+                                      <td class="td col-3">7.00€</td>
+                                      <td class="td col-3">01</td>
+                                      <td class="td col-2">7.00€</td>
+                                    </tr>
+                                    <tr class="tr">
+                                      <td class="td-produits col-4">GREEN 5.0, Jus détox 100% naturel</td>
+                                      <td class="td col-3">7.00€</td>
+                                      <td class="td col-3">02</td>
+                                      <td class="td col-2">14.00€</td>
+                                    </tr>
+                                </table> 
+                            </div>
+                        </div>
+                        
+                        <div class="bloc-envoyer col-12">
+                           <a href=""><div id ="bouton-envoyer" class="bouton-envoyer"><i class="fas fa-plus"></i> DE COMMANDES</div></a>
+                        </div>
+                     </div>
+               
+               <div class="espace-bas"></div>
+            </div>
+          </div>    
+      </section>
+      
+
+    
+    
+     
+   
+    
+    
+               <!-- RESEAUX SOCIAUX -->
+   <ul class="social-medias">
+        <li>
+            <a href="https://fr-fr.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+        </li>
+        <li class="twitter">
+            <a href="https://www.google.com/search?client=firefox-b&q=twitter"><i class="fab fa-twitter"></i></a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/discover"><i class="fab fa-google-plus-g"></i></a>
+        </li>
+    </ul>
+  	
+               <!-- BOUTON UP -->
+    <div class="fond-up">
+       <div id="bouton-up" class="bouton-up">
+           <i class="fas fa-chevron-up"></i>
+       </div> 
+    </div> 
+ </div> <!-- Fin du Background => Dévoilement du footer--> 
+   
+    
+    <footer>
+        <div class="footer">
+           <div class="container">
+               <div class="row">
+                   <div class="bloc-centre-footer col-12">
+                       <div class="adresse-footer col-4">
+                           <ul class="ul-menu-footer">
+                               <li class="titre-footer"><span class="trait-footer">//</span> CONTACTEZ-NOUS</li>
+                               <li class="menu-footer"><i class="fas fa-phone"></i> -  03.20.30.79.73</li>
+                               <li class="menu-footer"><i class="fas fa-map"></i> - 1 Rue Esquermoise, 59800</li>
+                               <a href=""><li class="menu-footer"><i class="fas fa-envelope"></i> - nogashis@gmail.com</li></a>
+                           </ul> 
+                           <hr>
+                       </div>
+                       <div class="ul col-4">
+                           <ul class="ul-menu-footer">
+                                <li class="titre-footer"><span class="trait-footer">//</span> NOTRE CONCEPT</li>
+                                <a href="index.html"><li class="menu-footer2">- Accueil -</li></a>
+                                <a href="trouver.html"><li class="menu-footer2"> - Ou Nous Trouver ? -</li></a>
+                               <a href="faq.html"><li class="menu-footer2">- F.A.Q -</li></a>
+                           </ul> 
+                           <hr>   
+                       </div>
+                       <div class="reseau-footer col-4">
+                           <ul class="ul-menu-footer">
+                               <li class="titre-footer"><span class="trait-footer">//</span> SUIVEZ-NOUS SUR </li>
+                               <a href="">
+                               <li class="menu-footer2"><i class="fab fa-facebook-square"></i> Facebook</li>
+                               </a>
+                               <a href=""><li class="menu-footer2"><i class="fab fa-twitter-square"></i> Twitter</li></a>
+                               <a href=""><li class="menu-footer2"><i class="fab fa-google-plus-square"></i> Google +</li></a>
+                           </ul>
+                           <hr>
+                       </div>
+                       <div class="trait-footer"></div>
+                   </div>    
+               </div>
+           </div>
+           <a href="mentions.html"><P class="lien-mentions">- Mentions légales -</P></a>
+        </div>  
+        <div class="informations-footer">Site réalisé par <span class="italic-footer">Anais Kordek - Olivier Vanhée - Joffrey Chassat - Francis Berthe.</span> Nom App - Formation Dawan, <span class="italic-footer">2019</span></div>  
+    </footer>
+      
+               
+                <!-- JQuery/ Loading -->
+          <script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous">
+          </script>
+     
+       
+         
+                <!-- JavaScript/ LOADING 
+          <script src="js/loading.js"></script> -->
+               
+                <!-- JavaScript/ MENUAPP -->
+          <script src="js/menuApp.js"></script>
+                
+                <!-- JavaScript/ DIAPORAMA --> 
+          <script src="js/diaporama.js"></script> 
+                
+                <!-- JavaScript/ BOUTON -->
+          <script src="js/bouton.js"></script>
+          
+                 <!-- JavaScript/ MAIN -->
+          <script src="js/main.js"></script>
+          
+          
+          
+          
+
+</body>
+</html>
