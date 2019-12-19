@@ -72,6 +72,9 @@ import { DeactivateAccountComponent } from './components/pages/pages_common/deac
 import { PasswordRescueModificationComponent } from './components/pages/pages_anonyme/password-rescue-modification/password-rescue-modification.component';
 import { ListProductsTemplatesComponent } from './components/pages/pages_merchant/list-products-templates/list-products-templates.component';
 import {ListingService} from './services/listing.service';
+import { CompteComponent } from './components/pages/pages_common/compte/compte.component';
+import { CompteCommandesComponent } from './components/pages/pages_common/compte-commandes/compte-commandes.component';
+import { ComptePreferencesComponent } from './components/pages/pages_common/compte-preferences/compte-preferences.component';
 
 
 
@@ -102,7 +105,8 @@ const appRoutes: Routes =
   { path: 'tchat', component: TchatComponent },
   { path: 'comments', component: CommentsComponent },
   { path: 'productSheet', component: ProductSheetComponent },
-
+  { path: 'myProfile', component: CompteComponent },
+  { path: 'myOrders', component: CompteCommandesComponent },
 
   { path: 'individual/welcome',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
 
@@ -168,8 +172,11 @@ const appRoutes: Routes =
     ProductSheetComponent,
     CommentsComponent,
     DeactivateAccountComponent,
-	PasswordRescueModificationComponent,	
-	ListProductsTemplatesComponent
+    PasswordRescueModificationComponent,
+    ListProductsTemplatesComponent,
+    CompteComponent,
+    CompteCommandesComponent,
+    ComptePreferencesComponent,
   ],
   imports: [
     BrowserModule,
