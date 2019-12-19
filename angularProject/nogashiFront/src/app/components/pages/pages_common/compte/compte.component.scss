@@ -1,3 +1,5 @@
+      /* SECTION - Bonjour */
+
 .bloc-bonjour-compte {
   background-color: var(--couleurGrisClair);
   border-bottom: 2px solid var(--couleurNoir);
@@ -66,7 +68,6 @@ h2 {
   font-size: 1em;
   font-style: italic;
   font-weight: 400;
-  font-style: italic;
   text-align: center;
   color: var(--couleurVerte);
   border: 1px solid var(--couleurVerte);
@@ -74,6 +75,10 @@ h2 {
   background-color: var(--couleurNoir);
   padding: 10px;
   cursor: pointer;
+  opacity: 0.5;
+}
+
+.onglet:hover {
   opacity: 1;
 }
 
@@ -83,7 +88,6 @@ h2 {
   font-size: 1em;
   font-style: italic;
   font-weight: 400;
-  font-style: italic;
   text-align: center;
   color: var(--couleurVerte);
   border: 1px solid var(--couleurVerte);
@@ -105,7 +109,6 @@ h2 {
   font-size: 1em;
   font-style: italic;
   font-weight: 400;
-  font-style: italic;
   text-align: center;
   color: var(--couleurVerte);
   border: 1px solid var(--couleurVerte);
@@ -114,7 +117,7 @@ h2 {
   -webkit-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 1;
 }
 
 .onglet3:hover {
@@ -127,11 +130,10 @@ h2 {
   font-size: 1em;
   font-style: italic;
   font-weight: 400;
-  font-style: italic;
   text-align: center;
   color: var(--couleurVerte);
   border: 1px solid var(--couleurVerte);
-  border-radius: 0px 8px 8px 0px;
+  border-radius: 0 8px 8px 0;
   background-color: var(--couleurNoir);
   padding: 10px;
   -webkit-transition: all 0.3s ease-out;
@@ -521,7 +523,7 @@ input[type=password]:focus {
 }
 
 .numero {
-  width: 350px;
+  width: 420px;
   height: 30px;
   font-family: 'roboto', sans-serif;
   font-size: 0.85em;
@@ -544,7 +546,7 @@ input[type=password]:focus {
 }
 
 .titulaire {
-  width: 350px;
+  width: 420px;
   height: 30px;
   font-family: 'roboto', sans-serif;
   font-size: 0.85em;
@@ -635,85 +637,124 @@ input[type=password]:focus {
 }
 
 
-/* SECTION - Section-siren-entreprise */
+      /* SECTION - Section-siren-entreprise */
 
-.section-siren-entreprise {
+      .section-siren-entreprise {
 
-}
+      }
 
-.bloc-siren-entreprise {
-  background-color: var(--couleurBlancCreme);
-  padding-top: 70px;
-  padding-bottom: 50px;
-  margin-bottom: 200px;
-  display: block;
-}
+      .bloc-siren-entreprise {
+        background-color: var(--couleurBlancCreme);
+        box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.10);
+        padding-top: 40px;
+        padding-bottom: 50px;
+        display: flex;
+      }
 
-.siren {
-  width: 350px;
-  height: 30px;
-  font-family: 'roboto', sans-serif;
-  font-size: 0.85em;
-  font-weight: 400;
-  border-radius: 10px;
-  border: 2px solid var(--couleurNoir);
-  padding-left: 10px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
+      .bloc-coordonnees {
+        display: block;
+      }
 
-.tva {
-  width: 350px;
-  height: 30px;
-  font-family: 'roboto', sans-serif;
-  font-size: 0.85em;
-  font-weight: 400;
-  border-radius: 10px;
-  border: 2px solid var(--couleurNoir);
-  padding-left: 10px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
+      .siren {
+        width: 350px;
+        height: 30px;
+        font-family: 'roboto', sans-serif;
+        font-size: 0.85em;
+        font-weight: 400;
+        border-radius: 10px;
+        border: 2px solid var(--couleurNoir);
+        padding-left: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
 
-.titre-coordonnees-bancaires {
-  max-width: 400px;
-  font-family: 'roboto', sans-serif;
-  font-size: 1.1em;
-  font-weight: 600;
-  color: var(--couleurNoir);
-  border-bottom: 1px solid var(--couleurBlancCreme);
-  background-color: var(--couleurVerte);
-  box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
-  padding: 10px 10px;
-  margin-top: 30px;
-  margin-left: 90px;
-}
+      .tva {
+        width: 350px;
+        height: 30px;
+        font-family: 'roboto', sans-serif;
+        font-size: 0.85em;
+        font-weight: 400;
+        border-radius: 10px;
+        border: 2px solid var(--couleurNoir);
+        padding-left: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
 
-.bic {
-  width: 350px;
-  height: 30px;
-  font-family: 'roboto', sans-serif;
-  font-size: 0.85em;
-  font-weight: 400;
-  border-radius: 10px;
-  border: 2px solid var(--couleurNoir);
-  padding-left: 10px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
+      .titre-coordonnees-bancaires {
+        max-width: 400px;
+        font-family: 'roboto', sans-serif;
+        font-size: 1.1em;
+        font-weight: 600;
+        color: var(--couleurNoir);
+        border-bottom: 1px solid var(--couleurBlancCreme);
+        background-color: var(--couleurVerte);
+        box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
+        padding: 10px 10px;
+        margin-left: 90px;
+      }
 
-.iban {
-  width: 350px;
-  height: 30px;
-  font-family: 'roboto', sans-serif;
-  font-size: 0.85em;
-  font-weight: 400;
-  border-radius: 10px;
-  border: 2px solid var(--couleurNoir);
-  padding-left: 10px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
+      .bic {
+        width: 350px;
+        height: 30px;
+        font-family: 'roboto', sans-serif;
+        font-size: 0.85em;
+        font-weight: 400;
+        border-radius: 10px;
+        border: 2px solid var(--couleurNoir);
+        padding-left: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .iban {
+        width: 350px;
+        height: 30px;
+        font-family: 'roboto', sans-serif;
+        font-size: 0.85em;
+        font-weight: 400;
+        border-radius: 10px;
+        border: 2px solid var(--couleurNoir);
+        padding-left: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .bloc-bouton-commande {
+        margin-bottom: 200px;
+      }
+
+      .bouton-enregistrer2 {
+        font-family: sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        text-transform: uppercase;
+        text-align: center;
+        color: var(--couleurBlancCreme);
+        background: rgba(255, 82, 47, 1);
+        background: var(--couleurNoir);
+        border-radius: 20px;
+        border: none;
+        transform: translate(0%, 0%);
+        padding: 12px 20px 12px 20px;
+        -webkit-box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
+        margin-bottom: 50px;
+        margin-left: 50%;
+        transform: translate(-50%);
+        -webkit-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out;
+        cursor: pointer;
+      }
+
+      .bouton-enregistrer2:hover {
+        color: var(--couleurNoir);
+        background: var(--couleurVerte);
+      }
+
+      .bloc-bouton-commande  {
+        background-color: var(--couleurBlancCreme);
+      }
 
 
 

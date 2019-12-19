@@ -188,33 +188,36 @@
   <div class="container">
     <div class="row">
       <div class="bloc-siren-entreprise col-12">
-        <h2 class="titre-carte"><i class="fas fa-info-circle"></i> / Informations Entreprise</h2>
-        <div class="profil-telephone">
-          <label for="telephone" class="label-formulaire"><i class="fas fa-asterisk" value="nom"></i> N° SIREN</label>
-          <input id="siren" class="siren" type="text" name="siren" placeholder="Numero SIREN" minlength="9" maxlength="9" required >
-          <span id="pseudoRegex" class="pseudo-regex">Veuillez remplir le champs</span>
-        </div>
-        <div class="profil-telephone">
-          <label for="tva" class="label-formulaire"> N° TVA</label>
-          <input id="tva" class="tva" type="text" name="tva" placeholder="Numero TVA" minlength="2" maxlength="2" required >
-          <span id="pseudoRegex" class="pseudo-regex">Veuillez remplir le champs</span>
-        </div>
-
-        <h2 class="titre-coordonnees-bancaires"><i class="fas fa-money-check"></i> / Mes Coordonnées Bancaires</h2>
-        <div class="profil-telephone">
-          <label for="telephone" class="label-formulaire"><i class="fas fa-asterisk" value="nom"></i> IBAN</label>
-          <input id="iban" class="iban" type="text" name="iban" placeholder="Numero IBAN" minlength="27" maxlength="34" required >
-          <span id="pseudoRegex" class="pseudo-regex">Veuillez remplir le champs</span>
-        </div>
-        <div class="profil-telephone">
-          <label for="bic" class="label-formulaire"><i class="fas fa-asterisk" value="nom"></i> BIC</label>
-          <input id="bic" class="bic" type="text" name="bic" placeholder="Numero BIC" minlength="8" maxlength="11" required >
-          <span id="pseudoRegex" class="pseudo-regex">Veuillez remplir le champs</span>
-        </div>
-        <div class="bloc-bouton-commande col-12">
-          <div class="bloc-enregistrer">
-            <input type="submit" id="bouton-enregistrer" class="bouton-enregistrer" value="MODIFIER INFORMATIONS">
+        <div class="bloc-coordonnees col-6">
+          <h2 class="titre-carte"><i class="fas fa-info-circle"></i> / Informations Entreprise</h2>
+          <div class="profil-telephone">
+            <label for="telephone" class="label-formulaire"><i class="fas fa-asterisk" value="nom"></i> N° SIREN</label>
+            <input id="siren" class="siren" type="text" name="siren" placeholder="Numero SIREN" minlength="9" maxlength="9" required >
+            <span id="pseudoRegex" class="pseudo-regex">Veuillez remplir le champs</span>
           </div>
+          <div class="profil-telephone">
+            <label for="tva" class="label-formulaire"> N° TVA</label>
+            <input id="tva" class="tva" type="text" name="tva" placeholder="Numero TVA" minlength="2" maxlength="2" required >
+            <span id="pseudoRegex" class="pseudo-regex">Veuillez remplir le champs</span>
+          </div>
+        </div>
+        <div class="bloc-coordonnees col-6">
+          <h2 class="titre-coordonnees-bancaires"><i class="fas fa-money-check"></i> / Mes Coordonnées Bancaires</h2>
+          <div class="profil-telephone">
+            <label for="telephone" class="label-formulaire"><i class="fas fa-asterisk" value="nom"></i> IBAN</label>
+            <input id="iban" class="iban" type="text" name="iban" placeholder="Numero IBAN" minlength="27" maxlength="34" required >
+            <span id="pseudoRegex" class="pseudo-regex">Veuillez remplir le champs</span>
+          </div>
+          <div class="profil-telephone">
+            <label for="bic" class="label-formulaire"><i class="fas fa-asterisk" value="nom"></i> BIC</label>
+            <input id="bic" class="bic" type="text" name="bic" placeholder="Numero BIC" minlength="8" maxlength="11" required >
+            <span id="pseudoRegex" class="pseudo-regex">Veuillez remplir le champs</span>
+          </div>
+        </div>
+      </div>
+      <div class="bloc-bouton-commande col-12">
+        <div class="bloc-enregistrer">
+          <input type="submit" id="bouton-enregistrer2" class="bouton-enregistrer2" value="MODIFIER INFORMATIONS">
         </div>
       </div>
     </div>
