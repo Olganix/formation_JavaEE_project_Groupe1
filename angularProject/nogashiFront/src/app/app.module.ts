@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+import { EditorModule } from '@tinymce/tinymce-angular';
+
 // Services
 import { ConnexionService } from './services/connexion.service';
 import { ConnexionGuard } from './services/connexion-guard.service';
@@ -168,17 +170,17 @@ const appRoutes: Routes =
     ProductSheetComponent,
     CommentsComponent,
     DeactivateAccountComponent,
-	PasswordRescueModificationComponent,	
-	ListProductsTemplatesComponent
+    PasswordRescueModificationComponent,
+    ListProductsTemplatesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes),              // les routes seront accessibles via la constante appRoutes
     ReactiveFormsModule,
-    // les routes seront accessibles via la constante appRoutes
+    EditorModule
   ],
   providers: [ConnexionService, AppareilService, ConnexionGuard, InfoBoxNotificationsService, ListingService],
   bootstrap: [AppComponent]

@@ -92,7 +92,8 @@
         "ban-keywords",
         "check-format",
         "allow-leading-underscore",
-        "allow-pascal-case"
+        "allow-pascal-case",
+        "allow-snake-case"
       ]
     }
 

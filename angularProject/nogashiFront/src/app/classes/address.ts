@@ -16,6 +16,19 @@ export class Address {
     }
   }
 
+  setAll(address: string, addressExtra: string, postalCode: string, cityName: string, stateName: string, longitude: number, latitude: number) {
+    this._address = address;
+    this._addressExtra = addressExtra;
+    this._postalCode = postalCode;
+    this._cityName = cityName;
+    this._stateName = stateName;
+    this._longitude = longitude;
+    this._latitude = latitude;
+  }
+
+  toHttpObject(): any {
+    return {id: this._id, address: this._address, addressExtra: this._addressExtra, postalCode: this._postalCode, cityName: this._cityName, stateName: this._stateName, longitude: this._longitude, latitude: this._latitude };
+  }
 
   get address(): string {
     return this._address;
