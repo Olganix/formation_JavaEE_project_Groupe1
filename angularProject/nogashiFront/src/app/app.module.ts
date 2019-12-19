@@ -75,6 +75,7 @@ import {ListingService} from './services/listing.service';
 import { CompteComponent } from './components/pages/pages_common/compte/compte.component';
 import { CompteCommandesComponent } from './components/pages/pages_common/compte-commandes/compte-commandes.component';
 import { ComptePreferencesComponent } from './components/pages/pages_common/compte-preferences/compte-preferences.component';
+import { CompteCommentairesComponent } from './components/pages/pages_common/compte-commentaires/compte-commentaires.component';
 
 
 
@@ -107,6 +108,8 @@ const appRoutes: Routes =
   { path: 'productSheet', component: ProductSheetComponent },
   { path: 'myProfile', component: CompteComponent },
   { path: 'myOrders', component: CompteCommandesComponent },
+  { path: 'myPreferences', component: ComptePreferencesComponent },
+  { path: 'myComments', component: CompteCommentairesComponent },
 
   { path: 'individual/welcome',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
 
@@ -177,6 +180,7 @@ const appRoutes: Routes =
     CompteComponent,
     CompteCommandesComponent,
     ComptePreferencesComponent,
+    CompteCommentairesComponent,
   ],
   imports: [
     BrowserModule,

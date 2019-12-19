@@ -1,0 +1,271 @@
+<section class="section-bonjour-compte">
+  <div class="container">
+    <div class="row">
+      <div class="bloc-bonjour-compte col-12">
+        <div class="bloc-avatar">
+          <img class="img" src="assets/img/profil/profil.png" alt="photo de l'utilisateur">
+        </div>
+        <div class="bloc-bonjour">
+          <h2>Bonjour John Doe</h2>
+          <p class="message-bonjour"><i class="fas fa-quote-left"></i> Bienvenue sur votre compte. Retrouvez toutes vos informations personnelles et vos préférences. <i class="fas fa-quote-right"></i>
+          </p>
+        </div>
+      </div>
+
+      <div class="grand-bloc-onglets">
+        <div class="bloc-onglet">
+          <a href="myProfile">
+            <div class="onglet">
+              <p class="nom-onglet">
+                <i class="fas fa-user"></i> Profil
+              </p>
+            </div>
+          </a>
+          <a href="myPreferences">
+            <div class="onglet2">
+              <p class="nom-onglet">
+                <i class="fas fa-cog"></i> Préférences
+              </p>
+            </div>
+          </a>
+          <a href="myOrders">
+            <div class="onglet3">
+              <p class="nom-commandes">
+                <i class="fas fa-cube"></i> Commandes
+              </p>
+            </div>
+          </a>
+          <a href="compte-commentaires.html">
+            <div class="onglet4">
+              <p class="nom-commentaires">
+                <i class="fas fa-comments"></i> Commentaires
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="section-edition-profil">
+  <div class="container">
+    <div class="row">
+      <div class="bloc-edition-profil col-12">
+        <h1 class="titre-edition"><i class="fas fa-cog"></i> / Edition Préférences</h1>
+        <form action="" method="get">
+          <div class="profil">
+            <label for="interface" class="label-formulaire">Interface</label>
+            <select id="liste-deroulante" class="liste-deroulante">
+              <option>Français</option>
+              <option>Anglais</option>
+              <option>Allemand</option>
+              <option>Espagnol</option>
+              <option>Italien</option>
+            </select>
+
+            <label for="interface" class="label-formulaire">Newsletter</label>
+            <div class="bloc-checkbox">
+              <input  id="checkbox" class="checkbox" type="checkbox">
+              <label class="label" for="scales">Recevoir la newsletter.</label>
+            </div>
+
+            <label for="interface" class="label-formulaire"> Réception Notifications</label>
+            <select id="liste-deroulante" class="liste-deroulante">
+              <option>Email</option>
+              <option>Sms</option>
+            </select>
+            <div class="bloc-bouton-commande col-12">
+              <div class="bloc-enregistrer">
+                <input type="submit" id="bouton-enregistrer" class="bouton-enregistrer" value="ENREGISTRER MODIFICATIONS">
+              </div>
+            </div>
+
+            <p class="titre-formulaire"> // Contraintes et Préférences Alimentaires</p>
+            <label for="interface" class="label-formulaire"> Produits Emballés</label>
+            <select id="liste-deroulante" class="liste-deroulante">
+              <option>Oui</option>
+              <option>Non</option>
+            </select>
+            <br>
+
+            <label for="interface" class="label-formulaire"> Régimes Alimentaires</label>
+            <div class="container">
+              <div class="row">
+                <div class="bloc-regime-alimentaire">
+                  <div class="bloc-checkbox">
+                    <input  id="checkbox" class="checkbox" type="checkbox">
+                    <label class="label" for="scales">Végetarien</label>
+                  </div>
+                  <div class="bloc-checkbox">
+                    <input  id="checkbox" class="checkbox" type="checkbox">
+                    <label class="label" for="scales">Végétalien</label>
+                  </div>
+                  <div class="bloc-checkbox">
+                    <input  id="checkbox" class="checkbox" type="checkbox">
+                    <label class="label" for="scales">Vegan</label>
+                  </div>
+                  <div class="bloc-checkbox">
+                    <input  id="checkbox" class="checkbox" type="checkbox">
+                    <label class="label" for="scales">Sans-Gluten</label>
+                  </div>
+                  <div class="bloc-checkbox">
+                    <input  id="checkbox" class="checkbox" type="checkbox">
+                    <label class="label" for="scales">Sportif</label>
+                  </div>
+                  <div class="bloc-checkbox">
+                    <input  id="checkbox" class="checkbox" type="checkbox">
+                    <label class="label" for="scales">Méditeranéeen</label>
+                  </div>
+                  <div class="bloc-checkbox">
+                    <input  id="checkbox" class="checkbox" type="checkbox">
+                    <label class="label" for="scales">Détox</label>
+                  </div>
+                  <div class="bloc-checkbox">
+                    <input  id="checkbox" class="checkbox" type="checkbox">
+                    <label class="label" for="scales">Anti-Cholesterol</label>
+                  </div>
+                  <div class="bloc-checkbox">
+                    <input  id="checkbox" class="checkbox" type="checkbox">
+                    <label class="label" for="scales">Anti-Diabete</label>
+                  </div>
+                  <div class="bloc-checkbox">
+                    <input  id="checkbox" class="checkbox" type="checkbox">
+                    <label class="label" for="scales">Sans-sel</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <br>
+
+            <label for="interface" class="label-formulaire"> Allérgies Alimentaires</label>
+            <div class="bloc-regime-alimentaire  ">
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Gluten</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Crustacés</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Crustacé</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Oeufs</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Poissons</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Arrachides</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Soja</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Soja</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Lait</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Fruit à Coques</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Céleri</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Moutarde</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Sesames</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Sulfites</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Lupin</label>
+              </div>
+              <div class="bloc-checkbox">
+                <input  id="checkbox" class="checkbox" type="checkbox">
+                <label class="label" for="scales">Mollusques</label>
+              </div>
+            </div>
+
+            <div class="bloc-bouton-commande col-12">
+              <div class="bloc-enregistrer">
+                <input type="submit" id="bouton-enregistrer" class="bouton-enregistrer" value="ENREGISTRER PREFERENCES">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-recherche-defaut">
+  <div class="container">
+    <div class="row">
+      <div class="bloc-edition-profil2 col-12">
+        <h1 class="titre-edition"><i class="fas fa-cog"></i> / Recherche Par Défaut</h1>
+
+        <div class="bloc-input-recherche col-12">
+          <form class="display-input col-12" action="">
+            <div class="bloc-quoi col-6 ">
+              <p class="text-input">QUOI ?</p>
+              <input class="recherche-quoi col-8" type="text" name="quoi" placeholder="Tous type de produits" >
+            </div>
+            <div class="bloc-ou col-6 ">
+              <p class="text-input">OU ?</p>
+              <input class="recherche-ou col-8" type="text" name="ou" placeholder="Ville - Nom commerce" >
+            </div>
+          </form>
+        </div>
+        <div class="bloc-rechercher col-12">
+          <button class="bouton-valider" type="button">VALIDER</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section-notifications">
+  <div class="container">
+    <div class="row">
+      <div class="bloc-edition-profil2 col-12">
+        <h1 class="titre-edition"><i class="fas fa-cog"></i> / Abonnement &amp; Notifications</h1>
+
+        <div class="bloc-input-recherche col-12">
+          <form class="display-input col-12" action="">
+            <div class="bloc-quoi col-6 ">
+              <p class="text-input">QUOI ?</p>
+              <input class="recherche-quoi col-8" type="text" name="quoi" placeholder="Tous type de produits" >
+            </div>
+            <div class="bloc-ou col-6 ">
+              <p class="text-input">OU ?</p>
+              <input class="recherche-ou col-8" type="text" name="ou" placeholder="Ville - Nom commerce" >
+            </div>
+          </form>
+        </div>
+        <div class="bloc-rechercher col-12">
+          <button class="bouton-valider" type="button">VALIDER</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
