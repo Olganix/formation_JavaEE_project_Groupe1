@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Accueil-commerçant</title>
+	<title>Accueil-commerce</title>
 	
               <!-- FAVICON -->
       <link rel="shortcut icon" href="../ico/favicon.png"> 
@@ -23,7 +23,7 @@
              <!-- LOADING CSS-->
       <link rel="stylesheet" href="css/loading.css">  
                 <!-- CSS -->
-      <link rel="stylesheet" href="css/accueil-commercant.css"> 
+      <link rel="stylesheet" href="css/accueil-commerce.css"> 
                  
       
          
@@ -35,43 +35,107 @@
  <div class="background"> <!-- Background => Dévoilement du footer-->          
         
                     <!-- Menu-->
+                       <!-- Menu-->
     <header>
        <div class="menu">
            <a href="index.html"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
-           <ul class="icones-menu">
-                <a href=""><li class="icones"><i class="fas fa-user-circle"></i></li>
-                    <i class="fas fa-sort-up"></i>
-                    <ul class="bloc-compte">
-                        <a href="connexion.html"><li class="onglet-menu">Se Connecter</li></a>
-                        <div class="trait-compte"></div>
-                        <a href="inscription.html"><li class="onglet-menu">S'inscrire</li></a>
-                    </ul>
-                </a>
-                <a href=""><li class="icones"><i class="fas fa-shopping-bag"></i></li>
-                    <div class="cercle-prix">3</div>
-                </a>
-                <li id="hamburger-menu" class="icones"><i class="fas fa-bars"></i></li>
-                <li  id="croix-menu" class="icones"><i class="fas fa-times"></i></li>
-            </ul>
+           <div class="icones-menu">
+             <div class="icones-user">
+                   <i class="fas fa-user-circle"></i>
+                   <div class="bloc-compte">
+                        <i class="fas fa-sort-up"></i>
+                        <ul class="compte">
+                            <a href="connexion.html"><li class="onglet-menu">Se Connecter</li></a>
+                            <div class="trait-compte"></div>
+                            <a href="inscription.html"><li class="onglet-menu">S'inscrire</li></a>
+                        </ul> 
+                    </div> 
+               </div>
+               <div class="icone-panier">
+                   <a href=""><div class="icones"><i class="fas fa-shopping-bag"></i></div>
+                       <div class="cercle-prix">3</div>
+                   </a>    
+               </div>
+               <div class="icone-hamburger">
+                   <div id="hamburger-menu" class="icones"><i class="fas fa-bars"></i></div>
+               </div>
+           </div>
             
-            <div id="panneau-menu" class="panneau-menu">
-                <br>
-                <a href="index.html"><div class="onglet-panneau">Accueil</div></a>
-                <hr>
-                <a href="trouver.html"><div class="onglet-panneau">Ou Nous Trouver ?</div></a>
-                <hr>
-                <a href="faq.html"><div class="onglet-panneau">F.A.Q</div></a>
-                <hr>
-                <a href="contact.html"><div class="onglet-panneau">Contact</div></a>
-                <br>
-            </div>
+           <div id="bloc-menu" class="bloc-menu col-12">
+                <a href="index.html">
+                     <div id="bloc-quitter" class="bloc-quitter">
+                         <div class="croix-quitter">
+                               <span class="barre-croix"></span>
+                               <span class="barre-croix2"></span>
+                         </div>
+                     </div>
+                </a>  
+                <nav>
+                   <ul>
+                       <a href="index.html"><li class="onglet-menu-principal">Accueil</li></a>
+                       <a href="trouver.html"><li class="onglet-menu-principal">Ou Nous Trouver ?</li></a>
+                       <a href="faq.html"><li class="onglet-menu-principal">F.A.Q</li></a>
+                   </ul> 
+               </nav>
+           </div>    
         </div> 
     </header>
+    
+    <section class="section-bonjour-compte">
+        <div class="container">
+            <div class="row">
+                <div class="bloc-bonjour-compte col-12">
+                    <div class="bloc-avatar">
+                        <img class="img-bonjour" src="css/img/profil/profil.png" alt="photo de l'utilisateur">
+                    </div>
+                    <div class="bloc-bonjour">
+                        <h2>Bonjour Commerce</h2>
+                        <p class="message-bonjour"><i class="fas fa-quote-left"></i> Bienvenue sur votre compte. Retrouvez toutes vos informations personnelles et vos préférences. <i class="fas fa-quote-right"></i>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="grand-bloc-onglets"> 
+                    <div class="bloc-onglet">
+                        <a href="#il-faut-aller-ici-commerces">
+                            <div class="onglet">
+                                <p class="nom-onglet">
+                                    Mes Commerces
+                                </p>
+                            </div>
+                        </a>
+                        <a href="#il-faut-aller-ici-commandes">
+                            <div class="onglet2">
+                                <p class="nom-onglet">
+                                    Commandes en Cours
+                                </p>
+                            </div>
+                        </a>
+                        <a href="#il-faut-aller-ici-produits">
+                            <div class="onglet3">
+                                <p class="nom-commandes">
+                                    Mes Produits
+                                </p>
+                            </div>
+                        </a>
+                        <a href="#il-faut-aller-ici-compte">
+                            <div class="onglet4">
+                                <p class="nom-commentaires">
+                                    Comptes Employés
+                                </p>
+                            </div>
+                        </a>
+                    </div> 
+                </div>
+                    
+            </div>
+        </div>
+    </section>
     
     <section class="section-details-commerce">
         <div class="container">
             <div class="row">
-                <div class="bloc-ouverture-commerce col-12 no-gutters">
+                <div class="bloc-ouverture-commerce col-12 no-gutters" id="#il-faut-aller-ici-commerces">
                     <div class="img-vitrine col-12 no-gutters">
                         <img class="img-vitrine" src="css/img" alt="">    
                     </div>
@@ -105,57 +169,35 @@
           <div class="container">
             <div class="row">
                  <div class="bloc-titre-commandes">
-                    <h2 class="titre-commandes"><i class="fas fa-cube"></i> / COMMANDES EN COURS </h2>
+                    <h2 class="titre-commandes" id="#il-faut-aller-ici-commandes"><i class="fas fa-cube"></i> / COMMANDES EN COURS </h2>
                     <br>
                     <br>
                     <p class="texte-commandes">Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis,  iudices, nec descensurum</p>
                     <br> 
                     
-                    <div class="bloc-facture-print col-12">
-                        <a href="">
-                            <div class="print">
-                                <i class="fas fa-print"></i>    
-                            </div>     
-                        </a>
-                        <a href="">
-                            <div class="pdf">
-                                <i class="far fa-file-pdf"></i>    
-                            </div>    
-                        </a>
-                    </div>
+                    
                     
                     <div class="bloc-commerce-commande">
                        <h3 class="titre-commerce">- Boulangerie Mathieu -</h3>
                        <table class="table-commande col-12">
                              <tr class="tr-titre">
-                              <td class="td-titre col-3">Numero Commande</td>
-                              <td class="td-titre col-2">Prix</td>
-                              <td class="td-titre col-1">Quantité</td>
-                              <td class="td-titre col-2">Statut</td>
-                              <td class="td-titre">Client</td>
+                                  <td class="td-titre col-1">Numero Commande</td>
+                                  <td class="td-titre col-1">Prix</td>
+                                  <td class="td-titre col-1">Quantité</td>
+                                  <td class="td-titre col-3">Statut</td>
+                                  <td class="td-titre col-3">Client</td>
+                                  <td class="td-titre col-3">Facture</td>
+                                  
                              </tr>
                              <tr class="tr">
-                              <td class="td-produits col-3">#000000001</td>
-                              <td class="td col-2">1.10€</td>
-                              <td class="td col-1">02</td>
-                              <td class="td col-2">En Attente</td>
-                              <a href=""><td class="td col-4">John Doe</td></a>
+                                  <td class="td-produits">#000000001</td>
+                                  <td class="td ">1.10€</td>
+                                  <td class="td">02</td>
+                                  <td class="td">En Attente</td>
+                                  <a href=""><td class="td-lien">John Doe</td></a>
+                                  <a href=""><td class="td"><i class="far fa-file-pdf"></i></td></a>
                             </tr>
-                            <tr class="tr">
-                              <td class="td-produits col-3">#000000002</td>
-                              <td class="td col-2">7.00€</td>
-                              <td class="td col-1">01</td>
-                              <td class="td col-2">Prete</td>
-                              <a href=""><td class="td col-4">Marie Doe</td></a>
-                            </tr>
-                            <tr class="tr">
-                              <td class="td-produits col-3">#000000003</td>
-                              <td class="td col-2">14.00€</td>
-                              <td class="td col-1">02</td>
-                              <td class="td col-2">En Attente</td>
-                              <a href=""><td class="td col-4">Pierre Doe</td></a>
-                            </tr>
-                        </table> 
+                       </table> 
                     </div> 
                 </div>
               </div>   
@@ -166,14 +208,17 @@
         <div class="container">
             <div class="row">
               <div class="bloc-map col-12">
-                  <h2 class="titre-rechercher-produit col-12">// VOS PRODUITS</h2>
+                  <h2 class="titre-rechercher-produit col-12" id="#il-faut-aller-ici-produits">// VOS PRODUITS</h2>
                   <p class="texte-produit">Restabat ut Caesar post haec properaret accitus et abstergendae causa suspicionis sororem suam, eius uxorem, Constantius ad se tandem desideratam venire multis fictisque blanditiis hortabatur.</p>
                   <h5 class="texte-recomandation">"Nous vous recommandons ces produits."</h5>
                   <div class="bloc-input-recherche col-12">
                       <form class="display-input col-12" action="">
-                           <div class="bloc-quoi col-12">
-                               <p class="text-input">QUOI ?</p>
+                          <div class="bloc-quoi col-9">
+                               <p class="text-input">Rechercher un Produit </p>
                                <input class="recherche-quoi col-8" type="text" name="quoi" placeholder="Tous type de produits" >
+                           </div>
+                           <div class="bloc-rechercher col-3">
+                               <button class="bouton-rechercher" type="button">RECHERCHER</button>
                            </div>
                         </form>
                    </div>
@@ -181,6 +226,7 @@
             </div>
         </div>
     </section>
+    
     <section class="section-affichage-produit">
         <div class="container">
             <div class="row">
@@ -333,16 +379,16 @@
                            </div>
 
                            <div class="informations-affichage col-6">
-                               <div class="commerce-affichage">
-                                    <h4>Daily Juicery </h4>
-                                    <p class="adresse-affichage"><i class="fas fa-location-arrow"></i> / 380 rue Léon Gambetta, 59000 LILLE </p>
-                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="fas fa-mobile-alt"> / </i> </span> 03 20 30 79 73 </p>
-                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="far fa-envelope"></i> / </span> thedailyjuicery@gmail.com </p>    
-                                </div>
                                 <h5>Jus de fruits frais :</h5>
                                 <p class="composition-affichage"> Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.
                                 Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.</p>
                                 <p class="key-allergene"> > Sans-gluten > Sportif </p>
+                                <div class="Lieu-affichage col-8">
+                                    <select id="liste-mois" class="liste-mois col-12">
+                                        <option>Promotion</option>
+                                        <option>Invendu</option>
+                                    </select>    
+                                </div>
                                 <div class="bloc-prix-affichage col-12">
                                     <div class="affichage col-6">
                                         <div class="prix-affichage">144,90 €</div> 
@@ -361,126 +407,9 @@
                                 </div>
                            </div>
                            <div class="bloc-panier">
-                                <a href=""><div id ="bouton-panier" class="bouton-panier">DUPLIQUER FICHE PRODUIT</div></a>
+                                <a href=""><div id ="bouton-panier" class="bouton-panier">DUPLIQUER</div></a>
                            </div>
                        </div>
-                       
-                       <div class="bloc-affichage-produit col-12">
-                           <div class="img-affichage col-6 no-gutters">
-                               <img class="img col-12" src="css/img/produit/eclairchocoloat-mathieu.jpg" alt="">
-                           </div>
-
-                           <div class="informations-affichage col-6">
-                               <div class="commerce-affichage">
-                                    <h4>Daily Juicery </h4>
-                                    <p class="adresse-affichage"><i class="fas fa-location-arrow"></i> / 380 rue Léon Gambetta, 59000 LILLE </p>
-                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="fas fa-mobile-alt"> / </i> </span> 03 20 30 79 73 </p>
-                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="far fa-envelope"></i> / </span> thedailyjuicery@gmail.com </p>    
-                                </div>
-                                <h5>Jus de fruits frais :</h5>
-                                <p class="composition-affichage"> Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.
-                                Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.</p>
-                                <p class="key-allergene"> > Sans-gluten > Sportif Sportif Sportif > Sans-gluten > Sportif  </p>
-                                <div class="bloc-prix-affichage col-12">
-                                    <div class="affichage col-6">
-                                        <div class="prix-affichage">44,90 €</div> 
-                                        <div class="bloc-prix-barre">
-                                           <div class="prix-barre-affichage">25,00 €</div>
-                                           <div class="trait"></div>    
-                                        </div>    
-                                    </div>
-                                    <div class="bloc-quantite-produit col-6">
-                                        <input id="quantite-produit" class="quantite-produit" type="text" name="quantite" placeholder="1" >
-                                        <div class="plus-moins">
-                                           <i class="fas fa-plus-circle"></i>
-                                           <i class="fas fa-minus-circle"></i> 
-                                        </div>    
-                                    </div>  
-                                </div>
-                           </div>
-                           <div class="bloc-panier">
-                                <a href=""><div id ="bouton-panier" class="bouton-panier">DUPLIQUER FICHE PRODUIT</div></a>
-                           </div>
-                       </div>
-                       
-                       <div class="bloc-affichage-produit col-12">
-                           <div class="img-affichage col-6 no-gutters">
-                               <img class="img col-12" src="css/img/produit/eclairchocoloat-mathieu.jpg" alt="">
-                           </div>
-
-                           <div class="informations-affichage col-6">
-                               <div class="commerce-affichage">
-                                    <h4>Daily Juicery </h4>
-                                    <p class="adresse-affichage"><i class="fas fa-location-arrow"></i> / 380 rue Léon Gambetta, 59000 LILLE </p>
-                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="fas fa-mobile-alt"> / </i> </span> 03 20 30 79 73 </p>
-                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="far fa-envelope"></i> / </span> thedailyjuicery@gmail.com </p>    
-                                </div>
-                                <h5>Jus de fruits frais :</h5>
-                                <p class="composition-affichage"> Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.
-                                Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.</p>
-                                <p class="key-allergene"> > Sans-gluten > Sportif Sportif > Sans-gluten > Sportif > Sans-gluten > Sportif > Sans-gluten > Sportif </p>
-                                <div class="bloc-prix-affichage col-12">
-                                    <div class="affichage col-6">
-                                        <div class="prix-affichage">144,90 €</div> 
-                                        <div class="bloc-prix-barre">
-                                           <div class="prix-barre-affichage">25,00 €</div>
-                                           <div class="trait"></div>    
-                                        </div>    
-                                    </div>
-                                    <div class="bloc-quantite-produit col-6">
-                                        <input id="quantite-produit" class="quantite-produit" type="text" name="quantite" placeholder="1" >
-                                        <div class="plus-moins">
-                                           <i class="fas fa-plus-circle"></i>
-                                           <i class="fas fa-minus-circle"></i> 
-                                        </div>    
-                                    </div>  
-                                </div>
-                           </div>
-                           <div class="bloc-panier">
-                                <a href=""><div id ="bouton-panier" class="bouton-panier">DUPLIQUER FICHE PRODUIT</div></a>
-                           </div>
-                       </div>
-                       <div class="bloc-affichage-produit col-12">
-                           <div class="img-affichage col-6 no-gutters">
-                               <img class="img col-12" src="css/img/produit/eclairchocoloat-mathieu.jpg" alt="">
-                           </div>
-
-                           <div class="informations-affichage col-6">
-                               <div class="commerce-affichage">
-                                    <h4>Daily Juicery </h4>
-                                    <p class="adresse-affichage"><i class="fas fa-location-arrow"></i> / 380 rue Léon Gambetta, 59000 LILLE </p>
-                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="fas fa-mobile-alt"> / </i> </span> 03 20 30 79 73 </p>
-                                    <p class="adresse-affichage"><span class="icones-affichage"><i class="far fa-envelope"></i> / </span> thedailyjuicery@gmail.com </p>    
-                                </div>
-                                <h5>Jus de fruits frais :</h5>
-                                <p class="composition-affichage"> Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.
-                                Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.</p>
-                                <p class="key-allergene"> > Sans-gluten > Sportif > Sans-gluten > Sportif > Sans-gluten > Sportif > Sans-gluten > Sportif > Sans-gluten > Sportif > Sans-gluten > Sportif  </p>
-                                <div class="bloc-prix-affichage col-12">
-                                    <div class="affichage col-6">
-                                        <div class="prix-affichage">4,90 €</div> 
-                                        <div class="bloc-prix-barre">
-                                           <div class="prix-barre-affichage">25,00 €</div>
-                                           <div class="trait"></div>    
-                                        </div>    
-                                    </div>
-                                    <div class="bloc-quantite-produit col-6">
-                                        <input id="quantite-produit" class="quantite-produit" type="text" name="quantite" placeholder="1" >
-                                        <div class="plus-moins">
-                                           <i class="fas fa-plus-circle"></i>
-                                           <i class="fas fa-minus-circle"></i> 
-                                        </div>    
-                                    </div>  
-                                </div>
-                           </div>
-                           <div class="bloc-panier">
-                                <a href=""><div id ="bouton-panier" class="bouton-panier">DUPLIQUER FICHE PRODUIT</div></a>
-                           </div>
-                       </div>
-                                   
-                       
-                          
-                          
                        <div class="bloc-pagination col-12">
                            <div class="pagination">
                                <a href="">
@@ -518,9 +447,9 @@
                                </a>    
                            </div>
                         </div>
-
-                </div>
-             </div>
+                  
+                  </div>
+              </div>
          </div>
      </section>
     

@@ -2,12 +2,45 @@
 
 
 /* BACKGROUND */
-.background 
-{
+.background {
     min-height: 100vh;
     background-color: var(--couleurBlancCreme);
-    box-shadow: 3px 3px 20px rgba(0,0,0, .4); 
-    position: relative;    
-    z-index: 1; 
+    position: relative;
+    z-index: 1;
+}
+
+.grand-bloc {
+  display: flex;
+}
+
+.grand-bloc2 {
+  margin-top: 30px;
+  display: flex;
+}
+
+.bloc-navbar {
+  display: block;
+  background-color: var(--couleurBlancCreme);
+}
+
+.navbar-nav {
+  display: flex;
+}
+
+.bloc-lien {
+  margin-bottom: 5px;
+}
+
+h5 {
+  font-size: 0.85em;
+   color: var(--couleurNoir);
+}
+
+.lien-router {
+   font-size: 0.85em;
+   font-style: italic;
+   text-decoration: none;
+   color: var(--couleurNoir);
+   background-color: var(--couleurBlancCreme);
 }
 

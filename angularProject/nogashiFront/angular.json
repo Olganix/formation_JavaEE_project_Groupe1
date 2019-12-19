@@ -28,7 +28,9 @@
               "src/assets"
             ],
             "styles": [
+              "src/assets/css/reset.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
+              "src/assets/lib/fontawesome-free-5.11.2-web/css/all.css",
               "src/styles.scss"
             ],
             "scripts": []
