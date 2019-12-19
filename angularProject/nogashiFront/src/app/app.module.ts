@@ -71,7 +71,6 @@ import { CommentsComponent } from './components/modules/comments/comments.compon
 import { DeactivateAccountComponent } from './components/pages/pages_common/deactivate-account/deactivate-account.component';
 import { PasswordRescueModificationComponent } from './components/pages/pages_anonyme/password-rescue-modification/password-rescue-modification.component';
 import { ListProductsTemplatesComponent } from './components/pages/pages_merchant/list-products-templates/list-products-templates.component';
-import {ListingService} from './services/listing.service';
 
 
 
@@ -168,7 +167,7 @@ const appRoutes: Routes =
     ProductSheetComponent,
     CommentsComponent,
     DeactivateAccountComponent,
-	PasswordRescueModificationComponent,	
+	PasswordRescueModificationComponent,
 	ListProductsTemplatesComponent
   ],
   imports: [
@@ -180,7 +179,7 @@ const appRoutes: Routes =
     ReactiveFormsModule,
     // les routes seront accessibles via la constante appRoutes
   ],
-  providers: [ConnexionService, AppareilService, ConnexionGuard, InfoBoxNotificationsService, ListingService],
+  providers: [ConnexionService, AppareilService, ConnexionGuard, InfoBoxNotificationsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

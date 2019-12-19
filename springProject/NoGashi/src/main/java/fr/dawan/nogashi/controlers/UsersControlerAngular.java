@@ -83,9 +83,9 @@ public class UsersControlerAngular
 		User u_tmp = null;
     	try 
     	{
-    		List<User> listUsers = dao.findNamed(User.class, "name", u.getName(), em, false);
+    		List<User> listUsers = dao.findNamed(User.class, "name", u.getName(), em);
     		if(listUsers.size()==0)
-    			listUsers = dao.findNamed(User.class, "email", u.getEmail(), em, false);
+    			listUsers = dao.findNamed(User.class, "email", u.getEmail(), em);
 			
     		if(listUsers.size()!=0)
     			u_tmp = listUsers.get(0);
@@ -117,12 +117,12 @@ public class UsersControlerAngular
 		{
 			switch(u.getRole())
 			{
-			case MERCHANT: dao.saveOrUpdate(new Merchant(u), em, false); break;
-			//case ASSOCIATION: dao.saveOrUpdate(new Association(u), em, false); break;		//Todo
-			//case ADMIN: dao.saveOrUpdate(new Admin(u), em, false); break;					//Todo
+			case MERCHANT: dao.saveOrUpdate(new Merchant(u), em); break;
+			//case ASSOCIATION: dao.saveOrUpdate(new Association(u), em); break;		//Todo
+			//case ADMIN: dao.saveOrUpdate(new Admin(u), em); break;					//Todo
 			case INDIVIDUAL:
 			default:
-				dao.saveOrUpdate(u, em, false); break;
+				dao.saveOrUpdate(u, em); break;
 			}
 			
 			
@@ -177,7 +177,7 @@ public class UsersControlerAngular
 		User u = null;
     	try 
     	{
-    		List<User> listUsers = dao.findNamed(User.class, "token", token, em, false);
+    		List<User> listUsers = dao.findNamed(User.class, "token", token, em);
     		if(listUsers.size()!=0)
     			u = listUsers.get(0);
 		} catch (Exception e) {
@@ -196,7 +196,7 @@ public class UsersControlerAngular
     	
 		try 
 		{
-			dao.saveOrUpdate(u, em, false);
+			dao.saveOrUpdate(u, em);
 			System.out.println("email validated for login: "+ u.getName() +" role:"+ u.getRole());
 			
 		} catch (Exception e1) {
@@ -226,7 +226,7 @@ public class UsersControlerAngular
 		User u = null;
     	try 
     	{
-    		List<User> listUsers = dao.findNamed(User.class, "email", email, em, false);
+    		List<User> listUsers = dao.findNamed(User.class, "email", email, em);
     		if(listUsers.size()!=0)
     			u = listUsers.get(0);
     		
@@ -250,7 +250,7 @@ public class UsersControlerAngular
     	
 		try 
 		{
-			dao.saveOrUpdate(u, em, false);
+			dao.saveOrUpdate(u, em);
 			
 			System.out.println("try send emailValidation login: "+ u.getName() +" role:"+ u.getRole());
 			
@@ -316,9 +316,9 @@ public class UsersControlerAngular
 		User u = null;
     	try 
     	{
-    		List<User> listUsers = dao.findNamed(User.class, "name", user.getName(), em, false);
+    		List<User> listUsers = dao.findNamed(User.class, "name", user.getName(), em);
     		if(listUsers.size()==0)
-    			listUsers = dao.findNamed(User.class, "email", user.getName(), em, false);
+    			listUsers = dao.findNamed(User.class, "email", user.getName(), em);
     		
     		if(listUsers.size()!=0)
     			u = listUsers.get(0);
@@ -347,7 +347,7 @@ public class UsersControlerAngular
     		return new RestResponse<User>(RestResponseStatus.FAIL, u, 2, "Error: Email no validated");
     	}
     		
-    	
+    	u = new User(u);						//to avoid jackson considere Merchant as User and faild to make Json because of lists in Merchant ... WTH.
     	
     	session.setAttribute("user", u);
     	session.setMaxInactiveInterval(60*60*24);
@@ -425,7 +425,7 @@ public class UsersControlerAngular
 		User u = null;
     	try 
     	{
-    		List<User> listUsers = dao.findNamed(User.class, "email", email, em, false);
+    		List<User> listUsers = dao.findNamed(User.class, "email", email, em);
     		if(listUsers.size()!=0)
     			u = listUsers.get(0);
     		
@@ -452,7 +452,7 @@ public class UsersControlerAngular
     	
 		try 
 		{
-			dao.saveOrUpdate(u, em, false);
+			dao.saveOrUpdate(u, em);
 			
 			System.out.println("try send emailValidation login: "+ u.getName() +" role:"+ u.getRole());
 			
@@ -518,7 +518,7 @@ public class UsersControlerAngular
 		User u = null;
     	try 
     	{
-    		List<User> listUsers = dao.findNamed(User.class, "token", user.getToken(), em, false);
+    		List<User> listUsers = dao.findNamed(User.class, "token", user.getToken(), em);
     		if(listUsers.size()!=0)
     			u = listUsers.get(0);
 		} catch (Exception e) {
@@ -538,7 +538,7 @@ public class UsersControlerAngular
     	
 		try 
 		{
-			dao.saveOrUpdate(u, em, false);
+			dao.saveOrUpdate(u, em);
 			System.out.println("password modified for login: "+ u.getName() +" role:"+ u.getRole());
 			
 		} catch (Exception e1) {
@@ -569,7 +569,7 @@ public class UsersControlerAngular
 		
 		try 
 		{	
-			listUsers = dao.findAll(User.class, em, false);
+			listUsers = dao.findAll(User.class, em, true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -579,7 +579,7 @@ public class UsersControlerAngular
     }
 	
 	/*****************************************************************************************
-	*										getMerchants										 * 
+	*										getMerchants									 * 
 	*****************************************************************************************/
 	@RequestMapping(path="/getMerchants", produces = "application/json")
 	//it's a test, TODO remove this from public access, could be use only for admin.
@@ -600,7 +600,7 @@ public class UsersControlerAngular
     	
 		try 
 		{	
-			listMerchants = dao.findAll(Merchant.class, em, false, graph);
+			listMerchants = dao.findAll(Merchant.class, em, true, graph, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

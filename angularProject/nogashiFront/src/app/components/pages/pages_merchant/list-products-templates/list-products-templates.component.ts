@@ -3,7 +3,6 @@ import {RestResponse} from '../../../../classes/rest-response';
 import {environment} from '../../../../../environments/environment';
 import {map, retry} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import {ListingService} from '../../../../services/listing.service';
 import {ProductTemplate} from '../../../../classes/product-template';
 import {AbstractControlDirective, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConnexionService} from '../../../../services/connexion.service';
@@ -27,8 +26,7 @@ export class ListProductsTemplatesComponent implements OnInit {
 
   form1: FormGroup;
 
-  constructor(private listingService: ListingService,
-              private connexionService: ConnexionService,
+  constructor(private connexionService: ConnexionService,
               private infoBoxNotificationsService: InfoBoxNotificationsService,
               private router: Router,
               private fb: FormBuilder
@@ -83,7 +81,7 @@ export class ListProductsTemplatesComponent implements OnInit {
       const productTemplate = new ProductTemplate();
       productTemplate.setAddProductTemplate(this.form1.value.name, this.form1.value.description, this.form1.value.price, this.form1.value.isWrapped);
 
-      this.listingService.addProductTemplate( productTemplate ).subscribe(
+      this.connexionService.addProductTemplate( productTemplate ).subscribe(
         (rrp: RestResponse) => {
 
           console.log('component.addProductTemplate: ');

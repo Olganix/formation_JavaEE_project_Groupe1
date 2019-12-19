@@ -3,8 +3,8 @@ import { ConnexionService } from '../../../services/connexion.service';
 import {RestResponse} from '../../../classes/rest-response';
 import {environment} from '../../../../environments/environment';
 import {log} from 'util';
+import {InfoBoxNotificationsService} from '../../../services/InfoBoxNotifications.services';
 import {ProductTemplate} from "../../../classes/product-template";
-import {ListingService} from "../../../services/listing.service";
 
 @Component({
   selector: 'app-test-spring-rest',
@@ -19,12 +19,12 @@ export class TestSpringRestComponent implements OnInit
   users: any;
   merchants: any;
   listProductsTemplates: any;
-  productTemplate: ProductTemplate;
+  commerces: any;
 
-  constructor(private connexionService: ConnexionService, private listingService: ListingService)
-  {
 
-  }
+  constructor(private infoBoxNotificationsService: InfoBoxNotificationsService,
+              private connexionService: ConnexionService
+  ){}
 
   ngOnInit() {
 
@@ -59,7 +59,7 @@ export class TestSpringRestComponent implements OnInit
 
 
     // Listing des fiches produits de la BDD
-    this.listingService.getProductsTemplates().subscribe(
+    this.connexionService.getProductsTemplates().subscribe(
       (rrp: RestResponse) => {
 
         if (rrp.status === 'SUCCESS') {
@@ -72,6 +72,24 @@ export class TestSpringRestComponent implements OnInit
         console.log('Echec de la recuperation de la liste des fiches produits : ', error);
       });
 
+
+    this.connexionService.getMerchantCommerces().subscribe(
+      (rrp: RestResponse) => {
+
+        if (rrp.status === 'SUCCESS') {
+          this.commerces = rrp.data;
+        } else {
+
+          console.log('Echec de la recuperation de la liste des Commerces : ' + rrp.errormessage);
+          if (rrp.errorCode === 5)                        // you have to be connected as Merchant to get is Commerce
+          {
+            this.infoBoxNotificationsService.addMessage('warn', 'Vous devez connecté en tant que Commerçant pour voir la liste de vos commerces', 10);
+          }
+        }
+      },
+      error => {
+        console.log('Echec de la recuperation de la liste des Commerces : ', error);
+      });
 
   }
 }

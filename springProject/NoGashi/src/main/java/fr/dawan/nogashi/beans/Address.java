@@ -21,7 +21,8 @@ public class Address extends DbObject {
 	@Basic(optional = false)
 	private String stateName;
 	
-	
+	private Double longitude = null;
+	private Double latitude = null;
 	
 	
 	public Address(String address, String addressExtra, String postalCode, String cityName, String stateName) {
@@ -40,6 +41,8 @@ public class Address extends DbObject {
 		this.postalCode = (other.postalCode!= null) ? (new String(other.postalCode)) : null;
 		this.cityName = (other.cityName!= null) ? (new String(other.cityName)) : null;
 		this.stateName = (other.stateName!= null) ? (new String(other.stateName)) : null;
+		this.longitude = other.longitude;
+		this.latitude = other.latitude;
 	}
 	
 	//-------------------------------
@@ -105,6 +108,22 @@ public class Address extends DbObject {
 
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
 	}
 	
 

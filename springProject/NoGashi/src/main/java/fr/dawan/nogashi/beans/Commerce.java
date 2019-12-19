@@ -23,13 +23,11 @@ public class Commerce extends DbObject {
 	private String name;
 	@Basic(optional = false)
 	private String codeSiret;
-	@Basic(optional = false)
 	private String uniqueIdName;					//to make difference between 2 subway in the same city (or the same street), you add a unique subName to make them different.
-	@Basic(optional = false)
 	private String description;
 	@Basic(optional = false)
+	@OneToOne
 	private Address address;
-	@Basic(optional = false)
 	private String schedule;						// horaires définit en string.  Todo : a week calendar + complements. + a holiday calendar.
 	
 	private String pictureLogo = "NoLogo.jpg";					// logo for the merchant's (or commerce's) mark
