@@ -28,8 +28,9 @@
   text-align: center;
 }
 
-.bloc-input-search {
-  display: flex;
+.bloc-search {
+  margin-left: 50%;
+  transform: translate(-50%);
 }
 
 .input-search {
@@ -43,17 +44,16 @@
   padding-left: 15px;
   margin-top: 40px;
   margin-bottom: 40px;
-  margin-left: 50%;
-  transform: translate(-50%);
 }
 
 .bouton-search {
-  width: 32px;
-  height: 32px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   border: none;
   background-color: var(--couleurNoir);
   color: var(--couleurVerte);
+  margin-left: 15px;
 }
 
 .bouton-search:hover {

@@ -40,12 +40,12 @@
             <div class="bloc-checkbox">
               <input formControlName="term" name="accept_generale_condition" class="checkbox" type="checkbox" required >
               <label class="label" >J'ai lu et j'accepte les conditions générales <br> d'utilisation.</label>
-              <span class="text-danger" *ngIf="controlTerm(); let message">{{message}}</span>
+              <span class="text-danger2" *ngIf="controlTerm(); let message">{{message}}</span>
             </div>
             <div class="bloc-checkbox2" *ngIf="(inputRole.value==='MERCHANT')||(inputRole.value==='ASSOCIATION')" >
               <input formControlName="declaration" name="confirm_on_honor" class="checkbox2" type="checkbox" [required]="(inputRole.value==='MERCHANT')||(inputRole.value==='ASSOCIATION')" >
               <label class="label" >Je certifie sur l'honneur que les informations <br> fournies sont rigoureusement exactes</label>
-              <span class="text-danger" *ngIf="controlDeclaration(); let message">{{message}}</span>
+              <span class="text-danger2" *ngIf="controlDeclaration(); let message">{{message}}</span>
             </div>
             <div class="bloc-checkbox3">
                 <input formControlName="newsletterEnabled" name="newsletterEnabled" class="checkbox3" type="checkbox">

@@ -97,7 +97,8 @@
 
     .text-danger {
       font-size: 0.85em;
-
+      margin-left: 250px;
+      display: block;
     }
 
     .email {
@@ -172,6 +173,13 @@
         margin-top: 20px;
         margin-left: 31%;
         display: block;
+    }
+
+    .text-danger2 {
+        font-size: 0.85em;
+        color: var(--couleurRougeIncorrect);
+        display: block;
+        margin-bottom: 20px;
     }
 
     .checkbox2 {
