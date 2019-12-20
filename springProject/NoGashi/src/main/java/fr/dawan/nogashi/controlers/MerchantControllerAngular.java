@@ -116,6 +116,21 @@ public class MerchantControllerAngular
 		
 		EntityManager em = StartListener.createEntityManager();
 		
+		Merchant merchant = null;
+		try {
+			merchant = dao.find(Merchant.class,  ((User)session.getAttribute("user")).getId() , em);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(merchant==null)
+    	{
+    		em.close();
+    		return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
+    	}
+		
+		
+		
+		
 		
 		Commerce c_tmp = null;
     	try 
@@ -142,23 +157,8 @@ public class MerchantControllerAngular
     	
     	
     	
-    	Merchant merchant = null;
-		try {
-			merchant = dao.find(Merchant.class,  ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(merchant==null)
-    	{
-    		em.close();
-    		return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: wrong Merchant session information");
-    	}
-    	
-    	
     	
     	c.setMerchant(merchant);
-    	
-    	
     	
 		try 
 		{
@@ -188,6 +188,20 @@ public class MerchantControllerAngular
 		
     	EntityManager em = StartListener.createEntityManager();
 		
+    	
+    	Merchant merchant = null;
+		try {
+			merchant = dao.find(Merchant.class,  ((User)session.getAttribute("user")).getId() , em);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(merchant==null)
+    	{
+    		em.close();
+    		return new RestResponse<List<ProductTemplate>>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
+    	}
+    	
+    	
     	List<ProductTemplate> listProductsTemplates = new ArrayList<ProductTemplate>();
 		
 		try 
@@ -207,7 +221,7 @@ public class MerchantControllerAngular
 	
 
 	/*****************************************************************************************
-	*										addProductTemplate										 * 
+	*										addProductTemplate								 * 
 	*****************************************************************************************/
 	@PostMapping(path="/addProductTemplate", produces = "application/json")
 	//test : http://localhost:8080/nogashi/addProductTemplate
