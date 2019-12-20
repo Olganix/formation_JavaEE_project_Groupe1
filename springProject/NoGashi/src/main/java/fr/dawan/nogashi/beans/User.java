@@ -33,7 +33,7 @@ public class User extends DbObject
 	
 	private String avatarFilename = "NoAvatar.jpg";						//Todo do the upload system.
 	
-		private String phoneNumber;
+	private String phoneNumber;
 	private String phoneNumber2;
 	@OneToOne
 	private Address address;	
@@ -68,6 +68,7 @@ public class User extends DbObject
 	public User(User other)
 	{
 		super();
+		this.setId(other.getId());
 		this.name = (other.name!= null) ? (new String(other.name)) : null;			//todo check if not Reference the same value. if it's the case , do = new String(other.name) and apply it everywhere there is a "other". 
 		this.email = (other.email!= null) ? (new String(other.email)) : null;
 		this.password = (other.password!= null) ? (new String(other.password)) : null;
@@ -113,7 +114,7 @@ public class User extends DbObject
 
 	@Override
 	public String toString() {
-		return "User [name=" + name + ", email=" + email + ", role=" + role + "]";
+		return "User [id=" + this.getId() + ",name=" + name + ", email=" + email + ", role=" + role + "]";
 	}
 
 	//-----------------------------

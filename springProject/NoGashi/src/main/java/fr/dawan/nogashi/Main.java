@@ -34,12 +34,14 @@ public class Main
 	
 	public static void setupDataBase()
 	{
-		User a = new User("admin", "admin@noghasi.org", BCrypt.hashpw("admin", BCrypt.gensalt()), UserRole.ADMIN, true);
-		Merchant m = new Merchant(new User("merchantTest", "merchant@noghasi.org", BCrypt.hashpw("toto", BCrypt.gensalt()), UserRole.MERCHANT, true));
-		User u = new User("userTest", "user@noghasi.org", BCrypt.hashpw("toto", BCrypt.gensalt()), UserRole.INDIVIDUAL, true);
-		User ass = new User("associationTest", "associationt@noghasi.org", BCrypt.hashpw("toto", BCrypt.gensalt()), UserRole.ASSOCIATION, true);
+		User a = new User("admin", "admin@noghasi.org", BCrypt.hashpw("admin", BCrypt.gensalt()), UserRole.ADMIN, true); a.setEmailValid(true);
+		Merchant m = new Merchant(new User("merchantTest", "merchant@noghasi.org", BCrypt.hashpw("toto", BCrypt.gensalt()), UserRole.MERCHANT, true)); m.setEmailValid(true);
+		User u = new User("userTest", "user@noghasi.org", BCrypt.hashpw("toto", BCrypt.gensalt()), UserRole.INDIVIDUAL, true); u.setEmailValid(true);
+		User ass = new User("associationTest", "associationt@noghasi.org", BCrypt.hashpw("toto", BCrypt.gensalt()), UserRole.ASSOCIATION, true); ass.setEmailValid(true);
 		
-		ProductTemplate pt = new ProductTemplate("orange", "orange", "136511", true, 15.2, 10.1);		
+		ProductTemplate pt = new ProductTemplate("orange", "orange", "136511", true, 15.1, 10.1); pt.setMerchant(m);
+		ProductTemplate pt2 = new ProductTemplate("banane", "banane", "136512", true, 150.2, 100.2); pt2.setMerchant(m);
+		ProductTemplate pt3 = new ProductTemplate("fraise", "fraise", "136513", true, 1.3, 0.3); pt3.setMerchant(m);
 	
 		try
 		{
@@ -50,6 +52,8 @@ public class Main
 			em.persist(u);
 			em.persist(ass);
 			em.persist(pt);
+			em.persist(pt2);
+			em.persist(pt3);
 			
 			et.commit();
 			
