@@ -72,8 +72,6 @@ export class SignInComponent implements OnInit {
 
 
   onSubmit() {
-        console.log(this.form1.value);
-
         if (this.form1.valid) {
 
           console.log('form:');

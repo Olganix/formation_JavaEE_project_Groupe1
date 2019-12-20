@@ -11,7 +11,7 @@ export class Commerce {
   private _description: string;
 
   private _address: Address;
-  private _schedule: string;
+  private _schedule: string;      // todo  schedule (horaire) as a list of Classe
 
   private _pictureLogo: string;
   private _pictureDescription: string;
@@ -26,6 +26,22 @@ export class Commerce {
     if (obj !== null) {
       Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regle le soucis, avec un Pip dans le service.
     }
+  }
+
+
+  setAddCommerce(name: string, codeSiret: string, uniqueIdName: string, description: string, address: Address, pictureLogo: string, pictureDescription: string, isOpened: boolean) {
+    this._name = name;
+    this._codeSiret = codeSiret;
+    this._uniqueIdName = uniqueIdName;
+    this._description = description;
+    this._address = address;
+    this._pictureLogo = pictureLogo;
+    this._pictureDescription = pictureDescription;
+    this._isOpened = isOpened;
+  }
+
+  toHttpObject() {
+    return {id: this._id, name: this._name, codeSiret: this._codeSiret, uniqueIdName: this._uniqueIdName, description: this._description, address: this._address.toHttpObject(), pictureLogo: this._pictureLogo, pictureDescription: this._pictureDescription, isOpened: this._isOpened };
   }
 
   get id(): string {

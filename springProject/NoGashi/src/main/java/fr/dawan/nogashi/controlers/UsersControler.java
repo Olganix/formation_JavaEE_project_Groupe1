@@ -43,9 +43,9 @@ public class UsersControler extends HttpServlet {
 		{	
 			if(id==null)
 			{
-				listUsers = dao.findAll(User.class, em, false);				//a cause du true, on a des soucis sur le sysout (on a aussi un soucis dans le resulta du find )=> du coups Eager. mais si l'on veut etre en lazy , il faudrait mettre false.
+				listUsers = dao.findAll(User.class, em);				//a cause du true, on a des soucis sur le sysout (on a aussi un soucis dans le resulta du find )=> du coups Eager. mais si l'on veut etre en lazy , il faudrait mettre false.
 			}else {
-				User u = dao.find(User.class, id, em, false);
+				User u = dao.find(User.class, id, em);
 				if(u!=null)
 					listUsers.add(u);
 			}

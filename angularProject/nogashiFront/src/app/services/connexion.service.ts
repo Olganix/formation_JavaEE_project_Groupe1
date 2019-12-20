@@ -5,6 +5,9 @@ import {User} from '../classes/user';
 import {RestResponse} from '../classes/rest-response';
 import {Observable} from 'rxjs';
 import {map, retry} from 'rxjs/operators';
+import {ProductTemplate} from "../classes/product-template";
+import {InfoBoxNotificationsService} from "./InfoBoxNotifications.services";
+import {Router} from "@angular/router";
 
 
 // info pb perte de sessions avec Angular : https://stackoverflow.com/questions/43773762/session-http-spring-and-angular-2  https://weblog.west-wind.com/posts/2019/Apr/07/Creating-a-custom-HttpInterceptor-to-handle-withCredentials
@@ -12,12 +15,10 @@ import {map, retry} from 'rxjs/operators';
 @Injectable()
 export class ConnexionService {
 
-  private static AUTH_KEY = 'authentification';
   private connectedUser: User = null;
 
-  constructor(private _http: HttpClient) {
-
-  }
+  constructor(private _http: HttpClient
+              ) {}
 
 
 
@@ -113,13 +114,7 @@ export class ConnexionService {
         return new RestResponse(rrp);
       }));
   }
-  getMerchantCommerces() {
-    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/getCommerces', { withCredentials: true }).pipe(
-      retry(3),
-      map( (rrp: RestResponse) => {
-        return new RestResponse(rrp);
-      }));
-  }
+
 
 
 
@@ -144,6 +139,21 @@ export class ConnexionService {
 
 
 
+  getProductsTemplates() {
+    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/getProductsTemplates', { withCredentials: true }).pipe(
+      retry(3),
+      map((rrp: RestResponse) => {
+        return new RestResponse(rrp);
+      }));
+  }
+
+  addProductTemplate(productTemplate: ProductTemplate): Observable<RestResponse> {
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/addProductTemplate', productTemplate.toHttpObject() ,{ withCredentials: true }).pipe(
+      retry(3),
+      map( (rrp: RestResponse) => {
+        return new RestResponse(rrp);
+      }));
+  }
 
 
 

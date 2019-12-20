@@ -2,6 +2,7 @@
 
 <div class="header_space"></div>
 
+<h1>Users Part:</h1>
 <div class="col-xs-12">
     <div *ngIf="users">
         <h2>List Users :</h2>
@@ -39,7 +40,11 @@
             </tbody>
         </table>
     </div>
+</div>
 
+
+<h1>Merchant Part:</h1>
+<div class="col-xs-12">
   <div *ngIf="merchants">
     <h2>List Merchants :</h2>
     <table class="table table-bordered table-hover">
@@ -78,102 +83,179 @@
   </div>
 
 
+  <h2>(Must be connected as Merchant)</h2>
+  <div class="col-xs-12" *ngIf="connexionService.getLocalConnectedRole()==='MERCHANT'" >
+    <div *ngIf="commerces">
+      <h2>List Commerces :</h2>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <th>Id</th>
+          <th>Name</th>
+          <th>codeSiret</th>
+          <th>uniqueIdName</th>
+          <th>description</th>
+          <th>Address</th>
+          <th>adressExtra</th>
+          <th>postalCode</th>
+          <th>cityName</th>
+          <th>stateName</th>
+          <th>schedule</th>
+          <th>pictureLogo</th>
+          <th>pictureDescription</th>
+          <th>isOpened</th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let c of commerces">
+          <td>{{c.id}} </td>
+          <td>{{c.name}}</td>
+          <td>{{c.codeSiret}}</td>
+          <td>{{c.uniqueIdName}}</td>
+          <td>{{c.description}}</td>
+          <td>{{c.address.address}}</td>
+          <td>{{c.address.addressExtra}}</td>
+          <td>{{c.address.postalCode}}</td>
+          <td>{{c.address.cityName}}</td>
+          <td>{{c.address.stateName}}</td>
+          <td>{{c.schedule}}</td>
+          <td>{{c.isOpened}}</td>
+
+          <td><img src="{{c.pictureLogo}}" alt="logo" class="img-thumbnail mx-auto d-block" style="width: 30%" /></td>
+          <td><img src="{{c.pictureDescription}}" alt="picture" class="img-thumbnail mx-auto d-block" style="width: 30%" /></td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <h3>AddCommerce</h3>
+      <form class="formulaire-inscription" [formGroup]="formAddCommerce" (submit)="addCommerce()" >
+
+        <label class="label-formulaire">IsOpened</label>
+        <input formControlName="commerce_isOpened" name="commerce_isOpened" type="number" placeholder="0" >
+        <!-- Todo a Big  On/off button for isOpened -->
+
+
+        <label class="label-formulaire"><i class="fas fa-asterisk" ></i>Nom / Raison Social</label>
+        <input formControlName="commerce_name" name="commerce_name" type="text" placeholder="Nom" required>
+        <span class="text-danger" *ngIf="controlCommerce_name(); let message">{{message}}</span>
+
+        <label class="label-formulaire"><i class="fas fa-asterisk"></i>SIRET</label>
+        <input formControlName="commerce_codeSiret" name="commerce_codeSiret" type="text" placeholder="code Siret" required>
+        <span class="text-danger" *ngIf="controlCommerce_codeSiret(); let message">{{message}}</span>
+
+        <label class="label-formulaire">Nom Unique (pour différencier plusieurs commerces d'une même enseigne proche. ex: Nom: "Subway", adresse: "Lille", Nom unique: "Richebé/République" ) </label>
+        <input formControlName="commerce_uniqueIdName" name="commerce_uniqueIdName" type="text" placeholder="Nom unique" >
+
+
+        <!--
+        <label class="label-formulaire"><i class="fas fa-asterisk"></i>Description</label>
+        <textarea formControlName="commerce_description" name="commerce_description" class="commerce_description" placeholder="Description" required></textarea>
+        <span class="text-danger" *ngIf="controlCommerce_description(); let message">{{message}}</span>
+        -->
+
+        <label class="label-formulaire"><i class="fas fa-asterisk"></i>Description</label>
+        <editor formControlName="commerce_description" [init]="{apiKey: '3fzjk9wxjnb3xj8dmzu8kn9oyqcnszrm4jjj8iy9eohcqi5x'}" ></editor>
+        <span class="text-danger" *ngIf="controlCommerce_description(); let message">{{message}}</span>
+        <!-- Todo Systeme tinyMCE pour la partie description avec des images et du html -->
+
+
+        <label class="label-formulaire"><i class="fas fa-asterisk"></i>Logo</label>
+        <input formControlName="commerce_pictureLogo" name="commerce_pictureLogo" type="text" placeholder=" url " required>
+        <span class="text-danger" *ngIf="controlCommerce_pictureLogo(); let message">{{message}}</span>
+
+        <label class="label-formulaire"><i class="fas fa-asterisk"></i>Photo / Illustration</label>
+        <input formControlName="commerce_pictureDescription" name="commerce_pictureDescription" type="text" placeholder=" url " required>
+        <span class="text-danger" *ngIf="controlCommerce_pictureDescription(); let message">{{message}}</span>
+
+        <!-- Todo systeme upload  pictureLogo and  pictureDescription -->
 
 
 
 
-  <div *ngIf="commerces">
-    <h2>List Merchants Commerces :</h2>
+        <label class="label-formulaire"><i class="fas fa-asterisk"></i>Adresse</label>
+        <input formControlName="commerce_address" name="commerce_address" type="text" placeholder="1, rue du paradis" required>
+        <span class="text-danger" *ngIf="controlCommerce_address_address(); let message">{{message}}</span>
+
+        <label class="label-formulaire">(Supplèment d'adresse )</label>
+        <input formControlName="commerce_addressExtra" name="commerce_addressExtra" type="text" placeholder="Rez-de-chaussée" >
+
+        <label class="label-formulaire"><i class="fas fa-asterisk"></i>Code Postal</label>
+        <input formControlName="commerce_postalCode" name="commerce_postalCode" type="text" placeholder="59000" required>
+        <span class="text-danger" *ngIf="controlCommerce_address_postalCode(); let message">{{message}}</span>
+
+        <label class="label-formulaire"><i class="fas fa-asterisk"></i>Ville</label>
+        <input formControlName="commerce_cityName" name="commerce_cityName" type="text" placeholder="Lille" required>
+        <span class="text-danger" *ngIf="controlCommerce_address_cityName(); let message">{{message}}</span>
+
+        <label class="label-formulaire"><i class="fas fa-asterisk"></i>Pays</label>
+        <input formControlName="commerce_stateName" name="commerce_stateName" type="text" placeholder="France" required>
+        <span class="text-danger" *ngIf="controlCommerce_address_stateName(); let message">{{message}}</span>
+
+
+        <label class="label-formulaire"><i class="fas fa-asterisk"></i>Longitude</label>
+        <input formControlName="commerce_longitude" name="commerce_longitude" type="number" placeholder="3.0667" required>
+        <span class="text-danger" *ngIf="controlCommerce_address_longitude(); let message">{{message}}</span>
+
+        <label class="label-formulaire"><i class="fas fa-asterisk"></i>Latitude</label>
+        <input formControlName="commerce_latitude" name="commerce_latitude" type="number" placeholder="50.6333" required>
+        <span class="text-danger" *ngIf="controlCommerce_address_latitude(); let message">{{message}}</span>
+
+
+
+        <!-- Todo afficher une map pour placer un curseur dessus et avoir la logitude/latitude -->
+
+        <!-- Todo Systeme pour les horaire / schedule -->
+
+
+        <button id ="bt_signin_submit" class="bouton-inscription" type="submit" [disabled]="formAddCommerce.invalid" >Valider Modifications</button>
+        <p *ngIf="formAddCommerce.invalid" class="avertissement-inscription">* Veuillez remplir tous les champs.</p>
+      </form>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+
+<div class="col-xs-12">
+  <div *ngIf="listProductsTemplates">
+    <h2>List Products Templates :</h2>
     <table class="table table-bordered table-hover">
       <thead>
-        <th>Id</th>
-        <th>Name</th>
-        <th>codeSiret</th>
-        <th>uniqueIdName</th>
-        <th>description</th>
-        <th>Address</th>
-        <th>adressExtra</th>
-        <th>postalCode</th>
-        <th>cityName</th>
-        <th>stateName</th>
-        <th>schedule</th>
-        <th>pictureLogo</th>
-        <th>pictureDescription</th>
-        <th>isOpened</th>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>ExternalCode</th>
+      <th>isWrapped</th>
+      <th>Price</th>
+      <!--  <th>salePrice</th>
+        <th>saleTime</th>
+        <th>unsoldTime</th>
+        <th>timeControlStatus</th>
+        <th>maxDurationCart</th>-->
       </thead>
       <tbody>
-      <tr *ngFor="let c of commerces">
-        <td>{{c.id}} </td>
-        <td>{{c.name}}</td>
-        <td>{{c.codeSiret}}</td>
-        <td>{{c.uniqueIdName}}</td>
-        <td>{{c.description}}</td>
-        <td>{{c.address.address}}</td>
-        <td>{{c.address.addressExtra}}</td>
-        <td>{{c.address.postalCode}}</td>
-        <td>{{c.address.cityName}}</td>
-        <td>{{c.address.stateName}}</td>
-        <td>{{c.schedule}}</td>
-        <td>{{c.isOpened}}</td>
+      <tr *ngFor="let pt of listProductsTemplates">
+        <td>{{pt.id}} </td>
+        <td>{{pt.name}}</td>
+        <td>{{pt.description}}</td>
+        <td>{{pt.externalCode}}</td>
+        <td>{{pt.isWrapped}}</td>
+        <td>{{pt.price}}</td>
+        <!-- <td>{{pt.salePrice}}</td>
+         <td>{{pt.saleTime}}</td>
+         <td>{{pt.unsoldTime}}</td>
+         <td>{{pt.timeControlStatus}}</td>
+         <td>{{pt.maxDurationCart}}</td>-->
 
-        <td><img src="{{c.pictureLogo}}" alt="logo" class="img-thumbnail mx-auto d-block" style="width: 30%" /></td>
-        <td><img src="{{c.pictureDescription}}" alt="picture" class="img-thumbnail mx-auto d-block" style="width: 30%" /></td>
-
+        <td><img src="{{listProductsTemplates.imageFilename}}" alt="avatar" class="img-thumbnail mx-auto d-block" style="width: 30%" /></td>
       </tr>
       </tbody>
     </table>
   </div>
-
-  <!--
-  <div>
-    <h3>AddCommerce</h3>
-    <form class="formulaire-inscription" [formGroup]="form1" (submit)="onSubmit()" >
-
-
-      <label class="label-formulaire"><i class="fas fa-asterisk"></i> Vous êtes :</label>
-      <select formControlName="role" name="role" class="liste-deroulante"  #inputRole >
-        <option value="INDIVIDUAL" selected="selected">Particulier</option>
-        <option value="MERCHANT" >Commerçant</option>
-        <option value="ASSOCIATION" >Association</option>
-      </select>
-
-      <label class="label-formulaire"><i class="fas fa-asterisk" ></i> Pseudo</label>
-      <input formControlName="name" name="name" class="pseudo" type="text" placeholder="Pseudo" required>
-      <span class="text-danger" *ngIf="controlName(); let message">{{message}}</span>
-
-      <label class="label-formulaire"><i class="fas fa-asterisk"></i> Email</label>
-      <input formControlName="email" name="email" class="email" type="text" placeholder="@Email" required>
-      <span class="text-danger" *ngIf="controlEmail(); let message">{{message}}</span>
-
-      <label class="label-formulaire"><i class="fas fa-asterisk"> </i> Mot de Passe</label>
-      <input formControlName="password" name="password" class="mdp" type="password" required>
-      <span class="text-danger" *ngIf="controlPassword(); let message">{{message}}</span>
-
-      <label class="label-formulaire"><i class="fas fa-asterisk"></i> Confirmation Mot de Passe</label>
-      <input formControlName="confirm" name="confirm" class="confirmation" type="password" required>
-      <span class="text-danger" *ngIf="controlPasswordConfirm(); let message">{{message}}</span>
-
-      <div class="bloc-checkbox">
-        <input formControlName="term" name="accept_generale_condition" class="checkbox" type="checkbox" required >
-        <label class="label" >J'ai lu et j'accepte les conditions générales <br> d'utilisation.</label>
-        <span class="text-danger" *ngIf="controlTerm(); let message">{{message}}</span>
-      </div>
-      <div class="bloc-checkbox2" *ngIf="(inputRole.value==='MERCHANT')||(inputRole.value==='ASSOCIATION')" >
-        <input formControlName="declaration" name="confirm_on_honor" class="checkbox2" type="checkbox" [attr.required]="(inputRole.value==='MERCHANT')||(inputRole.value==='ASSOCIATION')" >
-        <label class="label" >Je certifie sur l'honneur que les informations <br> fournies sont rigoureusement exactes</label>
-        <span class="text-danger" *ngIf="controlDeclaration(); let message">{{message}}</span>
-      </div>
-      <div class="bloc-checkbox3">
-        <input formControlName="newsletterEnabled" name="newsletterEnabled" class="checkbox3" type="checkbox">
-        <label class="label" >J'accepte de recevoir des annonces.</label>
-      </div>
-
-      <button id ="bt_signin_submit" class="bouton-inscription" type="submit" [disabled]="form1.invalid" >S'INSCRIRE</button>
-      <p *ngIf="form1.invalid" class="avertissement-inscription">* Veuillez remplir tous les champs pour valider votre inscription.</p>
-    </form>
-  </div>
-  -->
-
-
 
 </div>

@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+import { EditorModule } from '@tinymce/tinymce-angular';
+
 // Services
 import { ConnexionService } from './services/connexion.service';
 import { ConnexionGuard } from './services/connexion-guard.service';
@@ -71,7 +73,8 @@ import { CommentsComponent } from './components/modules/comments/comments.compon
 import { DeactivateAccountComponent } from './components/pages/pages_common/deactivate-account/deactivate-account.component';
 import { PasswordRescueModificationComponent } from './components/pages/pages_anonyme/password-rescue-modification/password-rescue-modification.component';
 import { ListProductsTemplatesComponent } from './components/pages/pages_merchant/list-products-templates/list-products-templates.component';
-import {ListingService} from './services/listing.service';
+import { CompteComponent } from './components/pages/pages_common/compte/compte.component';
+import { CompteCommandesComponent } from './components/pages/pages_common/compte-commandes/compte-commandes.component';
 
 
 
@@ -92,6 +95,7 @@ const appRoutes: Routes =
   { path: 'legalNotices', component: LegalNoticesComponent },
   { path: 'findUs', component: FindUsComponent },
 
+
   { path: 'passwordReset', component: PasswordResetComponent },
   { path: 'deactivateAccount', component: DeactivateAccountComponent },
   { path: 'commandSteps', component: CommandStepsComponent },
@@ -102,7 +106,10 @@ const appRoutes: Routes =
   { path: 'tchat', component: TchatComponent },
   { path: 'comments', component: CommentsComponent },
   { path: 'productSheet', component: ProductSheetComponent },
-
+  { path: 'myProfile', component: CompteComponent },
+  { path: 'myOrders', component: CompteCommandesComponent },
+  { path: 'compte', component: CompteComponent },
+  { path: 'compteCommande', component: CompteCommandesComponent },
 
   { path: 'individual/welcome',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
 
@@ -168,19 +175,20 @@ const appRoutes: Routes =
     ProductSheetComponent,
     CommentsComponent,
     DeactivateAccountComponent,
-	PasswordRescueModificationComponent,	
-	ListProductsTemplatesComponent
-  ],
+	  CompteComponent,
+    CompteCommandesComponent,
+    PasswordRescueModificationComponent,
+    ListProductsTemplatesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes),              // les routes seront accessibles via la constante appRoutes
     ReactiveFormsModule,
-    // les routes seront accessibles via la constante appRoutes
+    EditorModule
   ],
-  providers: [ConnexionService, AppareilService, ConnexionGuard, InfoBoxNotificationsService, ListingService],
+  providers: [ConnexionService, AppareilService, ConnexionGuard, InfoBoxNotificationsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
