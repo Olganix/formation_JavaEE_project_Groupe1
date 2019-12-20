@@ -210,7 +210,7 @@ public class MerchantControllerAngular
 	*										addProductTemplate										 * 
 	*****************************************************************************************/
 	@PostMapping(path="/addProductTemplate", produces = "application/json")
-	//test : http://localhost:8080/nogashi/
+	//test : http://localhost:8080/nogashi/addProductTemplate
 	public RestResponse<ProductTemplate> addProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model)
     {
 		System.out.println("fiche produit : " + pt);
@@ -275,9 +275,9 @@ public class MerchantControllerAngular
 	//test : http://localhost:8080/nogashi/
 	// TODO supprimer toutes les instances de produits (Product) lors de la suppression de la fiche
 	// (prévenir l'user que la suppression de la fiche entrainera la suppression des produits en vente)
-	public RestResponse<ProductTemplate> deleteProductTemplate(@RequestBody ProductTemplate pt, User u, HttpSession session, Locale locale, Model model)
+	public RestResponse<ProductTemplate> deleteProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model)
     {
-		System.out.println("fiche produit : " + pt + " ; user : " + u);
+		System.out.println("fiche produit : " + pt);
 		
 		
 		if(!checkAllowToDoThat(session))

@@ -14,9 +14,15 @@ export class ProductTemplate {
   private _imageFilename = 'NoAvatar.jpg'; // Todo do the upload system.
 
 
-  constructor() {
+  constructor(obj?: object) {                         // json/object => class with functions
+    if (obj !== null) {
+      Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regle le soucis, avec un Pip dans le service.
+    }
   }
 
+  toHttpObject() {                                    // class with functions => json/object
+    return {id: this._id, name: this._name, description: this._description, externalCode: this._externalCode, isWrapped: this._isWrapped, price: this._price, salePrice: this._salePrice, saleTime: this._saleTime, unsoldTime: this._unsoldTime, timeControlStatus: this._timeControlStatus, maxDurationCart: this._maxDurationCart, imageFilename: this._imageFilename };
+  }
 
   setAddProductTemplate(name: string, description: string, price: number, isWrapped: boolean) {
     this._name = name;
@@ -24,6 +30,8 @@ export class ProductTemplate {
     this._price = price;
     this._isWrapped = isWrapped;
   }
+
+
 
 
   get id(): number {

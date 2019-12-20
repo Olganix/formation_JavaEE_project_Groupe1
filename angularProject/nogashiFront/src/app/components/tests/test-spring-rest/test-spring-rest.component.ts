@@ -25,6 +25,8 @@ export class TestSpringRestComponent implements OnInit {
   merchants: any;
   listProductsTemplates: any;
   commerces: any;
+
+
   // formAddCommerce
   commerce_isOpened: FormControl;
   commerce_name: FormControl;
@@ -41,14 +43,17 @@ export class TestSpringRestComponent implements OnInit {
   commerce_longitude: FormControl;
   commerce_latitude: FormControl;
 
-  formAddCommerce: FormGroup; constructor(private infoBoxNotificationsService: InfoBoxNotificationsService,
+  formAddCommerce: FormGroup;
+
+
+  constructor(private infoBoxNotificationsService: InfoBoxNotificationsService,
               private connexionService: ConnexionService,
               private merchantService: MerchantService,
               private fb: FormBuilder
               ) { }
+
+
   ngOnInit() {
-
-
     this.connexionService.getUsers().subscribe(
       (rrp: RestResponse) => {
 

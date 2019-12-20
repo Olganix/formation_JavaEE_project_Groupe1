@@ -9,6 +9,45 @@
 <br />
 
 
+<div class="col-xs-12">
+  <div *ngIf="listProductsTemplates">
+    <h2>List Products Templates :</h2>
+    <table class="table table-bordered table-hover">
+      <thead>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>ExternalCode</th>
+      <th>isWrapped</th>
+      <th>Price</th>
+      <!--  <th>salePrice</th>
+        <th>saleTime</th>
+        <th>unsoldTime</th>
+        <th>timeControlStatus</th>
+        <th>maxDurationCart</th>-->
+      </thead>
+      <tbody>
+      <tr *ngFor="let pt of listProductsTemplates">
+        <td>{{pt.id}} </td>
+        <td>{{pt.name}}</td>
+        <td>{{pt.description}}</td>
+        <td>{{pt.externalCode}}</td>
+        <td>{{pt.isWrapped}}</td>
+        <td>{{pt.price}}</td>
+        <!-- <td>{{pt.salePrice}}</td>
+         <td>{{pt.saleTime}}</td>
+         <td>{{pt.unsoldTime}}</td>
+         <td>{{pt.timeControlStatus}}</td>
+         <td>{{pt.maxDurationCart}}</td>-->
+
+        <td><img src="{{listProductsTemplates.imageFilename}}" alt="avatar" class="img-thumbnail mx-auto d-block" style="width: 30%" /></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
 <section>
   <h2>Ajout d'une fiche produit :</h2>
   <form class="" [formGroup]="form1" (submit)="onSubmit()" >

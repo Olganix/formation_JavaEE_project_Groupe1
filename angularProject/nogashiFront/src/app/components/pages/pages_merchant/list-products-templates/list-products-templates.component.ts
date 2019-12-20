@@ -17,7 +17,7 @@ import {CustomValidators} from '../../../../validators/custom-validators';
 })
 export class ListProductsTemplatesComponent implements OnInit {
 
-  productTemplate: ProductTemplate;
+  listProductsTemplates: any;
 
   name: FormControl;
   description: FormControl;
@@ -25,6 +25,8 @@ export class ListProductsTemplatesComponent implements OnInit {
   isWrapped: FormControl;
 
   form1: FormGroup;
+
+
 
   constructor(private connexionService: ConnexionService,
               private infoBoxNotificationsService: InfoBoxNotificationsService,
@@ -55,6 +57,21 @@ export class ListProductsTemplatesComponent implements OnInit {
       price: this.price,
       isWrapped: this.isWrapped
     });
+
+
+    // Listing des fiches produits de la BDD
+    this.connexionService.getProductsTemplates().subscribe(
+      (rrp: RestResponse) => {
+
+        if (rrp.status === 'SUCCESS') {
+          this.listProductsTemplates = rrp.data;
+        } else {
+          console.log('Echec de la recuperation de la liste des fiches produits : ' + rrp.errormessage);
+        }
+      },
+      error => {
+        console.log('Echec de la recuperation de la liste des fiches produits : ', error);
+      });
 
   }
 
@@ -90,7 +107,7 @@ export class ListProductsTemplatesComponent implements OnInit {
 
           if (rrp.status === 'SUCCESS') {
             this.infoBoxNotificationsService.addMessage('info', 'L\'ajout de la fiche a bien été pris en compte.', 10);
-            this.router.navigate(['/test/testSpringRest']);
+            // this.router.navigate(['/test/testSpringRest']);   // todo uncomment
 
           } else {
             this.infoBoxNotificationsService.addMessage('error', 'Echec (1) de l\'ajout : ' + rrp.errormessage, 10);
