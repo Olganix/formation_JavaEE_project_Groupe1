@@ -97,8 +97,7 @@
 
     .text-danger {
       font-size: 0.85em;
-      margin-left: 250px;
-      display: block;
+
     }
 
     .email {
@@ -156,7 +155,7 @@
         margin-bottom: 10px;
         margin-top: 20px;
         margin-left: 31%;
-        display: flex;
+        display: block;
     }
 
     .checkbox {
@@ -172,7 +171,7 @@
         margin-bottom: 10px;
         margin-top: 20px;
         margin-left: 31%;
-        display: flex;
+        display: block;
     }
 
     .checkbox2 {
@@ -196,18 +195,18 @@
 
 
     select:focus {
-    background-color: var(--couleurVerte);
-    border: none;
+      background-color: var(--couleurVerte);
+      border: none;
     }
 
     input[type=text]:focus {
-    background-color: var(--couleurVerte);
-    border: none;
+      background-color: var(--couleurVerte);
+      border: none;
     }
 
     input[type=password]:focus {
-    background-color: var(--couleurVerte);
-    border: none;
+      background-color: var(--couleurVerte);
+      border: none;
     }
 
 
