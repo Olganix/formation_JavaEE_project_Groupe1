@@ -11,6 +11,7 @@ import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
+import javax.persistence.Subgraph;
 import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -189,6 +190,8 @@ public class MerchantControllerAngular
     	EntityManager em = StartListener.createEntityManager();
 		
     	
+    	System.out.println( "Test Merchant : " + ((User)session.getAttribute("user")) );
+    	
     	Merchant merchant = null;
 		try {
 			merchant = dao.find(Merchant.class,  ((User)session.getAttribute("user")).getId() , em);
@@ -204,9 +207,14 @@ public class MerchantControllerAngular
     	
     	List<ProductTemplate> listProductsTemplates = new ArrayList<ProductTemplate>();
 		
+    	
+    	EntityGraph<ProductTemplate> graph = em.createEntityGraph(ProductTemplate.class);
+    	Subgraph<Merchant> aa = graph.addSubgraph("merchant", Merchant.class);
+    	aa.addSubgraph("commerces");
+    	
 		try 
 		{	
-			listProductsTemplates = dao.findAll(ProductTemplate.class, em, false);
+			listProductsTemplates = dao.findAll(ProductTemplate.class, em, true, graph);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
