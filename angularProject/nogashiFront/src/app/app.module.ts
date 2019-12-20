@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+
 import { EditorModule } from '@tinymce/tinymce-angular';
 
 // Services
@@ -75,6 +76,8 @@ import { PasswordRescueModificationComponent } from './components/pages/pages_an
 import { ListProductsTemplatesComponent } from './components/pages/pages_merchant/list-products-templates/list-products-templates.component';
 import { CompteComponent } from './components/pages/pages_common/compte/compte.component';
 import { CompteCommandesComponent } from './components/pages/pages_common/compte-commandes/compte-commandes.component';
+import { CompteCommentairesComponent } from './components/pages/pages_common/compte-commentaires/compte-commentaires.component';
+import { ComptePreferencesComponent } from './components/pages/pages_common/compte-preferences/compte-preferences.component';
 
 
 
@@ -108,8 +111,8 @@ const appRoutes: Routes =
   { path: 'productSheet', component: ProductSheetComponent },
   { path: 'myProfile', component: CompteComponent },
   { path: 'myOrders', component: CompteCommandesComponent },
-  { path: 'compte', component: CompteComponent },
-  { path: 'compteCommande', component: CompteCommandesComponent },
+  { path: 'myComments', component: CompteCommentairesComponent },
+  { path: 'myPreferences', component: ComptePreferencesComponent },
 
   { path: 'individual/welcome',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
 
@@ -175,10 +178,12 @@ const appRoutes: Routes =
     ProductSheetComponent,
     CommentsComponent,
     DeactivateAccountComponent,
-	  CompteComponent,
+    CompteComponent,
     CompteCommandesComponent,
     PasswordRescueModificationComponent,
-    ListProductsTemplatesComponent],
+    ListProductsTemplatesComponent,
+    CompteCommentairesComponent,
+    ComptePreferencesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
