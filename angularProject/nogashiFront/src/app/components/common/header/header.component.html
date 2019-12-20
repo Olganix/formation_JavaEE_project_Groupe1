@@ -1,26 +1,27 @@
 <header>
     <div class="menu">
-        <a href="index.html"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
-        <div class="icones-menu">
+        <a routerLink="/welcome-merchant" *ngIf="connexionService.getLocalConnectedRole()==='MERCHANT'"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
+        <a routerLink="/welcome-individual" *ngIf="connexionService.getLocalConnectedRole()==='INDIVIDUAL'"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
+        <a routerLink="/welcome-association" *ngIf="connexionService.getLocalConnectedRole()==='ASSOCIATION'"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
+        <a routerLink="/welcome" *ngIf="!connexionService.isLocalConnected()"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>        <div class="icones-menu">
           <div class="icones-user">
                 <i class="fas fa-user-circle"></i>
                 <div class="bloc-compte">
                      <i class="fas fa-sort-up"></i>
                      <ul class="compte">
                        <div *ngIf="!connexionService.isLocalConnected(); else divlogged" >
-                         <a routerLink="/login" ><li class="onglet-menu">Se Connecter</li></a>
+                         <a routerLink="/login" ><li class="onglet-menu">Connexion</li></a>
                          <div class="trait-compte"></div>
-                         <a routerLink="/signin" ><li class="onglet-menu">S'inscrire</li></a>
+                         <a routerLink="/signin" ><li class="onglet-menu">Inscription</li></a>
                        </div>
                        <ng-template #divlogged >
-                         <a (click)="logout()" ><li class="onglet-menu">Se Déconnecter</li></a>
+                         <a (click)="logout()" ><li class="onglet-menu">Déconnexion</li></a>
                        </ng-template>
                      </ul>
                  </div>
             </div>
             <div class="icone-panier">
-                <a href=""><div class="icones"><i class="fas fa-shopping-bag"></i></div>
-                    <div class="cercle-prix">3</div>
+				<a routerLink="shoppingCart" *ngIf="connexionService.isLocalConnected()"><div class="icones"><i class="fas fa-shopping-bag"></i></div>                    <div class="cercle-prix">3</div>
                 </a>
             </div>
             <div class="icone-hamburger">
@@ -29,7 +30,7 @@
         </div>
 
         <div id="bloc-menu" class="bloc-menu col-12">
-             <a href="index.html">
+             <a href="#"
                   <div id="bloc-quitter" class="bloc-quitter">
                       <div class="croix-quitter">
                             <span class="barre-croix"></span>
@@ -39,11 +40,12 @@
              </a>
              <nav>
                 <ul>
-                    <a href="index.html"><li class="onglet-menu-principal">Accueil</li></a>
-                    <a href="trouver.html"><li class="onglet-menu-principal">Ou Nous Trouver ?</li></a>
-                    <a href="faq.html"><li class="onglet-menu-principal">F.A.Q</li></a>
-                    <a href="contact.html"><li class="onglet-menu-principal">Contact</li></a>
-                </ul>
+<					<a routerLink="/welcome-merchant" *ngIf="connexionService.getLocalConnectedRole()==='MERCHANT'"><li class="onglet-menu-principal">Accueil</li></a>
+                    <a routerLink="/welcome-individual" *ngIf="connexionService.getLocalConnectedRole()==='INDIVIDUAL'"><li class="onglet-menu-principal">Accueil</li></a>
+                    <a routerLink="/welcome-association" *ngIf="connexionService.getLocalConnectedRole()==='ASSOCIATION'"><li class="onglet-menu-principal">Accueil</li></a>
+                    <a routerLink="/welcome" *ngIf="!connexionService.isLocalConnected()"><li class="onglet-menu-principal">Accueil</li></a>
+                    <a routerLink="/findUs"><li class="onglet-menu-principal">Ou nous trouver ?</li></a>
+                    <a routerLink="/generalFaq"><li class="onglet-menu-principal">F.A.Q.</li></a>                </ul>
             </nav>
         </div>
      </div>

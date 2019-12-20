@@ -4,11 +4,11 @@ import {InfoBoxNotificationsService} from '../../../../services/InfoBoxNotificat
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-error-page404',
-  templateUrl: './error-page404.component.html',
-  styleUrls: ['./error-page404.component.scss']
+  selector: 'app-compte',
+  templateUrl: './compte.component.html',
+  styleUrls: ['./compte.component.scss']
 })
-export class ErrorPage404Component implements OnInit {
+export class CompteComponent implements OnInit {
 
   constructor(private connexionService: ConnexionService,
               private infoBoxNotificationsService: InfoBoxNotificationsService,
@@ -16,7 +16,6 @@ export class ErrorPage404Component implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.connexionService.checkRemoteConnected();
   }
 
 }

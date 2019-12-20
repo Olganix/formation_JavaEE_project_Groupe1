@@ -2,4 +2,7 @@
 <div class="header_space"></div>
 
 <h2>Erreur 404</h2>
-<p>La page que vous cherchez n'existe pas !</p>
+<p>La page que vous cherchez n'existe pas ou n'est plus disponible.<br>Nous vous invitons à retourner à la page d'<a routerLink="/welcome-merchant" *ngIf="connexionService.getLocalConnectedRole()==='MERCHANT'">accueil</a>
+<a routerLink="/welcome-individual" *ngIf="connexionService.getLocalConnectedRole()==='INDIVIDUAL'">accueil</a>
+<a routerLink="/welcome-association" *ngIf="connexionService.getLocalConnectedRole()==='ASSOCIATION'">accueil</a>
+<a routerLink="/welcome" *ngIf="!connexionService.isLocalConnected()">accueil</a>.</p>

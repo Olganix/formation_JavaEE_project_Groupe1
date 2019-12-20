@@ -25,6 +25,6 @@
         <a routerLink="/signin" class="lien-compte"><p>Créer un compte</p></a>
         <br>
         <a routerLink="/passwordRescue" class="lien-compte"><p>Mot de passe oublié</p></a>
-        <p *ngIf="userEmailNotValidate!=null" >Votre pseudo et mot de passe sont bons mais votre email n'est pas validée. <br>Un email de validation vous a été envoyé précédement (vérifiez dans les courriers indésirables au besoin)<a (click)="sendEmailValidation()" >Cliquez sur ce lien pour demande l'envois d'un nouveau mail</a></p>
+        <p *ngIf="userEmailNotValidate!=null" >Votre pseudo et mot de passe sont bons mais votre adresse e-mail n'a pas encore été validée. <br>Un e-mail de validation vous a été envoyé précédement. Pensez à vérifier vos spams / courriers indésirables.<a (click)="sendEmailValidation()" >Cliquez sur ce lien pour demande l'envois d'un nouveau mail</a></p>
     </div>
  </section>

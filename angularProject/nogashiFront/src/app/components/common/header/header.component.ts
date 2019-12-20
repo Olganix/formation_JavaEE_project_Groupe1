@@ -32,14 +32,14 @@ export class HeaderComponent implements OnInit {
         if (rrp.status === 'SUCCESS') {
           this.infoBoxNotificationsService.addMessage('info', 'Vous êtes déconnecté.', 20);
         } else {
-          this.infoBoxNotificationsService.addMessage('error', 'Echec de la deconnexion : ' + rrp.errormessage, 10);
+          this.infoBoxNotificationsService.addMessage('error', 'Echec de la déconnexion. : ' + rrp.errormessage, 10);
         }
 
         this.router.navigate(['/login']);                   // same on a fail (because is not connected), you have the same result
       },
       error => {
         console.log('Error occured', error);
-        this.infoBoxNotificationsService.addMessage('error', 'Echec de la deconnexion : ' + error, 10);
+        this.infoBoxNotificationsService.addMessage('error', 'Echec de la déconnexion : ' + error, 10);
       });
   }
 
