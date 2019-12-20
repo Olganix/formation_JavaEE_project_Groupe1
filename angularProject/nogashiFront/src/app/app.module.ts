@@ -175,7 +175,7 @@ const appRoutes: Routes =
     ProductSheetComponent,
     CommentsComponent,
     DeactivateAccountComponent,
-	  CompteComponent,
+    CompteComponent,
     CompteCommandesComponent,
     PasswordRescueModificationComponent,
     ListProductsTemplatesComponent],
