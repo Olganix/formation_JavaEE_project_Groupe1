@@ -74,7 +74,7 @@ public class GenericDao
 	
 	
 	
-	public <T extends DbObject> void removeAll(Class<T> clazz, EntityManager em, boolean closeConnection) {
+	public <T extends DbObject> void removeAll(Class<T> clazz, EntityManager em, boolean closeConnection) throws Exception {
 
 		
 		EntityTransaction et = em.getTransaction();
@@ -159,10 +159,10 @@ public class GenericDao
 	
 	
 	
-	public <T extends DbObject> long count(Class<T> tClass, EntityManager em, boolean strictClass, boolean closeConnection) throws Exception
+	public <T extends DbObject> Long count(Class<T> tClass, EntityManager em, boolean strictClass, boolean closeConnection) throws Exception
 	{		
 		Query query = em.createQuery("SELECT COUNT(entity.id) from "+ tClass.getName() + " as entity "+ ((strictClass) ? ("WHERE TYPE(entity) = "+ tClass.getName()) : ""));
-		long result = (long)query.getSingleResult();
+		Long result = (Long)query.getSingleResult();
 		
 		if(closeConnection)
 			em.close();
