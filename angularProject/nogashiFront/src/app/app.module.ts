@@ -73,10 +73,8 @@ import { CommentsComponent } from './components/modules/comments/comments.compon
 import { DeactivateAccountComponent } from './components/pages/pages_common/deactivate-account/deactivate-account.component';
 import { PasswordRescueModificationComponent } from './components/pages/pages_anonyme/password-rescue-modification/password-rescue-modification.component';
 import { ListProductsTemplatesComponent } from './components/pages/pages_merchant/list-products-templates/list-products-templates.component';
-import { ListingService } from './services/listing.service';
 import { CompteComponent } from './components/pages/pages_common/compte/compte.component';
 import { CompteCommandesComponent } from './components/pages/pages_common/compte-commandes/compte-commandes.component';
-
 
 
 
@@ -177,12 +175,10 @@ const appRoutes: Routes =
     ProductSheetComponent,
     CommentsComponent,
     DeactivateAccountComponent,
-    PasswordRescueModificationComponent,
-    ListProductsTemplatesComponent,
-    CompteComponent,
+	  CompteComponent,
     CompteCommandesComponent,
-
-  ],
+    PasswordRescueModificationComponent,
+    ListProductsTemplatesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -192,7 +188,7 @@ const appRoutes: Routes =
     ReactiveFormsModule,
     EditorModule
   ],
-  providers: [ConnexionService, AppareilService, ConnexionGuard, InfoBoxNotificationsService, ListingService],
+  providers: [ConnexionService, AppareilService, ConnexionGuard, InfoBoxNotificationsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

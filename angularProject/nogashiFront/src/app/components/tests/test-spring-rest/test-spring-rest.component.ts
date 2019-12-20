@@ -4,13 +4,13 @@ import {RestResponse} from '../../../classes/rest-response';
 import {environment} from '../../../../environments/environment';
 import {log} from 'util';
 import {InfoBoxNotificationsService} from '../../../services/InfoBoxNotifications.services';
+import {ProductTemplate} from "../../../classes/product-template";
 import {MerchantService} from '../../../services/merchant.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from '../../../validators/custom-validators';
 import {User} from '../../../classes/user';
 import {Commerce} from '../../../classes/commerce';
 import {Address} from '../../../classes/address';
-
 @Component({
   selector: 'app-test-spring-rest',
   templateUrl: './test-spring-rest.component.html',
@@ -19,12 +19,12 @@ import {Address} from '../../../classes/address';
 
 // test communication spring MVC, also test for basic mechanic.
 
+
 export class TestSpringRestComponent implements OnInit {
   users: any;
   merchants: any;
+  listProductsTemplates: any;
   commerces: any;
-
-
   // formAddCommerce
   commerce_isOpened: FormControl;
   commerce_name: FormControl;
@@ -41,14 +41,11 @@ export class TestSpringRestComponent implements OnInit {
   commerce_longitude: FormControl;
   commerce_latitude: FormControl;
 
-  formAddCommerce: FormGroup;
-
-  constructor(private infoBoxNotificationsService: InfoBoxNotificationsService,
+  formAddCommerce: FormGroup; constructor(private infoBoxNotificationsService: InfoBoxNotificationsService,
               private connexionService: ConnexionService,
               private merchantService: MerchantService,
               private fb: FormBuilder
               ) { }
-
   ngOnInit() {
 
 
@@ -81,10 +78,22 @@ export class TestSpringRestComponent implements OnInit {
       });
 
 
+    // Listing des fiches produits de la BDD
+    this.connexionService.getProductsTemplates().subscribe(
+      (rrp: RestResponse) => {
+
+        if (rrp.status === 'SUCCESS') {
+          this.listProductsTemplates = rrp.data;
+        } else {
+          console.log('Echec de la recuperation de la liste des fiches produits : ' + rrp.errormessage);
+        }
+      },
+      error => {
+        console.log('Echec de la recuperation de la liste des fiches produits : ', error);
+      });
 
 
-
-    // Commerces                        // TiynyMCE: https://www.npmjs.com/package/@tinymce/tinymce-angular  https://www.tiny.cloud/docs/quick-start/
+	// Commerces                        // TiynyMCE: https://www.npmjs.com/package/@tinymce/tinymce-angular  https://www.tiny.cloud/docs/quick-start/
     this.merchantService.getCommerces().subscribe(
       (rrp: RestResponse) => {
 
@@ -93,6 +102,7 @@ export class TestSpringRestComponent implements OnInit {
         } else {
 
           console.log('Echec de la recuperation de la liste des Commerces : ' + rrp.errormessage);
+
           if (rrp.errorCode === 5) {                        // you have to be connected as Merchant to get is Commerce
             this.infoBoxNotificationsService.addMessage('warn', 'Vous devez connecté en tant que Commerçant pour voir la liste de vos commerces', 10);
           }
