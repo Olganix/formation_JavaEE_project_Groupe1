@@ -40,13 +40,13 @@
           </a>
              <nav>
                 <ul>
-<					<a routerLink="/welcome-merchant" *ngIf="connexionService.getLocalConnectedRole()==='MERCHANT'"><li class="onglet-menu-principal">Accueil</li></a>
+                    <a routerLink="/welcome-merchant" *ngIf="connexionService.getLocalConnectedRole()==='MERCHANT'"><li class="onglet-menu-principal">Accueil</li></a>
                     <a routerLink="/welcome-individual" *ngIf="connexionService.getLocalConnectedRole()==='INDIVIDUAL'"><li class="onglet-menu-principal">Accueil</li></a>
                     <a routerLink="/welcome-association" *ngIf="connexionService.getLocalConnectedRole()==='ASSOCIATION'"><li class="onglet-menu-principal">Accueil</li></a>
                     <a routerLink="/welcome" *ngIf="!connexionService.isLocalConnected()"><li class="onglet-menu-principal">Accueil</li></a>
                     <a routerLink="/findUs"><li class="onglet-menu-principal">Ou nous trouver ?</li></a>
-                    <a routerLink="/generalFaq"><li class="onglet-menu-principal">F.A.Q.</li></a>                </ul>
-            </nav>
+                    <a routerLink="/generalFaq"><li class="onglet-menu-principal">F.A.Q.</li></a>
+				</ul>            </nav>
         </div>
      </div>
  </header>

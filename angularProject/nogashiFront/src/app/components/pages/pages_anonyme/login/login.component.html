@@ -19,12 +19,10 @@
           <input formControlName="password" name="password" class="mdp" type="password" required>
           <span class="text-danger" *ngIf="controlPassword(); let message">{{message}}</span>
 
-          <button id ="bt_login_submit" class="bouton-connexion" type="submit" [disabled]="form1.invalid" >CONNEXION</button>
-        </form>
+          <button id ="bt_login_submit" class="bouton-animation" type="submit" [disabled]="form1.invalid" >CONNEXION</button>
 
-        <a routerLink="/signin" class="lien-compte"><p>Créer un compte</p></a>
-        <br>
-        <a routerLink="/passwordRescue" class="lien-compte"><p>Mot de passe oublié</p></a>
-        <p *ngIf="userEmailNotValidate!=null" >Votre pseudo et mot de passe sont bons mais votre adresse e-mail n'a pas encore été validée. <br>Un e-mail de validation vous a été envoyé précédement. Pensez à vérifier vos spams / courriers indésirables.<a (click)="sendEmailValidation()" >Cliquez sur ce lien pour demande l'envois d'un nouveau mail</a></p>
-    </div>
- </section>
+          <a routerLink="/signin" class="lien-compte"><p>Créer un compte</p></a>
+          <a routerLink="/passwordRescue" class="lien-compte"><p>Mot de passe oublié</p></a>
+          <p *ngIf="userEmailNotValidate!=null" >Votre pseudo et mot de passe sont bons mais votre email n'est pas validée. <br>Un email de validation vous a été envoyé précédement (vérifiez dans les courriers indésirables au besoin)<a (click)="sendEmailValidation()" >Cliquez sur ce lien pour demande l'envois d'un nouveau mail</a></p>
+        </form>
+    </div> </section>

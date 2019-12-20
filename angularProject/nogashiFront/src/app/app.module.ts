@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+
 import { EditorModule } from '@tinymce/tinymce-angular';
 
 // Services
@@ -109,7 +110,7 @@ const appRoutes: Routes =
   { path: 'myProfile', component: CompteComponent },
   { path: 'myOrders', component: CompteCommandesComponent },
   { path: 'compte', component: CompteComponent },
-  { path: 'compteCommande', component: CompteCommandesComponent },
+  { path: 'compteCommandes', component: CompteCommandesComponent },
 
   { path: 'individual/welcome',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
 

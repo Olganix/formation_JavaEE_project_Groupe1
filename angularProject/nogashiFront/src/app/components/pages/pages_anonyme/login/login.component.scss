@@ -1,21 +1,21 @@
-     
-      
-      
+
+
+
                  /* CONNEXION */
-      
+
       .titre-connexion {
            font-family: 'Ubuntu', sans-serif;
-           font-size: 2em;
+           font-size: 1.6em;
            font-weight: 600;
            color: var(--couleurNoir);
            text-align: center;
            padding-top: 20px;
       }
-      
+
       .texte-connexion {
            font-family: 'roboto', sans-serif;
            text-align: center;
-           font-size: 1em;
+           font-size: 0.90em;
            font-weight: 400;
            color: var(--couleurBNoir);
            margin-left: 50%;
@@ -23,20 +23,20 @@
            -webkit-transform: translate(-50%,0);
            transform: translate(-50%,0);
       }
-      
-      
+
+
       .section-connexion {
-          padding-top: 120px; 
+          padding-top: 30px;
           background-image: url(/assets/img/pattern/funky-lines2.jpg);
       }
-      
+
       .bloc-formulaire-connexion {
           transform: translate(-50%);
           margin-left: 50%;
           padding-top: 80px;
           padding-bottom: 80px;
       }
-      
+
       .formulaire-connexion {
           width: 400;
           height: 100%;
@@ -48,76 +48,81 @@
           padding-top: 80px;
           padding-bottom: 80px;
       }
-      
+
       .fa-asterisk {
           font-size: 0.7em;
           color: var(--couleurVerte);
       }
-      
+
       .label-formulaire {
           width: 300px;
           font-family: 'roboto', sans-serif;
           font-size: 0.9em;
-          font-weight: 600; 
+          font-weight: 600;
           color: var(--couleurNoir);
+          margin-top: 15px;
           margin-bottom: 2px;
           margin-left: 50%;
           transform: translate(-50%);
       }
-      
-      
+
+
       .email {
           width: 300px;
           height: 30px;
           font-family: 'roboto', sans-serif;
           font-size: 1em;
-          font-weight: 400; 
+          font-weight: 400;
           color: var(--couleurNoir);
           border: 1.5px solid #000;
           border-radius: 5px;
-          margin-bottom: 15px;
           margin-left: 50%;
           padding-left: 10px;
           transform: translate(-50%);
           display: block;
       }
-      
+
+       .text-danger {
+         font-size: 0.85em;
+         margin-left: 250px;
+         display: block;
+       }
+
       .mdp {
           width: 300px;
           height: 30px;
           font-family: 'roboto', sans-serif;
           font-size: 1em;
-          font-weight: 400; 
+          font-weight: 400;
           color: var(--couleurNoir);
           border: 1.5px solid #000;
           border-radius: 5px;
-          margin-bottom: 15px;
           margin-left: 50%;
           padding-left: 10px;
           transform: translate(-50%);
           display: block;
       }
-      
+
       select:focus {
         background-color: var(--couleurVerte);
         border: none;
       }
-      
+
       input[type=text]:focus {
         background-color: var(--couleurVerte);
         border: none;
       }
-      
+
       input[type=password]:focus {
         background-color: var(--couleurVerte);
         border: none;
       }
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
       @-webkit-keyframes effet-vertical {
            16.65% {
            -webkit-transform: translateY(8px);
@@ -170,8 +175,8 @@
            transform: translateY(0);
           }
       }
-      
-      .bouton-connexion {
+
+      .bouton-animation {
           width: 180px;
           font-family: sans-serif;
           font-weight: 600;
@@ -185,18 +190,19 @@
           border-radius: 28px;
           font-size: 20px;
           margin-top: 50px;
-          margin-left: 37%;
+          margin-bottom: 55px;
+          margin-left: 38%;
           padding: 12px 20px 12px 20px;
           -webkit-transform: translateZ(0);
           transform: translateZ(0);
           -webkit-box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.5);
           box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
           -webkit-transition: all 1s ease-out;
-          transition: all 1s ease-out; 
+          transition: all 1s ease-out;
           cursor: pointer;
       }
-      
-      .bouton-connexion:hover, .bouton-connexion:focus, .bouton-connexion:active {
+
+      .bouton-animation:hover, .bouton-animation:focus, .bouton-animation:active {
           background: rgba(204,2,204,1);
           background: var(--couleurDegradeVert);
           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc02cc', endColorstr='#ff522f', GradientType=1 );
@@ -211,12 +217,12 @@
           -webkit-animation-iteration-count: 1;
           animation-iteration-count: 1;
       }
-      
-      .bouton-connexion:disabled:hover {
+
+      .bouton-animation:disabled:hover {
           -webkit-animation-name: none;
           animation-name: none;
       }
-      
+
       .avertissement-connexion {
           font-family: 'roboto', sans-serif;
           font-size: 0.9em;
@@ -226,26 +232,25 @@
           margin-top: 30px;
           margin-bottom: 40px;
       }
-      
+
       .lien-compte {
           font-family: 'roboto', sans-serif;
-          font-size: 1em;
+          font-size: 0.90em;
           font-weight: 400;
+          text-decoration: underline !important; /* Important pour forcer l'Underline VS Reset */
           color: var(--couleurNoir);
-          background-color: var(--couleurVerte);
           text-align: center;
       }
-      
+
       .lien-compte:hover {
           font-family: 'roboto', sans-serif;
-          font-size: 1em;
           font-weight: 400;
           text-align: center;
+          color: var(--couleurVerte);
       }
-      
-      
-      
-      
-      
-      
-            
+
+
+
+
+
+
