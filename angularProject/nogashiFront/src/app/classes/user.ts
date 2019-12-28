@@ -1,4 +1,5 @@
 import {Address} from './address';
+import {UserRole} from '../enum/user-role.enum';
 
 
 export class User {
@@ -8,7 +9,7 @@ export class User {
   private _name: string;
   private _email: string;
   private _password: string;
-  private _role = 'INDIVIDUAL';                       // INDIVIDUAL, MERCHANT, ASSOCIATION, ADMIN
+  private _role: UserRole = 0;                       // INDIVIDUAL, MERCHANT, ASSOCIATION, ADMIN
   private _avatarFilename = 'NoAvatar.jpg';
 
   private _phoneNumber: string;
@@ -26,7 +27,7 @@ export class User {
     }
   }
 
-  setSignin(name: string, password: string, email: string, role: string, newsletterEnabled: boolean) {
+  setSignin(name: string, password: string, email: string, role: UserRole, newsletterEnabled: boolean) {
     this._name = name;
     this._password = password;
     this._email = email;
@@ -73,11 +74,11 @@ export class User {
     this._password = value;
   }
 
-  get role(): string {
+  get role(): UserRole {
     return this._role;
   }
 
-  set role(value: string) {
+  set role(value: UserRole) {
     this._role = value;
   }
 

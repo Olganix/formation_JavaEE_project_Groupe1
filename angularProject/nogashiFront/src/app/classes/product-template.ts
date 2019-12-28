@@ -1,10 +1,12 @@
+import {ProductDetail} from './product-detail';
+
 export class ProductTemplate {
 
   private _id: number;
   private _name: string;
   private _description: string;
   private _externalCode: string;
-  private _isWrapped: boolean; // est emballé
+  private _isPackaged: boolean;
   private _price: number;
   private _salePrice: number;
   private _saleTime = new Date();
@@ -12,6 +14,7 @@ export class ProductTemplate {
   private _timeControlStatus: boolean;
   private _maxDurationCart: number;
   private _imageFilename = 'NoAvatar.jpg'; // Todo do the upload system.
+  // TODO liste de ProductDetail et de Commerces;
 
 
   constructor(obj?: object) {                         // json/object => class with functions
@@ -21,14 +24,14 @@ export class ProductTemplate {
   }
 
   toHttpObject() {                                    // class with functions => json/object
-    return {id: this._id, name: this._name, description: this._description, externalCode: this._externalCode, isWrapped: this._isWrapped, price: this._price, salePrice: this._salePrice, saleTime: this._saleTime, unsoldTime: this._unsoldTime, timeControlStatus: this._timeControlStatus, maxDurationCart: this._maxDurationCart, imageFilename: this._imageFilename };
+    return {id: this._id, name: this._name, description: this._description, externalCode: this._externalCode, isPackaged: this._isPackaged, price: this._price, salePrice: this._salePrice, saleTime: this._saleTime, unsoldTime: this._unsoldTime, timeControlStatus: this._timeControlStatus, maxDurationCart: this._maxDurationCart, imageFilename: this._imageFilename };
   }
 
-  setAddProductTemplate(name: string, description: string, price: number, isWrapped: boolean) {
+  setAddProductTemplate(name: string, description: string, price: number, isPackaged: boolean) {
     this._name = name;
     this._description = description;
     this._price = price;
-    this._isWrapped = isWrapped;
+    this._isPackaged = isPackaged;
   }
 
 
@@ -66,12 +69,12 @@ export class ProductTemplate {
     this._externalCode = value;
   }
 
-  get isWrapped(): boolean {
-    return this._isWrapped;
+  get isPackaged(): boolean {
+    return this._isPackaged;
   }
 
-  set isWrapped(value: boolean) {
-    this._isWrapped = value;
+  set isPackaged(value: boolean) {
+    this._isPackaged = value;
   }
 
   get price(): number {

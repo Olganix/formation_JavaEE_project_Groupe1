@@ -17,14 +17,12 @@ export class Commerce {
   private _pictureDescription: string;
   private _isOpened: boolean;
 
-  // todo list productTemplate, list of Commmere theory and the merchand.
-
-
+  // todo list productTemplate, list of Commmere category and merchant.
 
 
   constructor(obj?: object) {
     if (obj !== null) {
-      Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regle le soucis, avec un Pip dans le service.
+      Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regler le soucis, avec un Pip dans le service.
     }
   }
 
