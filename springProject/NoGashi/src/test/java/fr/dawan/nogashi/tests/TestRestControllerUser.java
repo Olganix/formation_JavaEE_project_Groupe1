@@ -61,13 +61,21 @@ public class TestRestControllerUser
 	public void init()
 	{
 		System.out.println("init");
-		dao.removeAll(User.class, em, false); 
+		try {
+			dao.removeAll(User.class, em, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
 	}
 	@After
 	public void after()
 	{
 		System.out.println("after");
-		dao.removeAll(User.class, em, false); 
+		try {
+			dao.removeAll(User.class, em, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
 	}
 	
 	
@@ -76,7 +84,7 @@ public class TestRestControllerUser
 	{
 		ResponseEntity<RestResponse> responseHttp = restTemplate.getForEntity(URL +"signin?name="+ user_model.getName() +"&password="+ user_model.getPassword() +"&email="+ user_model.getEmail(), RestResponse.class);
 		assertEquals(HttpStatus.OK, responseHttp.getStatusCode());
-		RestResponse resp = responseHttp.getBody();
+		RestResponse<User> resp = responseHttp.getBody();
 		assertEquals(RestResponseStatus.SUCCESS, resp.getStatus());
 		
 		responseHttp = restTemplate.getForEntity(URL +"login?name="+ user_model.getName() +"&password="+ user_model.getPassword(), RestResponse.class);
@@ -91,7 +99,7 @@ public class TestRestControllerUser
 	{
 		ResponseEntity<RestResponse> responseHttp = restTemplate.getForEntity(URL +"signin?name="+ user_model.getName() +"&password="+ user_model.getPassword() +"&email="+ user_model.getEmail(), RestResponse.class);
 		assertEquals(HttpStatus.OK, responseHttp.getStatusCode());
-		RestResponse resp = responseHttp.getBody();
+		RestResponse<User> resp = responseHttp.getBody();
 		assertEquals(RestResponseStatus.SUCCESS, resp.getStatus());
 		
 		

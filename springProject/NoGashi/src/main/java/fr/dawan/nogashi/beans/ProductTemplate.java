@@ -1,10 +1,10 @@
 package fr.dawan.nogashi.beans;
 
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
@@ -19,15 +19,20 @@ public class ProductTemplate extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Basic(optional = false)
 	private String name;
+	@Basic(optional = false)
 	private String description;
 	private String externalCode;
 	private boolean isWrapped; 							// est emballé => OV : isPackaged ? Todo answer
 
+	@Basic(optional = false)
 	private double price;
+	@Basic(optional = false)
 	private double salePrice;
-	private Date saleTime;
-	private Date unsoldTime;
+	
+	private Date saleTime;								// utilisation de plages horaires plutot ? Todo use  
+	private Date unsoldTime;							// de meme. Todo
 	private boolean timeControlStatus;
 	private int maxDurationCart;
 

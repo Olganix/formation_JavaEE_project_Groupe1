@@ -4,6 +4,8 @@ public class Subscription extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
+	
+	private Buyer buyer;
 	private Commerce commerce;
 	private ProductTemplate productTemplate;
 	
@@ -13,7 +15,16 @@ public class Subscription extends DbObject {
 	public Subscription() {
 		super();
 	}
-	
+	public Subscription(Buyer buyer, Commerce commerce, ProductTemplate productTemplate) {
+		super();
+		this.buyer = buyer;
+		this.commerce = commerce;
+		this.productTemplate = productTemplate;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return "Subscription";
@@ -33,6 +44,10 @@ public class Subscription extends DbObject {
 	public void setProductTemplate(ProductTemplate productTemplate) {
 		this.productTemplate = productTemplate;
 	}
-	
-
+	public Buyer getBuyer() {
+		return buyer;
+	}
+	public void setBuyer(Buyer buyer) {
+		this.buyer = buyer;
+	}
 }

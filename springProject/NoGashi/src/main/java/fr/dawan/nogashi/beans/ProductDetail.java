@@ -1,13 +1,22 @@
 package fr.dawan.nogashi.beans;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import org.springframework.stereotype.Component;
+
+
+@Entity
+@Component
 public class ProductDetail extends DbObject {
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Basic(optional = false)
 	private String name;
+	@Basic(optional = false)
 	private String description;
 	
 	

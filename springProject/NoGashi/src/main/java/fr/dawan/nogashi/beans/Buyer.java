@@ -3,15 +3,33 @@ package fr.dawan.nogashi.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import org.springframework.stereotype.Component;
+
+
+@Entity
+@Component
 public class Buyer extends User {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<DietaryRestriction> dietaryRestrictions = new ArrayList<DietaryRestriction>();
-	private List<Subscription> subscriptions = new ArrayList<Subscription>();
 	private boolean autoCompletionShoppingCart;
 	
+	@OneToMany
+	private List<DietaryRestriction> dietaryRestrictions = new ArrayList<DietaryRestriction>();
+	@OneToMany(mappedBy = "buyer")
+	private List<Subscription> subscriptions = new ArrayList<Subscription>();
+	
+	@OneToOne(mappedBy = "buyer")
 	private ShoppingCart shoppingCart;
+	@OneToMany(mappedBy = "buyer")
+	private List<ShoppingCart> historicShoppingCarts;
+	
+	
+	//-------------------------------------
 		
 	
 	public void addDietaryRestrictions(DietaryRestriction dr) {
@@ -25,11 +43,17 @@ public class Buyer extends User {
 	
 	public void addSubscriptions(Subscription s) {
 		if(!subscriptions.contains(s))
+		{
 			subscriptions.add(s);
+			s.setBuyer(this);
+		}
 	}
 	public void removeSubscriptions(Subscription s) {
 		if(subscriptions.contains(s))
+		{
+			s.setBuyer(null);
 			subscriptions.remove(s);
+		}
 	}
 	
 	
@@ -81,6 +105,10 @@ public class Buyer extends User {
 	public void setShoppingCart(ShoppingCart shoppingCart) {
 		this.shoppingCart = shoppingCart;
 	}
-	
-	
+	public List<ShoppingCart> getHistoricShoppingCarts() {
+		return historicShoppingCarts;
+	}
+	public void setHistoricShoppingCarts(List<ShoppingCart> historicShoppingCarts) {
+		this.historicShoppingCarts = historicShoppingCarts;
+	}
 }

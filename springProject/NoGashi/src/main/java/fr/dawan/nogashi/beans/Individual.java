@@ -1,5 +1,11 @@
 package fr.dawan.nogashi.beans;
 
+import javax.persistence.Entity;
+
+import org.springframework.stereotype.Component;
+
+@Entity
+@Component
 public class Individual extends Buyer {
 
 	private static final long serialVersionUID = 1L;
