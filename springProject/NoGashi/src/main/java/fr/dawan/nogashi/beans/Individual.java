@@ -21,8 +21,8 @@ public class Individual extends Buyer {
 		this.creditCard = creditCard;
 	}
 
-	public Individual(boolean autoCompletionShoppingCart) {
-		super(autoCompletionShoppingCart);
+	public Individual() {
+		super(false);
 	}
 	public CreditCard getCreditCard() {
 		return creditCard;

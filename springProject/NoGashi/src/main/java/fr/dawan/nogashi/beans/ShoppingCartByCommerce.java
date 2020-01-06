@@ -1,18 +1,37 @@
 package fr.dawan.nogashi.beans;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.springframework.stereotype.Component;
 
 import fr.dawan.nogashi.enums.ShoppingCartStatus;
 
+@Entity
+@Component
 public class ShoppingCartByCommerce extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<Product> products;
+	@Enumerated(EnumType.ORDINAL)
 	private ShoppingCartStatus status;
 
+	@ManyToOne
 	private Commerce commerce;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
 	private ShoppingCart shoppingCart;
+	
+	@OneToMany(mappedBy = "shoppingCart")
+	private List<Product> products = new ArrayList<Product>();
+	
 	
 	
 	public void addProduct(Product p) {

@@ -1,6 +1,6 @@
 package fr.dawan.nogashi.beans;
 
-import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.springframework.stereotype.Component;
@@ -11,17 +11,19 @@ public class Address extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String address;
 	private String addressExtra;
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String postalCode;
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String cityName;
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String stateName;
 	
+	@Column(nullable = false)
 	private Double longitude = null;
+	@Column(nullable = false)
 	private Double latitude = null;
 	
 	

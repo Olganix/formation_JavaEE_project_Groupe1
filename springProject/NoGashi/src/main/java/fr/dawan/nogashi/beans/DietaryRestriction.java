@@ -3,8 +3,8 @@ package fr.dawan.nogashi.beans;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -18,9 +18,9 @@ public class DietaryRestriction extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String name;
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String description;
 	
 	@OneToMany
@@ -28,6 +28,9 @@ public class DietaryRestriction extends DbObject {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	EnumManager enumManager;
+	
+	
+	
 	
 	
 	public void addBadMatch(ProductDetail pd) {

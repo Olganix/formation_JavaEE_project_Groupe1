@@ -1,13 +1,17 @@
 package fr.dawan.nogashi.beans;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import org.springframework.stereotype.Component;
 
 
@@ -19,30 +23,36 @@ public class ProductTemplate extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String name;
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String description;
 	private String externalCode;
 	private boolean isWrapped; 							// est emballé => OV : isPackaged ? Todo answer
 
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private double price;
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private double salePrice;
 	
-	private Date saleTime;								// utilisation de plages horaires plutot ? Todo use  
-	private Date unsoldTime;							// de meme. Todo
-	private boolean timeControlStatus;
+	private boolean timeControlStatus;					// for automatic switch on hours.
+	private Date saleTime;								// utilisation de plages horaires plutot ? Todo use  SchedulerWeek pour les deux 
+	private Date unsoldTime;							// Note: je ne le change pas de suite car il est en cours de dev. mais ca serait bien de le faire rapidement.
+	//@OneToOne
+	//private SchedulerWeek schedulerWeekForSaleAndUnsold;	// horaires pour definir les periodes / heures ou le produit pourra être vendu en promotion, et de meme pour le status invendu.  
+	
+	
+	
+	@Column(nullable = false)
 	private int maxDurationCart;
 
-	
-	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Merchant merchant;
-	//@OneToMany(mappedBy = "productTemplate")
-	//private List<ProductDetail> productDetails;
-	//private List<Commerce> commerces;
+	@ManyToMany(mappedBy = "productTemplates")
+	private List<Commerce> commerces = new ArrayList<Commerce>();
+	@OneToMany
+	private List<ProductDetail> productDetails = new ArrayList<ProductDetail>();
+	
 	
 	
 	public ProductTemplate(String name, String description, String externalCode, boolean isWrapped, double price,

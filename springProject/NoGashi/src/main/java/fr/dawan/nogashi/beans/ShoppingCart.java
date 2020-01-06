@@ -3,15 +3,32 @@ package fr.dawan.nogashi.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.springframework.stereotype.Component;
+
+import fr.dawan.nogashi.enums.ShoppingCartStatus;
+
+@Entity
+@Component
 public class ShoppingCart extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 
+	@Enumerated(EnumType.ORDINAL)
+	private ShoppingCartStatus status;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Buyer buyer;
+	
+	@OneToMany(mappedBy = "shoppingCart")
 	private List<ShoppingCartByCommerce> shoppingCartByCommerces = new ArrayList<ShoppingCartByCommerce>();
 	
-	private Buyer buyer;
-	private ShoppingCart shoppingCart;
-
 	
 	
 	
@@ -56,15 +73,10 @@ public class ShoppingCart extends DbObject {
 	public void setBuyer(Buyer buyer) {
 		this.buyer = buyer;
 	}
-
-
-	public ShoppingCart getShoppingCart() {
-		return shoppingCart;
+	public ShoppingCartStatus getStatus() {
+		return status;
 	}
-
-
-	public void setShoppingCart(ShoppingCart shoppingCart) {
-		this.shoppingCart = shoppingCart;
-	}
-	
+	public void setStatus(ShoppingCartStatus status) {
+		this.status = status;
+	}	
 }

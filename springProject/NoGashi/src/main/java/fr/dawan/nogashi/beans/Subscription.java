@@ -1,11 +1,19 @@
 package fr.dawan.nogashi.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+import org.springframework.stereotype.Component;
+
+@Entity
+@Component
 public class Subscription extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
-	
+	@Column(nullable = false)
 	private Buyer buyer;
+	
 	private Commerce commerce;
 	private ProductTemplate productTemplate;
 	

@@ -22,12 +22,10 @@ public class Merchant extends User {
 	
 	@OneToMany(mappedBy = "merchant", fetch = FetchType.LAZY)
 	List<Commerce> commerces = new ArrayList<Commerce>();
-	//@OneToMany(mappedBy = "merchant")
-	//List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
 	
-	//List<Employee> employees = new ArrayList();								//todo think about it (add RoleUser ?)
-	//Todo AddEmployee, witch create a template list of rights specifics for Merchant.
-
+	@OneToMany(mappedBy = "merchant")
+	List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
+	
 	
 	public Merchant(Merchant other) {
 		super((User)other);
