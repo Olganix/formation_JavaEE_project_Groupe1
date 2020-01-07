@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
 
@@ -25,8 +26,8 @@ public class CreditCard extends DbObject {
 	@Column(nullable = false)
 	private String codeSecurity;				// on back of credit card.
 	
-	
-	
+	@OneToOne
+	private Individual individual; 
 	
 	//-------------------------------
 	

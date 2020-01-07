@@ -1,6 +1,7 @@
 package fr.dawan.nogashi.beans;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ public class Individual extends Buyer {
 
 	private static final long serialVersionUID = 1L;
 	
+	@OneToOne
 	private CreditCard creditCard;
 
 	

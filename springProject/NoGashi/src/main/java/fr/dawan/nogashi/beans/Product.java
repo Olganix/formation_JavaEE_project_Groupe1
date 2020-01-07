@@ -1,11 +1,12 @@
 package fr.dawan.nogashi.beans;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 import org.springframework.stereotype.Component;
 
 import fr.dawan.nogashi.enums.ProductStatus;
@@ -17,7 +18,7 @@ public class Product extends ProductTemplate {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Column(nullable = false)
+	@OneToOne
 	private ProductTemplate reference;								// Product are created from a productTemplate. (but could override value for adaptive situation, so that extends the ProductTemplate)
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Commerce commerce;
@@ -76,7 +77,7 @@ public class Product extends ProductTemplate {
 	public String toString() {
 		return "Product [ id=" + getId() + ", name=" + getName() + ", description=" + getDescription() + ", externalCode="
 				+ getExternalCode() + ", isWrapped=" + isWrapped() + ", price=" + getPrice() + ", salePrice=" + getSalePrice()
-				+ ", saleTime=" + getSaleTime() + ", unsoldTime=" + getUnsoldTime() + ", timeControlStatus=" + isTimeControlStatus()
+				+ ", timeControlStatus=" + isTimeControlStatus()
 				+ ", maxDurationCart=" + getMaxDurationCart() +", status=" + status + ", typedName=" + typedName + "]";
 	}
 

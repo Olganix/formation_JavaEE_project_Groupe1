@@ -1,10 +1,8 @@
 package fr.dawan.nogashi.beans;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -12,6 +10,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 import org.springframework.stereotype.Component;
 
 
@@ -36,22 +36,47 @@ public class ProductTemplate extends DbObject {
 	private double salePrice;
 	
 	private boolean timeControlStatus;					// for automatic switch on hours.
-	private Date saleTime;								// utilisation de plages horaires plutot ? Todo use  SchedulerWeek pour les deux 
-	private Date unsoldTime;							// Note: je ne le change pas de suite car il est en cours de dev. mais ca serait bien de le faire rapidement.
-	//@OneToOne
-	//private SchedulerWeek schedulerWeekForSaleAndUnsold;	// horaires pour definir les periodes / heures ou le produit pourra être vendu en promotion, et de meme pour le status invendu.  
+	@OneToOne
+	private SchedulerWeek schedulerWeekForSaleAndUnsold;	// horaires pour definir les periodes / heures ou le produit pourra être vendu en promotion, et de meme pour le status invendu.  
 	
 	
 	
 	@Column(nullable = false)
 	private int maxDurationCart;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Merchant merchant;
-	@ManyToMany(mappedBy = "productTemplates")
+	@ManyToMany
 	private List<Commerce> commerces = new ArrayList<Commerce>();
 	@OneToMany
 	private List<ProductDetail> productDetails = new ArrayList<ProductDetail>();
+	
+	
+	
+	
+	
+	public void addCommerces(Commerce c) {
+		if(!commerces.contains(c)) {
+			c.addProductTemplate(this);
+			commerces.add(c);
+		}
+	}
+	public void removeCommerces(Commerce c) {
+		if(commerces.contains(c)) {
+			c.removeProductTemplate(this);
+			commerces.remove(c);
+		}
+	}
+
+	public void addProductDetails(ProductDetail p) {
+		if(!productDetails.contains(p))
+			productDetails.add(p);
+	}
+	public void removeProductDetails(ProductDetail p) {
+		if(productDetails.contains(p))
+			productDetails.remove(p);
+	}
+	
 	
 	
 	
@@ -75,7 +100,7 @@ public class ProductTemplate extends DbObject {
 		this.isWrapped = other.isWrapped;
 		this.price = other.price;
 		this.salePrice = other.salePrice;
-		this.saleTime = other.saleTime;
+		this.schedulerWeekForSaleAndUnsold = other.schedulerWeekForSaleAndUnsold;
 	}
 	//-----------------
 	public ProductTemplate() {
@@ -120,18 +145,15 @@ public class ProductTemplate extends DbObject {
 	public void setSalePrice(double salePrice) {
 		this.salePrice = salePrice;
 	}
-	public Date getSaleTime() {
-		return saleTime;
+	
+	public SchedulerWeek getSchedulerWeekForSaleAndUnsold() {
+		return schedulerWeekForSaleAndUnsold;
 	}
-	public void setSaleTime(Date saleTime) {
-		this.saleTime = saleTime;
+
+	public void setSchedulerWeekForSaleAndUnsold(SchedulerWeek schedulerWeekForSaleAndUnsold) {
+		this.schedulerWeekForSaleAndUnsold = schedulerWeekForSaleAndUnsold;
 	}
-	public Date getUnsoldTime() {
-		return unsoldTime;
-	}
-	public void setUnsoldTime(Date unsoldTime) {
-		this.unsoldTime = unsoldTime;
-	}
+
 	public boolean isTimeControlStatus() {
 		return timeControlStatus;
 	}
@@ -147,6 +169,24 @@ public class ProductTemplate extends DbObject {
 	
 	
 	
+	
+	
+	public List<Commerce> getCommerces() {
+		return commerces;
+	}
+
+	public void setCommerces(List<Commerce> commerces) {
+		this.commerces = commerces;
+	}
+
+	public List<ProductDetail> getProductDetails() {
+		return productDetails;
+	}
+
+	public void setProductDetails(List<ProductDetail> productDetails) {
+		this.productDetails = productDetails;
+	}
+
 	public Merchant getMerchant() {
 		return merchant;
 	}
@@ -159,7 +199,7 @@ public class ProductTemplate extends DbObject {
 	public String toString() {
 		return "ProductTemplate [name=" + name + ", description=" + description + ", externalCode="
 				+ externalCode + ", isWrapped=" + isWrapped + ", price=" + price + ", salePrice=" + salePrice
-				+ ", saleTime=" + saleTime + ", unsoldTime=" + unsoldTime + ", timeControlStatus=" + timeControlStatus
+				+ ", timeControlStatus=" + timeControlStatus
 				+ ", maxDurationCart=" + maxDurationCart + "]";
 	}
 

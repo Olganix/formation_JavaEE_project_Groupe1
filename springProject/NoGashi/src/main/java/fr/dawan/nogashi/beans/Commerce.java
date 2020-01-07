@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -39,7 +40,7 @@ public class Commerce extends DbObject {
 	
 	@OneToMany
 	private List<CommerceCategory> commerceCategories = new ArrayList<CommerceCategory>();
-	@OneToMany
+	@ManyToMany(mappedBy = "commerces")
 	private List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
 	@OneToMany(mappedBy = "commerce")
 	private List<Product> products = new ArrayList<Product>();

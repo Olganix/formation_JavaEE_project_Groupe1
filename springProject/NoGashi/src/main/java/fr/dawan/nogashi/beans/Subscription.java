@@ -1,8 +1,7 @@
 package fr.dawan.nogashi.beans;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.ManyToOne;
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -11,10 +10,11 @@ public class Subscription extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(nullable = false)
+	@ManyToOne
 	private Buyer buyer;
-	
+	@ManyToOne
 	private Commerce commerce;
+	@ManyToOne
 	private ProductTemplate productTemplate;
 	
 	
