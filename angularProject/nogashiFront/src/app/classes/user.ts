@@ -9,7 +9,7 @@ export class User {
   private _name: string;
   private _email: string;
   private _password: string;
-  private _role: UserRole = 0;                       // INDIVIDUAL, MERCHANT, ASSOCIATION, ADMIN
+  private _role: UserRole = UserRole.INDIVIDUAL;
   private _avatarFilename = 'NoAvatar.jpg';
 
   private _phoneNumber: string;

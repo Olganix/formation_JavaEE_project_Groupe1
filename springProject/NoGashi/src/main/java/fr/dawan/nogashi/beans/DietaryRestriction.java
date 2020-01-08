@@ -24,10 +24,10 @@ public class DietaryRestriction extends DbObject {
 	private String description;
 	
 	@OneToMany
-	List<ProductDetail> listBadMatch = new ArrayList<ProductDetail>();
+	private List<ProductDetail> listBadMatch = new ArrayList<ProductDetail>();
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	EnumManager enumManager;
+	private EnumManager enumManager;
 	
 	
 	

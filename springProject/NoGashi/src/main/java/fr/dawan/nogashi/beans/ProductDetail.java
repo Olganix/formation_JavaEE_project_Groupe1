@@ -21,7 +21,7 @@ public class ProductDetail extends DbObject {
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	EnumManager enumManager;
+	private EnumManager enumManager;
 	
 	
 	

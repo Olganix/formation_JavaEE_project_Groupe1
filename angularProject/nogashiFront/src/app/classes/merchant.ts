@@ -5,13 +5,16 @@ export class Merchant extends User {
   private _codeSiren: string;
   private _codeIBAN: string;
   private _codeBic: string;
-  // TODO list de Commerces and list d'Employees
 
-  constructor(obj: object, codeSiren: string, codeIBAN: string, codeBic: string) {
+  // --- Information to complete the java class
+  // List<Commerce> commerces
+  // List<ProductTemplate> productTemplates
+
+  constructor(obj?: object) {
     super(obj);
-    this._codeSiren = codeSiren;
-    this._codeIBAN = codeIBAN;
-    this._codeBic = codeBic;
+    if (obj !== null) {
+      Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regler le soucis, avec un Pip dans le service.
+    }
   }
 
   get codeSiren(): string {

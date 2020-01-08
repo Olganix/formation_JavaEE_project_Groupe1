@@ -20,10 +20,10 @@ public class Merchant extends User {
 	
 	
 	@OneToMany(mappedBy = "merchant")
-	List<Commerce> commerces = new ArrayList<Commerce>();
+	private List<Commerce> commerces = new ArrayList<Commerce>();
 	
 	@OneToMany(mappedBy = "merchant")
-	List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
+	private List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
 	
 	
 	public Merchant(Merchant other) {

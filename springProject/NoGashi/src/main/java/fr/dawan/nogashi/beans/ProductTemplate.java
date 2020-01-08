@@ -28,7 +28,7 @@ public class ProductTemplate extends DbObject {
 	@Column(nullable = false)
 	private String description;
 	private String externalCode;
-	private boolean isWrapped; 							// est emballé => OV : isPackaged ? Todo answer
+	private boolean isPackaged; 							// est emballé 
 
 	@Column(nullable = false)
 	private double price;
@@ -43,6 +43,8 @@ public class ProductTemplate extends DbObject {
 	
 	@Column(nullable = false)
 	private int maxDurationCart;
+	@Column(nullable = false)
+	private String image = "NoProduct.jpg";
 
 	@ManyToOne
 	private Merchant merchant;
@@ -80,13 +82,13 @@ public class ProductTemplate extends DbObject {
 	
 	
 	
-	public ProductTemplate(String name, String description, String externalCode, boolean isWrapped, double price,
+	public ProductTemplate(String name, String description, String externalCode, boolean isPackaged, double price,
 			double salePrice) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.externalCode = externalCode;
-		this.isWrapped = isWrapped;
+		this.isPackaged = isPackaged;
 		this.price = price;
 		this.salePrice = salePrice;
 	}
@@ -97,7 +99,7 @@ public class ProductTemplate extends DbObject {
 		this.name = other.name;
 		this.description = other.description;
 		this.externalCode = other.externalCode;
-		this.isWrapped = other.isWrapped;
+		this.isPackaged = other.isPackaged;
 		this.price = other.price;
 		this.salePrice = other.salePrice;
 		this.schedulerWeekForSaleAndUnsold = other.schedulerWeekForSaleAndUnsold;
@@ -124,11 +126,8 @@ public class ProductTemplate extends DbObject {
 	public void setExternalCode(String externalCode) {
 		this.externalCode = externalCode;
 	}
-	public boolean isWrapped() {
-		return isWrapped;
-	}
-	public void setWrapped(boolean isWrapped) {
-		this.isWrapped = isWrapped;
+	public boolean isPackaged() {
+		return isPackaged;
 	}
 	public double getPrice() {
 		return price;
@@ -171,6 +170,16 @@ public class ProductTemplate extends DbObject {
 	
 	
 	
+	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public void setPackaged(boolean isPackaged) {
+		this.isPackaged = isPackaged;
+	}
 	public List<Commerce> getCommerces() {
 		return commerces;
 	}
@@ -198,7 +207,7 @@ public class ProductTemplate extends DbObject {
 	@Override
 	public String toString() {
 		return "ProductTemplate [name=" + name + ", description=" + description + ", externalCode="
-				+ externalCode + ", isWrapped=" + isWrapped + ", price=" + price + ", salePrice=" + salePrice
+				+ externalCode + ", isPackaged=" + isPackaged + ", price=" + price + ", salePrice=" + salePrice
 				+ ", timeControlStatus=" + timeControlStatus
 				+ ", maxDurationCart=" + maxDurationCart + "]";
 	}

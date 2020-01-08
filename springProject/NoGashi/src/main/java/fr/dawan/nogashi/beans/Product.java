@@ -76,7 +76,7 @@ public class Product extends ProductTemplate {
 	@Override
 	public String toString() {
 		return "Product [ id=" + getId() + ", name=" + getName() + ", description=" + getDescription() + ", externalCode="
-				+ getExternalCode() + ", isWrapped=" + isWrapped() + ", price=" + getPrice() + ", salePrice=" + getSalePrice()
+				+ getExternalCode() + ", isPackaged=" + isPackaged() + ", price=" + getPrice() + ", salePrice=" + getSalePrice()
 				+ ", timeControlStatus=" + isTimeControlStatus()
 				+ ", maxDurationCart=" + getMaxDurationCart() +", status=" + status + ", typedName=" + typedName + "]";
 	}

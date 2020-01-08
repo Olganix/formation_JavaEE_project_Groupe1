@@ -14,6 +14,8 @@ public class CommerceCategory extends DbObject {
 	
 	@Column(nullable = false)
 	private String name;
+	@Column(nullable = false)
+	private String description;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private EnumManager enumManager;

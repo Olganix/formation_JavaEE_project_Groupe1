@@ -1,4 +1,5 @@
 import {ProductDetail} from './product-detail';
+import {SchedulerWeek} from './scheduler-week';
 
 export class ProductTemplate {
 
@@ -9,12 +10,18 @@ export class ProductTemplate {
   private _isPackaged: boolean;
   private _price: number;
   private _salePrice: number;
-  private _saleTime = new Date();
-  private _unsoldTime = new Date();
   private _timeControlStatus: boolean;
+  private _schedulerWeekForSaleAndUnsold: SchedulerWeek;
+
   private _maxDurationCart: number;
-  private _imageFilename = 'NoAvatar.jpg'; // Todo do the upload system.
-  // TODO liste de ProductDetail et de Commerces;
+  private _image = 'NoProduct.jpg'; // Todo do the upload system.
+
+  private _productDetails: ProductDetail[];
+
+  // --- Information to complete the java class
+  // Merchant merchant;
+  // List<Commerce> commerces
+
 
 
   constructor(obj?: object) {                         // json/object => class with functions
@@ -24,7 +31,7 @@ export class ProductTemplate {
   }
 
   toHttpObject() {                                    // class with functions => json/object
-    return {id: this._id, name: this._name, description: this._description, externalCode: this._externalCode, isPackaged: this._isPackaged, price: this._price, salePrice: this._salePrice, saleTime: this._saleTime, unsoldTime: this._unsoldTime, timeControlStatus: this._timeControlStatus, maxDurationCart: this._maxDurationCart, imageFilename: this._imageFilename };
+    return {id: this._id, name: this._name, description: this._description, externalCode: this._externalCode, isPackaged: this._isPackaged, price: this._price, salePrice: this._salePrice, timeControlStatus: this._timeControlStatus, schedulerWeekForSaleAndUnsold: this.schedulerWeekForSaleAndUnsold, maxDurationCart: this._maxDurationCart, image: this._image };
   }
 
   setAddProductTemplate(name: string, description: string, price: number, isPackaged: boolean) {
@@ -93,20 +100,13 @@ export class ProductTemplate {
     this._salePrice = value;
   }
 
-  get saleTime(): Date {
-    return this._saleTime;
+
+  get schedulerWeekForSaleAndUnsold(): SchedulerWeek {
+    return this._schedulerWeekForSaleAndUnsold;
   }
 
-  set saleTime(value: Date) {
-    this._saleTime = value;
-  }
-
-  get unsoldTime(): Date {
-    return this._unsoldTime;
-  }
-
-  set unsoldTime(value: Date) {
-    this._unsoldTime = value;
+  set schedulerWeekForSaleAndUnsold(value: SchedulerWeek) {
+    this._schedulerWeekForSaleAndUnsold = value;
   }
 
   get timeControlStatus(): boolean {
@@ -125,11 +125,20 @@ export class ProductTemplate {
     this._maxDurationCart = value;
   }
 
-  get imageFilename(): string {
-    return this._imageFilename;
+
+  get image(): string {
+    return this._image;
   }
 
-  set imageFilename(value: string) {
-    this._imageFilename = value;
+  set image(value: string) {
+    this._image = value;
+  }
+
+  get productDetails(): ProductDetail[] {
+    return this._productDetails;
+  }
+
+  set productDetails(value: ProductDetail[]) {
+    this._productDetails = value;
   }
 }

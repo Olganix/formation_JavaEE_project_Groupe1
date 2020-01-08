@@ -1,36 +1,22 @@
-import {ProductTemplate} from './product-template';
-import {Commerce} from './commerce';
 import {ProductStatus} from '../enum/product-status.enum';
+import {ProductTemplate} from './product-template';
 
 export class Product extends ProductTemplate {
 
-  private _reference: string;
-  private _commerce: Commerce;
   private _status: ProductStatus;
-  private _typedName: string;
+  private _typedName: string;                       // to specified special thing to differ from ProductTemplate.
 
-  constructor(obj: object, reference: string, commerce: Commerce, status: ProductStatus, typedName: string) {
+  // --- Information to complete the java class
+  // reference: ProductTemplate;
+  // commerce: Commerce;
+  // shoppingCart: ShoppingCartByCommerce;
+
+
+  constructor(obj?: object) {
     super(obj);
-    this._reference = reference;
-    this._commerce = commerce;
-    this._status = status;
-    this._typedName = typedName;
-  }
-
-  get reference(): string {
-    return this._reference;
-  }
-
-  set reference(value: string) {
-    this._reference = value;
-  }
-
-  get commerce(): Commerce {
-    return this._commerce;
-  }
-
-  set commerce(value: Commerce) {
-    this._commerce = value;
+    if (obj !== null) {
+      Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regler le soucis, avec un Pip dans le service.
+    }
   }
 
   get status(): ProductStatus {
