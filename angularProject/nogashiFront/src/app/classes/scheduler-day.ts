@@ -16,6 +16,9 @@ export class SchedulerDay {
   }
 
 
+
+  // ---------------------------------
+
   get day(): DayOfWeek {
     return this._day;
   }

@@ -1,7 +1,7 @@
 export class SchedulerHoursRange {
 
   private _startTime: number;     // todo serialize LocalTime into timestamp from start of the day UTC : https://stackoverflow.com/questions/21981902/best-practice-to-serialize-java-time-localdatetime-java-8-to-js-date-using-gso
-  private _endTime: number;
+  private _endTime: number;       // en minutes devrait suffire.
 
   // --- Information to complete the java class
   // SchedulerDay parent;

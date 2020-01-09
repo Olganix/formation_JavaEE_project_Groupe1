@@ -1,5 +1,6 @@
 import {SchedulerDay} from './scheduler-day';
 import {SchedulerWeekType} from '../enum/scheduler-week-type.enum';
+import {SchedulerHoursRange} from './scheduler-hours-range';
 
 
 export class SchedulerWeek {
@@ -10,13 +11,26 @@ export class SchedulerWeek {
   private _group: SchedulerWeek[];
   private _days: SchedulerDay[];
 
-
   constructor(obj?: object) {
     if (obj !== null) {
       Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regler le soucis, avec un Pip dans le service.
     }
   }
 
+
+  getSimplifiedRangeForTextDisplay(): any {
+    this._days.sort((a: SchedulerDay, b: SchedulerDay) => (a.day === b.day) ? 0 : ((a.day < b.day) ? 1 : -1) );
+    for (const d of this._days) {
+      d.hoursRanges.sort((a: SchedulerHoursRange, b: SchedulerHoursRange) => (a.startTime === b.startTime) ? 0 : ((a.startTime < b.startTime) ? 1 : -1) );
+    }
+
+
+  }
+
+
+
+
+  // ---------------------------------
 
   get name(): string {
     return this._name;
