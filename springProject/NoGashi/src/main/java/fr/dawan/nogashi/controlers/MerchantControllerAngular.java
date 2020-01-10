@@ -3,17 +3,20 @@ package fr.dawan.nogashi.controlers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
-import javax.persistence.Subgraph;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.Commerce;
@@ -50,18 +53,20 @@ public class MerchantControllerAngular
 
 	/*****************************************************************************************
 	*										getMyCommerces									 * 
-	*****************************************************************************************/
-	@RequestMapping(path="/getMyCommerces", produces = "application/json")
-	public RestResponse<List<Commerce>> getMerchants(HttpSession session)
+	*****************************************************************************************
+	* 
+	* Liste tous les commerces
+	*/
+	@GetMapping(path="/my-commerces", produces = "application/json")
+	public RestResponse<List<Commerce>> getMyCommerces(HttpSession session)
     {
 		if(!checkAllowToDoThat(session))
-			return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 5, "Error: User don't be allowed on this operation");
+			return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
 		
 		
     	EntityManager em = StartListener.createEntityManager();
 		
     	List<Commerce> listCommerces = new ArrayList<Commerce>();
-		
     	
     	
     	EntityGraph<Commerce> graph = em.createEntityGraph(Commerce.class);
@@ -83,18 +88,55 @@ public class MerchantControllerAngular
     }
 	
 	
+	/*****************************************************************************************
+	*										getCommerceById									 * 
+	*****************************************************************************************
+	* 
+	* récupère une fiche commerce
+	*/
+	@GetMapping(path="/commerces/{id}", produces = "application/json")
+	public RestResponse<Commerce> getCommerceById(@PathVariable(name="id") int id, HttpSession session)
+    {
+		if(!checkAllowToDoThat(session))
+			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		
+		
+    	EntityManager em = StartListener.createEntityManager();
+		
+    	Commerce commerce = new Commerce();
+    	
+    	
+    	EntityGraph<Commerce> graph = em.createEntityGraph(Commerce.class);
+    	/*
+    	graph.addSubgraph("commerceCategories");
+    	graph.addSubgraph("productTemplates");
+    	graph.addSubgraph("products");
+    	*/
+    	
+		try 
+		{	
+			commerce = dao.find(Commerce.class, id, em, graph);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		em.close();
+		return new RestResponse<Commerce>(RestResponseStatus.SUCCESS, commerce);
+    }
+	
+	
 	
 	
 	/*****************************************************************************************
 	*										addCommerce										 * 
 	*****************************************************************************************/
-	@PostMapping(path="/addCommerce", produces = "application/json")
-	//test : http://localhost:8080/nogashi/addCommerce
+	// TODO Ajouter des commerces exemples pour tester
+	@PostMapping(path="/my-commerces/add", produces = "application/json")
 	public RestResponse<Commerce> addCommerce(@RequestBody Commerce c, HttpSession session, Locale locale, Model model)
     {
 		System.out.println(c);
 		if(!checkAllowToDoThat(session))
-			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: User don't be allowed on this operation");
+			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
 		
 		
 		
@@ -111,7 +153,7 @@ public class MerchantControllerAngular
 		
 		Merchant merchant = null;
 		try {
-			merchant = dao.find(Merchant.class,  ((User)session.getAttribute("user")).getId() , em);
+			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -120,10 +162,7 @@ public class MerchantControllerAngular
     		em.close();
     		return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
     	}
-		
-		
-		
-		
+			
 		
 		Commerce c_tmp = null;
     	try 
@@ -145,10 +184,7 @@ public class MerchantControllerAngular
     		em.close();
     		return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: Commerce allready exist");
     	}
-		
-    	
-    	
-    	
+			
     	
     	
     	c.setMerchant(merchant);

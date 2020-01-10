@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import org.mindrot.jbcrypt.BCrypt;
 
 import fr.dawan.nogashi.beans.ProductTemplate;
+import fr.dawan.nogashi.beans.Commerce;
 import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.enums.UserRole;
@@ -38,6 +39,9 @@ public class Main
 		Merchant m = new Merchant(new User("merchantTest", "merchant@noghasi.org", BCrypt.hashpw("toto", BCrypt.gensalt()), UserRole.MERCHANT, true)); m.setEmailValid(true);
 		User u = new User("userTest", "user@noghasi.org", BCrypt.hashpw("toto", BCrypt.gensalt()), UserRole.INDIVIDUAL, true); u.setEmailValid(true);
 		User ass = new User("associationTest", "associationt@noghasi.org", BCrypt.hashpw("toto", BCrypt.gensalt()), UserRole.ASSOCIATION, true); ass.setEmailValid(true);
+		
+		Commerce c1 = new Commerce("épicerie", "QSD44", "epicerieUnique");
+		c1.setMerchant(m);
 		
 		ProductTemplate pt = new ProductTemplate("orange", "orange", "136511", true, 15.1, 10.1); pt.setMerchant(m);
 		ProductTemplate pt2 = new ProductTemplate("banane", "banane", "136512", true, 150.2, 100.2); pt2.setMerchant(m);

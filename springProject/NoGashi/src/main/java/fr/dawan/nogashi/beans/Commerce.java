@@ -70,6 +70,14 @@ public class Commerce extends DbObject {
 	}
 	
 	
+	public Commerce(String name, String codeSiret, String uniqueIdName) {
+		super();
+		this.name = name;
+		this.codeSiret = codeSiret;
+		this.uniqueIdName = uniqueIdName;
+	}
+
+
 	public void addCommerceCategory(CommerceCategory cc) 
 	{	
 		if(!this.commerceCategories.contains(cc))
