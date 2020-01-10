@@ -200,13 +200,13 @@ public class MerchantControllerAngular
     	List<ProductTemplate> listProductsTemplates = new ArrayList<ProductTemplate>();
 		
     	
-    	EntityGraph<ProductTemplate> graph = em.createEntityGraph(ProductTemplate.class);
-    	Subgraph<Merchant> aa = graph.addSubgraph("merchant", Merchant.class);
-    	aa.addSubgraph("commerces");
+//    	EntityGraph<ProductTemplate> graph = em.createEntityGraph(ProductTemplate.class);
+//    	Subgraph<Merchant> aa = graph.addSubgraph("merchant", Merchant.class);
+//    	aa.addSubgraph("commerces");
     	
 		try 
 		{	
-			listProductsTemplates = dao.findAll(ProductTemplate.class, em, true, graph);
+			listProductsTemplates = dao.findAll(ProductTemplate.class, em, true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
