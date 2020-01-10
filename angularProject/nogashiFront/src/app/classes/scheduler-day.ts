@@ -15,6 +15,20 @@ export class SchedulerDay {
     }
   }
 
+  isSimilarDay(other: SchedulerDay): boolean {
+
+    if (this._hoursRanges.length !== other.hoursRanges.length) {
+      return false;
+    }
+
+    for (let i = 0; i < this._hoursRanges.length; i++) {
+      if ( (this._hoursRanges[i].startTime !== other.hoursRanges[i].startTime) ||
+           (this._hoursRanges[i].endTime !== other.hoursRanges[i].endTime) ) {
+        return false;
+      }
+    }
+    return true;
+  }
 
 
   // ---------------------------------
