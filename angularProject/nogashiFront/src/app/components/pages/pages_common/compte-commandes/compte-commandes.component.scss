@@ -175,6 +175,7 @@ h2 {
   min-height: 480px;
   background-color: var(--couleurBlancCreme);
   box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.10);
+  padding-bottom: 60px;
   margin-bottom: 30px;
 }
 
@@ -231,6 +232,7 @@ h2 {
   font-weight: 600;
   background-color: var(--couleurNoir);
   color: var(--couleurBlancCreme);
+  border-bottom: 1px solid var(--couleurVerte);
 
 }
 
@@ -240,13 +242,20 @@ h2 {
   font-weight: 600;
   font-style: italic;
   border-bottom: 1px solid var(--couleurVerte);
-
 }
 
 .td {
   padding-top: 14px;
   padding-bottom: 14px;
   background-color: var(--couleurGrisClair);
+  border-bottom: 1px solid var(--couleurVerte);
+}
+
+.td-details {
+ padding-top: 14px;
+ padding-bottom: 14px;
+ background-color: var(--couleurGrisClair);
+ border-bottom: 1px solid var(--couleurVerte);
 }
 
 .td-titre {
@@ -255,6 +264,7 @@ h2 {
   font-weight: 600;
   background-color: var(--couleurNoir);
   color: var(--couleurBlancCreme);
+  border-bottom: 1px solid var(--couleurVerte);
   padding-top: 14px;
   padding-bottom: 14px;
 }

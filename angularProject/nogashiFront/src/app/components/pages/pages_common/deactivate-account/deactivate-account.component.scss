@@ -16,11 +16,11 @@
   text-align: left;
   font-size: 0.90em;
   font-weight: 400;
-  color: var(--couleurBNoir);
+  color: var(--couleurNoir);
   margin-left: 50%;
   padding-bottom: 30px;
-  -webkit-transform: translate(-50%,0);
-  transform: translate(-50%,0);
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50% , 0);
 }
 
 
@@ -89,13 +89,6 @@ input[type=text]:focus {
   background-color: var(--couleurVerte);
   border: none;
 }
-
-
-
-
-
-
-
 
 @-webkit-keyframes effet-vertical {
   16.65% {

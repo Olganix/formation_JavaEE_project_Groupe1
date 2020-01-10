@@ -210,17 +210,17 @@
 }
 
 .bouton-envoyer {
-  width: 280px;
+  width: 240px;
   font-family: sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   text-align: center;
+  font-size: 1em;
   color: var(--couleurBlancCreme);
   background: rgba(255, 82, 47, 1);
   background: var(--couleurNoir);
   border: none;
   border-radius: 28px;
-  font-size: 20px;
   transform: translate(0%, 0%);
   padding: 12px 20px 12px 20px;
   margin-bottom: 80px;
@@ -234,7 +234,7 @@
 }
 
 .bouton-envoyer:hover {
-  width: 290px;
+  width: 250px;
   font-family: sans-serif;
   font-weight: 600;
   text-transform: uppercase;
