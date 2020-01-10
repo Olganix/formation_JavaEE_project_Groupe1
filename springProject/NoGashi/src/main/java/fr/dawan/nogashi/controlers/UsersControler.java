@@ -17,7 +17,12 @@ import fr.dawan.nogashi.listeners.StartListener;
 import fr.dawan.nogashi.tools.Common;
 
 
-
+/**
+ * Controller de test
+ * TODO supprimer
+ * @author Admin stagiaire
+ *
+ */
 @WebServlet("/userscontroler")
 public class UsersControler extends HttpServlet {
 	private static final long serialVersionUID = 1L;

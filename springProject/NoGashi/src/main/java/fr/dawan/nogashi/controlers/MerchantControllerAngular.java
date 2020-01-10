@@ -49,9 +49,9 @@ public class MerchantControllerAngular
 	
 
 	/*****************************************************************************************
-	*										getCommerces									 * 
+	*										getMyCommerces									 * 
 	*****************************************************************************************/
-	@RequestMapping(path="/getCommerces", produces = "application/json")
+	@RequestMapping(path="/getMyCommerces", produces = "application/json")
 	public RestResponse<List<Commerce>> getMerchants(HttpSession session)
     {
 		if(!checkAllowToDoThat(session))
