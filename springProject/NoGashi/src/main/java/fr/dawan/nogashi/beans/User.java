@@ -1,6 +1,6 @@
 package fr.dawan.nogashi.beans;
 
-import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,11 +21,11 @@ public class User extends DbObject
 {	
 	private static final long serialVersionUID = 1L;
 	
-	@Basic(optional = false)					//DEPRECIATE ? TODO USE @Column(nullable = false)
+	@Column(nullable = false)
 	private String name;
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String email;
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String password;
 	
 	@Enumerated(EnumType.ORDINAL)
@@ -41,6 +41,11 @@ public class User extends DbObject
 	private String token = null;												//for secure operations like email validation.
 	
 	private boolean newsletterEnabled = false;
+	
+	
+	
+	
+	
 	
 	//-----------------------------
 	

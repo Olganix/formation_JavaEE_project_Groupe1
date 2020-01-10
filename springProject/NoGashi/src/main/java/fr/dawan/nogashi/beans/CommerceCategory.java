@@ -1,7 +1,7 @@
 package fr.dawan.nogashi.beans;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import org.springframework.stereotype.Component;
@@ -12,8 +12,10 @@ public class CommerceCategory extends DbObject {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String name;
+	@Column(nullable = false)
+	private String description;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private EnumManager enumManager;

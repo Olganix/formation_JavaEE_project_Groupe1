@@ -42,7 +42,7 @@ export class PasswordRescueComponent implements OnInit {
     if (this.form1.valid) {
 
       const user = new User();
-      user.setSignin('', '', this.form1.value.email, '', false);
+      user.setSignin('', '', this.form1.value.email, 0, false);
 
       this.connexionService.passwordRescue( user ).subscribe(
         (rrp: RestResponse) => {

@@ -3,9 +3,10 @@ package fr.dawan.nogashi.beans;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -19,31 +20,33 @@ public class Commerce extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String name;
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String codeSiret;
 	private String uniqueIdName;					//to make difference between 2 subway in the same city (or the same street), you add a unique subName to make them different.
 	private String description;
-	@Basic(optional = false)
 	@OneToOne
 	private Address address;
-	private String schedule;						// horaires définit en string.  Todo : a week calendar + complements. + a holiday calendar.
+	@OneToOne
+	private SchedulerWeek schedulerWeek;						// horaires. Todo in futur : a week calendar also for not school period + a holiday calendar + by saison.
 	
 	private String pictureLogo = "NoLogo.jpg";					// logo for the merchant's (or commerce's) mark
 	private String pictureDescription = "NoDescription.jpg";	// real picture of commerce, or patchwork to describe the commerce.
 	private boolean isOpened = false;
 	
-	@Basic(optional = false)
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Merchant merchant;
 	
 	@OneToMany
 	private List<CommerceCategory> commerceCategories = new ArrayList<CommerceCategory>();
-	@OneToMany
+	@ManyToMany(mappedBy = "commerces")
 	private List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
 	@OneToMany(mappedBy = "commerce")
 	private List<Product> products = new ArrayList<Product>();
+	@OneToMany(mappedBy = "commerce")
+	private List<ShoppingCartByCommerce> shoppingCartByCommerces = new ArrayList<ShoppingCartByCommerce>();
+	
 	
 	@OneToOne
 	private Faq faq = null;
@@ -53,14 +56,14 @@ public class Commerce extends DbObject {
 	
 	
 	public Commerce(String name, String codeSiret, String description, String uniqueIdName, Address address,
-			String schedule, String pictureLogo, String pictureDescription, Merchant merchant) {
+			SchedulerWeek schedulerWeek, String pictureLogo, String pictureDescription, Merchant merchant) {
 		super();
 		this.name = name;
 		this.codeSiret = codeSiret;
 		this.description = description;
 		this.uniqueIdName = uniqueIdName;
 		this.address = address;
-		this.schedule = schedule;
+		this.schedulerWeek = schedulerWeek;
 		this.pictureLogo = pictureLogo;
 		this.pictureDescription = pictureDescription;
 		this.merchant = merchant;
@@ -87,6 +90,19 @@ public class Commerce extends DbObject {
 	{	
 		if(this.productTemplates.contains(pt))
 			this.productTemplates.remove(pt);	
+	}
+	
+	public void addShoppingCartByCommerces(ShoppingCartByCommerce sc) {
+		if(!shoppingCartByCommerces.contains(sc)) {
+			shoppingCartByCommerces.add(sc);
+			sc.setCommerce(this);
+		}
+	}
+	public void removeShoppingCartByCommerces(ShoppingCartByCommerce sc) {
+		if(shoppingCartByCommerces.contains(sc)) {
+			sc.setCommerce(null);
+			shoppingCartByCommerces.remove(sc);
+		}
 	}
 	
 	
@@ -181,13 +197,27 @@ public class Commerce extends DbObject {
 		this.address = address;
 	}
 
-	public String getSchedule() {
-		return schedule;
+	
+
+	public SchedulerWeek getSchedulerWeek() {
+		return schedulerWeek;
 	}
 
-	public void setSchedule(String schedule) {
-		this.schedule = schedule;
+
+	public void setSchedulerWeek(SchedulerWeek schedulerWeek) {
+		this.schedulerWeek = schedulerWeek;
 	}
+
+
+	public List<ShoppingCartByCommerce> getShoppingCartByCommerces() {
+		return shoppingCartByCommerces;
+	}
+
+
+	public void setShoppingCartByCommerces(List<ShoppingCartByCommerce> shoppingCartByCommerces) {
+		this.shoppingCartByCommerces = shoppingCartByCommerces;
+	}
+
 
 	public String getPictureLogo() {
 		return pictureLogo;

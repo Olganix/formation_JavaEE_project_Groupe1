@@ -3,16 +3,13 @@ package fr.dawan.nogashi.controlers;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.MessagingException;
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
-import javax.persistence.Subgraph;
 import javax.servlet.http.HttpSession;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
@@ -294,10 +291,8 @@ public class UsersControlerAngular
 	/*****************************************************************************************
 	*										Login											 * 
 	*****************************************************************************************/
-	@RequestMapping(path="/login", produces = "application/json")
-	//test : http://localhost:8080/nogashi/login?name=aaa&password=toto
-	//test : http://localhost:8080/nogashi/login?name=aaa@toto.fr&password=toto
-    public RestResponse<User> login(@RequestBody User user, HttpSession session, Locale locale, Model model)
+	@PostMapping(path="/login", produces = "application/json")
+	public RestResponse<User> login(@RequestBody User user, HttpSession session, Locale locale, Model model)
     {
 		System.out.println("login : "+ user);
 		

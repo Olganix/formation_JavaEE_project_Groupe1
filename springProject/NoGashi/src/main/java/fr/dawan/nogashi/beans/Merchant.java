@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import org.springframework.stereotype.Component;
@@ -20,14 +19,12 @@ public class Merchant extends User {
 	private String codeBic;
 	
 	
-	@OneToMany(mappedBy = "merchant", fetch = FetchType.LAZY)
-	List<Commerce> commerces = new ArrayList<Commerce>();
-	//@OneToMany(mappedBy = "merchant")
-	//List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
+	@OneToMany(mappedBy = "merchant")
+	private List<Commerce> commerces = new ArrayList<Commerce>();
 	
-	//List<Employee> employees = new ArrayList();								//todo think about it (add RoleUser ?)
-	//Todo AddEmployee, witch create a template list of rights specifics for Merchant.
-
+	@OneToMany(mappedBy = "merchant")
+	private List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
+	
 	
 	public Merchant(Merchant other) {
 		super((User)other);

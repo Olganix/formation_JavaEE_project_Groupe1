@@ -1,52 +1,113 @@
 package fr.dawan.nogashi.beans;
 
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Component
+@XmlRootElement
 public class ProductTemplate extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Column(nullable = false)
 	private String name;
+	
+	@Column(nullable = false)
 	private String description;
+	
 	private String externalCode;
-	private boolean isWrapped; 							// est emballé => OV : isPackaged ? Todo answer
+	
+	private boolean isPackaged; 							// est emballé 
 
+	@Column(nullable = false)
 	private double price;
+	
+	@Column(nullable = false)
 	private double salePrice;
-	private Date saleTime;
-	private Date unsoldTime;
-	private boolean timeControlStatus;
+	
+	private boolean timeControlStatus;					// for automatic switch on hours.
+	
+	@XmlTransient
+	@OneToOne
+	private SchedulerWeek schedulerWeekForSaleAndUnsold;	// horaires pour definir les periodes / heures ou le produit pourra être vendu en promotion, et de meme pour le status invendu.  
+	
+	
+	
+	@Column(nullable = false)
 	private int maxDurationCart;
+	
+	@Column(nullable = false)
+	private String image = "NoProduct.jpg";
 
-	
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@XmlTransient
+	@JsonIgnore
+	@ManyToOne
 	private Merchant merchant;
-	//@OneToMany(mappedBy = "productTemplate")
-	//private List<ProductDetail> productDetails;
-	//private List<Commerce> commerces;
+	
+	@XmlTransient @JsonIgnore @ManyToMany 
+	private List<Commerce> commerces = new ArrayList<Commerce>();
+	
+	@XmlTransient
+	@JsonIgnore
+	@OneToMany
+	private List<ProductDetail> productDetails = new ArrayList<ProductDetail>();
 	
 	
-	public ProductTemplate(String name, String description, String externalCode, boolean isWrapped, double price,
+	
+	
+	
+	public void addCommerces(Commerce c) {
+		if(!commerces.contains(c)) {
+			c.addProductTemplate(this);
+			commerces.add(c);
+		}
+	}
+	public void removeCommerces(Commerce c) {
+		if(commerces.contains(c)) {
+			c.removeProductTemplate(this);
+			commerces.remove(c);
+		}
+	}
+
+	public void addProductDetails(ProductDetail p) {
+		if(!productDetails.contains(p))
+			productDetails.add(p);
+	}
+	public void removeProductDetails(ProductDetail p) {
+		if(productDetails.contains(p))
+			productDetails.remove(p);
+	}
+	
+	
+	
+	
+	public ProductTemplate(String name, String description, String externalCode, boolean isPackaged, double price,
 			double salePrice) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.externalCode = externalCode;
-		this.isWrapped = isWrapped;
+		this.isPackaged = isPackaged;
 		this.price = price;
 		this.salePrice = salePrice;
 	}
@@ -57,10 +118,10 @@ public class ProductTemplate extends DbObject {
 		this.name = other.name;
 		this.description = other.description;
 		this.externalCode = other.externalCode;
-		this.isWrapped = other.isWrapped;
+		this.isPackaged = other.isPackaged;
 		this.price = other.price;
 		this.salePrice = other.salePrice;
-		this.saleTime = other.saleTime;
+		this.schedulerWeekForSaleAndUnsold = other.schedulerWeekForSaleAndUnsold;
 	}
 	//-----------------
 	public ProductTemplate() {
@@ -84,11 +145,8 @@ public class ProductTemplate extends DbObject {
 	public void setExternalCode(String externalCode) {
 		this.externalCode = externalCode;
 	}
-	public boolean isWrapped() {
-		return isWrapped;
-	}
-	public void setWrapped(boolean isWrapped) {
-		this.isWrapped = isWrapped;
+	public boolean isPackaged() {
+		return isPackaged;
 	}
 	public double getPrice() {
 		return price;
@@ -105,18 +163,15 @@ public class ProductTemplate extends DbObject {
 	public void setSalePrice(double salePrice) {
 		this.salePrice = salePrice;
 	}
-	public Date getSaleTime() {
-		return saleTime;
+	
+	public SchedulerWeek getSchedulerWeekForSaleAndUnsold() {
+		return schedulerWeekForSaleAndUnsold;
 	}
-	public void setSaleTime(Date saleTime) {
-		this.saleTime = saleTime;
+
+	public void setSchedulerWeekForSaleAndUnsold(SchedulerWeek schedulerWeekForSaleAndUnsold) {
+		this.schedulerWeekForSaleAndUnsold = schedulerWeekForSaleAndUnsold;
 	}
-	public Date getUnsoldTime() {
-		return unsoldTime;
-	}
-	public void setUnsoldTime(Date unsoldTime) {
-		this.unsoldTime = unsoldTime;
-	}
+
 	public boolean isTimeControlStatus() {
 		return timeControlStatus;
 	}
@@ -132,6 +187,34 @@ public class ProductTemplate extends DbObject {
 	
 	
 	
+	
+	
+	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public void setPackaged(boolean isPackaged) {
+		this.isPackaged = isPackaged;
+	}
+	public List<Commerce> getCommerces() {
+		return commerces;
+	}
+
+	public void setCommerces(List<Commerce> commerces) {
+		this.commerces = commerces;
+	}
+
+	public List<ProductDetail> getProductDetails() {
+		return productDetails;
+	}
+
+	public void setProductDetails(List<ProductDetail> productDetails) {
+		this.productDetails = productDetails;
+	}
+
 	public Merchant getMerchant() {
 		return merchant;
 	}
@@ -143,8 +226,8 @@ public class ProductTemplate extends DbObject {
 	@Override
 	public String toString() {
 		return "ProductTemplate [name=" + name + ", description=" + description + ", externalCode="
-				+ externalCode + ", isWrapped=" + isWrapped + ", price=" + price + ", salePrice=" + salePrice
-				+ ", saleTime=" + saleTime + ", unsoldTime=" + unsoldTime + ", timeControlStatus=" + timeControlStatus
+				+ externalCode + ", isPackaged=" + isPackaged + ", price=" + price + ", salePrice=" + salePrice
+				+ ", timeControlStatus=" + timeControlStatus
 				+ ", maxDurationCart=" + maxDurationCart + "]";
 	}
 

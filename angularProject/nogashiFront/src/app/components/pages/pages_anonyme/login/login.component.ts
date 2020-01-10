@@ -6,6 +6,7 @@ import { InfoBoxNotificationsService } from '../../../../services/InfoBoxNotific
 import {CustomValidators} from '../../../../validators/custom-validators';
 import {User} from '../../../../classes/user';
 import {RestResponse} from '../../../../classes/rest-response';
+import {UserRole} from '../../../../enum/user-role.enum';
 
 
 @Component({
@@ -61,10 +62,10 @@ export class LoginComponent implements OnInit {
 
             const userRet = new User(rrp.data);
             switch (userRet.role) {
-              case 'INDIVIDUAL': this.router.navigate(['/individual/welcome']); break;
-              case 'MERCHANT': this.router.navigate(['/merchant/welcome']); break;
-              case 'ASSOCIATION': this.router.navigate(['/association/welcome']); break;
-              case 'ADMIN': this.router.navigate(['/admin/welcome']); break;
+              case UserRole.INDIVIDUAL: this.router.navigate(['/individual/welcome']); break;
+              case UserRole.MERCHANT: this.router.navigate(['/merchant/welcome']); break;
+              case UserRole.ASSOCIATION: this.router.navigate(['/association/welcome']); break;
+              case UserRole.ADMIN: this.router.navigate(['/admin/welcome']); break;
             }
 
           } else {

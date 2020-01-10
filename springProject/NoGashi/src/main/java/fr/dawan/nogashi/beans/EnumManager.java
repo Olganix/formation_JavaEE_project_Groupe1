@@ -24,23 +24,64 @@ public class EnumManager extends DbObject {
 	
 	@OneToMany(mappedBy = "enumManager")
 	private List<CommerceCategory> commerceCategories = new ArrayList<CommerceCategory>();
-	//todo all contrainteAlimentaires / detailsProduct , etc ...
-	
-	
-	
+	@OneToMany(mappedBy = "enumManager")
+	private List<ProductDetail> productDetails = new ArrayList<ProductDetail>();
+	@OneToMany(mappedBy = "enumManager")
+	private List<DietaryRestriction> dietaryRestrictions = new ArrayList<DietaryRestriction>();
 
 	
 	
 	public void addCommerceCategory(CommerceCategory cc) 
 	{	
 		if(!this.commerceCategories.contains(cc))
-			this.commerceCategories.add(cc);	
+		{
+			this.commerceCategories.add(cc);
+			cc.setEnumManager(this);
+		}
 	}
 	public void removeCommerceCategory(CommerceCategory cc) 
 	{	
 		if(this.commerceCategories.contains(cc))
-			this.commerceCategories.remove(cc);	
+		{
+			cc.setEnumManager(null);
+			this.commerceCategories.remove(cc);
+		}
 	}
+	
+	public void addProductDetail(ProductDetail pd) 
+	{	
+		if(!this.productDetails.contains(pd))
+		{
+			this.productDetails.add(pd);
+			pd.setEnumManager(this);
+		}
+	}
+	public void removeProductDetail(ProductDetail pd) 
+	{	
+		if(this.productDetails.contains(pd))
+		{
+			pd.setEnumManager(null);
+			this.productDetails.remove(pd);
+		}
+	}
+	
+	public void addDietaryRestriction(DietaryRestriction dr) 
+	{	
+		if(!this.dietaryRestrictions.contains(dr))
+		{
+			this.dietaryRestrictions.add(dr);
+			dr.setEnumManager(this);
+		}
+	}
+	public void removeDietaryRestriction(DietaryRestriction dr) 
+	{	
+		if(this.dietaryRestrictions.contains(dr))
+		{
+			dr.setEnumManager(null);
+			this.dietaryRestrictions.remove(dr);
+		}
+	}
+
 	
 	//--------------------------------------
 	
@@ -57,8 +98,16 @@ public class EnumManager extends DbObject {
 	public void setCommerceCategories(List<CommerceCategory> commerceCategories) {
 		this.commerceCategories = commerceCategories;
 	}
-	
-	
-	
-	
+	public List<ProductDetail> getProductDetails() {
+		return productDetails;
+	}
+	public void setProductDetails(List<ProductDetail> productDetails) {
+		this.productDetails = productDetails;
+	}
+	public List<DietaryRestriction> getDietaryRestrictions() {
+		return dietaryRestrictions;
+	}
+	public void setDietaryRestrictions(List<DietaryRestriction> dietaryRestrictions) {
+		this.dietaryRestrictions = dietaryRestrictions;
+	}
 }

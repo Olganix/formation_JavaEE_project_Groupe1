@@ -1,7 +1,7 @@
 import {Address} from './address';
+import {SchedulerWeek} from './scheduler-week';
 
 export class Commerce {
-
 
   private _id: string;
   private _name: string;
@@ -11,20 +11,24 @@ export class Commerce {
   private _description: string;
 
   private _address: Address;
-  private _schedule: string;      // todo  schedule (horaire) as a list of Classe
+  private _schedulerWeek: SchedulerWeek;
 
   private _pictureLogo: string;
   private _pictureDescription: string;
   private _isOpened: boolean;
 
-  // todo list productTemplate, list of Commmere theory and the merchand.
-
-
+  // --- Information to complete the java class
+  // Merchant merchant;
+  // List<CommerceCategory> commerceCategories
+  // List<ProductTemplate> productTemplates
+  // List<Product> products
+  // List<ShoppingCartByCommerce> shoppingCartByCommerces
+  // Faq faq = null;
 
 
   constructor(obj?: object) {
     if (obj !== null) {
-      Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regle le soucis, avec un Pip dans le service.
+      Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regler le soucis, avec un Pip dans le service.
     }
   }
 
@@ -92,12 +96,13 @@ export class Commerce {
     this._address = value;
   }
 
-  get schedule(): string {
-    return this._schedule;
+
+  get schedulerWeek(): SchedulerWeek {
+    return this._schedulerWeek;
   }
 
-  set schedule(value: string) {
-    this._schedule = value;
+  set schedulerWeek(value: SchedulerWeek) {
+    this._schedulerWeek = value;
   }
 
   get pictureLogo(): string {
