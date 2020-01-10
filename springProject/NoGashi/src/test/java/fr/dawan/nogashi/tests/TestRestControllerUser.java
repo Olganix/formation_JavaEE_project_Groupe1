@@ -82,7 +82,8 @@ public class TestRestControllerUser
 	@Test
 	public void ajoutUser_failEmailValidation() 
 	{
-		ResponseEntity<RestResponse> responseHttp = restTemplate.getForEntity(URL +"signin?name="+ user_model.getName() +"&password="+ user_model.getPassword() +"&email="+ user_model.getEmail(), RestResponse.class);
+		//?name="+ user_model.getName() +"&password="+ user_model.getPassword() +"&email="+ user_model.getEmail()
+		ResponseEntity<RestResponse> responseHttp = restTemplate.postForEntity(URL +"signin", new User(user_model.getName(), user_model.getEmail(), user_model.getPassword(), user_model.getRole(), user_model.isNewsletterEnabled()), RestResponse.class);
 		assertEquals(HttpStatus.OK, responseHttp.getStatusCode());
 		RestResponse<User> resp = responseHttp.getBody();
 		assertEquals(RestResponseStatus.SUCCESS, resp.getStatus());

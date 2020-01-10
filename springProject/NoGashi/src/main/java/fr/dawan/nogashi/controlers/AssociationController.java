@@ -8,7 +8,7 @@ import fr.dawan.nogashi.daos.GenericDao;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
-public class AssociationController extends BuyerController
+public class AssociationController
 {
 	@Autowired
 	GenericDao dao;

@@ -291,10 +291,8 @@ public class UsersControlerAngular
 	/*****************************************************************************************
 	*										Login											 * 
 	*****************************************************************************************/
-	@RequestMapping(path="/login", produces = "application/json")
-	//test : http://localhost:8080/nogashi/login?name=aaa&password=toto
-	//test : http://localhost:8080/nogashi/login?name=aaa@toto.fr&password=toto
-    public RestResponse<User> login(@RequestBody User user, HttpSession session, Locale locale, Model model)
+	@PostMapping(path="/login", produces = "application/json")
+	public RestResponse<User> login(@RequestBody User user, HttpSession session, Locale locale, Model model)
     {
 		System.out.println("login : "+ user);
 		

@@ -4,7 +4,7 @@
 
 
            /* SOCIAL MEDIAS */
-.social-medias 
+.social-medias
 {
     margin: 0;
     padding: 0;
@@ -78,6 +78,40 @@
 
 .twitter:hover .fa-twitter {
     margin-left: 63px;
+}
+
+.instagram {
+ width: 40px;
+ height: 40px;
+ background-color: var(--couleurNoir);
+ list-style: none;
+ text-decoration: none;
+ -webkit-box-shadow: 3px 3px 3px rgba(0,0,0, .1);
+ box-shadow: 3px 3px 3px rgba(0,0,0, .1);
+ -webkit-transition: all 0.3s ease-out;
+ transition: all 0.3s ease-out;
+}
+
+
+.fa-instagram {
+ font-size: 1.2em;
+ color: #fff;
+ margin-left: 9px;
+ margin-top: 10px;
+ -webkit-transition: all 0.3s ease-out;
+ transition: all 0.3s ease-out;
+}
+
+.instagram:hover {
+ width: 90px;
+ height: 40px;
+ background-color: var(--couleurNoir);
+ -webkit-box-shadow: 3px 3px 3px rgba(0,0,0, .1);
+ box-shadow: 3px 3px 3px rgba(0,0,0, .1);
+}
+
+.instagram:hover .fa-instagram {
+ margin-left: 63px;
 }
 
 

@@ -11,31 +11,43 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Component
+@XmlRootElement
 public class ProductTemplate extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Column(nullable = false)
 	private String name;
+	
 	@Column(nullable = false)
 	private String description;
+	
 	private String externalCode;
+	
 	private boolean isPackaged; 							// est emballé 
 
 	@Column(nullable = false)
 	private double price;
+	
 	@Column(nullable = false)
 	private double salePrice;
 	
 	private boolean timeControlStatus;					// for automatic switch on hours.
+	
+	@XmlTransient
 	@OneToOne
 	private SchedulerWeek schedulerWeekForSaleAndUnsold;	// horaires pour definir les periodes / heures ou le produit pourra être vendu en promotion, et de meme pour le status invendu.  
 	
@@ -43,13 +55,20 @@ public class ProductTemplate extends DbObject {
 	
 	@Column(nullable = false)
 	private int maxDurationCart;
+	
 	@Column(nullable = false)
 	private String image = "NoProduct.jpg";
 
+	@XmlTransient
+	@JsonIgnore
 	@ManyToOne
 	private Merchant merchant;
-	@ManyToMany
+	
+	@XmlTransient @JsonIgnore @ManyToMany 
 	private List<Commerce> commerces = new ArrayList<Commerce>();
+	
+	@XmlTransient
+	@JsonIgnore
 	@OneToMany
 	private List<ProductDetail> productDetails = new ArrayList<ProductDetail>();
 	
