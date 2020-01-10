@@ -78,6 +78,8 @@ import { CompteComponent } from './components/pages/pages_common/compte/compte.c
 import { CompteCommandesComponent } from './components/pages/pages_common/compte-commandes/compte-commandes.component';
 import { CompteCommentairesComponent } from './components/pages/pages_common/compte-commentaires/compte-commentaires.component';
 import { ComptePreferencesComponent } from './components/pages/pages_common/compte-preferences/compte-preferences.component';
+import { SchedulerWeekTxtComponent } from './components/modules/scheduler-week-txt/scheduler-week-txt.component';
+import { SchedulerWeekVslComponent } from './components/modules/scheduler-week-vsl/scheduler-week-vsl.component';
 
 
 
@@ -183,7 +185,9 @@ const appRoutes: Routes =
     PasswordRescueModificationComponent,
     ListProductsTemplatesComponent,
     CompteCommentairesComponent,
-    ComptePreferencesComponent],
+    ComptePreferencesComponent,
+    SchedulerWeekTxtComponent,
+    SchedulerWeekVslComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

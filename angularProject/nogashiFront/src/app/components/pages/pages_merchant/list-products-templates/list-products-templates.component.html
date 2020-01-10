@@ -1,14 +1,3 @@
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-
-
 <div class="col-xs-12">
   <div *ngIf="listProductsTemplates">
     <h2>List Products Templates :</h2>
@@ -48,9 +37,9 @@
 
 </div>
 
-<section>
-  <h2>Ajout d'une fiche produit :</h2>
-  <form class="" [formGroup]="form1" (submit)="onSubmit()" >
+<section class="section-liste-produit">
+  <h2 class="titre-fiche-produit">// AJOUT FICHE PRODUIT </h2>
+  <form class="formulaire-liste-produit col-6" [formGroup]="form1" (submit)="onSubmit()" >
 
     <label class="label-formulaire"><i class="fas fa-asterisk" ></i> Nom du produit :</label>
     <input formControlName="name" name="name" class="name" type="text" placeholder="Nom" required>
@@ -69,8 +58,7 @@
       <label class="label" >Produit emballé</label>
     </div>
 
-    <button id ="bt_signin_submit" class="bouton-inscription" type="submit" [disabled]="form1.invalid" >Ajouter la fiche</button>
-    <p *ngIf="form1.invalid" class="avertissement-inscription">* Veuillez remplir tous les champs pour valider la fiche.</p>
+    <button id ="bt_signin_submit" class="bouton-animation" type="submit" [disabled]="form1.invalid" >Ajouter la fiche</button>
+    <p *ngIf="form1.invalid" class="avertissement-liste-produit">* Veuillez remplir tous les champs pour valider la fiche.</p>
   </form >
-
 </section>

@@ -1,13 +1,12 @@
+import {Utils} from './utils';
+
 export class SchedulerHoursRange {
 
   private _startTime: number;     // todo serialize LocalTime into timestamp from start of the day UTC : https://stackoverflow.com/questions/21981902/best-practice-to-serialize-java-time-localdatetime-java-8-to-js-date-using-gso
-  private _endTime: number;
+  private _endTime: number;       // en minutes depuis 00h00 UTC.
 
   // --- Information to complete the java class
   // SchedulerDay parent;
-
-  // todo add conversion/display functions about hours (take care of UTC vs timeZone).
-
 
 
   constructor(obj?: object) {
@@ -32,4 +31,9 @@ export class SchedulerHoursRange {
   set endTime(value: number) {
     this._endTime = value;
   }
+
+
+
+
+
 }
