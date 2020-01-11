@@ -26,6 +26,15 @@ public class Individual extends Buyer {
 	public Individual() {
 		super(false);
 	}
+	public Individual(User user) {
+		super(user);
+	}
+
+	public Individual(User user, CreditCard creditCard) {
+		super(user);
+		this.creditCard = creditCard;
+	}
+	
 	public CreditCard getCreditCard() {
 		return creditCard;
 	}

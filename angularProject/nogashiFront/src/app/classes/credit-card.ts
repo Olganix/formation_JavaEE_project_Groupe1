@@ -3,7 +3,7 @@ export class CreditCard {
   private _type: string;
   private _codeNumber: string;
   private _ownerName: string;
-  private _expirationDate: Date;     // todo check if DateTime or other.
+  private _expirationDate: string;
   private _codeSecurity: string;
 
   // --- Information to complete the java class
@@ -40,11 +40,11 @@ export class CreditCard {
     this._ownerName = value;
   }
 
-  get expirationDate(): Date {
+  get expirationDate(): string {
     return this._expirationDate;
   }
 
-  set expirationDate(value: Date) {
+  set expirationDate(value: string) {
     this._expirationDate = value;
   }
 

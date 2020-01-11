@@ -11,7 +11,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -29,10 +28,10 @@ public class ProductTemplate extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 500)
 	private String name;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 1000)
 	private String description;
 	
 	private String externalCode;
@@ -220,7 +219,17 @@ public class ProductTemplate extends DbObject {
 	}
 
 	public void setMerchant(Merchant merchant) {
+
+		if(this.merchant==merchant)					//avoid infinity loops
+			return;
+		
+		if(this.merchant!=null)
+			merchant.removeProductTemplate(this);
+		
 		this.merchant = merchant;
+
+		if(this.merchant!=null)
+			merchant.addProductTemplate(this);
 	}
 
 	@Override

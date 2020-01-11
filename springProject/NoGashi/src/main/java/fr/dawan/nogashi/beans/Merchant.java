@@ -18,6 +18,8 @@ public class Merchant extends User {
 	private String codeIBAN;
 	private String codeBic;
 	
+	//todo may be web site url ? also for commerce.
+	
 	
 	@OneToMany(mappedBy = "merchant")
 	private List<Commerce> commerces = new ArrayList<Commerce>();
@@ -36,6 +38,13 @@ public class Merchant extends User {
 	public Merchant(User other) {
 		super(other);
 	}
+	public Merchant(User other, String codeSiren, String codeIBAN, String codeBic) {
+		super(other);
+		this.codeSiren = codeSiren;
+		this.codeIBAN = codeIBAN;
+		this.codeBic = codeBic;
+	}
+	
 	
 	
 	public void addCommerces(Commerce c) {
@@ -56,7 +65,7 @@ public class Merchant extends User {
 		}	
 	}
 	
-	/*
+	
 	public void addProductTemplate(ProductTemplate pt) {
 		
 		if(!this.productTemplates.contains(pt))
@@ -73,7 +82,7 @@ public class Merchant extends User {
 			this.productTemplates.remove(pt);	
 		}	
 	}
-	*/
+	
 	
 
 	
@@ -109,7 +118,6 @@ public class Merchant extends User {
 		this.commerces = commerces;
 	}
 
-	/*
 	public List<ProductTemplate> getProductTemplates() {
 		return productTemplates;
 	}
@@ -117,7 +125,6 @@ public class Merchant extends User {
 	public void setProductTemplates(List<ProductTemplate> productTemplates) {
 		this.productTemplates = productTemplates;
 	}
-	*/
 	
 	
 	

@@ -31,6 +31,7 @@ public class User extends DbObject
 	@Enumerated(EnumType.ORDINAL)
 	private UserRole role = UserRole.INDIVIDUAL;
 	
+	@Column(length = 500)
 	private String avatarFilename = "NoAvatar.jpg";						//Todo do the upload system.
 	
 	private String phoneNumber;
@@ -63,6 +64,35 @@ public class User extends DbObject
 		this.role = role;
 		this.newsletterEnabled = newsletterEnabled;
 	}
+	
+	
+	
+	
+	public User(String name, String email, String password, UserRole role, String phoneNumber, Address address, boolean emailValid, boolean newsletterEnabled) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.emailValid = emailValid;
+		this.newsletterEnabled = newsletterEnabled;
+	}
+	public User(String name, String email, String password, UserRole role, String phoneNumber, Address address, boolean emailValid, boolean newsletterEnabled, String avatarFilename) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.emailValid = emailValid;
+		this.newsletterEnabled = newsletterEnabled;
+		this.avatarFilename = avatarFilename;
+	}
+
+
 	public User(String name, String password)		//for the moment of login. Notice: in case name is pseudo or email 
 	{
 		super();

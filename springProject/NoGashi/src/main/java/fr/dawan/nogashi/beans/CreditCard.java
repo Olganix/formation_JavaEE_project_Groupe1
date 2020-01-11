@@ -1,7 +1,5 @@
 package fr.dawan.nogashi.beans;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -22,7 +20,7 @@ public class CreditCard extends DbObject {
 	@Column(nullable = false)
 	private String ownerName;
 	@Column(nullable = false)
-	private Date expirationDate;
+	private String expirationDate;
 	@Column(nullable = false)
 	private String codeSecurity;				// on back of credit card.
 	
@@ -31,7 +29,7 @@ public class CreditCard extends DbObject {
 	
 	//-------------------------------
 	
-	public CreditCard(String type, String codeNumber, String ownerName, Date expirationDate, String codeSecurity) {
+	public CreditCard(String type, String codeNumber, String ownerName, String expirationDate, String codeSecurity) {
 		super();
 		this.type = type;
 		this.codeNumber = codeNumber;
@@ -67,10 +65,10 @@ public class CreditCard extends DbObject {
 	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
 	}
-	public Date getExpirationDate() {
+	public String getExpirationDate() {
 		return expirationDate;
 	}
-	public void setExpirationDate(Date expirationDate) {
+	public void setExpirationDate(String expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 	public String getCodeSecurity() {

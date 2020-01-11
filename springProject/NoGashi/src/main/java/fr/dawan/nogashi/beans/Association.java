@@ -24,6 +24,14 @@ public class Association extends Buyer {
 	public Association() {
 		super();
 	}
+	public Association(User user, String codeSiren, String codeAssociation) {
+		super(user);
+		this.codeSiren = codeSiren;
+		this.codeAssociation = codeAssociation;
+	}
+	public Association(User user) {
+		super(user);
+	}
 	@Override
 	public String toString() {
 		return "Association [codeSiren=" + codeSiren + ", codeAssociation=" + codeAssociation + "]";

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -13,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)				//by putting this , that create a table for buyers, but we want all in users. 
 @Component
 public class Buyer extends User {
 
@@ -79,6 +77,9 @@ public class Buyer extends User {
 		super();
 	}
 
+	public Buyer(User user) {
+		super(user);
+	}
 	public List<DietaryRestriction> getDietaryRestrictions() {
 		return dietaryRestrictions;
 	}

@@ -1,6 +1,7 @@
 package fr.dawan.nogashi.beans;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,6 +26,7 @@ public class Product extends ProductTemplate {
 	
 	@Enumerated(EnumType.ORDINAL)
 	private ProductStatus status = ProductStatus.AVAILABLE;
+	@Column(length = 500)
 	private String typedName = null;								// ajoute une info qui personalise le produit (par rapport au ProductTemplate), genre "cramé"
 	
 	@ManyToOne

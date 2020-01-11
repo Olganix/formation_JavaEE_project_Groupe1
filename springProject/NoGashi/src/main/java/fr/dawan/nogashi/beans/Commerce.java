@@ -25,6 +25,7 @@ public class Commerce extends DbObject {
 	@Column(nullable = false)
 	private String codeSiret;
 	private String uniqueIdName;					//to make difference between 2 subway in the same city (or the same street), you add a unique subName to make them different.
+	@Column(length = 1000)
 	private String description;
 	@OneToOne
 	private Address address;
@@ -248,7 +249,17 @@ public class Commerce extends DbObject {
 	}
 
 	public void setMerchant(Merchant merchant) {
+		
+		if(this.merchant==merchant)					//avoid infinity loops
+			return;
+		
+		if(this.merchant!=null)
+			merchant.removeCommerces(this);
+		
 		this.merchant = merchant;
+
+		if(this.merchant!=null)
+			merchant.addCommerces(this);
 	}
 
 	public List<CommerceCategory> getCommerceCategories() {

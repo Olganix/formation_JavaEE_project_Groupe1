@@ -11,7 +11,7 @@ public class Address extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 500)
 	private String address;
 	private String addressExtra;
 	@Column(nullable = false)
@@ -21,9 +21,7 @@ public class Address extends DbObject {
 	@Column(nullable = false)
 	private String stateName;
 	
-	@Column(nullable = false)
 	private Double longitude = null;
-	@Column(nullable = false)
 	private Double latitude = null;
 	
 	
