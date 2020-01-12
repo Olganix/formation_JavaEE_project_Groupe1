@@ -32,7 +32,7 @@ import fr.dawan.nogashi.listeners.StartListener;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
-public class MerchantControllerAngular 
+public class MerchantController 
 {
 	@Autowired
 	GenericDao dao;
@@ -53,7 +53,7 @@ public class MerchantControllerAngular
 	*										getMyCommerces									 * 
 	*****************************************************************************************
 	* 
-	* Liste les commerces du Merchant (User connecté)
+	* Liste les commerces du Merchant (User connecte)
 	*/
 	@GetMapping(path="/my-commerces", produces = "application/json")
 	public RestResponse<List<Commerce>> getMyCommerces(HttpSession session)
@@ -68,14 +68,14 @@ public class MerchantControllerAngular
     	List<Commerce> listCommerces = new ArrayList<Commerce>();
     	
     	
-    	EntityGraph<Commerce> graph = em.createEntityGraph(Commerce.class);
+    	EntityGraph<Commerce> graph = em.createEntityGraph(Commerce.class); 	
     	/*
     	graph.addSubgraph("commerceCategories");
     	graph.addSubgraph("productTemplates");
-    	graph.addSubgraph("products");
+    	graph.addSubgraph("products");	
     	*/
     	
-    	// Récupère le Merchant à partir du User de la session et check si c'est bien ce Merchant qui est connecté
+    	// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
 		Merchant merchant = null;
 		try {
 			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
@@ -87,14 +87,14 @@ public class MerchantControllerAngular
     		em.close();
     		return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
     	}
-    	
-    	// Récupère la liste des Commerce du Merchant
+		
+    	// Recupere la liste des Commerce du Merchant via son name
 		try 
 		{	
-			//listCommerces = dao.findAll(Commerce.class, em, false, graph);
-			// TODO Reechercher avec l'id du Merchant plutôt que le name
-			listCommerces = dao.findNamed(Commerce.class, "merchant", merchant.getName(), em, false, graph);
-			//listCommerces = dao.findRestricted(Merchant.class, Commerce.class, em, false, graph);
+			listCommerces = dao.findBySomethingNamed(Commerce.class, "merchant", "name", merchant.getName(), em, false, graph);
+			for(Commerce cTmp : listCommerces)
+				System.out.println(cTmp);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -108,7 +108,7 @@ public class MerchantControllerAngular
 	*										getCommerceById									 * 
 	*****************************************************************************************
 	* 
-	* Récupère un Commerce via son id
+	* Recupere un Commerce via son id
 	*/
 	@GetMapping(path="/my-commerces/{id}", produces = "application/json")
 	public RestResponse<Commerce> getCommerceById(@PathVariable(name="id") int id, HttpSession session)
@@ -130,7 +130,7 @@ public class MerchantControllerAngular
     	graph.addSubgraph("products");
     	*/
     	
-    	// Récupère le Commerce dont l'id est passé en paramètre
+    	// Recupere le Commerce dont l'id est passe en parametre
 		try 
 		{	
 			commerce = dao.find(Commerce.class, id, em, graph);
@@ -149,7 +149,7 @@ public class MerchantControllerAngular
 	*										addCommerce										 * 
 	*****************************************************************************************
 	*
-	* Ajoute un nouveau Commerce pour le Merchant (User connecté)
+	* Ajoute un nouveau Commerce pour le Merchant (User connecte)
 	*/
 	@PostMapping(path="/my-commerces/add", consumes = "application/json", produces = "application/json")
 	public RestResponse<Commerce> addCommerce(@RequestBody Commerce c, HttpSession session, Locale locale, Model model)
@@ -161,7 +161,7 @@ public class MerchantControllerAngular
 			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
 		
 		
-		// Check si tous les champs du formulaire sont null ou si le nom, le codeSiret ou l'adresse est null
+		// Check si tous les champs du formulaire sont null ou si le name, le codeSiret ou l'adresse est null
 		if(	(c==null) || 
 			(c.getName()==null) || ( c.getName().trim().length() ==0) ||
 			(c.getCodeSiret()==null) || ( c.getCodeSiret().trim().length() ==0) ||
@@ -173,7 +173,7 @@ public class MerchantControllerAngular
 		
 		EntityManager em = StartListener.createEntityManager();
 		
-		// Récupère le Merchant à partir du User de la session et check si c'est bien ce Merchant qui est connecté
+		// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
 		Merchant merchant = null;
 		try {
 			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
@@ -187,7 +187,7 @@ public class MerchantControllerAngular
     	}
 			
 		
-		// Check si le name ou le codeSiret du Commerce à ajouter existe déjà dans la BDD
+		// Check si le name ou le codeSiret du Commerce a ajouter existe deja dans la BDD
 		Commerce c_tmp = null;
     	try 
     	{
@@ -210,10 +210,10 @@ public class MerchantControllerAngular
     	}
 			
     	
-    	// Attribue le Merchant connecté au Commerce à ajouter
+    	// Attribue le Merchant connecte au Commerce a ajouter
     	c.setMerchant(merchant);
     	
-    	// Persiste le Commerce à ajouter dans la BDD
+    	// Persiste le Commerce a ajouter dans la BDD
 		try 
 		{
 			dao.saveOrUpdate(c, em, false);
@@ -235,11 +235,11 @@ public class MerchantControllerAngular
 	*										removeCommerce										* 
 	*****************************************************************************************
 	*
-	* Supprime un Commerce du Merchant (User connecté) récupéré via son id
-	* TODO supprimer toutes les instances de produits liées au Commerce lors de la suppression de la fiche
+	* Supprime un Commerce du Merchant (User connecte) recupere via son id
+	* TODO supprimer toutes les instances de produits liees au Commerce lors de la suppression de la fiche
 	*/
 	@GetMapping(path="/my-commerces/remove/{id}", produces = "application/json")
-	// TODO Front: prévenir que la suppression de la fiche entrainera la suppression des produits en vente
+	// TODO Front: prevenir que la suppression de la fiche entrainera la suppression des produits en vente
 	public RestResponse<Commerce> removeCommerce(@PathVariable(name="id") int id, HttpSession session, Locale locale, Model model)
     {
 		// Check si le User de la session est Merchant
@@ -250,7 +250,7 @@ public class MerchantControllerAngular
 		EntityManager em = StartListener.createEntityManager();
 		
 		
-		// Récupère le Merchant à partir du User de la session et check si c'est bien ce Merchant qui est connecté
+		// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
 		Merchant merchant = null;
 		try {
 			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
@@ -264,7 +264,7 @@ public class MerchantControllerAngular
     	}
 			
 		
-		// Check si l'id du Commerce à supprimer existe dans la BDD	
+		// Check si l'id du Commerce a supprimer existe dans la BDD	
 		Commerce c = null;
     	try 
     	{
@@ -305,8 +305,7 @@ public class MerchantControllerAngular
 	*										getProductTemplates										 * 
 	*****************************************************************************************
 	*
-	* Liste les ProductTemplates du Merchant (User connecté)
-	* Autre solution: mettre l'id du Merchant (User de session) en PathVariable
+	* Liste les ProductTemplates du Merchant (User connecte)
 	*/
 	@GetMapping(path="/my-product-templates", produces = "application/json")
 	public RestResponse<List<ProductTemplate>> getProductTemplates(HttpSession session)
@@ -318,12 +317,11 @@ public class MerchantControllerAngular
     	EntityManager em = StartListener.createEntityManager();
 		
     	
-    	System.out.println( "Test Merchant : " + ((User)session.getAttribute("user")) );
-    	
-    	// Récupère le Merchant à partir du User de la session et check si c'est bien ce Merchant qui est connecté
+    	// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
     	Merchant merchant = null;
 		try {
 			merchant = dao.find(Merchant.class,  ((User)session.getAttribute("user")).getId() , em);
+			System.out.println(merchant);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -341,12 +339,13 @@ public class MerchantControllerAngular
 //    	Subgraph<Merchant> aa = graph.addSubgraph("merchant", Merchant.class);
 //    	aa.addSubgraph("commerces");
     	
-    	// Récupère la liste de tous les ProductTemplate
+    	// Recupere la liste des ProductTemplates du Merchant via son name
 		try 
 		{	
-			//listProductsTemplates = dao.findAll(ProductTemplate.class, em, true);
-			// TODO Reechercher avec l'id du Merchant plutôt que le name
-			listProductsTemplates = dao.findNamed(ProductTemplate.class, "merchant", merchant.getName(), em, false);
+			listProductsTemplates = dao.findBySomethingNamed(ProductTemplate.class, "merchant", "name", merchant.getName(), em);
+			for(ProductTemplate ptTmp : listProductsTemplates)
+				System.out.println(ptTmp);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -362,7 +361,7 @@ public class MerchantControllerAngular
 	*										getProductTemplateById									 * 
 	*****************************************************************************************
 	* 
-	* Récupère un ProductTemplate via son id
+	* Recupere un ProductTemplate via son id
 	*/
 	@GetMapping(path="/my-product-templates/{id}", produces = "application/json")
 	public RestResponse<ProductTemplate> getProductTemplateById(@PathVariable(name="id") int id, HttpSession session)
@@ -384,7 +383,7 @@ public class MerchantControllerAngular
     	graph.addSubgraph("products");
     	*/
     	
-    	// Récupère le ProductTemplate dont l'id est passé en paramètre
+    	// Recupere le ProductTemplate dont l'id est passe en parametre
 		try 
 		{	
 			productTemplate = dao.find(ProductTemplate.class, id, em, graph);
@@ -402,7 +401,7 @@ public class MerchantControllerAngular
 	*										addProductTemplate								 * 
 	*****************************************************************************************
 	*
-	* Ajoute un nouveau ProductTemplate pour le Merchant (User connecté)
+	* Ajoute un nouveau ProductTemplate pour le Merchant (User connecte)
 	*/
 	@PostMapping(path="/my-product-templates/add", consumes = "application/json", produces = "application/json")
 	public RestResponse<ProductTemplate> addProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model, boolean modif)
@@ -426,7 +425,7 @@ public class MerchantControllerAngular
 		EntityManager em = StartListener.createEntityManager();
 		
 		
-		// Récupère le Merchant à partir du User de la session et check si c'est bien ce Merchant qui est connecté
+		// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
 		Merchant merchant = null;
 		try {
 			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
@@ -440,7 +439,7 @@ public class MerchantControllerAngular
     	}
 				
 		
-		// Check si l'externalCode ou le name existe déjà et qu'il ne s'agit pas d'une modification
+		// Check si l'externalCode ou le name existe deja et qu'il ne s'agit pas d'une modification
 		ProductTemplate pt_tmp = null;
     	try 
     	{
@@ -456,7 +455,7 @@ public class MerchantControllerAngular
 			e.printStackTrace();
 		}
 		
-    	// TODO Front: prévenir que le produit existe déjà et demander s'il s'agit d'une modification
+    	// TODO Front: prevenir que le produit existe deja et demander s'il s'agit d'une modification
     	if( (pt_tmp!=null) && (!modif) )
     	{
     		em.close();
@@ -464,10 +463,10 @@ public class MerchantControllerAngular
     	}
 		
     	
-    	// Attribue le Merchant connecté au Commerce à ajouter
+    	// Attribue le Merchant connecte au Commerce a ajouter
     	pt.setMerchant(merchant);
     	
-    	// Persiste le Commerce à ajouter dans la BDD
+    	// Persiste le Commerce a ajouter dans la BDD
 		try 
 		{
 			dao.saveOrUpdate(pt, em, false);
@@ -491,11 +490,11 @@ public class MerchantControllerAngular
 	*										removeProductTemplate										* 
 	*****************************************************************************************
 	*
-	* Supprime un ProductTemplate du Merchant (User connecté) récupéré via son id
+	* Supprime un ProductTemplate du Merchant (User connecte) recupere via son id
 	* TODO supprimer toutes les instances de produits lors de la suppression de la fiche
 	*/
-	@GetMapping(path="/product-template/remove/{id}", produces = "application/json")
-	// TODO Front: prévenir que la suppression de la fiche entrainera la suppression des produits en vente
+	@GetMapping(path="/my-product-templates/remove/{id}", produces = "application/json")
+	// TODO Front: prevenir que la suppression de la fiche entrainera la suppression des produits en vente
 	public RestResponse<ProductTemplate> removeProductTemplate(@PathVariable(name="id") int id, HttpSession session, Locale locale, Model model)
     {
 		// Check si le User de la session est Merchant
@@ -506,7 +505,7 @@ public class MerchantControllerAngular
 		EntityManager em = StartListener.createEntityManager();
 		
 		
-		// Récupère le Merchant à partir du User de la session et check si c'est bien ce Merchant qui est connecté
+		// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
 		Merchant merchant = null;
 		try {
 			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
@@ -520,7 +519,7 @@ public class MerchantControllerAngular
     	}
 			
 		
-		// Check si l'id du ProductTemplate à supprimer existe dans la BDD	
+		// Check si l'id du ProductTemplate a supprimer existe dans la BDD	
 		ProductTemplate pt = null;
     	try 
     	{
