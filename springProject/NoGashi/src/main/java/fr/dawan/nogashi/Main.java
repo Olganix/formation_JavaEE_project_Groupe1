@@ -35,15 +35,16 @@ public class Main
 		em = emf.createEntityManager();
 		et = em.getTransaction();
 		
+		// decommenter, puis recommenter, pour eviter d'avoir x fois les elements
+		//setupDataBase(); 
 		
-		//setupDataBase();
 		TestGetProductTemplateFromMerchant();
 		
 		em.close();
 		emf.close();	
 	}
 
-	public static void TestGetProductTemplateFromMerchant()	// ex: pour Joffrey, recuperation des productTemplate appartenant a un merchant :
+	public static void TestGetProductTemplateFromMerchant()	// ex: pour Joffrey, recuperation des productTemplates appartenant a un merchant :
 	{
 		GenericDao dao = new GenericDao();
 		
@@ -64,12 +65,13 @@ public class Main
 				System.out.println("Fail recuperation de "+ name);
 				return;
 			}
-			System.out.println("Test recuperation des productTemplate de "+ mBf +" :");
+			System.out.println("Test1 recuperation des productTemplate de "+ mBf +" :");
 		
 			List<ProductTemplate> listpt = dao.findBySomething(ProductTemplate.class, "merchant", mBf, em);
 			for(ProductTemplate ptTmp : listpt)
 				System.out.println(ptTmp);
 			
+			// _________________________
 			
 			System.out.println("Test2 recuperation des productTemplate de "+ name +" :");
 			//test deuxieme function
@@ -87,13 +89,23 @@ public class Main
 	
 	public static void setupDataBase()
 	{
+		/*
+		GenericDao dao = new GenericDao();
+		try {
+			if(dao.findNamed(User.class, "name", "Admin", em, true) != null)
+				return;
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		*/
+		
 		System.out.println("------------------------- setupDataBase Start -------------------------");
 		
 		List<Merchant> lm = new ArrayList<Merchant>();
 		List<Individual> li = new ArrayList<Individual>();
 		List<Association> la = new ArrayList<Association>();
 		
-		User a = 					new User("Admin", "admin@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), 					UserRole.ADMIN, true); a.setEmailValid(true); a.setAvatarFilename("admin.jpg");
+		User a = new User("Admin", "admin@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.ADMIN, true); a.setEmailValid(true); a.setAvatarFilename("admin.jpg");
 		Merchant m = new Merchant(new User("Merchant", "merchant@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.03.03.03.03", 	new Address("59, Rue Merchant", "", "59000", "Lille", "France"), true , true, "merchant.jpg"), "362 521 879 00030", "FR12 1234 1234 1234 1234 59", "12346"); lm.add(m);
 		Individual u = new Individual(	new User("User", "user@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, "01.01.01.01.01", new Address("59, Rue User", "", "59000", "Lille", "France"), true , true, "user.jpg"), 	new CreditCard("MasterCard", "4539 1593 1309 2658", "User", "04/23", "092"));	li.add(u);
 		Association ass = new Association(	new User("Association", "associationt@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.ASSOCIATION, "02.02.02.02.02", 	new Address("59, Rue Association", "Au fond a Gauche", "59000", "Lille", "France"), true , true, "association.jpg"), "362 521 880", "W751212507");	la.add(ass);
