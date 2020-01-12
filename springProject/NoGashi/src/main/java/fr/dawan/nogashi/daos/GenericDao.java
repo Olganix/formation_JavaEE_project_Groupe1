@@ -15,7 +15,7 @@ import fr.dawan.nogashi.beans.DbObject;
 public class GenericDao 
 {
 
-	
+	// Ajoute ou modifie un tuple de la BDD
 	public <T extends DbObject> void saveOrUpdate(T elm, EntityManager em, boolean closeConnection) throws Exception
 	{
 		EntityTransaction et = em.getTransaction();
@@ -47,7 +47,7 @@ public class GenericDao
 	}
 	
 	
-	
+	// Supprime un tuple de la BDD
 	public <T extends DbObject> void remove(T elm, EntityManager em, boolean closeConnection) throws Exception
 	{
 		EntityTransaction et = em.getTransaction();
@@ -73,7 +73,7 @@ public class GenericDao
 	}
 	
 	
-	
+	// Supprime tous les tuples d'une table de la BDD
 	public <T extends DbObject> void removeAll(Class<T> clazz, EntityManager em, boolean closeConnection) throws Exception {
 
 		
@@ -100,7 +100,7 @@ public class GenericDao
 	}
 	
 	
-	
+	// Recherche un tuple par son id
 	public <T extends DbObject> T find(Class<T> tClass, int id, EntityManager em, EntityGraph<T> graph, boolean closeConnection) throws Exception
 	{
 		if(id==0)
@@ -123,7 +123,7 @@ public class GenericDao
 	}
 	
 	
-	
+	// Recherche une liste de tuples par nom de colonne (name, email, etc.)
 	public <T extends DbObject> List<T> findNamed(Class<T> tClass, String column, String name, EntityManager em, boolean strictClass, EntityGraph<T> graph, boolean closeConnection) throws Exception
 	{
 		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity WHERE "+ column +"=:name "+ ((strictClass) ? ("AND TYPE(entity) = "+ tClass.getName()) : ""), tClass);
@@ -141,6 +141,7 @@ public class GenericDao
 		
 	}
 	
+	// Recheche une liste de tuples par object
 	public <T extends DbObject, R extends DbObject> List<T> findBySomething(Class<T> tClass, String column, R something, EntityManager em, boolean strictClass, EntityGraph<T> graph, boolean closeConnection) throws Exception
 	{
 		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity JOIN entity."+ column +" as ent2 WHERE ent2=:something "+ ((strictClass) ? ("AND TYPE(entity) = "+ tClass.getName()) : ""), tClass);
@@ -157,6 +158,7 @@ public class GenericDao
 		return result;
 	}
 	
+	// Recheche une liste de tuples par nom de colonne d'une table jointe
 	public <T extends DbObject> List<T> findBySomethingNamed(Class<T> tClass, String column, String columnSomething, String name, EntityManager em, boolean strictClass, EntityGraph<T> graph, boolean closeConnection) throws Exception
 	{
 		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity JOIN entity."+ column +" as ent2 WHERE ent2."+ columnSomething +"=:name "+ ((strictClass) ? ("AND TYPE(entity) = "+ tClass.getName()) : ""), tClass);
@@ -174,7 +176,7 @@ public class GenericDao
 	}
 	
 	
-	
+	// Recherche une liste de tous les tuples d'une table
 	public <T extends DbObject> List<T> findAll(Class<T> tClass, EntityManager em, boolean strictClass, EntityGraph<T> graph, boolean closeConnection) throws Exception
 	{		
 		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity "+ ((strictClass) ? ("WHERE TYPE(entity) = "+ tClass.getName()) : ""), tClass);		//to have only User , and not Merchant and all child classes of User.

@@ -52,9 +52,11 @@ public class Main
 		
 		try {
 			 
+			// Ajoute l'address
 			EntityGraph<Merchant> graph = em.createEntityGraph(Merchant.class);
 	    	graph.addSubgraph("address");
 			
+	    	// Recup le Merchant via le name
 	    	Merchant mBf = null;
 			List<Merchant> lmBf = dao.findNamed(Merchant.class, "name", name, em, true, graph);
 			if(lmBf.size()!=0)
@@ -65,6 +67,8 @@ public class Main
 				System.out.println("Fail recuperation de "+ name);
 				return;
 			}
+			
+			//test premiere function
 			System.out.println("Test1 recuperation des productTemplate de "+ mBf +" :");
 		
 			List<ProductTemplate> listpt = dao.findBySomething(ProductTemplate.class, "merchant", mBf, em);
@@ -73,8 +77,8 @@ public class Main
 			
 			// _________________________
 			
-			System.out.println("Test2 recuperation des productTemplate de "+ name +" :");
 			//test deuxieme function
+			System.out.println("Test2 recuperation des productTemplate de "+ name +" :");
 			
 			listpt = dao.findBySomethingNamed(ProductTemplate.class, "merchant", "name", name, em);
 			for(ProductTemplate ptTmp : listpt)
