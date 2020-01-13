@@ -6,8 +6,11 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -19,14 +22,14 @@ public class Buyer extends User {
 
 	private boolean autoCompletionShoppingCart;
 	
-	@OneToMany
+	@XmlTransient @JsonIgnore @OneToMany
 	private List<DietaryRestriction> dietaryRestrictions = new ArrayList<DietaryRestriction>();
-	@OneToMany(mappedBy = "buyer")
+	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "buyer")
 	private List<Subscription> subscriptions = new ArrayList<Subscription>();
 	
 	@OneToOne(mappedBy = "buyer")
 	private ShoppingCart shoppingCart;
-	@OneToMany(mappedBy = "buyer")
+	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "buyer")
 	private List<ShoppingCart> historicShoppingCarts;
 	
 	

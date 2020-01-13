@@ -48,6 +48,50 @@ public class MerchantController
 	}
 	
 	
+	
+	/*****************************************************************************************
+	*										getMerchantAccount									 * 
+	*****************************************************************************************
+	* 
+	* Recupere le User (Merchant) de la session via son id 
+	*/
+	@GetMapping(path="/merchant-account", produces = "application/json")
+	public RestResponse<User> getMerchantAccount(HttpSession session)
+    {
+		// Check s'il y a un User dans la session
+		User u = (User)session.getAttribute("user");
+    	if(u==null)
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Not Connected");
+		
+		EntityManager em = StartListener.createEntityManager();
+		
+		User user = new User();
+    	
+    	
+    	//EntityGraph<User> graph = em.createEntityGraph(User.class);
+    	/*
+    	graph.addSubgraph("commerceCategories");
+    	graph.addSubgraph("productTemplates");
+    	graph.addSubgraph("products");
+    	*/
+    	
+    	// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
+		try {
+			user = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(user==null)
+    	{
+    		em.close();
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
+    	}
+		
+		
+		em.close();
+		return new RestResponse<User>(RestResponseStatus.SUCCESS, user);
+    }
+	
 
 	/*****************************************************************************************
 	*										getMyCommerces									 * 
