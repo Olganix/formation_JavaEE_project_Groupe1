@@ -1,5 +1,6 @@
 import {SchedulerHoursRange} from './scheduler-hours-range';
 import {DayOfWeek} from '../enum/day-of-week.enum';
+import {Utils} from './utils';
 
 export class SchedulerDay {
 
@@ -31,8 +32,46 @@ export class SchedulerDay {
   }
 
   mergeHours(other: SchedulerDay) {
-    // TODO
+
+    const hrs = this._hoursRanges;
+    this._hoursRanges = [];
+
+    for (const hr of other.hoursRanges) {
+      hrs.push(hr);
+    }
+
+    if (hrs.length === 0) {
+      return;
+    }
+
+    hrs.sort( (a, b) => (a.startTime === b.startTime) ? 0 : ((a.startTime < b.startTime) ? 1 : -1));
+    console.log(hrs);
+
+    const hrs_tmp: SchedulerHoursRange[] = [];
+
+    for (const hr of hrs) {
+
+      let itTaked = false;
+      for (const hrt of hrs_tmp) {
+
+        const sint = Utils.mergeIntervals({start: hrt.startTime, end: hrt.endTime}, {start: hr.startTime, end: hr.endTime});
+
+        if (sint.length === 1) {       // hr include or extend hrt (hr is not distinct for hrt)
+          hrt.endTime = sint[0].end;              // notice, with previous sort on startTime, we could only extend for endTime.
+          itTaked = true;
+          break;
+        }
+      }
+      if (!itTaked) {
+        hrs_tmp.push(hr);
+      }
+
+    }
+
+    this._hoursRanges = hrs_tmp;
   }
+
+
 
 
   // ---------------------------------

@@ -22,8 +22,8 @@
     </div>
     </div>
 
-    <app-scheduler-week-txt></app-scheduler-week-txt>
-    <app-scheduler-week-vsl></app-scheduler-week-vsl>
+    <app-scheduler-week-txt [scheduler]="scheduler" [schedulerType]="1" ></app-scheduler-week-txt>
+    <app-scheduler-week-vsl [scheduler]="scheduler"></app-scheduler-week-vsl>
 
     <div class="navbar-right">
     <p>Vous êtes connecté depuis {{ secondes }} secondes !</p>

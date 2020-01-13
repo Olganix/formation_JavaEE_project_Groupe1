@@ -1,5 +1,31 @@
 export class Utils {
 
+  // ---------------------- Math
+  public static mergeIntervals(a, b) {                // a : {start: x, end: y}
+
+    if ( (a.start > b.end) ||
+         (b.start > a.end) ) {              // case for detect distincts ranges.
+      return [a, b];
+    }
+
+    const c = (a.start < b.start) ? a : b;
+    const d = (a.start < b.start) ? b : a;
+
+    if ( d.end < c.end ) {                    // d is included in c.
+      return [c];
+    }
+
+    return [{start: c.start, end: d.end}];  // d extend c.
+  }
+
+
+
+
+  // ---------------------- Json
+  public static clone(obj: object) {
+    JSON.parse(JSON.stringify(obj));
+  }
+
 
   // ---------------------- Time
 

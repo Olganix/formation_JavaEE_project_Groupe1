@@ -33,6 +33,12 @@
   margin-top: 40px;
 }
 
+.container_layers {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 
 .hoursLine {
   white-space: nowrap;
@@ -46,4 +52,22 @@
   line-height: 9px;
   font-weight: bolder;
   margin-left: 3px;
+}
+
+.hoursRange
+{
+  width: 92px;
+  position: absolute;
+}
+.hoursRange_0{
+  background-color: #FF0000;
+}
+.hoursRange_1{      /*  Commerce Open */
+  background-color: #3cb100;
+}
+.hoursRange_2{      /*  Product in Promotion */
+  background-color: #ddd800;
+}
+.hoursRange_3{      /*  Product in UnSold */
+  background-color: #cd8000;
 }
