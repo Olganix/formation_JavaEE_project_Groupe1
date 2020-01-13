@@ -10,8 +10,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -39,13 +42,16 @@ public class Commerce extends DbObject {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Merchant merchant;
 	
-	@OneToMany
+	@XmlTransient @JsonIgnore @OneToMany
 	private List<CommerceCategory> commerceCategories = new ArrayList<CommerceCategory>();
-	@ManyToMany(mappedBy = "commerces")
+	
+	@XmlTransient @JsonIgnore @ManyToMany(mappedBy = "commerces")
 	private List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
-	@OneToMany(mappedBy = "commerce")
+	
+	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "commerce")
 	private List<Product> products = new ArrayList<Product>();
-	@OneToMany(mappedBy = "commerce")
+	
+	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "commerce")
 	private List<ShoppingCartByCommerce> shoppingCartByCommerces = new ArrayList<ShoppingCartByCommerce>();
 	
 	

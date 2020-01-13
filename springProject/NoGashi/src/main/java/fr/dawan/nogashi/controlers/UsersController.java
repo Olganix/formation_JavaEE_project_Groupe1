@@ -11,12 +11,15 @@ import javax.mail.MessagingException;
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,9 +41,9 @@ import fr.dawan.nogashi.tools.EmailTool;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
-public class UsersControlerAngular 
+public class UsersController 
 {
-	private static final Logger logger = LoggerFactory.getLogger(UsersControlerAngular.class);
+	private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
        
 	@Autowired
 	GenericDao dao;
@@ -48,23 +51,26 @@ public class UsersControlerAngular
 	
 	
 	/*****************************************************************************************
-	*										SignIn											 * 
-	*****************************************************************************************/
+	*										signin											 * 
+	*****************************************************************************************
+	*
+	* Enregistre un nouvel User
+	*/
 	@PostMapping(path="/signin", produces = "application/json")
-	//test : http://localhost:8080/nogashi/signin?name=aaa&password=toto&email=aaa@toto.fr&role=INDIVIDUAL&newsletterEnabled=1
 	public RestResponse<User> signin(@RequestBody User u, HttpSession session, Locale locale, Model model)
     {
 		System.out.println(u);
 		
+		// Check si tous les champs du formulaire sont null ou si le name, l'email ou le password est null
 		if(	(u==null) || 
 			(u.getName()==null) || ( u.getName().trim().length() ==0) ||
 			(u.getEmail()==null) || ( u.getEmail().trim().length() ==0) ||
 			(u.getPassword()==null) || ( u.getPassword().trim().length() ==0) )
 		{
-			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
 		}
 		
-		
+		// Check, si l'un des 3 roles a bien ete selectionne
 		if( (u.getRole() != UserRole.INDIVIDUAL) && (u.getRole() != UserRole.MERCHANT) && (u.getRole() != UserRole.ASSOCIATION))
 			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Role no good");
 		
@@ -76,7 +82,7 @@ public class UsersControlerAngular
 		
 		EntityManager em = StartListener.createEntityManager();
 		
-		
+		// Check si le name ou l'email du User a ajouter existe deja dans la BDD
 		User u_tmp = null;
     	try 
     	{
@@ -95,15 +101,15 @@ public class UsersControlerAngular
     	if(u_tmp!=null)
     	{
     		em.close();
-    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User allready exist");
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User already exists");
     	}
 		
-    	
+    	// Crypte le password
     	String password_crypted = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt());				// Crypting the password before save in bdd.
     	u.setPassword(password_crypted);
     	
     	
-    	//create token for email validation.
+    	// Create token for email validation.
     	Calendar calendar = Calendar.getInstance();
 		String token = BCrypt.hashpw(u.getEmail() + calendar.get(Calendar.DAY_OF_YEAR), BCrypt.gensalt());
 		System.out.println("hash: "+ u.getEmail() + calendar.get(Calendar.DAY_OF_YEAR) +" => "+ token);
@@ -125,7 +131,7 @@ public class UsersControlerAngular
 			
 			System.out.println("create login: "+ u.getName() +" role:"+ u.getRole());
 			
-			//send email for token.
+			// Send email for token
 			{
 				Properties prop = new Properties();
 				prop.put("mail.smtp.host", "localhost");
@@ -159,11 +165,14 @@ public class UsersControlerAngular
 	
 	
 	/*****************************************************************************************
-	*										EmailValidation									 * 
-	*****************************************************************************************/
-	@PostMapping(path="/emailvalidation", produces = "application/json")
+	*										emailValidation									 * 
+	*****************************************************************************************
+	*
+	* Check le token de l'User pour valider l'email
+	*/
+	@PostMapping(path="/email-validation", produces = "application/json")
 	//test (better click from mail (fake SMTP server)): http://localhost:8080/nogashi/emailvalidation?token=XXXXXX
-    public RestResponse<User> emailvalidation(@RequestBody String token, HttpSession session, Locale locale, Model model)
+    public RestResponse<User> emailValidation(@RequestBody String token, HttpSession session, Locale locale, Model model)
     {
 		if( (token==null) || (token.length()==0) )
 			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not have token");
@@ -209,8 +218,11 @@ public class UsersControlerAngular
 	
 	/*****************************************************************************************
 	*										sendEmailValidation								 * 
-	*****************************************************************************************/
-	@PostMapping(path="/sendemailvalidation", produces = "application/json")
+	*****************************************************************************************
+	*
+	* Envoie le mail de validation d'email
+	*/
+	@PostMapping(path="/send-email-validation", produces = "application/json")
 	//test : http://localhost:8080/nogashi/sendemailvalidation?email=aaa@toto.fr
     public RestResponse<User> sendEmailValidation(@RequestBody String email, HttpSession session, Locale locale, Model model)
     {
@@ -289,25 +301,29 @@ public class UsersControlerAngular
 	
 	
 	/*****************************************************************************************
-	*										Login											 * 
-	*****************************************************************************************/
+	*										login											 * 
+	*****************************************************************************************
+	*
+	* Enregistre le User dans la session
+	*/
 	@PostMapping(path="/login", produces = "application/json")
 	public RestResponse<User> login(@RequestBody User user, HttpSession session, Locale locale, Model model)
     {
 		System.out.println("login : "+ user);
 		
+		// Check si tous les champs du formulaire sont null ou si le name ou le password est null
 		if(	(user==null) || 
 				(user.getName()==null) || ( user.getName().trim().length() ==0) ||
 				(user.getPassword()==null) || ( user.getPassword().trim().length() ==0) )
 		{
-			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
 		}
 		
 		
 		
 		EntityManager em = StartListener.createEntityManager();
 		
-		
+		// Check si le name ou l'email du User a ajouter existe bien dans la BDD
 		User u = null;
     	try 
     	{
@@ -336,6 +352,7 @@ public class UsersControlerAngular
     		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User not Found or wrong Password");
     	}
     	
+    	// Check si l'email a ete valide
     	if(!u.isEmailValid())
     	{
     		em.close();
@@ -344,6 +361,7 @@ public class UsersControlerAngular
     		
     	u = new User(u);						//to avoid jackson considere Merchant as User and faild to make Json because of lists in Merchant ... WTH.
     	
+    	// Enregistre le User en session
     	session.setAttribute("user", u);
     	session.setMaxInactiveInterval(60*60*24);
     	
@@ -359,17 +377,20 @@ public class UsersControlerAngular
 	
 	
 	/*****************************************************************************************
-	*										isLoged											 * 
-	*****************************************************************************************/
-	@RequestMapping(path="/isloged", produces = "application/json")
-	//test : http://localhost:8080/nogashi/isloged
-    public RestResponse<User> isloged(HttpSession session, Locale locale, Model model)
+	*										isLogged										 * 
+	*****************************************************************************************
+	*
+	* Check si un User est enregistre en session
+	*/
+	@GetMapping(path="/is-logged", produces = "application/json")
+	//test : http://localhost:8080/nogashi/islogged
+    public RestResponse<User> isLogged(HttpSession session, Locale locale, Model model)
     {
 		User u = (User)session.getAttribute("user");
     	
 		if(u!=null)
 		{
-			System.out.println("isloged: "+ u.getName() +" role:"+ u.getRole());
+			System.out.println("islogged: "+ u.getName() +" role:"+ u.getRole());
 			
 			return new RestResponse<User>(RestResponseStatus.SUCCESS, u);				//todo avoid some information to be send to front
 		}else {
@@ -380,18 +401,23 @@ public class UsersControlerAngular
 	
 	
 	/*****************************************************************************************
-	*										Logout											 * 
-	*****************************************************************************************/
-	@RequestMapping(path="/logout", produces = "application/json")
+	*										logout											 * 
+	*****************************************************************************************
+	*
+	* Supprime le User de la session
+	*/
+	@GetMapping(path="/logout", produces = "application/json")
 	//test : http://localhost:8080/nogashi/logout
     public RestResponse<User> logout(HttpSession session, Locale locale, Model model)
     {
+		// Check s'il y a un User dans la session
 		User u = (User)session.getAttribute("user");
     	if(u==null)
     		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Not Connected");
     	
     	System.out.println("logout: "+ u.getName() +" role:"+ u.getRole());
     	
+    	// Met le User de la session a null
     	session.setAttribute("user", null);
     	//session.invalidate();
     	
@@ -404,14 +430,16 @@ public class UsersControlerAngular
 
 	/*****************************************************************************************
 	*										passwordRescue									 * 
-	*****************************************************************************************/
-	@RequestMapping(path="/passwordRescue", produces = "application/json")
+	*****************************************************************************************
+	*
+	* 
+	*/
+	@RequestMapping(path="/password-rescue", produces = "application/json")
 	//test : http://localhost:8080/nogashi/passwordRescue?email=aaa@toto.fr
     public RestResponse<User> passwordRescue(@RequestBody String email, HttpSession session, Locale locale, Model model)
     {
 		if(	(email==null) || ( email.trim().length() ==0) )
-			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
-		
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
 		
 		
 		EntityManager em = StartListener.createEntityManager();
@@ -433,9 +461,7 @@ public class UsersControlerAngular
     	{
     		em.close();
     		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: User not Found");
-    	}
-		
-    	
+    	}  	
     	
 
     	//create token for email validation.
@@ -491,8 +517,11 @@ public class UsersControlerAngular
 
 	/*****************************************************************************************
 	*										passwordRescueModification						 * 
-	*****************************************************************************************/
-	@PostMapping(path="/passwordRescueModification", produces = "application/json")
+	*****************************************************************************************
+	*
+	* 
+	*/
+	@PostMapping(path="/password-rescue-modification", produces = "application/json")
 	//test : http://localhost:8080/nogashi/passwordRescueModification?password=toto&token=xxxxxxxxxxxxx
 	public RestResponse<User> passwordRescueModification(@RequestBody User user, HttpSession session, Locale locale, Model model)
     {
@@ -502,14 +531,14 @@ public class UsersControlerAngular
 			(user.getToken()==null) || ( user.getToken().trim().length() ==0) ||
 			(user.getPassword()==null) || ( user.getPassword().trim().length() ==0) )
 		{
-			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enought arguments");
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
 		}
 		
 		
 		EntityManager em = StartListener.createEntityManager();
 		
 		
-
+		// Recupere le User dont le token est entre en parametre
 		User u = null;
     	try 
     	{
@@ -521,6 +550,7 @@ public class UsersControlerAngular
 			e.printStackTrace();
 		}
 		
+    	// Check si le token pour modifier le password est valide
     	if(u==null)
     	{
     		em.close();
@@ -531,6 +561,7 @@ public class UsersControlerAngular
     	u.setPassword(password_crypted);
     	u.setToken(null);
     	
+    	// Modifie le password du User qui correspond au token
 		try 
 		{
 			dao.saveOrUpdate(u, em);
@@ -548,13 +579,129 @@ public class UsersControlerAngular
 	
 	
 	
+	/*****************************************************************************************
+	*										getUserById									 * 
+	*****************************************************************************************
+	* 
+	* Recupere le User de la session via son id 
+	*/
+	@GetMapping(path="/users/{id}", produces = "application/json")
+	public RestResponse<User> getUserById(@PathVariable(name="id") int id, HttpSession session)
+    {
+		// Check s'il y a un User dans la session
+		User u = (User)session.getAttribute("user");
+    	if(u==null)
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Not Connected");
+    	
+		
+		EntityManager em = StartListener.createEntityManager();
+		
+		User user = new User();
+    	
+    	
+    	EntityGraph<User> graph = em.createEntityGraph(User.class);
+    	/*
+    	graph.addSubgraph("commerceCategories");
+    	graph.addSubgraph("productTemplates");
+    	graph.addSubgraph("products");
+    	*/
+    	
+    	// Recupere le User dont l'id est passe en parametre
+		try 
+		{	
+			user = dao.find(User.class, id, em, graph);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		em.close();
+		return new RestResponse<User>(RestResponseStatus.SUCCESS, user);
+    }
 	
 	
 	
 	/*****************************************************************************************
+	*										updateUser										 * 
+	*****************************************************************************************
+	*
+	* Modifie les infos du User connecté
+	*/
+	@PostMapping(path="/users/update", consumes = "application/json", produces = "application/json")
+	public RestResponse<User> updateUser(@RequestBody User u, HttpSession session, Locale locale, Model model)
+    {
+		// Check si tous les champs du formulaire sont null ou si le name, l'email ou l'address est null
+		if(	(u==null) || 
+			(u.getName()==null) || ( u.getName().trim().length() ==0) ||
+			(u.getEmail()==null) || ( u.getEmail().trim().length() ==0) ||
+			(u.getAddress()==null) )
+		{
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
+		}
+		
+		
+		EntityManager em = StartListener.createEntityManager();
+		
+		// Recupere le User a partir du User de la session et check si c'est bien lui qui est connecte
+		User user = null;
+		try {
+			user = dao.find(User.class, ((User)session.getAttribute("user")).getId() , em);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(user==null)
+    	{
+    		em.close();
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 5, "Error: wrong User session information");
+    	}
+			
+		
+		// Check si le name ou l'email du User a modifier existe deja dans la BDD
+		// TODO Gerer le cas ou le champ n'a pas ete modifie (expl : l'email existe deja mais il s'agit de celui du User en cours)
+		User u_tmp = null;
+    	try 
+    	{
+    		List<User> listUsers = dao.findNamed(User.class, "name", u.getName(), em, false);
+    		if(listUsers.size()==0)
+    			listUsers = dao.findNamed(User.class, "email", u.getEmail(), em, false);
+			
+    		if(listUsers.size()!=0)
+    			u_tmp = listUsers.get(0);
+    		
+		} catch (Exception e) {
+			u_tmp = null;
+			e.printStackTrace();
+		}
+		
+    	if(u_tmp!=null)
+    	{
+    		em.close();
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: a User with this email or name already exists");
+    	}
+			
+    	// Persiste le User a modifier dans la BDD
+		try 
+		{
+			dao.saveOrUpdate(u, em, false);
+			System.out.println("update user: "+ u.getName() +" email:"+ u.getEmail());
+			
+		} catch (Exception e1) {
+			u = null;
+			e1.printStackTrace();
+		}
+		
+		em.close();
+		
+		return new RestResponse<User>(RestResponseStatus.SUCCESS, u);
+    }
+	
+	
+	/*****************************************************************************************
 	*										getUsers										 * 
-	*****************************************************************************************/
-	@RequestMapping(path="/getUsers", produces = "application/json")
+	*****************************************************************************************
+	*
+	* Liste tous les Users (a supprimer)
+	*/
+	@GetMapping(path="/users", produces = "application/json")
 	//it's a test, TODO remove this from public access, could be use only for admin.
     public RestResponse<List<User>> getUsers()
     {
@@ -575,8 +722,11 @@ public class UsersControlerAngular
 	
 	/*****************************************************************************************
 	*										getMerchants									 * 
-	*****************************************************************************************/
-	@RequestMapping(path="/getMerchants", produces = "application/json")
+	*****************************************************************************************
+	*
+	* Liste tous les Merchants (a supprimer)
+	*/
+	@GetMapping(path="/merchants", produces = "application/json")
 	//it's a test, TODO remove this from public access, could be use only for admin.
     public RestResponse<List<Merchant>> getMerchants()
     {
@@ -595,7 +745,8 @@ public class UsersControlerAngular
     	
 		try 
 		{	
-			listMerchants = dao.findAll(Merchant.class, em, true, graph, false);
+			//listMerchants = dao.findAll(Merchant.class, em, true, graph, false);
+			listMerchants = dao.findAll(Merchant.class, em, true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

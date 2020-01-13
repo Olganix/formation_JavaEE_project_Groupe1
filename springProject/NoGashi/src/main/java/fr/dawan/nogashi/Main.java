@@ -42,7 +42,7 @@ public class Main
 		emf.close();	
 	}
 
-	public static void TestGetProductTemplateFromMerchant()	// ex: pour Joffrey, recuperation des productTemplate appartenant a un merchant :
+	public static void TestGetProductTemplateFromMerchant()	// ex: pour Joffrey, recuperation des productTemplates appartenant a un merchant :
 	{
 		GenericDao dao = new GenericDao();
 		
@@ -50,9 +50,11 @@ public class Main
 		
 		try {
 			 
+			// Ajoute l'address
 			EntityGraph<Merchant> graph = em.createEntityGraph(Merchant.class);
 	    	graph.addSubgraph("address");
 			
+	    	// Recup le Merchant via le name
 	    	Merchant mBf = null;
 			List<Merchant> lmBf = dao.findNamed(Merchant.class, "name", name, em, true, graph);
 			if(lmBf.size()!=0)
@@ -63,15 +65,19 @@ public class Main
 				System.out.println("Fail recuperation de "+ name);
 				return;
 			}
-			System.out.println("Test recuperation des productTemplate de "+ mBf +" :");
+			
+			
+			//test premiere function
+			System.out.println("Test1 recuperation des productTemplate de "+ mBf +" :");
 		
 			List<ProductTemplate> listpt = dao.findBySomething(ProductTemplate.class, "merchant", mBf, em);
 			for(ProductTemplate ptTmp : listpt)
 				System.out.println(ptTmp);
 			
+			// _________________________
 			
-			System.out.println("Test2 recuperation des productTemplate de "+ name +" :");
 			//test deuxieme function
+			System.out.println("Test2 recuperation des productTemplate de "+ name +" :");
 			
 			listpt = dao.findBySomethingNamed(ProductTemplate.class, "merchant", "name", name, em);
 			for(ProductTemplate ptTmp : listpt)
@@ -96,9 +102,9 @@ public class Main
 			e1.printStackTrace();
 		}
 		*/
-		
-			
-		
+
+
+
 		System.out.println("------------------------- setupDataBase Start -------------------------");
 		
 		List<Merchant> lm = new ArrayList<Merchant>();

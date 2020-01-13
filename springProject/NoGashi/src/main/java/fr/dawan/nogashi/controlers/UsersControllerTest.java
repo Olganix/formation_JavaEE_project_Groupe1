@@ -24,10 +24,10 @@ import fr.dawan.nogashi.tools.Common;
  *
  */
 @WebServlet("/userscontroler")
-public class UsersControler extends HttpServlet {
+public class UsersControllerTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-    public UsersControler() {
+    public UsersControllerTest() {
         super();
     }
 

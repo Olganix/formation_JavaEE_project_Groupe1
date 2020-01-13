@@ -6,8 +6,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Component
@@ -21,11 +24,10 @@ public class Merchant extends User {
 	
 	//todo may be web site url ? also for commerce.
 	
-	
-	@OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL) @XmlTransient @JsonIgnore
 	private List<Commerce> commerces = new ArrayList<Commerce>();
 	
-	@OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL) @XmlTransient @JsonIgnore
 	private List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
 	
 	
