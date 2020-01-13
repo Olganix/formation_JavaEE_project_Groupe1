@@ -1,4 +1,4 @@
-package fr.dawan.nogashi.controlers;
+package fr.dawan.nogashi.controllers;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.dawan.nogashi.beans.Address;
+import fr.dawan.nogashi.beans.Commerce;
 import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.RestResponse;
 import fr.dawan.nogashi.beans.User;
@@ -36,9 +38,31 @@ import fr.dawan.nogashi.tools.EmailTool;
 
 
 //TODO: utiliser ce que l'on a fait le dernier jours du cours spring MVC , pour se debarasser de  persistence.xml (peut etre mis dans le root-context.xml (a spring bean config file)) 
-//Todo rename controler => controller 
 
-
+/**
+ * 
+ * Listes des methodes :
+ * 
+ * signin
+ * emailValidation
+ * sendEmailValidation
+ * 
+ * login
+ * isLogged
+ * logout
+ * passwordRescue
+ * passwordRescueModification
+ * 
+ * getUserById
+ * removeUser TODO: supprimer et diviser en deactivateAssociationAccount, Indiv et Merch
+ * 
+ * getCommercesByCity (pour page ou nous trouver)
+ * TODO: getAssociationsByCity (pour page ou nous trouver)
+ * 
+ * getUsers
+ * getMerchants
+ *
+ */
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
 public class UsersController 
@@ -583,7 +607,8 @@ public class UsersController
 	*										getUserById									 * 
 	*****************************************************************************************
 	* 
-	* Recupere le User de la session via son id 
+	* Recupere le User de la session via son id
+	* TODO: supprimer cette méthode
 	*/
 	@GetMapping(path="/users/{id}", produces = "application/json")
 	public RestResponse<User> getUserById(@PathVariable(name="id") int id, HttpSession session)
@@ -624,7 +649,7 @@ public class UsersController
 	*										updateUser										 * 
 	*****************************************************************************************
 	*
-	* Modifie les infos du User connecté
+	* Modifie les infos du User connecte
 	*/
 	@PostMapping(path="/users/update", consumes = "application/json", produces = "application/json")
 	public RestResponse<User> updateUser(@RequestBody User u, HttpSession session, Locale locale, Model model)
@@ -696,10 +721,92 @@ public class UsersController
 	
 	
 	/*****************************************************************************************
+	*										removeUser										* 
+	*****************************************************************************************
+	*
+	* Desactive le compte du User connecte
+	* TODO supprimer toutes les instances de produits liees au Commerce lors de la suppression de la fiche
+	*/
+	@GetMapping(path="/users/remove", produces = "application/json")
+	public RestResponse<User> removeUser(HttpSession session, Locale locale, Model model)
+    {	
+		EntityManager em = StartListener.createEntityManager();
+		
+		
+		// Recupere le User a partir du User de la session et check si c'est bien lui qui est connecte
+		User user = null;
+		try {
+			user = dao.find(User.class, ((User)session.getAttribute("user")).getId() , em);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(user==null)
+		{
+			em.close();
+			return new RestResponse<User>(RestResponseStatus.FAIL, null, 5, "Error: wrong User session information");
+		}
+		
+    	
+    	// Supprime le User
+		// TODO: Desactiver le compte au lieu de le supprimer
+		try 
+		{
+			dao.remove(user, em, false);
+			
+		} catch (Exception e1) {
+			user = null;
+			e1.printStackTrace();
+		}
+		
+		em.close();
+		
+		return new RestResponse<User>(RestResponseStatus.SUCCESS, null);
+    }
+	
+	
+	
+	/*****************************************************************************************
+	*										getCommercesByCity									 * 
+	*****************************************************************************************
+	*
+	* Liste x Commerces par cityName (only name et address pour page 'ou nous trouver')
+	* TODO: recherche via coordonnées de la map
+	*/
+	/*
+	@GetMapping(path="/commerces-samples", produces = "application/json")
+	public RestResponse<List<Commerce>> getCommercesByCity(@RequestBody String cityName)
+    {
+		EntityManager em = StartListener.createEntityManager();
+		
+    	List<Commerce> listCommerces = new ArrayList<Commerce>();
+    	
+    	EntityGraph<Commerce> graph = em.createEntityGraph(Commerce.class);
+    	graph.addSubgraph("address");
+    	
+    	int startIndex = 0;
+    	int nbElements = 5; // nombre d'éléments à afficher
+		try 
+		{	
+			// TODO findBySomethingNamedPartial
+			listCommerces = dao.findBySomethingNamedPartial(Commerce.class, "address", "cityName", cityName, em, startIndex, nbElements);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		em.close();
+		return new RestResponse<List<Commerce>>(RestResponseStatus.SUCCESS, listCommerces);
+    }
+    */
+	
+	
+	
+	
+	
+	/*****************************************************************************************
 	*										getUsers										 * 
 	*****************************************************************************************
 	*
-	* Liste tous les Users (a supprimer)
+	* Liste tous les Users (todo supprimer)
 	*/
 	@GetMapping(path="/users", produces = "application/json")
 	//it's a test, TODO remove this from public access, could be use only for admin.
@@ -724,7 +831,7 @@ public class UsersController
 	*										getMerchants									 * 
 	*****************************************************************************************
 	*
-	* Liste tous les Merchants (a supprimer)
+	* Liste tous les Merchants (todo supprimer)
 	*/
 	@GetMapping(path="/merchants", produces = "application/json")
 	//it's a test, TODO remove this from public access, could be use only for admin.

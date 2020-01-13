@@ -1,4 +1,4 @@
-package fr.dawan.nogashi.controlers;
+package fr.dawan.nogashi.controllers;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

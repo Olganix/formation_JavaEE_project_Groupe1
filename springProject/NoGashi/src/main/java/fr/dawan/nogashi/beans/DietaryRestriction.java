@@ -8,8 +8,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -23,7 +26,7 @@ public class DietaryRestriction extends DbObject {
 	@Column(nullable = false, length = 1000)
 	private String description;
 	
-	@OneToMany
+	@XmlTransient @JsonIgnore @OneToMany
 	private List<ProductDetail> listBadMatch = new ArrayList<ProductDetail>();
 
 	@ManyToOne(cascade = CascadeType.ALL)

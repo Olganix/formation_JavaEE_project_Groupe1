@@ -1,4 +1,4 @@
-package fr.dawan.nogashi.controlers;
+package fr.dawan.nogashi.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,20 @@ import fr.dawan.nogashi.enums.RestResponseStatus;
 import fr.dawan.nogashi.enums.UserRole;
 import fr.dawan.nogashi.listeners.StartListener;
 
+/**
+ * 
+ * Listes des methodes :
+ * 
+ * getCommerces
+ * getCommerceById
+ * 
+ * getProducts
+ * getProductsByCommerce
+ * getProductById
+ * 
+ * addProductToCart
+ *
+ */
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
 public class BuyerController
@@ -260,7 +274,7 @@ public class BuyerController
 	/*****************************************************************************************
 	*										addProductToCart										 * 
 	*****************************************************************************************/
-	@PostMapping(path="/addProductToCart", produces = "application/json")
+	@PostMapping(path="/shopping-cart/add", produces = "application/json")
 	//test : http://localhost:8080/nogashi/addProductToCart
 	// Ajoute un produit au panier
 	public RestResponse<Product> addProductToCart(@RequestBody Product p, HttpSession session, Locale locale, Model model)

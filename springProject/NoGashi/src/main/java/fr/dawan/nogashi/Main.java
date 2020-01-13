@@ -18,6 +18,7 @@ import fr.dawan.nogashi.beans.Commerce;
 import fr.dawan.nogashi.beans.CreditCard;
 import fr.dawan.nogashi.beans.Individual;
 import fr.dawan.nogashi.beans.Merchant;
+import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.UserRole;
@@ -34,9 +35,10 @@ public class Main
 		em = emf.createEntityManager();
 		et = em.getTransaction();
 		
-		
+		// decommenter, puis recommenter, pour eviter d'avoir x fois les elements
 		setupDataBase();
-		TestGetProductTemplateFromMerchant();
+		
+		//TestGetProductTemplateFromMerchant();
 		
 		em.close();
 		emf.close();	
@@ -162,8 +164,6 @@ public class Main
 		Commerce mBf_c1 = new Commerce("Big Fernand", "830 134 458 00017", "Vieux Lille");	mBf_c1.setMerchant(mBf);
 		Commerce mBf_c2 = new Commerce("Big Fernand", "830 134 458 00017", "Faidherbe");	mBf_c2.setMerchant(mBf);
 		
-		
-		
 		mBC.addProductTemplate(new ProductTemplate("Pizza Savoyarde", "31 cm<br>Crème fraîche, mozzarella artisanale française, lardons fumés, Reblochon de Savoie AOP et fondue d’oignons maison", "0000001", true, 14.90, 10.43));
 		mBC.addProductTemplate(new ProductTemplate("Pizza 4 Fromages Des Alpes", "31 cm<br>Sauce tomate BIO maison, mozzarella artisanale française, Tome des Bauges AOP, Bleu du Vercors AOP, Reblochon de Savoie AOP et origan. ", "0000001", true, 14.90, 10.43));
 		mBC.addProductTemplate(new ProductTemplate("Pizza Bourguigonne", "31 cm<br>Sauce tomate BIO maison, mozzarella artisanale française, bœuf haché BIO, fondue d’oignons maison, filet de crème et origan", "0000001", true, 15.90, 11.33));
@@ -187,6 +187,12 @@ public class Main
 
 		mBf.addProductTemplate(new ProductTemplate("Le Pierrot", "Haut de cuisse de poulet fermier des Landes marinée Label Rouge, Sainte-Maure-de-Touraine (fromage de chèvre AOP), de la riquette poivrée et notre sauce mayonnaise maison aux olives, tomates et basilic + Frites maison (patates lavées, épluchées, coupées sur place) ou salade + Breuvage", "0000001", true, 16.0, 11.2));
 		mBf.addProductTemplate(new ProductTemplate("Le Lucien (Végétarien)", "Gros Champignon de Paname avec de la Tomme de Savoie au lait cru fondue, des tomates séchées, des oignons confits, de la ciboulette ciselée et notre sauce mayonnaise maison délicatement sucrée + Frites maison (patates lavées, épluchées, coupées sur place) ou salade + Breuvage + Dessert artisanal", "0000001", true, 16.0, 11.2));
+		
+		/*
+		for (ProductTemplate pt : mBC.getProductTemplates()) {
+			new Product(pt, mBC_c1);
+		}
+		*/
 		
 		//todo complete en regardant les menus en ligne. 
 		//Todo aussi mettre les url pour les retrouver facilement. 

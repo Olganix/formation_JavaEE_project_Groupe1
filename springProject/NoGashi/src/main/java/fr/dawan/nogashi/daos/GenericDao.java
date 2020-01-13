@@ -10,6 +10,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import fr.dawan.nogashi.beans.Commerce;
 import fr.dawan.nogashi.beans.DbObject;
 
 public class GenericDao 
@@ -203,10 +204,27 @@ public class GenericDao
 		return result;
 	}
 	
-	
+	// Recherche x tuples d'une table
 	public <T extends DbObject> List<T> findPartial(Class<T> tClass, EntityManager em, int startindex, int nbElements, boolean strictClass, EntityGraph<T> graph, boolean closeConnection) throws Exception
 	{		
 		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity "+ ((strictClass) ? ("WHERE TYPE(entity) = "+ tClass.getName()) : ""), tClass);
+		if(graph!=null)
+			query.setHint("javax.persistence.loadgraph", graph);				//for loading sub class (class attribut using class).		// methode 5 : https://thoughts-on-java.org/5-ways-to-initialize-lazy-relations-and-when-to-use-them/
+		
+		List<T> result = query.setFirstResult(startindex).setMaxResults(startindex + nbElements).getResultList();
+		
+		if(closeConnection)
+			em.close();
+	
+		return result;
+	}
+	
+	// Recheche x tuples par nom de colonne d'une table jointe
+	public <T extends DbObject> List<T> findBySomethingNamedPartial(Class<T> tClass, String column, String columnSomething, String name, EntityManager em, int startindex, int nbElements, boolean strictClass, EntityGraph<T> graph, boolean closeConnection) throws Exception
+	{
+		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity JOIN entity."+ column +" as ent2 WHERE ent2."+ columnSomething +"=:name "+ ((strictClass) ? ("AND TYPE(entity) = "+ tClass.getName()) : ""), tClass);
+		query.setParameter("name", name);
+		
 		if(graph!=null)
 			query.setHint("javax.persistence.loadgraph", graph);				//for loading sub class (class attribut using class).		// methode 5 : https://thoughts-on-java.org/5-ways-to-initialize-lazy-relations-and-when-to-use-them/
 		
@@ -242,6 +260,6 @@ public class GenericDao
 	public <T extends DbObject> List<T> findPartial(Class<T> tClass, EntityManager em, int startindex, int nbElements, boolean strictClass, EntityGraph<T> graph) throws Exception { return findPartial(tClass, em, startindex, nbElements, strictClass, graph, false); }
 	public <T extends DbObject> List<T> findPartial(Class<T> tClass, EntityManager em, int startindex, int nbElements, boolean strictClass) throws Exception { return findPartial(tClass, em, startindex, nbElements, strictClass, null, false); }
 	public <T extends DbObject> List<T> findPartial(Class<T> tClass, EntityManager em, int startindex, int nbElements) throws Exception { return findPartial(tClass, em, startindex, nbElements, false, null, false); }
-	
+	public <T extends DbObject> List<T> findBySomethingNamedPartial(Class<T> tClass, String column, String columnSomething, String name, EntityManager em, int startindex, int nbElements) throws Exception { return findBySomethingNamedPartial(tClass, column, columnSomething, name, em, startindex, nbElements, false, null, false); }
 }
 	
