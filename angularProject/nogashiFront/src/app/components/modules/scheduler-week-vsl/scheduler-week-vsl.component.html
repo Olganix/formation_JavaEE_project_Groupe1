@@ -1,1 +1,55 @@
-<p>scheduler-week-vsl works!</p>
+
+
+
+<div class="week">
+  <div *ngFor="let day of displaylistDay" class="day">
+    <div class="name">{{dayName(day)}}</div>
+    <div class="hours_container">
+
+    </div>
+  </div>
+  <div class="hours_container offseted">
+    <div *ngFor="let hour of displaylistHours; index as i" class="hoursLine">
+      <div class="txt">{{hour}}h</div>
+    </div>
+  </div>
+
+</div>
+
+<!--
+<table>
+  <thead>
+  <tr>
+    <th>{{dayName(0)}}</th>
+    <th>{{dayName(1)}}</th>
+    <th>{{dayName(2)}}</th>
+    <th>{{dayName(3)}}</th>
+    <th>{{dayName(4)}}</th>
+    <th>{{dayName(5)}}</th>
+    <th>{{dayName(6)}}</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let hour of displaylistHours" class="hours">
+      <td>a</td>
+      <td>a</td>
+      <td>a</td>
+      <td>a</td>
+      <td>a</td>
+      <td>a</td>
+      <td>a</td>
+    </tr>
+  </tbody>
+</table>
+
+-->
+
+
+
+
+
+
+
+
+
+

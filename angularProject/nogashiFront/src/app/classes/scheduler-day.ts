@@ -4,7 +4,7 @@ import {DayOfWeek} from '../enum/day-of-week.enum';
 export class SchedulerDay {
 
   private _day: DayOfWeek;
-  private _hoursRanges: SchedulerHoursRange[];
+  private _hoursRanges: SchedulerHoursRange[] = [];
 
   // --- Information to complete the java class
   // SchedulerWeek parent;
@@ -28,6 +28,10 @@ export class SchedulerDay {
       }
     }
     return true;
+  }
+
+  mergeHours(other: SchedulerDay) {
+    // TODO
   }
 
 

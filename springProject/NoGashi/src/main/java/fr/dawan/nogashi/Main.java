@@ -7,7 +7,6 @@ import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.OneToMany;
 import javax.persistence.Persistence;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -36,7 +35,7 @@ public class Main
 		et = em.getTransaction();
 		
 		
-		//setupDataBase();
+		setupDataBase();
 		TestGetProductTemplateFromMerchant();
 		
 		em.close();
@@ -87,6 +86,19 @@ public class Main
 	
 	public static void setupDataBase()
 	{
+		/*
+		//todo comprendre pourquoi ca merde.
+		GenericDao dao = new GenericDao();
+		try {
+			if(dao.findNamed(User.class, "name", "Admin", em, true) != null)
+				return;
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		*/
+		
+			
+		
 		System.out.println("------------------------- setupDataBase Start -------------------------");
 		
 		List<Merchant> lm = new ArrayList<Merchant>();

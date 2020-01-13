@@ -58,12 +58,12 @@ public class ProductTemplate extends DbObject {
 	@Column(nullable = false)
 	private String image = "NoProduct.jpg";
 
-	@XmlTransient
-	@JsonIgnore
-	@ManyToOne
+	
+	
+	@ManyToOne @JsonIgnore @XmlTransient			//Todo mettre les JsonIgnore XmlTransient aux endroit equivalent , cf lire le typescript.
 	private Merchant merchant;
 	
-	@XmlTransient @JsonIgnore @ManyToMany 
+	@ManyToMany @XmlTransient @JsonIgnore 
 	private List<Commerce> commerces = new ArrayList<Commerce>();
 	
 	@XmlTransient

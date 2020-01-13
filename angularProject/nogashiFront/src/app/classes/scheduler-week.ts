@@ -18,14 +18,19 @@ export class SchedulerWeek {
   }
 
 
-  getSimplifiedRangeForTextDisplay_open(): any {
 
-    if (this._type === SchedulerWeekType.OPEN) {
+  getSimplifiedRangeForTextDisplay_typed(type: SchedulerWeekType): any {
+
+    if (type === SchedulerWeekType.GROUP) {
+      return null;
+    }
+
+    if (this._type === type) {
       return this.getSimplifiedRangeForTextDisplay();
 
     } else if (this._type === SchedulerWeekType.GROUP) {
-      for(const w of this._group){
-        if (w.type === SchedulerWeekType.OPEN) {
+      for (const w of this._group) {
+        if (w.type === type) {
           return w.getSimplifiedRangeForTextDisplay();
         }
       }
@@ -33,6 +38,49 @@ export class SchedulerWeek {
     return null;
   }
 
+  addSimplifiedRange_typed(similarDay: any, type: SchedulerWeekType) {
+    if (type === SchedulerWeekType.GROUP) {
+      return;
+    }
+
+    if (this._type === type) {
+      return this.addSimplifiedRange(similarDay);
+
+    } else if (this._type === SchedulerWeekType.GROUP) {
+      for (const w of this._group) {
+        if (w.type === type) {
+          return w.addSimplifiedRange(similarDay);
+        }
+      }
+    }
+  }
+
+  addSimplifiedRange(similarDay: any) {
+
+    if ((similarDay === undefined) ||
+        (similarDay.day === undefined) ||
+        (similarDay.dayRanges === undefined)) {       // todo add check of day class
+      return;
+    }
+
+    for (const dayR of similarDay.dayRanges) {
+
+      dayR.startDay = dayR.startDay % 6;
+      dayR.endDay = dayR.endDay % 6;
+      if (dayR.endDay < dayR.startDay) {
+        dayR.endDay += 6;
+      }
+
+      for (let i = dayR.startDay; i < dayR.endDay; i++) {
+        const dayIndex = i % 6;
+        for (const day of this._days) {
+          if (day.day === dayIndex) {
+            day.mergeHours(similarDay.day);
+          }
+        }
+      }
+    }
+  }
 
   getSimplifiedRangeForTextDisplay(): any {
 
@@ -63,11 +111,11 @@ export class SchedulerWeek {
 
     for (const s of similarDaysIndex) {                           // on cherche les jours consécutifs, pour l'affichage.: du Lundi au Mercredi, du Vendredi au Samedi.
       s.dayRanges = [{startDay: s.day.day, endDay: s.day.day}];
-      for(const sim of s.similars) {
+      for (const sim of s.similars) {
         day = this._days[sim];
         if ( day.day === s.dayRanges[s.dayRanges.length - 1].endDay + 1) {
           s.dayRanges[s.dayRanges.length - 1].endDay = day.day;
-        } else{
+        } else {
           s.dayRanges = [{startDay: day.day, endDay: day.day}];
         }
       }

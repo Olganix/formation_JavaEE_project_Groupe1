@@ -3,6 +3,7 @@ package fr.dawan.nogashi.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -21,10 +22,10 @@ public class Merchant extends User {
 	//todo may be web site url ? also for commerce.
 	
 	
-	@OneToMany(mappedBy = "merchant")
+	@OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL)
 	private List<Commerce> commerces = new ArrayList<Commerce>();
 	
-	@OneToMany(mappedBy = "merchant")
+	@OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL)
 	private List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
 	
 	

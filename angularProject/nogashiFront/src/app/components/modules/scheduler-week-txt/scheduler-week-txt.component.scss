@@ -1,0 +1,23 @@
+
+
+.line{
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+
+.delete
+{
+  background-color: #ff4740;
+  width: 30px;
+  height: 30px;
+  line-height: 18px;
+  font-size: 14px;
+  border-radius: 60%;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+}
