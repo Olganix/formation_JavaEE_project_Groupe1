@@ -1,6 +1,8 @@
 import {SchedulerDay} from './scheduler-day';
 import {SchedulerWeekType} from '../enum/scheduler-week-type.enum';
 import {SchedulerHoursRange} from './scheduler-hours-range';
+import {DayOfWeek} from '../enum/day-of-week.enum';
+import {Utils} from './utils';
 
 
 export class SchedulerWeek {
@@ -73,10 +75,16 @@ export class SchedulerWeek {
 
       for (let i = dayR.startDay; i < dayR.endDay; i++) {
         const dayIndex = i % 6;
+
+        let isFound = false;
         for (const day of this._days) {
           if (day.day === dayIndex) {
+            isFound = true;
             day.mergeHours(similarDay.day);
           }
+        }
+        if (!isFound) {
+          this._days.push( new SchedulerDay( {day: dayIndex, hoursRanges:  Utils.clone(similarDay.day.hoursRanges) } ) );
         }
       }
     }
