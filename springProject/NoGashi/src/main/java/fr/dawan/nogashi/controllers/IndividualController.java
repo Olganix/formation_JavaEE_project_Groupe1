@@ -1,4 +1,4 @@
-package fr.dawan.nogashi.controlers;
+package fr.dawan.nogashi.controllers;
 
 import java.util.List;
 import java.util.Locale;
@@ -15,31 +15,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.dawan.nogashi.beans.Association;
 import fr.dawan.nogashi.beans.Buyer;
+import fr.dawan.nogashi.beans.Individual;
 import fr.dawan.nogashi.beans.RestResponse;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.RestResponseStatus;
 import fr.dawan.nogashi.listeners.StartListener;
 
+/**
+ * 
+ * Listes des methodes :
+ * 
+ * getIndividualAccount
+ * updateIndividualAccount
+ * TODO deactivateIndividualAccount
+ * 
+ * 
+ *
+ */
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
-public class AssociationController
+public class IndividualController
 {
 	@Autowired
 	GenericDao dao;
-	
-	
+
 	
 	/*****************************************************************************************
-	*										getAssociationAccount									 * 
+	*										getIndividualAccount									 * 
 	*****************************************************************************************
 	* 
-	* Recupere le User (Association) de la session via son id 
+	* Recupere le User (Individual) de la session via son id 
 	*/
-	@GetMapping(path="/association-account", produces = "application/json")
-	public RestResponse<User> getAssociationAccount(HttpSession session)
+	@GetMapping(path="/individual-account", produces = "application/json")
+	public RestResponse<User> getIndividualAccount(HttpSession session)
     {
 		// Check s'il y a un User dans la session
 		User u = (User)session.getAttribute("user");
@@ -51,21 +61,22 @@ public class AssociationController
 		User user = new User();
     	
     	
-		EntityGraph<Buyer> graph = em.createEntityGraph(Buyer.class);
+    	EntityGraph<Buyer> graph = em.createEntityGraph(Buyer.class);
     	
     	graph.addSubgraph("historicShoppingCarts");
     	graph.addSubgraph("dietaryRestrictions");
     	
-    	// Recupere l'Association a partir du User de la session et check si c'est bien cette Association qui est connectee
+    	
+    	// Recupere l'Individual a partir du User de la session et check si c'est bien cet Individual qui est connecte
 		try {
-			user = dao.find(Association.class, ((User)session.getAttribute("user")).getId() , em);
+			user = dao.find(Individual.class, ((User)session.getAttribute("user")).getId() , em);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if(user==null)
     	{
     		em.close();
-    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 5, "Error: wrong Association session information");
+    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 5, "Error: wrong Individual session information");
     	}
 		
 		
@@ -74,58 +85,56 @@ public class AssociationController
     }
 	
 	
-	
 	/*****************************************************************************************
-	*										updateAssociationAccount										 * 
+	*										updateIndividualAccount										 * 
 	*****************************************************************************************
 	*
-	* Modifie les infos de l'Association connecte
+	* Modifie les infos de l'Individual connecte
 	*/
-	@PostMapping(path="/association-account/update", consumes = "application/json", produces = "application/json")
-	public RestResponse<Association> updateAssociationAccount(@RequestBody Association a, HttpSession session, Locale locale, Model model)
+	@PostMapping(path="/individual-account/update", consumes = "application/json", produces = "application/json")
+	public RestResponse<Individual> updateIndividualAccount(@RequestBody Individual i, HttpSession session, Locale locale, Model model)
     {
 		// Check s'il y a un User dans la session
 		User u = (User)session.getAttribute("user");
     	if(u==null)
-    		return new RestResponse<Association>(RestResponseStatus.FAIL, null, 1, "Not Connected");
-    	
+    		return new RestResponse<Individual>(RestResponseStatus.FAIL, null, 1, "Not Connected");
+		    	
 		// Check si les champs obligatoires du formulaire sont null
-		if(	(a==null) || 
-			(a.getName()==null) || ( a.getName().trim().length() ==0) ||
-			(a.getEmail()==null) || ( a.getEmail().trim().length() ==0) ||
-			(a.getPassword()==null) || ( a.getPassword().trim().length() ==0) ||
-			(a.getCodeSiren()==null) || ( a.getCodeSiren().trim().length() ==0) ||
-			(a.getAddress()==null)
+		if(	(i==null) || 
+			(i.getName()==null) || ( i.getName().trim().length() ==0) ||
+			(i.getEmail()==null) || ( i.getEmail().trim().length() ==0) ||
+			(i.getPassword()==null) || ( i.getPassword().trim().length() ==0) ||
+			(i.getAddress()==null)
 			)
 			
 		{
-			return new RestResponse<Association>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
+			return new RestResponse<Individual>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
 		}
 		
-		Association association = new Association();
+		Individual individual = new Individual();
 		
 		EntityManager em = StartListener.createEntityManager();
 		
-		// Recupere l'Association a partir du User de la session et check si c'est bien cette Association qui est connectee
+		// Recupere l'Individual a partir du User de la session et check si c'est bien cet Individual qui est connecte
 		try {
-			association = dao.find(Association.class, ((User)session.getAttribute("user")).getId() , em);
+			individual = dao.find(Individual.class, ((User)session.getAttribute("user")).getId() , em);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(association==null)
+		if(individual==null)
     	{
     		em.close();
-    		return new RestResponse<Association>(RestResponseStatus.FAIL, null, 5, "Error: wrong Association session information");
+    		return new RestResponse<Individual>(RestResponseStatus.FAIL, null, 5, "Error: wrong Individual session information");
     	}
 		
 		// Check si le name ou l'email du User a modifier existe deja dans la BDD
-		// TODO Gerer le cas ou le champ n'a pas ete modifie (expl : l'email existe deja mais il s'agit de celui du User en cours)
+		// TODO Gerer le cas ou le champ n'a pas ete modifie (expl : l'email existe deja dans la BDD pusiqu'il s'agit de celui du User en cours)
 		User u_tmp = null;
     	try 
     	{
-    		List<User> listUsers = dao.findNamed(User.class, "name", a.getName(), em, false);
+    		List<User> listUsers = dao.findNamed(User.class, "name", i.getName(), em, false);
     		if(listUsers.size()==0)
-    			listUsers = dao.findNamed(User.class, "email", a.getEmail(), em, false);
+    			listUsers = dao.findNamed(User.class, "email", i.getEmail(), em, false);
 			
     		if(listUsers.size()!=0)
     			u_tmp = listUsers.get(0);
@@ -138,23 +147,22 @@ public class AssociationController
     	if(u_tmp!=null)
     	{
     		em.close();
-    		return new RestResponse<Association>(RestResponseStatus.FAIL, null, 1, "Error: a User with this email or name already exists");
+    		return new RestResponse<Individual>(RestResponseStatus.FAIL, null, 1, "Error: a User with this email or name already exists");
     	}
 			
-    	// Persiste l'Association a modifier dans la BDD
+    	// Persiste l'Individual a modifier dans la BDD
 		try 
 		{
-			dao.saveOrUpdate(a, em, false);
-			System.out.println("update user (merchant): "+ a.getName() +" email:"+ a.getEmail());
+			dao.saveOrUpdate(i, em, false);
+			System.out.println("update user (merchant): "+ i.getName() +" email:"+ i.getEmail());
 			
 		} catch (Exception e1) {
-			a = null;
+			i = null;
 			e1.printStackTrace();
 		}
 		
 		em.close();
 		
-		return new RestResponse<Association>(RestResponseStatus.SUCCESS, a);
+		return new RestResponse<Individual>(RestResponseStatus.SUCCESS, i);
     }
-
 }

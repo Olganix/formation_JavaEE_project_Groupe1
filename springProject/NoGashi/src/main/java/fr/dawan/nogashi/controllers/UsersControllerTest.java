@@ -1,4 +1,4 @@
-package fr.dawan.nogashi.controlers;
+package fr.dawan.nogashi.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
