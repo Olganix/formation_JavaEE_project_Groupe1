@@ -1,5 +1,5 @@
 import {SchedulerHoursRange} from './scheduler-hours-range';
-import {DayOfWeek} from '../enum/day-of-week.enum';
+import {DayOfWeek, DayOfWeek_toDisplayString} from '../enum/day-of-week.enum';
 import {Utils} from './utils';
 
 export class SchedulerDay {
@@ -71,6 +71,23 @@ export class SchedulerDay {
     this._hoursRanges = hrs_tmp;
   }
 
+  removeHours(other: SchedulerDay) {
+
+    for (const hr of other.hoursRanges) {
+
+      console.log('---------- trying  remove hoursRange ' + hr.startTime + ' -> ' + hr.endTime + ' : ');
+
+      for (let i = 0; i < this._hoursRanges.length; i++) {
+        const hrt = this._hoursRanges[i];
+
+        if ( ( hrt.startTime === hr.startTime) && ( hrt.endTime === hr.endTime) ) {
+
+          console.log('removed');
+          this._hoursRanges.splice(i, 1);
+        }
+      }
+    }
+  }
 
 
 

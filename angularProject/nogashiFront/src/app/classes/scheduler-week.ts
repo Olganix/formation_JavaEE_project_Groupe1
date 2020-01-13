@@ -1,7 +1,7 @@
 import {SchedulerDay} from './scheduler-day';
 import {SchedulerWeekType} from '../enum/scheduler-week-type.enum';
 import {SchedulerHoursRange} from './scheduler-hours-range';
-import {DayOfWeek} from '../enum/day-of-week.enum';
+import {DayOfWeek, DayOfWeek_toDisplayString} from '../enum/day-of-week.enum';
 import {Utils} from './utils';
 
 
@@ -57,6 +57,26 @@ export class SchedulerWeek {
     }
   }
 
+  removeSimplifiedRange_typed(similarDay: any, type: SchedulerWeekType) {
+    if (type === SchedulerWeekType.GROUP) {
+      return;
+    }
+
+    if (this._type === type) {
+      return this.removeSimplifiedRange(similarDay);
+
+    } else if (this._type === SchedulerWeekType.GROUP) {
+      for (const w of this._group) {
+        if (w.type === type) {
+          return w.removeSimplifiedRange(similarDay);
+        }
+      }
+    }
+  }
+
+
+
+
   addSimplifiedRange(similarDay: any) {
 
     if ((similarDay === undefined) ||
@@ -67,14 +87,14 @@ export class SchedulerWeek {
 
     for (const dayR of similarDay.dayRanges) {
 
-      dayR.startDay = dayR.startDay % 6;
-      dayR.endDay = dayR.endDay % 6;
+      dayR.startDay = dayR.startDay % 7;
+      dayR.endDay = dayR.endDay % 7;
       if (dayR.endDay < dayR.startDay) {
-        dayR.endDay += 6;
+        dayR.endDay += 7;
       }
 
-      for (let i = dayR.startDay; i < dayR.endDay; i++) {
-        const dayIndex = i % 6;
+      for (let i = dayR.startDay; i <= dayR.endDay; i++) {
+        const dayIndex = i % 7;
 
         let isFound = false;
         for (const day of this._days) {
@@ -84,7 +104,43 @@ export class SchedulerWeek {
           }
         }
         if (!isFound) {
-          this._days.push( new SchedulerDay( {day: dayIndex, hoursRanges:  Utils.clone(similarDay.day.hoursRanges) } ) );
+
+          const hr: SchedulerHoursRange[] = [];
+          for (const hrt of similarDay.day.hoursRanges) {
+            hr.push( new SchedulerHoursRange({startTime: hrt.startTime, endTime: hrt.endTime} ));
+          }
+
+          this._days.push( new SchedulerDay( {day: dayIndex, hoursRanges:  hr} ) );
+        }
+      }
+    }
+  }
+
+
+  removeSimplifiedRange(similarDay: any) {
+
+    if ((similarDay === undefined) ||
+      (similarDay.day === undefined) ||
+      (similarDay.dayRanges === undefined)) {       // todo add check of day class
+      return;
+    }
+
+    for (const dayR of similarDay.dayRanges) {
+
+      dayR.startDay = dayR.startDay % 7;
+      dayR.endDay = dayR.endDay % 7;
+      if (dayR.endDay < dayR.startDay) {
+        dayR.endDay += 7;
+      }
+
+      for (let i = dayR.startDay; i <= dayR.endDay; i++) {
+        const dayIndex = i % 7;
+        console.log('--- remove ' + DayOfWeek_toDisplayString(dayIndex) + ' :');
+
+        for (const day of this._days) {
+          if (day.day === dayIndex) {
+            day.removeHours(similarDay.day);
+          }
         }
       }
     }
@@ -104,6 +160,10 @@ export class SchedulerWeek {
     let day: SchedulerDay;
     for (let i = 0 ; i < this._days.length; i++) {
       day = this._days[i];
+      if (day.hoursRanges.length === 0) {
+        continue;
+      }
+
       isFound = false;
       for (const s of similarDaysIndex) {
         if (s.day.isSimilarDay(day)) {
@@ -113,7 +173,12 @@ export class SchedulerWeek {
         }
       }
       if (!isFound) {
-        similarDaysIndex.push( {day, similars: [] } );
+        const hoursRanges: SchedulerHoursRange[] = [];
+        for ( const ht of this._days[i].hoursRanges) {
+          hoursRanges.push(new SchedulerHoursRange({startTime: ht.startTime, endTime: ht.endTime}) );
+        }
+
+        similarDaysIndex.push( {day: new SchedulerDay({day: this._days[i].day, hoursRanges}), similars: [] } );
       }
     }
 

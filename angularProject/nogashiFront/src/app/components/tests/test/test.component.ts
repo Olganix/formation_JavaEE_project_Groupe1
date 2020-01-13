@@ -14,10 +14,10 @@ import {DayOfWeek} from '../../../enum/day-of-week.enum';
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss']
 })
-export class TestComponent implements OnInit
-{
+export class TestComponent implements OnInit {
   displayTest = false;
   scheduler: SchedulerWeek;
+  editMode = false;
 
   title = 'NoGashi';
 
@@ -26,23 +26,19 @@ export class TestComponent implements OnInit
 
   constructor() { }
 
-  ngOnInit()
-  {
-    this.createSampleScheduler();       // test todo remove
+  ngOnInit() {
+    this.createSampleScheduler();
 
     const counter = Observable.interval(1000);
 
     this.counterSubscription = counter.subscribe(
-      (value) =>
-      {
+      (value) => {
         this.secondes = value;
       },
-      (error) =>
-      {
+      (error) => {
         console.log('Uh-oh, an error occurred! : ' + error);
       },
-      () =>
-      {
+      () => {
         console.log('Observable complete!');
       }
     );
@@ -52,11 +48,9 @@ export class TestComponent implements OnInit
     this.counterSubscription.unsubscribe();
   }
 
-  toggleTestdisplay()
-  {
+  toggleTestdisplay() {
     this.displayTest = ! this.displayTest;
   }
-
 
 
 

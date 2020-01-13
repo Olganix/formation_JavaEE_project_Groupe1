@@ -22,7 +22,10 @@
     </div>
     </div>
 
-    <app-scheduler-week-txt [scheduler]="scheduler" [schedulerType]="1" ></app-scheduler-week-txt>
+    <button (click)="editMode = ! editMode" >Edit</button>
+    <app-scheduler-week-txt [scheduler]="scheduler" [schedulerType]="1" [editMode]="editMode" (schedulerChange)="this.scheduler = $event" ></app-scheduler-week-txt>
+    <app-scheduler-week-txt [scheduler]="scheduler" [schedulerType]="2" [editMode]="editMode" (schedulerChange)="this.scheduler = $event" ></app-scheduler-week-txt>
+    <app-scheduler-week-txt [scheduler]="scheduler" [schedulerType]="3" [editMode]="editMode" (schedulerChange)="this.scheduler = $event" ></app-scheduler-week-txt>
     <app-scheduler-week-vsl [scheduler]="scheduler"></app-scheduler-week-vsl>
 
     <div class="navbar-right">

@@ -92,16 +92,16 @@ public class Main
 	
 	public static void setupDataBase()
 	{
-		/*
-		//todo comprendre pourquoi ca merde.
 		GenericDao dao = new GenericDao();
 		try {
-			if(dao.findNamed(User.class, "name", "Admin", em, true) != null)
+			List<User> luAd = (List<User>) dao.findNamed(User.class, "name", "Admin", em, true);
+			System.out.println("User attendu pour tester le remplissage de la bdd :"+ ((luAd.size()!=0) ? luAd.get(0) : "null"));		//todo remove this print.
+			
+			if(luAd.size()!=0)
 				return;
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		*/
 
 
 

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SchedulerWeek} from '../../../classes/scheduler-week';
 import {SchedulerWeekType} from '../../../enum/scheduler-week-type.enum';
 import {SchedulerDay} from '../../../classes/scheduler-day';
@@ -17,10 +17,10 @@ export class SchedulerWeekTxtComponent implements OnInit {
 
   @Input() scheduler: SchedulerWeek;
   @Input() schedulerType: SchedulerWeekType;
+  @Output() schedulerChange = new EventEmitter();
+  @Input() editMode = true;
 
   scheduler_simplified: any;
-  editMode = true;
-
   edit_scheduler_simplified = null;
 
   ip_dayStart = 0;
@@ -42,20 +42,24 @@ export class SchedulerWeekTxtComponent implements OnInit {
   init() {
     this.edit_scheduler_simplified = {day: new SchedulerDay(), dayRanges: [] };
 
-
-    // todo find the way to update scheduler_simplified from a update of scheduler, and also test change on editMode = true;
     this.scheduler_simplified = this.scheduler.getSimplifiedRangeForTextDisplay_typed(this.schedulerType);
   }
 
   dayName(id: DayOfWeek): string { return DayOfWeek_toDisplayString(id); }
-
+  typeName(id: SchedulerWeekType): string {
+    switch (id) {
+      case 1: return `d'ouverture`;
+      case 2: return ` en promotion`;
+      case 3: return ` en Invendu`;
+    }
+  }
 
 
 
   // --------------------------------- Add Simplified Scheduler
   addDayRange() {
     this.edit_scheduler_simplified.dayRanges.push({startDay: this.ip_dayStart, endDay: this.ip_dayEnd});
-    this.ip_dayStart = this.ip_dayEnd = (this.ip_dayEnd + 1) % 6;
+    this.ip_dayStart = this.ip_dayEnd = (this.ip_dayEnd + 1) % 7;
   }
   removeDayRange(index: number) {
     if (index < this.edit_scheduler_simplified.dayRanges.length) {
@@ -91,17 +95,19 @@ export class SchedulerWeekTxtComponent implements OnInit {
 
   saveSimplifiedScheduler() {
 
-    console.log('------ saveSimplifiedScheduler -----');
-    console.log(this.scheduler);
     this.scheduler.addSimplifiedRange_typed(this.edit_scheduler_simplified, this.schedulerType);
-    console.log('=>');
-    console.log(this.scheduler);
-    console.log('------------------------------');
 
     this.init();
+
+    this.schedulerChange.emit(this.scheduler);
   }
 
   remove(index: number) {
+
+    this.scheduler.removeSimplifiedRange_typed(this.scheduler_simplified[index], this.schedulerType);
+
     this.scheduler_simplified.splice(index, 1);
+
+    this.schedulerChange.emit(this.scheduler);
   }
 }
