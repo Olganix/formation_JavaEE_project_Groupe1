@@ -9,8 +9,11 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import fr.dawan.nogashi.enums.ShoppingCartStatus;
 
@@ -26,7 +29,7 @@ public class ShoppingCart extends DbObject {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Buyer buyer;
 	
-	@OneToMany(mappedBy = "shoppingCart")
+	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "shoppingCart")
 	private List<ShoppingCartByCommerce> shoppingCartByCommerces = new ArrayList<ShoppingCartByCommerce>();
 	
 	

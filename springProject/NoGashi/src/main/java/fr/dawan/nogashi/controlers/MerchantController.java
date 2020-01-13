@@ -92,6 +92,91 @@ public class MerchantController
 		return new RestResponse<User>(RestResponseStatus.SUCCESS, user);
     }
 	
+	
+	
+	/*****************************************************************************************
+	*										updateMerchantAccount										 * 
+	*****************************************************************************************
+	*
+	* Modifie les infos du Merchant connecte
+	*/
+	@PostMapping(path="/merchant-account/update", consumes = "application/json", produces = "application/json")
+	public RestResponse<Merchant> updateMerchantAccount(@RequestBody Merchant m, HttpSession session, Locale locale, Model model)
+    {
+		// Check s'il y a un User dans la session
+		User u = (User)session.getAttribute("user");
+    	if(u==null)
+    		return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 1, "Not Connected");
+    	
+		// Check si les champs obligatoires du formulaire sont null
+		if(	(m==null) || 
+			(m.getName()==null) || ( m.getName().trim().length() ==0) ||
+			(m.getEmail()==null) || ( m.getEmail().trim().length() ==0) ||
+			(m.getPassword()==null) || ( m.getPassword().trim().length() ==0) ||
+			(m.getCodeSiren() ==null) || ( m.getCodeSiren().trim().length() ==0) ||
+			(m.getAddress()==null)
+			)
+			
+		{
+			return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
+		}
+		
+		Merchant merchant = new Merchant();
+		
+		EntityManager em = StartListener.createEntityManager();
+		
+		// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
+		try {
+			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(merchant==null)
+    	{
+    		em.close();
+    		return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
+    	}
+		
+		// Check si le name ou l'email du User a modifier existe deja dans la BDD
+		// TODO Gerer le cas ou le champ n'a pas ete modifie (expl : l'email existe deja mais il s'agit de celui du User en cours)
+		User u_tmp = null;
+    	try 
+    	{
+    		List<User> listUsers = dao.findNamed(User.class, "name", m.getName(), em, false);
+    		if(listUsers.size()==0)
+    			listUsers = dao.findNamed(User.class, "email", m.getEmail(), em, false);
+			
+    		if(listUsers.size()!=0)
+    			u_tmp = listUsers.get(0);
+    		
+		} catch (Exception e) {
+			u_tmp = null;
+			e.printStackTrace();
+		}
+		
+    	if(u_tmp!=null)
+    	{
+    		em.close();
+    		return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 1, "Error: a User with this email or name already exists");
+    	}
+			
+    	// Persiste le Merchant a modifier dans la BDD
+		try 
+		{
+			dao.saveOrUpdate(m, em, false);
+			System.out.println("update user (merchant): "+ m.getName() +" email:"+ m.getEmail());
+			
+		} catch (Exception e1) {
+			m = null;
+			e1.printStackTrace();
+		}
+		
+		em.close();
+		
+		return new RestResponse<Merchant>(RestResponseStatus.SUCCESS, m);
+    }
+	
+	
 
 	/*****************************************************************************************
 	*										getMyCommerces									 * 
