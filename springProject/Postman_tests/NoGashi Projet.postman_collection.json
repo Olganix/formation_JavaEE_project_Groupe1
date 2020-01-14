@@ -297,6 +297,42 @@
 					"response": []
 				},
 				{
+					"name": "login as AssociationPostman (Association)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"AssociationPostman\",\n\t\"email\": \"associationpostman@noghasi.org\",\n\t\"password\": \"totototo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "isLogged",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -433,6 +469,71 @@
 					"response": []
 				},
 				{
+					"name": "getCommercesByCity",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"cityName\": \"Lille\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/commerces-samples",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"commerces-samples"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUsersById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/users/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"users",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "getUsers (à supprimer)",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -495,9 +596,47 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "MerchantController",
+			"item": [
+				{
+					"name": "getMerchantAccount",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/merchant-account",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"merchant-account"
+							]
+						}
+					},
+					"response": []
 				},
 				{
-					"name": "updateUser",
+					"name": "updateMerchantAccount",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -518,7 +657,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/users/update",
+							"raw": "http://localhost:8080/nogashi/users/merchant-account/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -527,18 +666,53 @@
 							"path": [
 								"nogashi",
 								"users",
+								"merchant-account",
 								"update"
 							]
 						}
 					},
 					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "MerchantController",
-			"item": [
+				},
+				{
+					"name": "deactivateMerchantAccount",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/merchant-account/remove",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"merchant-account",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "getMyCommerces",
 					"request": {
@@ -664,7 +838,7 @@
 					"response": []
 				},
 				{
-					"name": "getProductTemplates",
+					"name": "getMyProductTemplates",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -696,7 +870,7 @@
 					"response": []
 				},
 				{
-					"name": "getProductTemplateById",
+					"name": "getMyProductTemplateById",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -717,15 +891,15 @@
 					"response": []
 				},
 				{
-					"name": "addProductTemplate (as Big Fernand)",
+					"name": "addMyProductTemplate (as Big Fernand)",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"value": "application/json"
 							}
 						],
 						"body": {
@@ -754,7 +928,7 @@
 					"response": []
 				},
 				{
-					"name": "removeProductTemplate",
+					"name": "removeMyProductTemplate",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -782,6 +956,103 @@
 								"my-product-templates",
 								"remove",
 								"78"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMyProducts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/my-products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"my-products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMyProductsByCommerce",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/my-products-by-commerce",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"my-products-by-commerce"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMyProductsByCommerceName",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/my-products-by-commerce/74",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"my-products-by-commerce",
+								"74"
 							]
 						}
 					},
@@ -819,7 +1090,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/nogashi/commerces/1",
+							"raw": "http://localhost:8080/nogashi/commerces/74",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -828,7 +1099,7 @@
 							"path": [
 								"nogashi",
 								"commerces",
-								"1"
+								"74"
 							]
 						}
 					},
@@ -891,6 +1162,261 @@
 								"nogashi",
 								"products",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "AssociationController",
+			"item": [
+				{
+					"name": "getAssociationAccount",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/association-account",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"association-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAssociationAccount",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Anaïs Des pinedes\",\n\t\"email\": \"anais-despins@noghasi.org\",\n\t\"password\": \"totototo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/users/association-account/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"users",
+								"association-account",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deactivateAssociationAccount",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/users/association-account/remove",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"users",
+								"association-account",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "IndividualController",
+			"item": [
+				{
+					"name": "getIndividualAccount",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/individual-account",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"individual-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateIndividualAccount (Anaïs Despin)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Anaïs Des pinedess\",\n\t\"email\": \"anais-despins-postman@noghasi.org\",\n\t\"password\": \"totototo\",\n\t\"address\": {\n            \"id\": 6,\n            \"address\": \"9, boulevard d'Alsace\",\n            \"addressExtra\": \"\",\n            \"postalCode\": \"59000\",\n            \"cityName\": \"Lille\",\n            \"stateName\": \"France\",\n            \"longitude\": null,\n            \"latitude\": null\n        }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/individual-account/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"individual-account",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateIndividualAccount Gilles Collin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Gilles Collin\",\n    \"email\": \"gilles.collin-postman@noghasi.org\",\n    \"password\": \"totototo\",\n    \"role\": \"INDIVIDUAL\",\n    \"avatarFilename\": \"H_0029.jpg\",\n    \"phoneNumber\": \"03.82.19.05.34\",\n    \"address\": {\n        \"id\": 30,\n        \"address\": \"34, Rue de la Pompe\",\n        \"addressExtra\": \"\",\n        \"postalCode\": \"59700\",\n        \"cityName\": \"Marcq-en-Baroeul\",\n        \"stateName\": \"France\",\n        \"longitude\": null,\n        \"latitude\": null\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/individual-account/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"individual-account",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deactivateIndividualAccount",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/individual-account/remove",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"individual-account",
+								"remove"
 							]
 						}
 					},

@@ -29,7 +29,7 @@ import fr.dawan.nogashi.listeners.StartListener;
  * 
  * getAssociationAccount
  * updateAssociationAccount
- * TODO deactivateAssociationAccount
+ * deactivateAssociationAccount
  *
  */
 @RestController
@@ -164,6 +164,55 @@ public class AssociationController
 		em.close();
 		
 		return new RestResponse<Association>(RestResponseStatus.SUCCESS, a);
+    }
+	
+	
+	/*****************************************************************************************
+	*								deactivateAssociationAccount										* 
+	*****************************************************************************************
+	*
+	* Desactive le compte Association (User connecte)
+	* TODO conserver les ShoppingCart
+	*/
+	@GetMapping(path="/association-account/remove", produces = "application/json")
+	public RestResponse<Association> removeUser(HttpSession session, Locale locale, Model model)
+    {	
+		Association association = new Association();
+
+		EntityManager em = StartListener.createEntityManager();
+		
+		
+		// Recupere l'Association a partir du User de la session et check si c'est bien cette Association qui est connectee
+		try {
+			association = dao.find(Association.class, ((User)session.getAttribute("user")).getId() , em);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(association==null)
+    	{
+    		em.close();
+    		return new RestResponse<Association>(RestResponseStatus.FAIL, null, 5, "Error: wrong Association session information");
+    	}
+		
+    	
+    	// Supprime le User
+		// TODO: Desactiver le compte au lieu de le supprimer
+		try 
+		{
+			System.out.println(association.getName() + " account removed");
+			dao.remove(association, em, false);
+			
+			// Met le User de la session a null
+	    	session.setAttribute("user", null);
+			
+		} catch (Exception e1) {
+			association = null;
+			e1.printStackTrace();
+		}
+		
+		em.close();
+		
+		return new RestResponse<Association>(RestResponseStatus.SUCCESS, null);
     }
 
 }

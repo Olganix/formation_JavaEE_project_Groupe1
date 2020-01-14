@@ -35,7 +35,7 @@ import fr.dawan.nogashi.listeners.StartListener;
  * 
  * getMerchantAccount
  * updateMerchantAccount
- * TODO deactivateMerchantAccount
+ * deactivateMerchantAccount
  * 
  * getMyCommerces
  * getCommerceById
@@ -197,6 +197,56 @@ public class MerchantController
 		
 		return new RestResponse<Merchant>(RestResponseStatus.SUCCESS, m);
     }
+	
+	
+	
+	/*****************************************************************************************
+	*								deactivateMerchantAccount										* 
+	*****************************************************************************************
+	*
+	* Desactive le compte Merchant (User connecte)
+	* TODO supprimer toutes les instances de produits liees au Commerce lors de la suppression de la fiche
+	*/
+	@GetMapping(path="/merchant-account/remove", produces = "application/json")
+	public RestResponse<Merchant> removeUser(HttpSession session, Locale locale, Model model)
+    {	
+		EntityManager em = StartListener.createEntityManager();
+		
+		
+		// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
+		Merchant merchant = new Merchant();
+		try {
+			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(merchant==null)
+    	{
+    		em.close();
+    		return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
+    	}
+		
+    	
+    	// Supprime le User
+		// TODO: Desactiver le compte au lieu de le supprimer
+		try 
+		{	
+			System.out.println(merchant.getName() + " account removed");
+			dao.remove(merchant, em, false);
+			
+			// Met le User de la session a null
+	    	session.setAttribute("user", null);
+			
+		} catch (Exception e1) {
+			merchant = null;
+			e1.printStackTrace();
+		}
+		
+		em.close();
+		
+		return new RestResponse<Merchant>(RestResponseStatus.SUCCESS, null);
+    }
+	
 	
 	
 

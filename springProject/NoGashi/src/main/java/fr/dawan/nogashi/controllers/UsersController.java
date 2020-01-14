@@ -54,7 +54,6 @@ import fr.dawan.nogashi.tools.EmailTool;
  * passwordRescueModification
  * 
  * getUserById
- * removeUser TODO: supprimer et diviser en deactivateAssociationAccount, Indiv et Merch
  * 
  * getCommercesByCity (pour page ou nous trouver)
  * TODO: getAssociationsByCity (pour page ou nous trouver)
@@ -646,133 +645,13 @@ public class UsersController
 	
 	
 	/*****************************************************************************************
-	*										updateUser										 * 
-	*****************************************************************************************
-	*
-	* Modifie les infos du User connecte
-	*/
-	@PostMapping(path="/users/update", consumes = "application/json", produces = "application/json")
-	public RestResponse<User> updateUser(@RequestBody User u, HttpSession session, Locale locale, Model model)
-    {
-		// Check si tous les champs du formulaire sont null ou si le name, l'email ou l'address est null
-		if(	(u==null) || 
-			(u.getName()==null) || ( u.getName().trim().length() ==0) ||
-			(u.getEmail()==null) || ( u.getEmail().trim().length() ==0) ||
-			(u.getAddress()==null) )
-		{
-			return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
-		}
-		
-		
-		EntityManager em = StartListener.createEntityManager();
-		
-		// Recupere le User a partir du User de la session et check si c'est bien lui qui est connecte
-		User user = null;
-		try {
-			user = dao.find(User.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(user==null)
-    	{
-    		em.close();
-    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 5, "Error: wrong User session information");
-    	}
-			
-		
-		// Check si le name ou l'email du User a modifier existe deja dans la BDD
-		// TODO Gerer le cas ou le champ n'a pas ete modifie (expl : l'email existe deja mais il s'agit de celui du User en cours)
-		User u_tmp = null;
-    	try 
-    	{
-    		List<User> listUsers = dao.findNamed(User.class, "name", u.getName(), em, false);
-    		if(listUsers.size()==0)
-    			listUsers = dao.findNamed(User.class, "email", u.getEmail(), em, false);
-			
-    		if(listUsers.size()!=0)
-    			u_tmp = listUsers.get(0);
-    		
-		} catch (Exception e) {
-			u_tmp = null;
-			e.printStackTrace();
-		}
-		
-    	if(u_tmp!=null)
-    	{
-    		em.close();
-    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Error: a User with this email or name already exists");
-    	}
-			
-    	// Persiste le User a modifier dans la BDD
-		try 
-		{
-			dao.saveOrUpdate(u, em, false);
-			System.out.println("update user: "+ u.getName() +" email:"+ u.getEmail());
-			
-		} catch (Exception e1) {
-			u = null;
-			e1.printStackTrace();
-		}
-		
-		em.close();
-		
-		return new RestResponse<User>(RestResponseStatus.SUCCESS, u);
-    }
-	
-	
-	/*****************************************************************************************
-	*										removeUser										* 
-	*****************************************************************************************
-	*
-	* Desactive le compte du User connecte
-	* TODO supprimer toutes les instances de produits liees au Commerce lors de la suppression de la fiche
-	*/
-	@GetMapping(path="/users/remove", produces = "application/json")
-	public RestResponse<User> removeUser(HttpSession session, Locale locale, Model model)
-    {	
-		EntityManager em = StartListener.createEntityManager();
-		
-		
-		// Recupere le User a partir du User de la session et check si c'est bien lui qui est connecte
-		User user = null;
-		try {
-			user = dao.find(User.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(user==null)
-		{
-			em.close();
-			return new RestResponse<User>(RestResponseStatus.FAIL, null, 5, "Error: wrong User session information");
-		}
-		
-    	
-    	// Supprime le User
-		// TODO: Desactiver le compte au lieu de le supprimer
-		try 
-		{
-			dao.remove(user, em, false);
-			
-		} catch (Exception e1) {
-			user = null;
-			e1.printStackTrace();
-		}
-		
-		em.close();
-		
-		return new RestResponse<User>(RestResponseStatus.SUCCESS, null);
-    }
-	
-	
-	
-	/*****************************************************************************************
 	*										getCommercesByCity									 * 
 	*****************************************************************************************
 	*
 	* Liste x Commerces par cityName (only name et address pour page 'ou nous trouver')
 	* TODO: recherche via coordonnées de la map
 	*/
-	/*
+	
 	@GetMapping(path="/commerces-samples", produces = "application/json")
 	public RestResponse<List<Commerce>> getCommercesByCity(@RequestBody String cityName)
     {
@@ -787,7 +666,6 @@ public class UsersController
     	int nbElements = 5; // nombre d'éléments à afficher
 		try 
 		{	
-			// TODO findBySomethingNamedPartial
 			listCommerces = dao.findBySomethingNamedPartial(Commerce.class, "address", "cityName", cityName, em, startIndex, nbElements);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -796,7 +674,7 @@ public class UsersController
 		em.close();
 		return new RestResponse<List<Commerce>>(RestResponseStatus.SUCCESS, listCommerces);
     }
-    */
+    
 	
 	
 	

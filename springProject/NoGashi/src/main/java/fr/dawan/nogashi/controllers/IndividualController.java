@@ -29,7 +29,7 @@ import fr.dawan.nogashi.listeners.StartListener;
  * 
  * getIndividualAccount
  * updateIndividualAccount
- * TODO deactivateIndividualAccount
+ * deactivateIndividualAccount
  * 
  * 
  *
@@ -165,4 +165,54 @@ public class IndividualController
 		
 		return new RestResponse<Individual>(RestResponseStatus.SUCCESS, i);
     }
+	
+	
+	/*****************************************************************************************
+	*								deactivateIndividualAccount										* 
+	*****************************************************************************************
+	*
+	* Desactive le compte Individual (User connecte)
+	* TODO conserver les ShoppingCart
+	*/
+	@GetMapping(path="/individual-account/remove", produces = "application/json")
+	public RestResponse<Individual> removeUser(HttpSession session, Locale locale, Model model)
+    {	
+		EntityManager em = StartListener.createEntityManager();
+		
+		
+		// Recupere l'Individual a partir du User de la session et check si c'est bien cet Individual qui est connecte
+		Individual individual = new Individual();
+		try {
+			individual = dao.find(Individual.class, ((User)session.getAttribute("user")).getId() , em);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(individual==null)
+    	{
+    		em.close();
+    		return new RestResponse<Individual>(RestResponseStatus.FAIL, null, 5, "Error: wrong Individual session information");
+    	}
+		
+    	
+    	// Supprime le User
+		// TODO: Desactiver le compte au lieu de le supprimer
+		try 
+		{
+			System.out.println(individual.getName() + " account removed");
+			dao.remove(individual, em, false);
+			
+			// Met le User de la session a null
+	    	session.setAttribute("user", null);
+			
+		} catch (Exception e1) {
+			individual = null;
+			e1.printStackTrace();
+		}
+		
+		em.close();
+		
+		return new RestResponse<Individual>(RestResponseStatus.SUCCESS, null);
+    }
+	
+	
 }

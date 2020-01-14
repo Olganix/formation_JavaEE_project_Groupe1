@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.Buyer;
@@ -31,12 +32,13 @@ import fr.dawan.nogashi.listeners.StartListener;
  * 
  * Listes des methodes :
  * 
- * getCommerces
- * getCommerceById
+ * NB: le name des Commerces n'est pas unique
+ * getCommerces: Liste tous les commerces
+ * getCommerceById: Recupere un Commerce via son id 
  * 
- * getProducts
- * getProductsByCommerce
- * getProductById
+ * getProductsByCity: Liste tous les Products d'une ville entree en parametre 
+ * getProductsByCommerce: Liste les Products d'un Commerce dont l'id est entre en parametre
+ * getProductById: Recupere un Product via son id
  * 
  * addProductToCart
  *
@@ -103,6 +105,7 @@ public class BuyerController
 	*****************************************************************************************
 	* 
 	* Recupere un Commerce via son id
+	* Note : le name des Commerce n'est pas unique
 	*/
 	@GetMapping(path="/commerces/{id}", produces = "application/json")
 	public RestResponse<Commerce> getCommerceById(@PathVariable(name="id") int id, HttpSession session)
@@ -139,13 +142,13 @@ public class BuyerController
 	
 	
 	/*****************************************************************************************
-	*										getProducts									     * 
+	*										getProductsByCity									     * 
 	*****************************************************************************************
 	*
-	* Liste tous les produits
+	* Liste tous les Products d'une ville entree en parametre
 	*/
-	@GetMapping(path="/products", produces = "application/json")
-	public RestResponse<List<Product>> getProducts(HttpSession session)
+	@GetMapping(path="/products/{cityName}", produces = "application/json")
+	public RestResponse<List<Product>> getProducts( @PathVariable(name="cityName") String cityName, HttpSession session)
     {
 		// Check si le User de la session est Association ou Individual
 		if(!checkAllowToDoThat(session))
@@ -164,10 +167,10 @@ public class BuyerController
     	graph.addSubgraph("products");
     	*/
     	
-		// Recupere la liste de tous les Products
+		// Liste les Products de la cityName
     	try 
 		{	
-			listProducts = dao.findAll(Product.class, em, false, graph);
+			//listProducts = dao.findBySomethingNamed(Product.class, "address", "cityName", cityName, em);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -182,10 +185,11 @@ public class BuyerController
 	*										getProductsByCommerce										 * 
 	*****************************************************************************************
 	*
-	* Liste les Products d'un Commerce entre en parametre
+	* Liste les Products d'un Commerce dont l'id est entre en parametre
+	* Note : le name des Commerce n'est pas unique
 	*/
-	@GetMapping(path="/commerce/products", produces = "application/json")
-	public RestResponse<List<Product>> getProductsByCommerce(@RequestBody String commerceName, HttpSession session)
+	@GetMapping(path="/commerce/{id}/products", produces = "application/json")
+	public RestResponse<List<Product>> getProductsByCommerce(@PathVariable(name="id") int id, HttpSession session)
     {
 		// Check si le User de la session est Association ou Individual
 		if(!checkAllowToDoThat(session))
@@ -220,8 +224,8 @@ public class BuyerController
     	// Recupere la liste des Products du Commerce selectionne
 		try 
 		{	
-			//listProducts = dao.findBySomethingNamed(Product.class, "commerce", commerce.getName(), em, false, graph);
-			listProducts = dao.findNamed(Product.class, "commerce", commerceName, em, false, graph);
+			//listProducts = dao.findBySomethingNamed(Product.class, "commerces", "name", commerceName, em, false, graph);
+			//listProducts = dao.findNamed(Product.class, "commerce", commerceName, em, false, graph);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
