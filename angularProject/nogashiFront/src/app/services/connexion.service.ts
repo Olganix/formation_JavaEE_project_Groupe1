@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {User} from '../classes/user';
 import {RestResponse} from '../classes/rest-response';
 import {Observable} from 'rxjs';
 import {map, retry} from 'rxjs/operators';
-import {ProductTemplate} from "../classes/product-template";
-import {InfoBoxNotificationsService} from "./InfoBoxNotifications.services";
-import {Router} from "@angular/router";
+import {ProductTemplate} from '../classes/product-template';
+import {UserRole} from '../enum/user-role.enum';
 
 
 // info pb perte de sessions avec Angular : https://stackoverflow.com/questions/43773762/session-http-spring-and-angular-2  https://weblog.west-wind.com/posts/2019/Apr/07/Creating-a-custom-HttpInterceptor-to-handle-withCredentials
@@ -133,6 +132,9 @@ export class ConnexionService {
   isLocalConnected() {
     return (this.connectedUser != null);
   }
+  getLocalConnectedName() {
+    return (this.connectedUser != null) ? this.connectedUser.name : null;
+  }
   getLocalConnectedRole() {
     return (this.connectedUser != null) ? this.connectedUser.role : null;
   }
@@ -148,7 +150,7 @@ export class ConnexionService {
   }
 
   addProductTemplate(productTemplate: ProductTemplate): Observable<RestResponse> {
-    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/addProductTemplate', productTemplate.toHttpObject() ,{ withCredentials: true }).pipe(
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/addProductTemplate', productTemplate.toHttpObject() , { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);

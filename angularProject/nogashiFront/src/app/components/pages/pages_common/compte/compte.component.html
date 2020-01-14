@@ -92,7 +92,7 @@
             </div>
           </div>
           <div class="profil-telephone">
-           
+
             <label for="telephone" class="label-formulaire"><i class="fas fa-asterisk" value="nom"></i> Numéro de téléphone</label>
             <input id="telephone" class="telephone" type="text" name="telephone" placeholder="Téléphone" minlength="10" maxlength="10" required >
             <span id="pseudoRegex" class="pseudo-regex">Veuillez remplir le champ</span>
@@ -184,7 +184,7 @@
     </div>
   </div>
 </section>
-<section *ngIf="connexionService.getLocalConnectedRole()==='MERCHANT' || connexionService.getLocalConnectedRole()==='ASSOCIATION'" class="section-siren-entreprise">
+<section *ngIf="connexionService.getLocalConnectedRole()===UserRole.MERCHANT || connexionService.getLocalConnectedRole()===UserRole.ASSOCIATION" class="section-siren-entreprise">
   <div class="container">
     <div class="row">
       <div class="bloc-siren-entreprise col-12">

@@ -3,33 +3,38 @@
 
 <div class="header_space"></div>
 
-<button class="bt_displaytest" (click)="toggleTestdisplay()" >test</button>
-
-<div class="testPanel" *ngIf="displayTest == true" >
-
-    <div style="text-align:center">
-        <h1>
-            Welcome to {{ title }}!
-        </h1>
-    </div>
+  <select [(ngModel)]="loginSelectedIndex" (change)="loginChange()" class="sb_logintest" >
+    <option *ngFor="let login of loginList; index as i" class="role_{{login.role}}" value="{{i}}" >{{login.name}}</option>
+  </select>
 
 
-    <div class="container">
-    <div class="row">
-        <div class="col-xs-12">
+  <button class="bt_displaytest" (click)="toggleTestdisplay()" >test</button>
 
-        </div>
-    </div>
-    </div>
+  <div class="testPanel" *ngIf="displayTest == true" >
 
-    <button (click)="editMode = ! editMode" >Edit</button>
-    <app-scheduler-week-txt [scheduler]="scheduler" [schedulerType]="1" [editMode]="editMode" (schedulerChange)="this.scheduler = $event" ></app-scheduler-week-txt>
-    <app-scheduler-week-txt [scheduler]="scheduler" [schedulerType]="2" [editMode]="editMode" (schedulerChange)="this.scheduler = $event" ></app-scheduler-week-txt>
-    <app-scheduler-week-txt [scheduler]="scheduler" [schedulerType]="3" [editMode]="editMode" (schedulerChange)="this.scheduler = $event" ></app-scheduler-week-txt>
-    <app-scheduler-week-vsl [scheduler]="scheduler"></app-scheduler-week-vsl>
+      <div style="text-align:center">
+          <h1>
+              Welcome to {{ title }}!
+          </h1>
+      </div>
 
-    <div class="navbar-right">
-    <p>Vous êtes connecté depuis {{ secondes }} secondes !</p>
+
+      <div class="container">
+      <div class="row">
+          <div class="col-xs-12">
+
+          </div>
+      </div>
+      </div>
+
+      <button (click)="editMode = ! editMode" >Edit</button>
+      <app-scheduler-week-txt [scheduler]="scheduler" [schedulerType]="1" [editMode]="editMode" (schedulerChange)="this.scheduler = $event" ></app-scheduler-week-txt>
+      <app-scheduler-week-txt [scheduler]="scheduler" [schedulerType]="2" [editMode]="editMode" (schedulerChange)="this.scheduler = $event" ></app-scheduler-week-txt>
+      <app-scheduler-week-txt [scheduler]="scheduler" [schedulerType]="3" [editMode]="editMode" (schedulerChange)="this.scheduler = $event" ></app-scheduler-week-txt>
+      <app-scheduler-week-vsl [scheduler]="scheduler"></app-scheduler-week-vsl>
+
+      <div class="navbar-right">
+      <p>Vous êtes connecté depuis {{ secondes }} secondes !</p>
     </div>
 
 </div>

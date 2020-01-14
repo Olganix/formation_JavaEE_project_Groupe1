@@ -7,6 +7,11 @@ import {SchedulerWeekType} from '../../../enum/scheduler-week-type.enum';
 import {SchedulerHoursRange} from '../../../classes/scheduler-hours-range';
 import {SchedulerDay} from '../../../classes/scheduler-day';
 import {DayOfWeek} from '../../../enum/day-of-week.enum';
+import {UserRole} from '../../../enum/user-role.enum';
+import {ConnexionService} from '../../../services/connexion.service';
+import {User} from '../../../classes/user';
+import {RestResponse} from '../../../classes/rest-response';
+import {InfoBoxNotificationsService} from '../../../services/InfoBoxNotifications.services';
 
 
 @Component({
@@ -24,9 +29,57 @@ export class TestComponent implements OnInit {
   secondes: number;
   counterSubscription: Subscription;
 
-  constructor() { }
+
+  private loginList: any = [];
+  private loginSelectedIndex = 4;
+  private userConnectedName: string = null;
+
+
+  constructor(private connexionService: ConnexionService,
+              private infoBoxNotificationsService: InfoBoxNotificationsService,
+              ) { }
+
+
 
   ngOnInit() {
+
+    this.loginList = [
+      {name: 'Admin', password: 'totototo', role: UserRole.ADMIN},
+      {name: 'Merchant', password: 'totototo', role: UserRole.MERCHANT},
+      {name: 'User', password: 'totototo', role: UserRole.INDIVIDUAL},
+      {name: 'Association', password: 'totototo', role: UserRole.ASSOCIATION},
+      {name: 'Anonymous', password: 'totototo', role: UserRole.INDIVIDUAL},
+
+      {name: 'BASILIC & CO Développement', password: 'totototo', role: UserRole.MERCHANT},
+      {name: 'Daily-juicery', password: 'totototo', role: UserRole.MERCHANT},
+      {name: 'Boulangerie-Mathieu', password: 'totototo', role: UserRole.MERCHANT},
+      {name: 'Paul', password: 'totototo', role: UserRole.MERCHANT},
+      {name: 'Big Fernand', password: 'totototo', role: UserRole.MERCHANT},
+
+      {name: 'Anaïs Despins', password: 'totototo', role: UserRole.INDIVIDUAL},
+      {name: 'Éléonore Asselin', password: 'totototo', role: UserRole.INDIVIDUAL},
+      {name: 'Elita Quenneville', password: 'totototo', role: UserRole.INDIVIDUAL},
+      {name: 'Geoffrey Verreau', password: 'totototo', role: UserRole.INDIVIDUAL},
+      {name: 'Delmar Dumont', password: 'totototo', role: UserRole.INDIVIDUAL},
+      {name: 'Nathalie Gabriaux', password: 'totototo', role: UserRole.INDIVIDUAL},
+      {name: 'Charles Margand', password: 'totototo', role: UserRole.INDIVIDUAL},
+      {name: 'Belisarda De La Vergne', password: 'totototo', role: UserRole.INDIVIDUAL},
+      {name: 'Gilles Collin', password: 'totototo', role: UserRole.INDIVIDUAL},
+
+      {name: 'La Tente des Glaneurs', password: 'totototo', role: UserRole.ASSOCIATION},
+      {name: 'Les Gars\'pilleurs', password: 'totototo', role: UserRole.ASSOCIATION},
+      {name: 'Zéro-Gâchis', password: 'totototo', role: UserRole.ASSOCIATION},
+      {name: 'Banques Alimentaire du Nord', password: 'totototo', role: UserRole.ASSOCIATION}
+    ];
+
+    this.userConnectedName = this.connexionService.getLocalConnectedName();
+    for (let i = 0; i < this.loginList.length; i++) {
+      if (this.loginList[i].name === this.userConnectedName) {
+        this.loginSelectedIndex = i;
+        break;
+      }
+    }
+
     this.createSampleScheduler();
 
     const counter = Observable.interval(1000);
@@ -52,6 +105,48 @@ export class TestComponent implements OnInit {
     this.displayTest = ! this.displayTest;
   }
 
+
+  // ---------------------------------
+  loginChange() {
+
+
+    const user = new User();
+    const login = this.loginList[this.loginSelectedIndex];
+    user.setLogin(login.name, login.password);
+
+    this.connexionService.login( user ).subscribe(
+      (rrp: RestResponse) => {
+
+        console.log('component.login: ');
+        console.log(rrp);
+
+
+        if (rrp.status === 'SUCCESS') {
+
+          this.infoBoxNotificationsService.addMessage('info', 'Vous êtes connecté.', 2);
+
+          this.userConnectedName = this.connexionService.getLocalConnectedName();
+          for (let i = 0; i < this.loginList.length; i++) {
+            if (this.loginList[i].name === this.userConnectedName) {
+              this.loginSelectedIndex = i;
+              break;
+            }
+          }
+
+        } else {
+
+          if (rrp.errorCode === 2) {                       // email not valid
+            this.infoBoxNotificationsService.addMessage('error', 'Echec de la connexion car votre email n\'est pas validé.<br>Veuilliez vous référer au message en dessous du bouton "connexion"', 20);
+          } else {
+            this.infoBoxNotificationsService.addMessage('error', 'Echec de la connexion : ' + rrp.errormessage, 10);
+          }
+        }
+      },
+      error => {
+        console.log('Error occured', error);
+        this.infoBoxNotificationsService.addMessage('error', 'Echec de la connexion : ' + error, 10);
+      });
+  }
 
 
   // ---------------------------------
