@@ -20,6 +20,9 @@ import {InfoBoxNotificationsService} from '../../../services/InfoBoxNotification
   styleUrls: ['./test.component.scss']
 })
 export class TestComponent implements OnInit {
+
+  SchedulerWeekType = SchedulerWeekType;
+
   displayTest = false;
   scheduler: SchedulerWeek;
   editMode = false;

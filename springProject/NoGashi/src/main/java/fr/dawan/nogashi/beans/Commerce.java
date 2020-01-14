@@ -52,7 +52,7 @@ public class Commerce extends DbObject {
 	private List<Product> products = new ArrayList<Product>();
 	
 	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "commerce")
-	private List<ShoppingCartByCommerce> shoppingCartByCommerces = new ArrayList<ShoppingCartByCommerce>();
+	private List<ShoppingCartByCommerce> shoppingCartByCommerces = new ArrayList<ShoppingCartByCommerce>();			//equivalent des commandes payées.
 	
 	
 	@OneToOne

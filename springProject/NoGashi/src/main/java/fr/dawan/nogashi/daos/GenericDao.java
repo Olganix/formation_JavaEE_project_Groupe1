@@ -10,7 +10,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import fr.dawan.nogashi.beans.Commerce;
 import fr.dawan.nogashi.beans.DbObject;
 
 public class GenericDao 
@@ -74,6 +73,35 @@ public class GenericDao
 	}
 	
 	
+	// Supprime un tuple de la BDD
+	public <T extends DbObject> void remove(Class<T> tClass, int id, EntityManager em, boolean closeConnection) throws Exception
+	{
+		if(id==0)
+			return;
+		
+		EntityTransaction et = em.getTransaction();
+		
+		try 
+		{
+			et.begin();
+			
+			em.remove( em.find( tClass, id) );
+			
+			et.commit();
+			
+		} catch (Exception e) {
+			
+			et.rollback();
+			throw e;
+			
+		} finally {
+			if(closeConnection)
+				em.close();
+		}
+	}
+	
+	
+	
 	// Supprime tous les tuples d'une table de la BDD
 	public <T extends DbObject> void removeAll(Class<T> clazz, EntityManager em, boolean closeConnection) throws Exception {
 
@@ -124,6 +152,9 @@ public class GenericDao
 	}
 	
 	
+	
+	
+	
 	// Recherche une liste de tuples par nom de colonne (name, email, etc.)
 	public <T extends DbObject> List<T> findNamed(Class<T> tClass, String column, String name, EntityManager em, boolean strictClass, EntityGraph<T> graph, boolean closeConnection) throws Exception
 	{
@@ -139,8 +170,33 @@ public class GenericDao
 			em.close();
 	
 		return result;
-		
 	}
+	
+	
+	
+	
+	
+	// Recherche une liste de tuples par nom de colonne (name, email, etc.)
+	public <T extends DbObject> List<T> findNamed_Double(Class<T> tClass, String column, String name, String column2, String name2, EntityManager em, boolean strictClass, EntityGraph<T> graph, boolean closeConnection) throws Exception
+	{
+		TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity WHERE "+ column +"=:name AND "+ column2 +"=:name2 "+ ((strictClass) ? ("AND TYPE(entity) = "+ tClass.getName()) : ""), tClass);
+		query.setParameter("name", name);
+		query.setParameter("name2", name2);
+		
+		if(graph!=null)
+			query.setHint("javax.persistence.loadgraph", graph);				//for loading sub class (class attribut using class).		// methode 5 : https://thoughts-on-java.org/5-ways-to-initialize-lazy-relations-and-when-to-use-them/
+		
+		List<T> result = query.getResultList();
+		
+		if(closeConnection)
+			em.close();
+	
+		return result;
+	}
+	
+	
+	
+	
 	
 	// Recheche une liste de tuples par object
 	public <T extends DbObject, R extends DbObject> List<T> findBySomething(Class<T> tClass, String column, R something, EntityManager em, boolean strictClass, EntityGraph<T> graph, boolean closeConnection) throws Exception
@@ -159,6 +215,7 @@ public class GenericDao
 		return result;
 	}
 	
+	
 	// Recheche une liste de tuples par nom de colonne d'une table jointe
 	public <T extends DbObject> List<T> findBySomethingNamed(Class<T> tClass, String column, String columnSomething, String name, EntityManager em, boolean strictClass, EntityGraph<T> graph, boolean closeConnection) throws Exception
 	{
@@ -175,6 +232,25 @@ public class GenericDao
 	
 		return result;
 	}
+	
+	
+	// Recheche une liste de tuples par object
+		public <T extends DbObject, R extends DbObject> List<T> findNamedBySomething(Class<T> tClass, String column, String name, String columnR, R something, EntityManager em, boolean strictClass, EntityGraph<T> graph, boolean closeConnection) throws Exception
+		{
+			TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity JOIN entity."+ columnR +" as ent2 WHERE "+ column +"=:name AND ent2=:something "+ ((strictClass) ? ("AND TYPE(entity) = "+ tClass.getName()) : ""), tClass);
+			query.setParameter("name", name);
+			query.setParameter("something", something);
+			
+			if(graph!=null)
+				query.setHint("javax.persistence.loadgraph", graph);				//for loading sub class (class attribut using class).		// methode 5 : https://thoughts-on-java.org/5-ways-to-initialize-lazy-relations-and-when-to-use-them/
+			
+			List<T> result = query.getResultList();
+			
+			if(closeConnection)
+				em.close();
+		
+			return result;
+		}
 	
 	
 	// Recherche une liste de tous les tuples d'une table
@@ -242,18 +318,25 @@ public class GenericDao
 	
 	public <T extends DbObject> void saveOrUpdate(T elm, EntityManager em) throws Exception { saveOrUpdate(elm, em, false); }
 	public <T extends DbObject> void remove(T elm, EntityManager em) throws Exception { remove(elm, em, false); }
+	public <T extends DbObject> void remove(Class<T> tClass, int id, EntityManager em) throws Exception { remove(tClass, id, em, false); }
 	public <T extends DbObject> void removeAll(Class<T> clazz, EntityManager em) throws Exception { removeAll(clazz, em, false); }	
 	public <T extends DbObject> T find(Class<T> tClass, int id, EntityManager em, EntityGraph<T> graph) throws Exception { return find(tClass, id, em, graph, false); }
 	public <T extends DbObject> T find(Class<T> tClass, int id, EntityManager em) throws Exception { return find(tClass, id, em, null, false); }
 	public <T extends DbObject> List<T> findNamed(Class<T> tClass, String column, String name, EntityManager em, boolean strictClass, EntityGraph<T> graph) throws Exception { return findNamed(tClass, column, name, em, strictClass, graph, false);  }
 	public <T extends DbObject> List<T> findNamed(Class<T> tClass, String column, String name, EntityManager em, boolean strictClass) throws Exception { return findNamed(tClass, column, name, em, strictClass, null, false);  }
-	public <T extends DbObject> List<T> findNamed(Class<T> tClass, String column, String name, EntityManager em) throws Exception { return findNamed(tClass, column, name, em, false, null, false);  }
+	public <T extends DbObject> List<T> findNamed(Class<T> tClass, String column, String name, EntityManager em) throws Exception { return findNamed(tClass, column, name, em, false, null, false);  }	
+	public <T extends DbObject> List<T> findNamed_Double(Class<T> tClass, String column, String name, String column2, String name2, EntityManager em, boolean strictClass, EntityGraph<T> graph) throws Exception { return findNamed_Double(tClass, column, name, column2, name2, em, strictClass, graph, false);  }
+	public <T extends DbObject> List<T> findNamed_Double(Class<T> tClass, String column, String name, String column2, String name2, EntityManager em, boolean strictClass) throws Exception { return findNamed_Double(tClass, column, name, column2, name2, em, strictClass, null, false);  }
+	public <T extends DbObject> List<T> findNamed_Double(Class<T> tClass, String column, String name, String column2, String name2, EntityManager em) throws Exception { return findNamed_Double(tClass, column, name, column2, name2, em, false, null, false);  }
 	public <T extends DbObject, R extends DbObject> List<T> findBySomething(Class<T> tClass, String column, R something, EntityManager em, boolean strictClass, EntityGraph<T> graph) throws Exception { return findBySomething(tClass, column, something, em, strictClass, graph, false);  }
 	public <T extends DbObject, R extends DbObject> List<T> findBySomething(Class<T> tClass, String column, R something, EntityManager em, boolean strictClass) throws Exception { return findBySomething(tClass, column, something, em, strictClass, null, false);  }
 	public <T extends DbObject, R extends DbObject> List<T> findBySomething(Class<T> tClass, String column, R something, EntityManager em) throws Exception { return findBySomething(tClass, column, something, em, false, null, false);  }
 	public <T extends DbObject> List<T> findBySomethingNamed(Class<T> tClass, String column, String columnSomething, String name, EntityManager em, boolean strictClass, EntityGraph<T> graph) throws Exception { return findBySomethingNamed(tClass, column, columnSomething, name, em, strictClass, graph, false);  }
 	public <T extends DbObject> List<T> findBySomethingNamed(Class<T> tClass, String column, String columnSomething, String name, EntityManager em, boolean strictClass) throws Exception { return findBySomethingNamed(tClass, column, columnSomething, name, em, strictClass, null, false);  }
 	public <T extends DbObject> List<T> findBySomethingNamed(Class<T> tClass, String column, String columnSomething, String name, EntityManager em) throws Exception { return findBySomethingNamed(tClass, column, columnSomething, name, em, false, null, false);  }
+	public <T extends DbObject, R extends DbObject> List<T> findNamedBySomething(Class<T> tClass, String column, String name, String columnR, R something, EntityManager em, boolean strictClass, EntityGraph<T> graph) throws Exception { return findNamedBySomething(tClass, column, name, columnR, something, em, strictClass, graph, false);  }
+	public <T extends DbObject, R extends DbObject> List<T> findNamedBySomething(Class<T> tClass, String column, String name, String columnR, R something, EntityManager em, boolean strictClass) throws Exception { return findNamedBySomething(tClass, column, name, columnR, something, em, strictClass, null, false);  }
+	public <T extends DbObject, R extends DbObject> List<T> findNamedBySomething(Class<T> tClass, String column, String name, String columnR, R something, EntityManager em) throws Exception { return findNamedBySomething(tClass, column, name, columnR, something, em, false, null, false);  }
 	public <T extends DbObject> List<T> findAll(Class<T> tClass, EntityManager em, boolean strictClass, EntityGraph<T> graph) throws Exception { return findAll(tClass, em, strictClass, graph, false); }
 	public <T extends DbObject> List<T> findAll(Class<T> tClass, EntityManager em, boolean strictClass) throws Exception { return findAll(tClass, em, strictClass, null, false); }
 	public <T extends DbObject> List<T> findAll(Class<T> tClass, EntityManager em) throws Exception { return findAll(tClass, em, false, null, false); }

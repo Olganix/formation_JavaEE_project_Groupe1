@@ -18,7 +18,6 @@ import fr.dawan.nogashi.beans.Commerce;
 import fr.dawan.nogashi.beans.CreditCard;
 import fr.dawan.nogashi.beans.Individual;
 import fr.dawan.nogashi.beans.Merchant;
-import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.UserRole;

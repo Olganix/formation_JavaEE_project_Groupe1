@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.Commerce;
@@ -52,200 +52,233 @@ import fr.dawan.nogashi.listeners.StartListener;
  * getMyProductsByCommerceName 
  *
  */
+
+
+///commerce/{id_c}/carts									// ShoppingCartByCommerce pas encore payé, ca permet de filtrer les products reservé
+// /commerce/{id_c}/cart/{id}
+// /commerce/{id_c}/commands								// ShoppingCartByCommerce payée du jours
+// /commerce/{id_c}/commands/historic						// historic ShoppingCartByCommerce payée (avant aujourd'hui).
+// /commerce/{id_c}/command/{id}
+// A--- /commerce/{id_c}/command/{id}/bill					// demande la facture. => directement en front a partir de l'url precedente.
+
+
+// quand une commande est payée => envois un mail au merchant (ou si possible le commerce) . plsu tard si il reste du temsp , (donc on ne va pas faire) notifications : créer une table , reference a un utilisaterur + message (quand recup message , suprression de le ligne) + process recuperation url /merchant/notifications.
+// quand on cherche la liste des produits (par example un utilisateur qui regarde des trucs), on met a jours les status de promotion et invendu.
+// pour le "OU NOUS TROUVER" => fichier statique (idée d'un cache possible) avec nom du commerce + position Gps.
+
+
+
+// ------------------------- /individual
+// /creditCard											// recuperation de la credit card pour preremplir la page de payement (si il en a une).
+// /creditCard/update									// sauvegarde de la carte de crédit.
+// /payement											// on recoit les info de la carte de credit + shoppingcart. + envois de mail et ou de notification vers l'individual, vers le merchant/commerce.
+
+// ------------------------- /association
+// /reserve												// equivalent de payement, sans creditcart, puis avec 0 euros de depensé.
+
+
+
+
+
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
+@RequestMapping("/merchant")
 public class MerchantController 
 {
 	@Autowired
 	GenericDao dao;
 	
-	// Retourne true si le User de la session est un Merchant
-	public boolean checkAllowToDoThat(HttpSession session)
+	// Retourne Merchant si le User de la session est un Merchant et qu'il est bien dans la Bdd
+	public Merchant checkAllowToDoThat(HttpSession session, EntityManager em)
 	{
 		User u = (User)session.getAttribute("user");
-		
 		System.out.println("MerchantControllerAngular.checkAllowToDoThat : "+ u);
 		
-		return ( (u!=null) && (u.getRole() == UserRole.MERCHANT) );
+		
+		Merchant merchant = null;
+		
+		if( (u!=null) && (u.getRole() == UserRole.MERCHANT) )
+		{
+			// Recupere le Merchant a partir du User de la session
+	    	// et aussi check si c'est bien ce Merchant qui est connecte
+			try {
+				merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId(), em);
+			} catch (Exception e) {
+				merchant = null;
+				e.printStackTrace();										// todo si il reste du temps : remplacer les printStack partout par le logger (plus propre, sinon on se fait engeuler par sonarCube).
+			}
+		}
+		return merchant;
 	}
 	
 	
 	
 	/*****************************************************************************************
-	*										getMerchantAccount									 * 
+	*										getMerchantAccount								 * 
 	*****************************************************************************************
 	* 
 	* Recupere le User (Merchant) de la session via son id 
 	*/
-	@GetMapping(path="/merchant-account", produces = "application/json")
-	public RestResponse<User> getMerchantAccount(HttpSession session)
+	@GetMapping(path="/", produces = "application/json")
+	public RestResponse<Merchant> getMerchantAccount(HttpSession session)
     {
-		// Check s'il y a un User dans la session
-		User u = (User)session.getAttribute("user");
-    	if(u==null)
-    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Not Connected");
-		
 		EntityManager em = StartListener.createEntityManager();
 		
-		User user = new User();
-    	
-    	
-    	//EntityGraph<User> graph = em.createEntityGraph(User.class);
-    	/*
-    	graph.addSubgraph("commerceCategories");
-    	graph.addSubgraph("productTemplates");
-    	graph.addSubgraph("products");
-    	*/
-    	
-    	// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
-		try {
-			user = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
+		// Check si le User de la session est Merchant
+		Merchant merchant = checkAllowToDoThat(session, em);
+		if(merchant==null)
+		{
+			em.close();
+			return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
 		}
-		if(user==null)
-    	{
-    		em.close();
-    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
-    	}
-		
 		
 		em.close();
-		return new RestResponse<User>(RestResponseStatus.SUCCESS, user);
+		return new RestResponse<Merchant>(RestResponseStatus.SUCCESS, merchant);
     }
 	
 	
 	
+	
+	
+	
+	
+	
 	/*****************************************************************************************
-	*										updateMerchantAccount										 * 
+	*										updateMerchantAccount							 * 
 	*****************************************************************************************
 	*
 	* Modifie les infos du Merchant connecte
 	*/
-	@PostMapping(path="/merchant-account/update", consumes = "application/json", produces = "application/json")
+	@PostMapping(path="/update", consumes = "application/json", produces = "application/json")
 	public RestResponse<Merchant> updateMerchantAccount(@RequestBody Merchant m, HttpSession session, Locale locale, Model model)
     {
-		// Check s'il y a un User dans la session
-		User u = (User)session.getAttribute("user");
-    	if(u==null)
-    		return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 1, "Not Connected");
-    	
-		// Check si les champs obligatoires du formulaire sont null
-		if(	(m==null) || 
-			(m.getName()==null) || ( m.getName().trim().length() ==0) ||
-			(m.getEmail()==null) || ( m.getEmail().trim().length() ==0) ||
-			(m.getPassword()==null) || ( m.getPassword().trim().length() ==0) ||
-			(m.getCodeSiren() ==null) || ( m.getCodeSiren().trim().length() ==0) ||
-			(m.getAddress()==null)
-			)
-			
-		{
-			return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
-		}
-		
-		Merchant merchant = new Merchant();
-		
 		EntityManager em = StartListener.createEntityManager();
 		
-		// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
-		try {
-			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// Check si le User de la session est Merchant
+		Merchant merchant = checkAllowToDoThat(session, em);
 		if(merchant==null)
-    	{
-    		em.close();
-    		return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
-    	}
-		
-		// Check si le name ou l'email du User a modifier existe deja dans la BDD
-		// TODO Gerer le cas ou le champ n'a pas ete modifie (expl : l'email existe deja mais il s'agit de celui du User en cours)
-		User u_tmp = null;
-    	try 
-    	{
-    		List<User> listUsers = dao.findNamed(User.class, "name", m.getName(), em, false);
-    		if(listUsers.size()==0)
-    			listUsers = dao.findNamed(User.class, "email", m.getEmail(), em, false);
-			
-    		if(listUsers.size()!=0)
-    			u_tmp = listUsers.get(0);
-    		
-		} catch (Exception e) {
-			u_tmp = null;
-			e.printStackTrace();
+		{
+			em.close();
+			return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
 		}
 		
-    	if(u_tmp!=null)
-    	{
-    		em.close();
-    		return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 1, "Error: a User with this email or name already exists");
-    	}
-			
-    	// Persiste le Merchant a modifier dans la BDD
-		try 
+		
+		boolean isModifed = false;
+		if((merchant.getCodeSiren()==null) && (m.getCodeSiren()!=null))					// specificité , le code siren ne se modifi qu'une seule fois.
 		{
-			dao.saveOrUpdate(m, em, false);
-			System.out.println("update user (merchant): "+ m.getName() +" email:"+ m.getEmail());
-			
-		} catch (Exception e1) {
-			m = null;
-			e1.printStackTrace();
+			merchant.setCodeSiren(m.getCodeSiren());
+			isModifed = true;
+		}
+		
+		
+		// Todo completer (voir mockup)
+		//if((m.getCodeSiren()!=null)&&(merchant.getCodeSiren().equals(m.getCodeSiren())))				// attention a ce que l'on veut que ce soit expres a null (si il veut supprimer l'info)
+		//{
+		//	merchant.setCodeSiren(m.getCodeSiren());
+		//	isModifed = true;
+		//}
+		
+		
+		
+		if(isModifed)
+		{
+			try 
+			{
+				dao.saveOrUpdate(merchant, em, false);
+				System.out.println("update user (merchant): "+ merchant.getName() +" email:"+ merchant.getEmail());
+				
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				
+				em.close();
+				return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 1, "Error: on Update Operation");
+			}
 		}
 		
 		em.close();
-		
-		return new RestResponse<Merchant>(RestResponseStatus.SUCCESS, m);
+		return new RestResponse<Merchant>(RestResponseStatus.SUCCESS, null);
     }
 	
 	
 	
 	/*****************************************************************************************
-	*								deactivateMerchantAccount										* 
+	*								deactivateMerchantAccount		    					* 
 	*****************************************************************************************
 	*
 	* Desactive le compte Merchant (User connecte)
-	* TODO supprimer toutes les instances de produits liees au Commerce lors de la suppression de la fiche
+	* TODO NE PAS FAIRE CETTE FONCTION DE SUITE.
 	*/
-	@GetMapping(path="/merchant-account/remove", produces = "application/json")
+	@GetMapping(path="/remove", produces = "application/json")
 	public RestResponse<Merchant> removeUser(HttpSession session, Locale locale, Model model)
     {	
 		EntityManager em = StartListener.createEntityManager();
 		
-		
-		// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
-		Merchant merchant = new Merchant();
-		try {
-			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// Check si le User de la session est Merchant
+		Merchant merchant = checkAllowToDoThat(session, em);
 		if(merchant==null)
-    	{
-    		em.close();
-    		return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
-    	}
+		{
+			em.close();
+			return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+		
+		
+		// TODO faire une function de suppression de un commerce, faire un for.
+		// TODO faire une function qui supprime un ProductTemplate, faire un for.
+		//		-detachement des commerces, detachement des products (il n'y a plus reference) detachement du merchant.
 		
     	
-    	// Supprime le User
-		// TODO: Desactiver le compte au lieu de le supprimer
+    	// Supprime le Merchant
 		try 
-		{	
+		{
 			System.out.println(merchant.getName() + " account removed");
 			dao.remove(merchant, em, false);
 			
-			// Met le User de la session a null
+			// Met le User de la session a null, pour logout.
 	    	session.setAttribute("user", null);
-			
+	    	
 		} catch (Exception e1) {
-			merchant = null;
 			e1.printStackTrace();
+			
+			em.close();
+			return new RestResponse<Merchant>(RestResponseStatus.FAIL, null, 1, "Error: on Remove Operation");
 		}
 		
 		em.close();
-		
 		return new RestResponse<Merchant>(RestResponseStatus.SUCCESS, null);
     }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	*********************************************************************************************************************************************/
 	
 	
 	
@@ -256,43 +289,31 @@ public class MerchantController
 	* 
 	* Liste les commerces du Merchant (User connecte)
 	*/
-	@GetMapping(path="/my-commerces", produces = "application/json")
+	@GetMapping(path="/commerces", produces = "application/json")					// Pour Joffrey , c'est l'exemple a suivre : note : pas pour le test.
 	public RestResponse<List<Commerce>> getMyCommerces(HttpSession session)
     {
+		EntityManager em = StartListener.createEntityManager();
+		
 		// Check si le User de la session est Merchant
-		if(!checkAllowToDoThat(session))
+		Merchant merchant = checkAllowToDoThat(session, em);
+		if(merchant==null)
+		{
+			em.close();
 			return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
 		
-		
-    	EntityManager em = StartListener.createEntityManager();
-		
-    	List<Commerce> listCommerces = new ArrayList<Commerce>();
-    	
-    	
-    	EntityGraph<Commerce> graph = em.createEntityGraph(Commerce.class); 	
     	/*
+    	EntityGraph<Commerce> graph = em.createEntityGraph(Commerce.class);				// todo supprimer test.
     	graph.addSubgraph("commerceCategories");
     	graph.addSubgraph("productTemplates");
     	graph.addSubgraph("products");	
     	*/
-    	
-    	// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
-		Merchant merchant = null;
-		try {
-			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(merchant==null)
-    	{
-    		em.close();
-    		return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
-    	}
 		
     	// Recupere la liste des Commerce du Merchant via son name
+		List<Commerce> listCommerces = new ArrayList<Commerce>();
 		try 
 		{	
-			listCommerces = dao.findBySomethingNamed(Commerce.class, "merchant", "name", merchant.getName(), em, false, graph);
+			listCommerces = dao.findBySomething(Commerce.class, "merchant", merchant, em, false);
 			for(Commerce cTmp : listCommerces)
 				System.out.println(cTmp);
 			
@@ -311,32 +332,30 @@ public class MerchantController
 	* 
 	* Recupere un Commerce via son id
 	*/
-	@GetMapping(path="/my-commerces/{id}", produces = "application/json")
+	@GetMapping(path="/commerce/{id}", produces = "application/json")
 	public RestResponse<Commerce> getCommerceById(@PathVariable(name="id") int id, HttpSession session)
     {
+		EntityManager em = StartListener.createEntityManager();
+		
 		// Check si le User de la session est Merchant
-		if(!checkAllowToDoThat(session))
+		Merchant merchant = checkAllowToDoThat(session, em);
+		if(merchant==null)
+		{
+			em.close();
 			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
 		
 		
-    	EntityManager em = StartListener.createEntityManager();
-		
-    	Commerce commerce = new Commerce();
-    	
-    	
-    	EntityGraph<Commerce> graph = em.createEntityGraph(Commerce.class);
-    	/*
-    	graph.addSubgraph("commerceCategories");
-    	graph.addSubgraph("productTemplates");
-    	graph.addSubgraph("products");
-    	*/
-    	
     	// Recupere le Commerce dont l'id est passe en parametre
+		Commerce commerce = null;
 		try 
 		{	
-			commerce = dao.find(Commerce.class, id, em, graph);
+			commerce = dao.find(Commerce.class, id, em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			em.close();
+			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: on getting Commerce");
 		}
 		
 		em.close();
@@ -352,14 +371,18 @@ public class MerchantController
 	*
 	* Ajoute un nouveau Commerce pour le Merchant (User connecte)
 	*/
-	@PostMapping(path="/my-commerces/add", consumes = "application/json", produces = "application/json")
+	@PostMapping(path="/commerce/addOrUdapte", consumes = "application/json", produces = "application/json")
 	public RestResponse<Commerce> addCommerce(@RequestBody Commerce c, HttpSession session, Locale locale, Model model)
     {
-		System.out.println(c);
+		EntityManager em = StartListener.createEntityManager();
 		
 		// Check si le User de la session est Merchant
-		if(!checkAllowToDoThat(session))
+		Merchant merchant = checkAllowToDoThat(session, em);
+		if(merchant==null)
+		{
+			em.close();
 			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
 		
 		
 		// Check si tous les champs du formulaire sont null ou si le name, le codeSiret ou l'adresse est null
@@ -370,185 +393,193 @@ public class MerchantController
 		{
 			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
 		}
+
 		
 		
-		EntityManager em = StartListener.createEntityManager();
 		
-		// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
-		Merchant merchant = null;
-		try {
-			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(merchant==null)
-    	{
-    		em.close();
-    		return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
-    	}
-			
 		
-		// Check si le name ou le codeSiret du Commerce a ajouter existe deja dans la BDD
-		Commerce c_tmp = null;
-    	try 
-    	{
-    		List<Commerce> listCommerces = dao.findNamed(Commerce.class, "name", c.getName(), em, false);
-    		if(listCommerces.size()==0)
-    			listCommerces = dao.findNamed(Commerce.class, "codeSiret", c.getCodeSiret(), em, false);
-			
-    		if(listCommerces.size()!=0)
-    			c_tmp = listCommerces.get(0);
-    		
-		} catch (Exception e) {
-			c_tmp = null;
-			e.printStackTrace();
-		}
-		
-    	if(c_tmp!=null)
-    	{
-    		em.close();
-    		return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: Commerce already exists");
-    	}
-			
-    	
-    	// Attribue le Merchant connecte au Commerce a ajouter
-    	c.setMerchant(merchant);
-    	
-    	// Persiste le Commerce a ajouter dans la BDD
+		Commerce c_bdd = null;
+		boolean isUnique = true;
 		try 
-		{
-			dao.saveOrUpdate(c, em, false);
-			System.out.println("create commerce: "+ c.getName() +" siret:"+ c.getCodeSiret());
+    	{
+			if(c.getId()==0)						// c'est un add que l'on fait.
+			{
+				// Check si le codeSiret du Commerce existe deja dans la BDD
+	    		List<Commerce> listCommerces = dao.findNamed(Commerce.class, "codeSiret", c.getCodeSiret(), em);
+	    		if(listCommerces.size()!=0)
+	    			c_bdd = listCommerces.get(0);
+		    	
+	    		if(c_bdd!=null)
+		    	{
+		    		em.close();
+		    		return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: Commerce already exists");
+		    	}
+	    		
+	    		
+	    		//check si name + uniqueIdName est completement unique, ca aide l'utilisateur a s'y retrouver.
+	    		listCommerces = dao.findNamed_Double(Commerce.class, "name", c.getName(), "uniqueIdName", c.getUniqueIdName(), em);
+	    		if(listCommerces.size()!=0)
+	    			isUnique = false;
+	    		
+				
+				c_bdd = c;
+				// Attribue le Merchant connecte au Commerce a ajouter
+				c_bdd.setMerchant(merchant);
+				
+			}else{									// update
+				
+				c_bdd = dao.find(Commerce.class, c.getId(), em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+				if(c_bdd==null)
+		    	{
+		    		em.close();
+		    		return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: Commerce not exists");
+		    	}
+				
+				
+				
+				c_bdd.setCodeSiret(c.getCodeSiret());
+				// Todo completer en s'inspirant updateMerchantAccount
+			}
+		
 			
-		} catch (Exception e1) {
-			c = null;
-			e1.printStackTrace();
+			// Persiste le Commerce a ajouter dans la BDD
+			System.out.println("commerce : "+ c_bdd.getName() +" siret:"+ c_bdd.getCodeSiret() +" "+ (((c.getId()==0)) ? "created" : "updated"));
+			dao.saveOrUpdate(c_bdd, em, false);
+			
+			
+			
+    	} catch (Exception e) {
+			e.printStackTrace();
+			
+			em.close();
+			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: add or update fail");
 		}
+		
 		
 		em.close();
-		
-		return new RestResponse<Commerce>(RestResponseStatus.SUCCESS, c);
+		if(isUnique)
+			return new RestResponse<Commerce>(RestResponseStatus.SUCCESS, c_bdd);
+		else
+			return new RestResponse<Commerce>(RestResponseStatus.SUCCESS, c_bdd, 6, "Warning: Commerce name + uniqueIdName not unique, and taht could add confusion for users.");
     }
 	
 	
 	
 	/*****************************************************************************************
-	*										removeCommerce										* 
+	*										removeCommerce									* 
 	*****************************************************************************************
 	*
 	* Supprime un Commerce du Merchant (User connecte) recupere via son id
 	* TODO supprimer toutes les instances de produits liees au Commerce lors de la suppression de la fiche
 	*/
-	@GetMapping(path="/my-commerces/remove/{id}", produces = "application/json")
+	@GetMapping(path="/commerce/{id}/remove", produces = "application/json")
 	// TODO Front: prevenir que la suppression de la fiche entrainera la suppression des produits en vente
 	public RestResponse<Commerce> removeCommerce(@PathVariable(name="id") int id, HttpSession session, Locale locale, Model model)
     {
-		// Check si le User de la session est Merchant
-		if(!checkAllowToDoThat(session))
-			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to do this operation");
-		
-		
 		EntityManager em = StartListener.createEntityManager();
 		
-		
-		// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
-		Merchant merchant = null;
-		try {
-			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// Check si le User de la session est Merchant
+		Merchant merchant = checkAllowToDoThat(session, em);
 		if(merchant==null)
-    	{
-    		em.close();
-    		return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
-    	}
-			
-		
-		// Check si l'id du Commerce a supprimer existe dans la BDD	
-		Commerce c = null;
-    	try 
-    	{
-    		Commerce commerce = dao.find(Commerce.class, id, em);
-    		if(commerce!=null)
-    			c = commerce;
-    		
-		} catch (Exception e) {
-			c = null;
-			e.printStackTrace();
+		{
+			em.close();
+			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
 		}
 		
-    	if(c == null)
-    	{
-    		em.close();
-    		return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: Commerce doesn't exist");
-    	}
 		
-    	
-    	// Supprime le Commerce
 		try 
 		{
-			dao.remove(c, em, false);
+			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+			
+			// TODO detacher le merchant
+			// TODO supprimer les products qui ne sont pas affecté a un des shoppingCarts.   //TODO : checker lors d'une annulation de shoppingcart ou d'un product , si le commerce n'existe plus il faut detruire le product. 			
+
+			
+			// Supprime le Commerce
+			dao.remove(Commerce.class, id, em, false);
 			
 		} catch (Exception e1) {
-			c = null;
 			e1.printStackTrace();
+			
+			em.close();
+    		return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: Remove Fail");
 		}
 		
 		em.close();
-		
 		return new RestResponse<Commerce>(RestResponseStatus.SUCCESS, null);
     }
 	
 	
 	
-	/*****************************************************************************************
-	*										getMyProductTemplates										 * 
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	*********************************************************************************************************************************************/
+	
+	
+	
+	/****************************************************************************************
+	*										getMyProductTemplates							* 
 	*****************************************************************************************
 	*
 	* Liste les ProductTemplates du Merchant (User connecte)
 	*/
-	@GetMapping(path="/my-product-templates", produces = "application/json")
+	@GetMapping(path="/productTemplates", produces = "application/json")
 	public RestResponse<List<ProductTemplate>> getMyProductTemplates(HttpSession session)
     {
+		EntityManager em = StartListener.createEntityManager();
+		
 		// Check si le User de la session est Merchant
-		if(!checkAllowToDoThat(session))
-			return new RestResponse<List<ProductTemplate>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to do this operation");
-		
-    	EntityManager em = StartListener.createEntityManager();
-		
-    	
-    	// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
-    	Merchant merchant = null;
-		try {
-			merchant = dao.find(Merchant.class,  ((User)session.getAttribute("user")).getId() , em);
-			System.out.println(merchant);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Merchant merchant = checkAllowToDoThat(session, em);
 		if(merchant==null)
-    	{
-    		em.close();
-    		return new RestResponse<List<ProductTemplate>>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
-    	}
-    	
-    	
-    	List<ProductTemplate> listProductTemplates = new ArrayList<ProductTemplate>();
+		{
+			em.close();
+			return new RestResponse<List<ProductTemplate>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+	
 		
-    	
-//    	EntityGraph<ProductTemplate> graph = em.createEntityGraph(ProductTemplate.class);
-//    	Subgraph<Merchant> aa = graph.addSubgraph("merchant", Merchant.class);
-//    	aa.addSubgraph("commerces");
-    	
     	// Recupere la liste des ProductTemplates du Merchant via son name
+		List<ProductTemplate> listProductTemplates = new ArrayList<ProductTemplate>();
 		try 
-		{	
-			listProductTemplates = dao.findBySomethingNamed(ProductTemplate.class, "merchant", "name", merchant.getName(), em);
+		{
+			listProductTemplates = dao.findBySomething(ProductTemplate.class, "merchant", merchant, em);
 			for(ProductTemplate ptTmp : listProductTemplates)
 				System.out.println(ptTmp);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			em.close();
+			return new RestResponse<List<ProductTemplate>>(RestResponseStatus.FAIL, null, 1, "Error: on getproductTemplates operation");
 		}
 		
 		em.close();
@@ -558,37 +589,37 @@ public class MerchantController
 	
 	
 	/*****************************************************************************************
-	*										getMyProductTemplateById									 * 
+	*										getMyProductTemplateById						 * 
 	*****************************************************************************************
 	* 
 	* Recupere un ProductTemplate via son id
 	*/
-	@GetMapping(path="/my-product-templates/{id}", produces = "application/json")
+	@GetMapping(path="/productTemplate/{id}", produces = "application/json")
 	public RestResponse<ProductTemplate> getMyProductTemplateById(@PathVariable(name="id") int id, HttpSession session)
     {
+		EntityManager em = StartListener.createEntityManager();
+		
 		// Check si le User de la session est Merchant
-		if(!checkAllowToDoThat(session))
+		Merchant merchant = checkAllowToDoThat(session, em);
+		if(merchant==null)
+		{
+			em.close();
 			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
 		
 		
-    	EntityManager em = StartListener.createEntityManager();
 		
-    	ProductTemplate productTemplate = new ProductTemplate();
-    	
-    	
-    	EntityGraph<ProductTemplate> graph = em.createEntityGraph(ProductTemplate.class);
-    	/*
-    	graph.addSubgraph("commerceCategories");
-    	graph.addSubgraph("productTemplates");
-    	graph.addSubgraph("products");
-    	*/
-    	
     	// Recupere le ProductTemplate dont l'id est passe en parametre
+		ProductTemplate productTemplate = null;
 		try 
-		{	
-			productTemplate = dao.find(ProductTemplate.class, id, em, graph);
+		{
+			// Todo voir si l'on a pas besoin de graph pour les productDetails
+			productTemplate = dao.find(ProductTemplate.class, id, em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
 		} catch (Exception e) {
 			e.printStackTrace();
+		
+			em.close();
+			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: getting ProductTemplate operation");
 		}
 		
 		em.close();
@@ -603,83 +634,80 @@ public class MerchantController
 	*
 	* Ajoute un nouveau ProductTemplate pour le Merchant (User connecte)
 	*/
-	@PostMapping(path="/my-product-templates/add", consumes = "application/json", produces = "application/json")
+	@PostMapping(path="/productTemplate/addOrUpdate", consumes = "application/json", produces = "application/json")
 	public RestResponse<ProductTemplate> addMyProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model, boolean modif)
     {
-		System.out.println("fiche produit : " + pt);
+		EntityManager em = StartListener.createEntityManager();
 		
 		// Check si le User de la session est Merchant
-		if(!checkAllowToDoThat(session))
-			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to do this operation");
+		Merchant merchant = checkAllowToDoThat(session, em);
+		if(merchant==null)
+		{
+			em.close();
+			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
 		
 		
 		// Check si tous les champs du formulaire sont null ou si le name, l'externalCode ou le prix est null
 		if(	(pt==null) || 
 			(pt.getName()==null) || ( pt.getName().trim().length() ==0) ||
-			(pt.getExternalCode()==null) || ( pt.getExternalCode().trim().length() ==0) ||
-			(Double.valueOf(pt.getPrice())==null) )
+			(Double.valueOf(pt.getPrice())==null) )													//TODO replacer les double pour Double dans les beans pour eviter les exception sur les null.
+			//TODO completer
 		{
 			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
 		}
 		
-		EntityManager em = StartListener.createEntityManager();
 		
 		
-		// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
-		Merchant merchant = null;
-		try {
-			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(merchant==null)
-    	{
-    		em.close();
-    		return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
-    	}
-				
-		
-		// Check si l'externalCode ou le name existe deja et qu'il ne s'agit pas d'une modification
-		ProductTemplate pt_tmp = null;
-    	try 
-    	{
-    		List<ProductTemplate> listProductsTemplates = dao.findNamed(ProductTemplate.class, "externalCode", pt.getExternalCode(), em, false);
-    		if(listProductsTemplates.size()==0)
-    			listProductsTemplates = dao.findNamed(ProductTemplate.class, "name", pt.getName(), em, false);
-			
-    		if(listProductsTemplates.size()!=0)
-    			pt_tmp = listProductsTemplates.get(0);
-    		
-		} catch (Exception e) {
-			pt_tmp = null;
-			e.printStackTrace();
-		}
-		
-    	// TODO Front: prevenir que le produit existe deja et demander s'il s'agit d'une modification
-    	if( (pt_tmp!=null) && (!modif) )
-    	{
-    		em.close();
-    		return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Operation canceled: Product template already exists");	
-    	}
-		
-    	
-    	// Attribue le Merchant connecte au Commerce a ajouter
-    	pt.setMerchant(merchant);
-    	
-    	// Persiste le Commerce a ajouter dans la BDD
+		ProductTemplate pt_bdd = null;
+		boolean isUnique = true;
 		try 
 		{
-			dao.saveOrUpdate(pt, em, false);
+			if(pt.getId()==0)						// c'est un add que l'on fait.
+			{
+	    		//check si name est completement unique, ca aide l'utilisateur a s'y retrouver.
+	    		List<ProductTemplate> lpt = dao.findNamedBySomething(ProductTemplate.class, "name", pt.getName(), "merchant", merchant, em);
+	    		if(lpt.size()!=0)
+	    			isUnique = false;
+	    		
+				
+	    		pt_bdd = pt;
+				// Attribue le Merchant connecte au ProductTemplate a ajouter
+	    		pt_bdd.setMerchant(merchant);
+				
+			}else{									// update
+				
+				pt_bdd = dao.find(ProductTemplate.class, pt.getId(), em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+				if(pt_bdd==null)
+		    	{
+		    		em.close();
+		    		return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: ProductTemplate not exists");
+		    	}
+				
+				
+				
+				pt_bdd.setDescription(pt.getDescription());
+				// Todo completer en s'inspirant updateMerchantAccount
+			}
+		
 			
-			System.out.println("create product template: "+ pt.getExternalCode() +" name:"+ pt.getName());	
+			// Persiste le Commerce a ajouter dans la BDD
+			System.out.println("productTemplate: "+ pt_bdd.getExternalCode() +" name:"+ pt_bdd.getName() +" "+ (((pt.getId()==0)) ? "created" : "updated"));
+			dao.saveOrUpdate(pt_bdd, em, false);
+			
 			
 		} catch (Exception e1) {
-			pt = null;
 			e1.printStackTrace();
+			
+			em.close();
+			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: on add or update ProductTemplate");
 		}
 		
 		em.close();
-		return new RestResponse<ProductTemplate>(RestResponseStatus.SUCCESS, null);
+		if(isUnique)
+			return new RestResponse<ProductTemplate>(RestResponseStatus.SUCCESS, pt_bdd);
+		else
+			return new RestResponse<ProductTemplate>(RestResponseStatus.SUCCESS, pt_bdd, 6, "Warning: ProductTemplate name not unique, and that could add confusion for users.");
     }
 	
 	
@@ -693,238 +721,133 @@ public class MerchantController
 	* Supprime un ProductTemplate du Merchant (User connecte) recupere via son id
 	* TODO supprimer toutes les instances de produits lors de la suppression de la fiche
 	*/
-	@GetMapping(path="/my-product-templates/remove/{id}", produces = "application/json")
-	// TODO Front: prevenir que la suppression de la fiche entrainera la suppression des produits en vente
+	@GetMapping(path="/productTemplate/{id}/remove", produces = "application/json")
 	public RestResponse<ProductTemplate> removeMyProductTemplate(@PathVariable(name="id") int id, HttpSession session, Locale locale, Model model)
     {
-		// Check si le User de la session est Merchant
-		if(!checkAllowToDoThat(session))
-			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to do this operation");
-		
-		
 		EntityManager em = StartListener.createEntityManager();
 		
-		
-		// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
-		Merchant merchant = null;
-		try {
-			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// Check si le User de la session est Merchant
+		Merchant merchant = checkAllowToDoThat(session, em);
 		if(merchant==null)
-    	{
-    		em.close();
-    		return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
-    	}
-			
-		
-		EntityGraph<ProductTemplate> graph = em.createEntityGraph(ProductTemplate.class);
-		graph.addSubgraph("productDetails");
-		graph.addSubgraph("products");
-		
-		// Check si l'id du ProductTemplate a supprimer existe dans la BDD	
-		ProductTemplate pt = null;
-    	try 
-    	{
-    		ProductTemplate productTemplate = dao.find(ProductTemplate.class, id, em);
-    		if(productTemplate!=null)
-    			pt = productTemplate;
-    		
-		} catch (Exception e) {
-			pt = null;
-			e.printStackTrace();
+		{
+			em.close();
+			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
 		}
+	
 		
-    	if(pt == null)
-    	{
-    		em.close();
-    		return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: Product template doesn't exist");
-    	}
-		
-    	
-    	// Supprime le ProductTemplate
 		try 
 		{
-			dao.remove(pt, em, false);
+			ProductTemplate pt = dao.find(ProductTemplate.class, id, em);					//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+			if(pt!=null)
+			{
+				merchant.removeProductTemplate(pt);
+				for(Commerce c : pt.getCommerces())
+					pt.removeCommerces(c);
+				
+				//todo question : qu'est qui doit etre persisté pour la save bdd ?
+				dao.saveOrUpdate(merchant, em);
+				
+				//Todo supprimer seulement les products qui ne sont pas associés a une shoppingcart
+				
+				// Supprime le ProductTemplate
+				dao.remove(ProductTemplate.class, id, em, false);
+			}
 			
 		} catch (Exception e1) {
-			pt = null;
 			e1.printStackTrace();
+		
+			em.close();
+			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: on remove ProductTemplate");
 		}
 		
 		em.close();
-		
 		return new RestResponse<ProductTemplate>(RestResponseStatus.SUCCESS, null);
     }
 	
 	
 	
-	/*****************************************************************************************
-	*										getMyProducts										 * 
-	*****************************************************************************************
-	*
-	* Liste tous les Products de tous les Commerces du Merchant (User connecte)
-	*/
-	@GetMapping(path="/my-products", produces = "application/json")
-	public RestResponse<List<Product>> getMyProducts(HttpSession session)
-    {
-		// Check si le User de la session est Merchant
-		if(!checkAllowToDoThat(session))
-			return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to do this operation");
-		
-    	EntityManager em = StartListener.createEntityManager();
-		
-    	
-    	// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
-    	Merchant merchant = null;
-		try {
-			merchant = dao.find(Merchant.class,  ((User)session.getAttribute("user")).getId() , em);
-			System.out.println(merchant);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(merchant==null)
-    	{
-    		em.close();
-    		return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
-    	}
-    	
-    	
-    	List<Product> listProducts = new ArrayList<Product>();
-		
-    	
-//    	EntityGraph<Product> graph = em.createEntityGraph(Product.class);
-//    	Subgraph<Merchant> aa = graph.addSubgraph("merchant", Merchant.class);
-//    	aa.addSubgraph("commerces");
-    	
-    	// Recupere la liste des Products du Merchant via son name
-		try 
-		{	
-			listProducts = dao.findBySomethingNamed(Product.class, "merchant", "name", merchant.getName(), em);
-			for(ProductTemplate ptTmp : listProducts)
-				System.out.println(ptTmp);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		em.close();
-		return new RestResponse<List<Product>>(RestResponseStatus.SUCCESS, listProducts);
-    }
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	*********************************************************************************************************************************************/
+	
 	
 	
 	/*****************************************************************************************
-	*										getMyProductsByCommerce										 * 
+	*										getMyProductsByCommerce							 * 
 	*****************************************************************************************
 	*
-	* Liste tous les Products de tous les Commerces du Merchant (User connecte)
+	* Todo doc
 	*/
-	@GetMapping(path="/my-products-by-commerce", produces = "application/json")
-	public RestResponse<List<Product>> getMyProductsByCommerce(HttpSession session)
+	@GetMapping(path="/commerce/{id_c}/products", produces = "application/json")
+	public RestResponse<List<Product>> getMyProductsByCommerce(@PathVariable(name = "id_c") int id_c, HttpSession session)
     {
+		EntityManager em = StartListener.createEntityManager();
+		
 		// Check si le User de la session est Merchant
-		if(!checkAllowToDoThat(session))
-			return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to do this operation");
-		
-    	EntityManager em = StartListener.createEntityManager();
-		
-    	
-    	// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
-    	Merchant merchant = null;
-		try {
-			merchant = dao.find(Merchant.class,  ((User)session.getAttribute("user")).getId() , em);
-			System.out.println(merchant);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Merchant merchant = checkAllowToDoThat(session, em);
 		if(merchant==null)
-    	{
-    		em.close();
-    		return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
-    	}
-    	
-    	
-    	List<Product> listProducts = new ArrayList<Product>();
+		{
+			em.close();
+			return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+	
 		
-    	
-    	EntityGraph<Product> graph = em.createEntityGraph(Product.class); 	
-    	
-    	graph.addSubgraph("commerce");
-    		
-    	// Recupere la liste des Products du Merchant par Commerce
+		List<Product> listProducts = new ArrayList<Product>();
 		try 
 		{	
-			// for each Commerce du Merchant => recupere la liste des Products
-			for (Commerce c : merchant.getCommerces()) {
-				// TODO refaire une requete findBySomething avec tClass.uniqueIdName() au lieu de tClass.getName() ?
-				listProducts.addAll( dao.findBySomething(Product.class, "commerce", c, em) );
+			Commerce c = dao.find(Commerce.class, id_c, em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+			if(c==null)
+			{
+				em.close();
+				return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 1, "Error: commerce not found operation");
 			}
 			
-			for(Product pTmp : listProducts)
-				System.out.println(pTmp);
+			listProducts = dao.findBySomething(Product.class, "commerce", c, em);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			em.close();
+			return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 1, "Error: getting products by commerce operation");
 		}
 		
 		em.close();
 		return new RestResponse<List<Product>>(RestResponseStatus.SUCCESS, listProducts);
     }
 	
-	
-	/*****************************************************************************************
-	*										getMyProductsByCommerceName									 * 
-	*****************************************************************************************
-	* 
-	* Liste les Products d'un Commerce du Merchant (User connecte)
-	*/
-	@GetMapping(path="/my-products-by-commerce/{id}", produces = "application/json")
-	public RestResponse<List<Product>> getMyProductsByCommerceName(HttpSession session)
-    {
-		// Check si le User de la session est Merchant
-		if(!checkAllowToDoThat(session))
-			return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
-		
-		
-    	EntityManager em = StartListener.createEntityManager();
-		
-    	List<Product> listProducts = new ArrayList<Product>();
-    	
-    	
-    	EntityGraph<Product> graph = em.createEntityGraph(Product.class); 	
-    	/*
-    	graph.addSubgraph("commerceCategories");
-    	graph.addSubgraph("productTemplates");
-    	graph.addSubgraph("products");	
-    	*/
-    	
-    	// Recupere le Merchant a partir du User de la session et check si c'est bien ce Merchant qui est connecte
-		Merchant merchant = null;
-		try {
-			merchant = dao.find(Merchant.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(merchant==null)
-    	{
-    		em.close();
-    		return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 5, "Error: wrong Merchant session information");
-    	}
-		
-    	// Recupere la liste des Commerce du Merchant via son name
-		try 
-		{	// TODO Recup Commerce
-			//listProducts = dao.findBySomethingNamed(Commerce.class, "commerce", "name", commerce.getName(), em, false, graph);
-			for(Product pTmp : listProducts)
-				System.out.println(pTmp);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		em.close();
-		return new RestResponse<List<Product>>(RestResponseStatus.SUCCESS, listProducts);
-    }
+	//TODO 
+	// /commerce/{id_c}/product/{id}						// voir le produit seul (different du productTemplate) (non prioritaire)
+	// /commerce/{id_c}/product/{id}/remove					//  (non prioritaire)
+	// /commerce/{id_c}/product/{id}/{status}				// passage : "promotion" -> "unsold" -> "destroyed" ?.
+	// /commerce/{id_c}/product/addOrUpdate					// personnalisation du product par rapport au productTemplate (non prioritaire), ex : "brulé", "carbonnisé"
+	// /commerce/{id_c}/productTemplate/{id}/{quantity}		// specifit la quantité voulu de product (pour un productTemplate données), MAIS cela ne concerne pas les products reservé dans les panier des utilisateurs (PAS TOUCHE).
 	
 }

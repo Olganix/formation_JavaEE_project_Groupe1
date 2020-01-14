@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.dawan.nogashi.beans.Address;
-import fr.dawan.nogashi.beans.Commerce;
+import fr.dawan.nogashi.beans.Association;
+import fr.dawan.nogashi.beans.Individual;
 import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.RestResponse;
 import fr.dawan.nogashi.beans.User;
@@ -143,12 +143,11 @@ public class UsersController
 		{
 			switch(u.getRole())
 			{
-			case MERCHANT: dao.saveOrUpdate(new Merchant(u), em); break;
-			//case ASSOCIATION: dao.saveOrUpdate(new Association(u), em); break;		//Todo
-			//case ADMIN: dao.saveOrUpdate(new Admin(u), em); break;					//Todo
-			case INDIVIDUAL:
-			default:
-				dao.saveOrUpdate(u, em); break;
+			case MERCHANT: 		dao.saveOrUpdate(new Merchant(u), em); break;
+			case ASSOCIATION: 	dao.saveOrUpdate(new Association(u), em); break;
+			case INDIVIDUAL: 	dao.saveOrUpdate(new Individual(u), em); break;
+			case ADMIN: 
+			default: 			dao.saveOrUpdate(u, em); break;
 			}
 			
 			
@@ -176,6 +175,8 @@ public class UsersController
 		} catch (Exception e1) {
 			u = null;
 			e1.printStackTrace();
+			
+			//Todo check des erreur sur exception.
 		}
 		
 		em.close();
@@ -457,7 +458,7 @@ public class UsersController
 	*
 	* 
 	*/
-	@RequestMapping(path="/password-rescue", produces = "application/json")
+	@RequestMapping(path="/password-rescue", produces = "application/json")					//TODO supprimer les "-" pour etre dans les meme normes, et engueler le mec qui a fait ca.
 	//test : http://localhost:8080/nogashi/passwordRescue?email=aaa@toto.fr
     public RestResponse<User> passwordRescue(@RequestBody String email, HttpSession session, Locale locale, Model model)
     {
@@ -537,6 +538,7 @@ public class UsersController
 	//
 	
 	
+	
 
 	/*****************************************************************************************
 	*										passwordRescueModification						 * 
@@ -544,7 +546,7 @@ public class UsersController
 	*
 	* 
 	*/
-	@PostMapping(path="/password-rescue-modification", produces = "application/json")
+	@PostMapping(path="/password-rescue-modification", produces = "application/json")					//TODO supprimer les "-" pour etre dans les meme normes, et engueler le mec qui a fait ca.
 	//test : http://localhost:8080/nogashi/passwordRescueModification?password=toto&token=xxxxxxxxxxxxx
 	public RestResponse<User> passwordRescueModification(@RequestBody User user, HttpSession session, Locale locale, Model model)
     {
@@ -602,6 +604,55 @@ public class UsersController
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	********************************************************** Admin/tests functions *************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	*********************************************************************************************************************************************/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/*****************************************************************************************
 	*										getUserById									 * 
 	*****************************************************************************************
@@ -641,40 +692,6 @@ public class UsersController
 		em.close();
 		return new RestResponse<User>(RestResponseStatus.SUCCESS, user);
     }
-	
-	
-	
-	/*****************************************************************************************
-	*										getCommercesByCity									 * 
-	*****************************************************************************************
-	*
-	* Liste x Commerces par cityName (only name et address pour page 'ou nous trouver')
-	* TODO: recherche via coordonnées de la map
-	*/
-	
-	@GetMapping(path="/commerces-samples", produces = "application/json")
-	public RestResponse<List<Commerce>> getCommercesByCity(@RequestBody String cityName)
-    {
-		EntityManager em = StartListener.createEntityManager();
-		
-    	List<Commerce> listCommerces = new ArrayList<Commerce>();
-    	
-    	EntityGraph<Commerce> graph = em.createEntityGraph(Commerce.class);
-    	graph.addSubgraph("address");
-    	
-    	int startIndex = 0;
-    	int nbElements = 5; // nombre d'éléments à afficher
-		try 
-		{	
-			listCommerces = dao.findBySomethingNamedPartial(Commerce.class, "address", "cityName", cityName, em, startIndex, nbElements);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		em.close();
-		return new RestResponse<List<Commerce>>(RestResponseStatus.SUCCESS, listCommerces);
-    }
-    
 	
 	
 	
