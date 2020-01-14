@@ -1,5 +1,5 @@
 import {Address} from './address';
-import {UserRole} from '../enum/user-role.enum';
+import {UserRole, UserRole_toDisplayString} from '../enum/user-role.enum';
 
 
 export class User {
@@ -25,6 +25,19 @@ export class User {
     if (obj !== null) {
       Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regle le soucis, avec un Pip dans le service.
     }
+
+    // @ts-ignore
+    if ( (obj !== undefined) && (obj !== null) && (obj.role !== undefined) && (obj.role !== null)) {        // todo faire mieux (voir stephane peut etre), mais le si je ne fais rien, on une string a la place d'un userRole. si javascript ca passe, pas en typescript.
+      // @ts-ignore
+      switch(obj.role) {
+        case 'INDIVIDUAL': this.role = UserRole.INDIVIDUAL; break;
+        case 'MERCHANT': this.role = UserRole.MERCHANT; break;
+        case 'ASSOCIATION': this.role = UserRole.ASSOCIATION; break;
+        case 'ADMIN': this.role = UserRole.ADMIN; break;
+      }
+    }
+
+
   }
 
   setSignin(name: string, password: string, email: string, role: UserRole, newsletterEnabled: boolean) {
@@ -41,7 +54,7 @@ export class User {
 
 
   toHttpObject_signin(): any {
-    return {name: this._name, email: this._email, password: this._password, role: this._role, newsletterEnabled: this._newsletterEnabled };
+    return {name: this._name, email: this._email, password: this._password, role: UserRole_toDisplayString(this._role), newsletterEnabled: this._newsletterEnabled };
   }
   toHttpObject_login(): any {
     return {name: this._name, password: this._password };

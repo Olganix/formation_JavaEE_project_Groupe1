@@ -80,6 +80,7 @@ import { CompteCommentairesComponent } from './components/pages/pages_common/com
 import { ComptePreferencesComponent } from './components/pages/pages_common/compte-preferences/compte-preferences.component';
 import { SchedulerWeekTxtComponent } from './components/modules/scheduler-week-txt/scheduler-week-txt.component';
 import { SchedulerWeekVslComponent } from './components/modules/scheduler-week-vsl/scheduler-week-vsl.component';
+import { MapComponent } from './components/modules/map/map.component';
 
 
 
@@ -187,7 +188,8 @@ const appRoutes: Routes =
     CompteCommentairesComponent,
     ComptePreferencesComponent,
     SchedulerWeekTxtComponent,
-    SchedulerWeekVslComponent],
+    SchedulerWeekVslComponent,
+    MapComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

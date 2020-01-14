@@ -4,13 +4,14 @@ import {RestResponse} from '../../../classes/rest-response';
 import {environment} from '../../../../environments/environment';
 import {log} from 'util';
 import {InfoBoxNotificationsService} from '../../../services/InfoBoxNotifications.services';
-import {ProductTemplate} from "../../../classes/product-template";
+import {ProductTemplate} from '../../../classes/product-template';
 import {MerchantService} from '../../../services/merchant.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from '../../../validators/custom-validators';
 import {User} from '../../../classes/user';
 import {Commerce} from '../../../classes/commerce';
 import {Address} from '../../../classes/address';
+import { UserRole } from 'src/app/enum/user-role.enum';
 @Component({
   selector: 'app-test-spring-rest',
   templateUrl: './test-spring-rest.component.html',
@@ -21,6 +22,10 @@ import {Address} from '../../../classes/address';
 
 
 export class TestSpringRestComponent implements OnInit {
+
+  UserRole = UserRole;
+
+
   users: any;
   merchants: any;
   listProductsTemplates: any;
@@ -98,7 +103,7 @@ export class TestSpringRestComponent implements OnInit {
       });
 
 
-	// Commerces                        // TiynyMCE: https://www.npmjs.com/package/@tinymce/tinymce-angular  https://www.tiny.cloud/docs/quick-start/
+    // Commerces                        // TiynyMCE: https://www.npmjs.com/package/@tinymce/tinymce-angular  https://www.tiny.cloud/docs/quick-start/
     this.merchantService.getCommerces().subscribe(
       (rrp: RestResponse) => {
 

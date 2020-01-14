@@ -6,6 +6,7 @@ import { InfoBoxNotificationsService } from '../../../../services/InfoBoxNotific
 import {User} from '../../../../classes/user';
 import {CustomValidators} from '../../../../validators/custom-validators';
 import {RestResponse} from '../../../../classes/rest-response';
+import { UserRole } from 'src/app/enum/user-role.enum';
 
 
 @Component({
@@ -14,6 +15,9 @@ import {RestResponse} from '../../../../classes/rest-response';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
+
+  UserRole = UserRole;
+
   role: FormControl;
   name: FormControl;
   email: FormControl;
@@ -34,7 +38,7 @@ export class SignInComponent implements OnInit {
     ngOnInit() {
 
 
-      this.role = new FormControl('INDIVIDUAL', [
+      this.role = new FormControl(UserRole.INDIVIDUAL, [
         Validators.required
       ]);
       this.name = new FormControl(null, [
@@ -78,7 +82,7 @@ export class SignInComponent implements OnInit {
           console.log(this.form1.value);
 
           const user = new User();
-          user.setSignin(this.form1.value.name, this.form1.value.password, this.form1.value.email, this.form1.value.role, this.form1.value.newsletterEnabled);
+          user.setSignin(this.form1.value.name, this.form1.value.password, this.form1.value.email, +this.form1.value.role, this.form1.value.newsletterEnabled);
 
           this.connexionService.signIn( user ).subscribe(
             (rrp: RestResponse) => {
@@ -170,7 +174,7 @@ export class SignInComponent implements OnInit {
   }
 
   public controlDeclaration(): string {
-      if ((this.declaration.value === 'MERCHANT') || (this.declaration.value === 'ASSOCIATION') ) {
+      if ((+this.role.value === UserRole.MERCHANT) || (+this.role.value === UserRole.ASSOCIATION) ) {
         if (this.declaration.dirty) {
           if (this.declaration.hasError('required')) {   // same if it's requiredTrue
             return `La Déclaration sur l'Honneur est obligatoires`;

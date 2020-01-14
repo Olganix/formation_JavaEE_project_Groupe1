@@ -3,6 +3,7 @@ import {RestResponse} from '../../../classes/rest-response';
 import {ConnexionService} from '../../../services/connexion.service';
 import {InfoBoxNotificationsService} from '../../../services/InfoBoxNotifications.services';
 import {Router} from '@angular/router';
+import { UserRole } from 'src/app/enum/user-role.enum';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  UserRole = UserRole;
 
   constructor(private connexionService: ConnexionService,
               private infoBoxNotificationsService: InfoBoxNotificationsService,

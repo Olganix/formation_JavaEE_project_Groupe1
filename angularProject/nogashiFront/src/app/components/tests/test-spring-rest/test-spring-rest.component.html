@@ -84,7 +84,7 @@
 
 
   <h2>(Must be connected as Merchant)</h2>
-  <div class="col-xs-12" *ngIf="connexionService.getLocalConnectedRole()==='MERCHANT'" >
+  <div class="col-xs-12" *ngIf="connexionService.getLocalConnectedRole()===UserRole.MERCHANT" >
     <div *ngIf="commerces">
       <h2>List Commerces :</h2>
       <table class="table table-bordered table-hover">

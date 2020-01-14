@@ -16,9 +16,9 @@
 
             <label class="label-formulaire"><i class="fas fa-asterisk"></i> Vous êtes :</label>
             <select formControlName="role" name="role" class="liste-deroulante"  #inputRole >
-                <option value="INDIVIDUAL" selected="selected">Particulier</option><!-- todo find why it's not selected by default -->
-                <option value="MERCHANT" >Commerçant</option>
-                <option value="ASSOCIATION" >Association</option>
+                <option value="{{UserRole.INDIVIDUAL}}" selected="selected">Particulier</option>
+                <option value="{{UserRole.MERCHANT}}" >Commerçant</option>
+                <option value="{{UserRole.ASSOCIATION}}" >Association</option>
             </select>
 
             <label class="label-formulaire"><i class="fas fa-asterisk" ></i> Pseudo</label>
@@ -42,8 +42,8 @@
               <label class="label" >J'ai lu et j'accepte les conditions générales <br> d'utilisation.</label>
               <span class="text-danger2" *ngIf="controlTerm(); let message">{{message}}</span>
             </div>
-            <div class="bloc-checkbox2" *ngIf="(inputRole.value==='MERCHANT')||(inputRole.value==='ASSOCIATION')" >
-              <input formControlName="declaration" name="confirm_on_honor" class="checkbox2" type="checkbox" [required]="(inputRole.value==='MERCHANT')||(inputRole.value==='ASSOCIATION')" >
+            <div class="bloc-checkbox2" *ngIf="( +inputRole.value===UserRole.MERCHANT)||(+inputRole.value===UserRole.ASSOCIATION)" >
+              <input formControlName="declaration" name="confirm_on_honor" class="checkbox2" type="checkbox" [required]="(+inputRole.value===UserRole.MERCHANT)||(+inputRole.value===UserRole.ASSOCIATION)" >
               <label class="label" >Je certifie sur l'honneur que les informations <br> fournies sont rigoureusement exactes</label>
               <span class="text-danger2" *ngIf="controlDeclaration(); let message">{{message}}</span>
             </div>
