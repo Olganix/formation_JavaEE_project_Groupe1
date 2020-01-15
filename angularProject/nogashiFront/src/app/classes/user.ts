@@ -26,10 +26,10 @@ export class User {
       Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regle le soucis, avec un Pip dans le service.
     }
 
-    // @ts-ignore
-    if ( (obj !== undefined) && (obj !== null) && (obj.role !== undefined) && (obj.role !== null)) {        // todo faire mieux (voir stephane peut etre), mais le si je ne fais rien, on une string a la place d'un userRole. si javascript ca passe, pas en typescript.
-      // @ts-ignore
-      switch(obj.role) {
+    /* tslint:disable:no-string-literal */
+    if ( (obj !== undefined) && (obj !== null) && (obj.hasOwnProperty('role')) && (obj['role'] !== null)) {        // todo faire mieux (voir stephane peut etre), mais le si je ne fais rien, on une string a la place d'un userRole. si javascript ca passe, pas en typescript. =>
+
+      switch (obj['role']) {
         case 'INDIVIDUAL': this.role = UserRole.INDIVIDUAL; break;
         case 'MERCHANT': this.role = UserRole.MERCHANT; break;
         case 'ASSOCIATION': this.role = UserRole.ASSOCIATION; break;
