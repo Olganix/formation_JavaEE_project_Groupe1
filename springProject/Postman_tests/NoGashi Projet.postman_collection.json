@@ -138,7 +138,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/email-validation",
+							"raw": "http://localhost:8080/nogashi/emailValidation",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -146,7 +146,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"email-validation"
+								"emailValidation"
 							]
 						}
 					},
@@ -174,7 +174,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/send-email-validation",
+							"raw": "http://localhost:8080/nogashi/sendEmailValidation",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -182,7 +182,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"send-email-validation"
+								"sendEmailValidation"
 							]
 						}
 					},
@@ -350,7 +350,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/is-logged",
+							"raw": "http://localhost:8080/nogashi/isLogged",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -358,7 +358,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"is-logged"
+								"isLogged"
 							]
 						}
 					},
@@ -418,7 +418,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/password-rescue",
+							"raw": "http://localhost:8080/nogashi/passwordRescue",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -426,7 +426,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"password-rescue"
+								"passwordRescue"
 							]
 						}
 					},
@@ -454,7 +454,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/password-rescue-modification",
+							"raw": "http://localhost:8080/nogashi/passwordRescueModification",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -462,7 +462,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"password-rescue-modification"
+								"passwordRescueModification"
 							]
 						}
 					},
@@ -604,7 +604,7 @@
 			"name": "MerchantController",
 			"item": [
 				{
-					"name": "getMerchantAccount",
+					"name": "getMerchant",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -621,7 +621,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/merchant-account",
+							"raw": "http://localhost:8080/nogashi/merchant",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -629,14 +629,14 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"merchant-account"
+								"merchant"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "updateMerchantAccount",
+					"name": "updateMerchant",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -657,7 +657,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/users/merchant-account/update",
+							"raw": "http://localhost:8080/nogashi/merchant/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -665,8 +665,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"users",
-								"merchant-account",
+								"merchant",
 								"update"
 							]
 						}
@@ -674,7 +673,7 @@
 					"response": []
 				},
 				{
-					"name": "deactivateMerchantAccount",
+					"name": "deactivateMerchant",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -698,7 +697,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/merchant-account/remove",
+							"raw": "http://localhost:8080/nogashi/merchant/remove",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -706,7 +705,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"merchant-account",
+								"merchant",
 								"remove"
 							]
 						}
@@ -714,12 +713,12 @@
 					"response": []
 				},
 				{
-					"name": "getMyCommerces",
+					"name": "getCommerces",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/nogashi/my-commerces",
+							"raw": "http://localhost:8080/nogashi/merchant/commerces",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -727,7 +726,8 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"my-commerces"
+								"merchant",
+								"commerces"
 							]
 						}
 					},
@@ -751,7 +751,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/my-commerces/74",
+							"raw": "http://localhost:8080/nogashi/merchant/commerce/74",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -759,7 +759,8 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"my-commerces",
+								"merchant",
+								"commerce",
 								"74"
 							]
 						}
@@ -788,7 +789,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/my-commerces/add",
+							"raw": "http://localhost:8080/nogashi/merchant/commerce/addOrUdapte",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -796,8 +797,9 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"my-commerces",
-								"add"
+								"merchant",
+								"commerce",
+								"addOrUdapte"
 							]
 						}
 					},
@@ -821,7 +823,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/my-commerces/remove/74",
+							"raw": "http://localhost:8080/nogashi/merchant/commerce/74/remove",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -829,16 +831,17 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"my-commerces",
-								"remove",
-								"74"
+								"merchant",
+								"commerce",
+								"74",
+								"remove"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getMyProductTemplates",
+					"name": "getProductTemplates",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -855,7 +858,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/my-product-templates",
+							"raw": "http://localhost:8080/nogashi/merchant/productTemplates",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -863,19 +866,20 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"my-product-templates"
+								"merchant",
+								"productTemplates"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getMyProductTemplateById",
+					"name": "getProductTemplateById",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/nogashi/my-product-templates/47",
+							"raw": "http://localhost:8080/nogashi/merchant/productTemplate/47",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -883,7 +887,8 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"my-product-templates",
+								"merchant",
+								"productTemplate",
 								"47"
 							]
 						}
@@ -891,7 +896,7 @@
 					"response": []
 				},
 				{
-					"name": "addMyProductTemplate (as Big Fernand)",
+					"name": "addProductTemplate (as Big Fernand)",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -912,7 +917,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/my-product-templates/add",
+							"raw": "http://localhost:8080/nogashi/merchant/productTemplate/addOrUpdate",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -920,15 +925,16 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"my-product-templates",
-								"add"
+								"merchant",
+								"productTemplate",
+								"addOrUpdate"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "removeMyProductTemplate",
+					"name": "removeProductTemplate",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -945,7 +951,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/my-product-templates/remove/78",
+							"raw": "http://localhost:8080/nogashi/merchant/productTemplate/78/remove",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -953,16 +959,17 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"my-product-templates",
-								"remove",
-								"78"
+								"merchant",
+								"productTemplate",
+								"78",
+								"remove"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getMyProducts",
+					"name": "getProductsByCommerce",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -979,7 +986,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/my-products",
+							"raw": "http://localhost:8080/nogashi/merchant/commerce/74/products",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -987,72 +994,10 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"my-products"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getMyProductsByCommerce",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/nogashi/my-products-by-commerce",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"nogashi",
-								"my-products-by-commerce"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getMyProductsByCommerceName",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/nogashi/my-products-by-commerce/74",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"nogashi",
-								"my-products-by-commerce",
-								"74"
+								"merchant",
+								"commerce",
+								"74",
+								"products"
 							]
 						}
 					},
@@ -1065,32 +1010,12 @@
 			"name": "BuyerController",
 			"item": [
 				{
-					"name": "getCommerces",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/nogashi/commerces",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"nogashi",
-								"commerces"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "getCommerceById",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/nogashi/commerces/74",
+							"raw": "http://localhost:8080/nogashi/buyer/commerce/74",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1098,28 +1023,9 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"commerces",
+								"buyer",
+								"commerce",
 								"74"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getProducts",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/nogashi/products",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"nogashi",
-								"products"
 							]
 						}
 					},
@@ -1131,7 +1037,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/nogashi/commerce/products",
+							"raw": "http://localhost:8080/nogashi/buyer/commerce/74/products",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1139,7 +1045,9 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"buyer",
 								"commerce",
+								"74",
 								"products"
 							]
 						}
@@ -1147,12 +1055,12 @@
 					"response": []
 				},
 				{
-					"name": "getProductById",
+					"name": "getProductById TODO",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/nogashi/products/1",
+							"raw": "http://localhost:8080/nogashi/buyer/products/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1160,8 +1068,30 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"buyer",
 								"products",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getShoppingCart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/nogashi/buyer/shoppingCart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"buyer",
+								"shoppingCart"
 							]
 						}
 					},
@@ -1174,7 +1104,7 @@
 			"name": "AssociationController",
 			"item": [
 				{
-					"name": "getAssociationAccount",
+					"name": "getAssociation",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1191,7 +1121,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/association-account",
+							"raw": "http://localhost:8080/nogashi/association",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1199,14 +1129,14 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"association-account"
+								"association"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "updateAssociationAccount",
+					"name": "updateAssociation",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1227,7 +1157,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/users/association-account/update",
+							"raw": "http://localhost:8080/nogashi/users/association/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1236,7 +1166,7 @@
 							"path": [
 								"nogashi",
 								"users",
-								"association-account",
+								"association",
 								"update"
 							]
 						}
@@ -1244,7 +1174,7 @@
 					"response": []
 				},
 				{
-					"name": "deactivateAssociationAccount",
+					"name": "deactivateAssociation",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1268,7 +1198,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/users/association-account/remove",
+							"raw": "http://localhost:8080/nogashi/users/association/remove",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1277,7 +1207,7 @@
 							"path": [
 								"nogashi",
 								"users",
-								"association-account",
+								"association",
 								"remove"
 							]
 						}
@@ -1291,7 +1221,7 @@
 			"name": "IndividualController",
 			"item": [
 				{
-					"name": "getIndividualAccount",
+					"name": "getIndividual",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1308,7 +1238,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/individual-account",
+							"raw": "http://localhost:8080/nogashi/individual",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1316,14 +1246,14 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"individual-account"
+								"individual"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "updateIndividualAccount (Anaïs Despin)",
+					"name": "updateIndividual (Anaïs Despin)",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -1337,7 +1267,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/individual-account/update",
+							"raw": "http://localhost:8080/nogashi/individual/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1345,7 +1275,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"individual-account",
+								"individual",
 								"update"
 							]
 						}
@@ -1353,7 +1283,7 @@
 					"response": []
 				},
 				{
-					"name": "updateIndividualAccount Gilles Collin",
+					"name": "updateIndividual Gilles Collin",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -1367,7 +1297,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/individual-account/update",
+							"raw": "http://localhost:8080/nogashi/individual/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1375,7 +1305,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"individual-account",
+								"individual",
 								"update"
 							]
 						}
@@ -1383,7 +1313,7 @@
 					"response": []
 				},
 				{
-					"name": "deactivateIndividualAccount",
+					"name": "deactivateIndividual",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1407,7 +1337,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/individual-account/remove",
+							"raw": "http://localhost:8080/nogashi/individual/remove",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1415,7 +1345,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"individual-account",
+								"individual",
 								"remove"
 							]
 						}

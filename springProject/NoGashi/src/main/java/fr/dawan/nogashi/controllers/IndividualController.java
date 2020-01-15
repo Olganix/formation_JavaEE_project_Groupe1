@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.Buyer;
@@ -23,19 +24,10 @@ import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.RestResponseStatus;
 import fr.dawan.nogashi.listeners.StartListener;
 
-/**
- * 
- * Listes des methodes :
- * 
- * getIndividualAccount
- * updateIndividualAccount
- * deactivateIndividualAccount
- * 
- * 
- *
- */
 @RestController
-@CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
+@CrossOrigin(origins="http://localhost:4200", allowCredentials = "true") 
+// @CrossOrigin is used to handle the request from a difference origin.
+@RequestMapping("/individual")
 public class IndividualController
 {
 	@Autowired
@@ -43,13 +35,13 @@ public class IndividualController
 
 	
 	/*****************************************************************************************
-	*										getIndividualAccount									 * 
+	*										getIndividual									 * 
 	*****************************************************************************************
 	* 
 	* Recupere le User (Individual) de la session via son id 
 	*/
-	@GetMapping(path="/individual-account", produces = "application/json")
-	public RestResponse<User> getIndividualAccount(HttpSession session)
+	@GetMapping(path="/", produces = "application/json")
+	public RestResponse<User> getIndividual(HttpSession session)
     {
 		// Check s'il y a un User dans la session
 		User u = (User)session.getAttribute("user");
@@ -86,13 +78,13 @@ public class IndividualController
 	
 	
 	/*****************************************************************************************
-	*										updateIndividualAccount										 * 
+	*										updateIndividual										 * 
 	*****************************************************************************************
 	*
 	* Modifie les infos de l'Individual connecte
 	*/
-	@PostMapping(path="/individual-account/update", consumes = "application/json", produces = "application/json")
-	public RestResponse<Individual> updateIndividualAccount(@RequestBody Individual i, HttpSession session, Locale locale, Model model)
+	@PostMapping(path="/update", consumes = "application/json", produces = "application/json")
+	public RestResponse<Individual> updateIndividual(@RequestBody Individual i, HttpSession session, Locale locale, Model model)
     {
 		// Check s'il y a un User dans la session
 		User u = (User)session.getAttribute("user");
@@ -168,14 +160,14 @@ public class IndividualController
 	
 	
 	/*****************************************************************************************
-	*								deactivateIndividualAccount										* 
+	*								deactivateIndividual										* 
 	*****************************************************************************************
 	*
 	* Desactive le compte Individual (User connecte)
 	* TODO conserver les ShoppingCart
 	*/
-	@GetMapping(path="/individual-account/remove", produces = "application/json")
-	public RestResponse<Individual> removeUser(HttpSession session, Locale locale, Model model)
+	@GetMapping(path="/remove", produces = "application/json")
+	public RestResponse<Individual> deactivateIndividual(HttpSession session, Locale locale, Model model)
     {	
 		EntityManager em = StartListener.createEntityManager();
 		
