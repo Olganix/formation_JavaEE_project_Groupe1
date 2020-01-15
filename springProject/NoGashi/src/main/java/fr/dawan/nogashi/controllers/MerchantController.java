@@ -350,7 +350,7 @@ public class MerchantController
 		Commerce commerce = null;
 		try 
 		{	
-			commerce = dao.find(Commerce.class, id, em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+			commerce = dao.find(Commerce.class, id, "merchant", merchant, em);
 		} catch (Exception e) {
 			e.printStackTrace();
 			
@@ -428,7 +428,7 @@ public class MerchantController
 				
 			}else{									// update
 				
-				c_bdd = dao.find(Commerce.class, c.getId(), em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+				c_bdd = dao.find(Commerce.class, c.getId(), "merchant", merchant, em);
 				if(c_bdd==null)
 		    	{
 		    		em.close();
@@ -614,7 +614,7 @@ public class MerchantController
 		try 
 		{
 			// Todo voir si l'on a pas besoin de graph pour les productDetails
-			productTemplate = dao.find(ProductTemplate.class, id, em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+			productTemplate = dao.find(ProductTemplate.class, id, "merchant", merchant, em);
 		} catch (Exception e) {
 			e.printStackTrace();
 		
@@ -677,7 +677,7 @@ public class MerchantController
 				
 			}else{									// update
 				
-				pt_bdd = dao.find(ProductTemplate.class, pt.getId(), em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+				pt_bdd = dao.find(ProductTemplate.class, pt.getId(), "merchant", merchant, em);
 				if(pt_bdd==null)
 		    	{
 		    		em.close();
@@ -737,7 +737,7 @@ public class MerchantController
 		
 		try 
 		{
-			ProductTemplate pt = dao.find(ProductTemplate.class, id, em);					//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+			ProductTemplate pt = dao.find(ProductTemplate.class, id, "merchant", merchant, em);
 			if(pt!=null)
 			{
 				merchant.removeProductTemplate(pt);
@@ -823,7 +823,7 @@ public class MerchantController
 		List<Product> listProducts = new ArrayList<Product>();
 		try 
 		{	
-			Commerce c = dao.find(Commerce.class, id_c, em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+			Commerce c = dao.find(Commerce.class, id_c, "merchant", merchant, em);
 			if(c==null)
 			{
 				em.close();

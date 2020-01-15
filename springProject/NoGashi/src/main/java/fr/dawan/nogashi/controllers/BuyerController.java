@@ -109,7 +109,7 @@ public class BuyerController
 		Commerce commerce = null;
 		try 
 		{	
-			commerce = dao.find(Commerce.class, id, em);				//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+			commerce = dao.find(Commerce.class, id, "buyer", buyer, em);
 		} catch (Exception e) {
 			e.printStackTrace();
 			
