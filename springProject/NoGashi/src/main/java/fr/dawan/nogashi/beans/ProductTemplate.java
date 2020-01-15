@@ -57,7 +57,7 @@ public class ProductTemplate extends DbObject {
 	private int maxDurationCart;
 	
 	@Column(nullable = false)
-	private String image = "NoProduct.jpg";
+	private String image;
 
 	
 	
@@ -102,7 +102,7 @@ public class ProductTemplate extends DbObject {
 	
 	
 	public ProductTemplate(String name, String description, String externalCode, boolean isPackaged, double price,
-			double salePrice) {
+			double salePrice, String image) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -110,13 +110,14 @@ public class ProductTemplate extends DbObject {
 		this.isPackaged = isPackaged;
 		this.price = price;
 		this.salePrice = salePrice;
+		this.image = image;
 	}
 	
 	
 	
 	
 	public ProductTemplate(String name, String description, String externalCode, boolean isPackaged, double price,
-			double salePrice, SchedulerWeek schedulerWeekForSaleAndUnsold, int maxDurationCart, String image,
+			double salePrice, String image, SchedulerWeek schedulerWeekForSaleAndUnsold, int maxDurationCart,
 			List<ProductDetail> productDetails) {
 		super();
 		this.name = name;
@@ -125,9 +126,9 @@ public class ProductTemplate extends DbObject {
 		this.isPackaged = isPackaged;
 		this.price = price;
 		this.salePrice = salePrice;
+		this.image = image;
 		this.schedulerWeekForSaleAndUnsold = schedulerWeekForSaleAndUnsold;
 		this.maxDurationCart = maxDurationCart;
-		this.image = image;
 		this.productDetails = productDetails;
 	}
 
