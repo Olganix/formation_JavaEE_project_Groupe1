@@ -48,8 +48,6 @@ public class BuyerController
 
 	// /commerce/{id_c}/product/{id}/reserve				// ca ne marche qu'avec l'idée de la personnalisation (non prioritaire)
 	// /commerce/{id_c}/productTemplate/{id}/reserve/{quantity}		//add ou remove en fonction de la quantité. => attention au message de warning utilisateur si c'est au dessus du nombre d'elements.
-	// /cart/remove/{id_pt}									// supprime du panier la ligne du producTemplate, et du coups on supprime du panier tous les products associés.
-
 	
 	
 	// Retourne Buyer si le User de la session est un Buyer et qu'il est bien dans la Bdd

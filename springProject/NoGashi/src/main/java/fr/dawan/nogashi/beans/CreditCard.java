@@ -14,7 +14,7 @@ public class CreditCard extends DbObject {
 	private static final long serialVersionUID = 1L;
 
 	@Column(nullable = false)
-	private String type;						// mastercard, american express.
+	private String type;						// TODO faire une enum: mastercard, american express.
 	@Column(nullable = false)
 	private String codeNumber;					//todo trouver un moyen pour eviter la lecture dans la bdd des informations de carte banquaire.
 	@Column(nullable = false)
