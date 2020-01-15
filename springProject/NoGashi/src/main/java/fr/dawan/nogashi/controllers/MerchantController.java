@@ -44,21 +44,9 @@ import fr.dawan.nogashi.listeners.StartListener;
 
 
 
-// ------------------------- /individual
-// /creditCard											// recuperation de la credit card pour preremplir la page de payement (si il en a une).
-// /creditCard/update									// sauvegarde de la carte de crédit.
-// /payement											// on recoit les info de la carte de credit + shoppingcart. + envois de mail et ou de notification vers l'individual, vers le merchant/commerce.
-
-// ------------------------- /association
-// /reserve												// equivalent de payement, sans creditcart, puis avec 0 euros de depensé.
-
-
-
-
-
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
-@RequestMapping("/merchant")
+@RequestMapping(path = "/merchant")
 public class MerchantController 
 {
 	@Autowired
@@ -95,7 +83,7 @@ public class MerchantController
 	* 
 	* Recupere le User (Merchant) de la session via son id 
 	*/
-	@GetMapping(path="/", produces = "application/json")
+	@GetMapping(path="", produces = "application/json")
 	public RestResponse<Merchant> getMerchant(HttpSession session)
     {
 		EntityManager em = StartListener.createEntityManager();
@@ -139,16 +127,57 @@ public class MerchantController
 		}
 		
 		
+		// Verifie les champs modifies du formulaire
 		boolean isModifed = false;
-		if((merchant.getCodeSiren()==null) && (m.getCodeSiren()!=null))					// specificité , le code siren ne se modifi qu'une seule fois.
+		if((merchant.getCodeSiren()==null) && (m.getCodeSiren()!=null) )					// specificité : le code siren ne se modifie qu'une seule fois.
 		{
 			merchant.setCodeSiren(m.getCodeSiren());
 			isModifed = true;
 		}
 		
+
+		if( (m.getEmail() != null) && (!merchant.getEmail().equals(m.getEmail())) )									// TODO regex
+		{
+			merchant.setEmail(m.getEmail());
+			isModifed = true;
+		}
 		
-		// Todo completer (voir mockup)
-		//if((m.getCodeSiren()!=null)&&(merchant.getCodeSiren().equals(m.getCodeSiren())))				// attention a ce que l'on veut que ce soit expres a null (si il veut supprimer l'info)
+		if( (!merchant.getAvatarFilename().equals(m.getAvatarFilename())) )	
+		{
+			merchant.setAvatarFilename(m.getAvatarFilename());
+			isModifed = true;
+		}
+		
+		if( (!merchant.getPhoneNumber().equals(m.getPhoneNumber())) )												// TODO regex
+		{
+			merchant.setPhoneNumber(m.getPhoneNumber());
+			isModifed = true;
+		}
+		if( (!merchant.getPhoneNumber2().equals(m.getPhoneNumber2())) )													// TODO regex
+		{
+			merchant.setPhoneNumber2(m.getPhoneNumber2());
+			isModifed = true;
+		}
+		
+		if( (m.getAddress() != null) && (!merchant.getAddress().equals(m.getAddress())) )	
+		{
+			merchant.setAddress(m.getAddress());
+			isModifed = true;
+		}
+		
+		if( (m.getCodeIBAN() != null) && (!merchant.getCodeIBAN().equals(m.getCodeIBAN())) )									// TODO regex
+		{
+			merchant.setCodeIBAN(m.getCodeIBAN());
+			isModifed = true;
+		}
+		if( (m.getCodeBic() != null) && (!merchant.getCodeBic().equals(m.getCodeBic())) )									// TODO regex
+		{
+			merchant.setCodeBic(m.getCodeBic());
+			isModifed = true;
+		}
+		
+		// Exemple
+		//if( (m.getCodeSiren() != null) && (merchant.getCodeSiren().equals(m.getCodeSiren())) )				// attention a ce que l'on veut que ce soit expres a null (si il veut supprimer l'info)
 		//{
 		//	merchant.setCodeSiren(m.getCodeSiren());
 		//	isModifed = true;
@@ -289,7 +318,7 @@ public class MerchantController
 		List<Commerce> listCommerces = new ArrayList<Commerce>();
 		try 
 		{	
-			listCommerces = dao.findBySomething(Commerce.class, "merchant", merchant, em, false);
+			listCommerces = merchant.getCommerces();
 			for(Commerce cTmp : listCommerces)
 				System.out.println(cTmp);
 			
@@ -568,7 +597,7 @@ public class MerchantController
 		List<ProductTemplate> listProductTemplates = new ArrayList<ProductTemplate>();
 		try 
 		{
-			listProductTemplates = dao.findBySomething(ProductTemplate.class, "merchant", merchant, em);
+			listProductTemplates = merchant.getProductTemplates();
 			for(ProductTemplate ptTmp : listProductTemplates)
 				System.out.println(ptTmp);
 			
@@ -815,7 +844,6 @@ public class MerchantController
 			return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
 		}
 	
-		
 		List<Product> listProducts = new ArrayList<Product>();
 		try 
 		{	
@@ -826,7 +854,7 @@ public class MerchantController
 				return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 1, "Error: commerce not found operation");
 			}
 			
-			listProducts = dao.findBySomething(Product.class, "commerce", c, em);
+			listProducts = dao.findBySomething(Product.class, "commerce", c, em); // TODO exclure les Products des ShoppingCart
 			
 		} catch (Exception e) {
 			e.printStackTrace();

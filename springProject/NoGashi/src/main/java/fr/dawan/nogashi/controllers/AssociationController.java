@@ -18,22 +18,50 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.Association;
 import fr.dawan.nogashi.beans.Buyer;
+import fr.dawan.nogashi.beans.Individual;
 import fr.dawan.nogashi.beans.RestResponse;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.RestResponseStatus;
+import fr.dawan.nogashi.enums.UserRole;
 import fr.dawan.nogashi.listeners.StartListener;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true") 
-@RequestMapping("/association")
+@RequestMapping(path = "/association")
 // @CrossOrigin is used to handle the request from a difference origin.
 public class AssociationController
 {
 	@Autowired
 	GenericDao dao;
+
 	
-	
+	// Retourne Individual si le User de la session est un Individual et qu'il est bien dans la Bdd
+	public Association checkAllowToDoThat(HttpSession session, EntityManager em)
+	{
+		User u = (User)session.getAttribute("user");
+		System.out.println("AssociationController.checkAllowToDoThat : "+ u);
+		
+		
+		Association association = null;
+		if( (u!=null) && ( (u.getRole() == UserRole.ASSOCIATION)) )
+		{
+			// Recupere l'Association a partir du User de la session
+	    	// et aussi check si c'est bien cet Individual qui est connecte
+			try {
+				association = dao.find(Association.class, ((User)session.getAttribute("user")).getId(), em);
+			} catch (Exception e) {
+				association = null;
+				e.printStackTrace();
+			}
+		}
+		return association;
+	}
+		
+	//TODO
+	// ------------------------- /association
+	// /reserve												// equivalent de payement, sans creditcart, puis avec 0 euros de depensé.
+
 	
 	/*****************************************************************************************
 	*										getAssociation									* 
@@ -41,118 +69,116 @@ public class AssociationController
 	* 
 	* Recupere le User (Association) de la session via son id 
 	*/
-	@GetMapping(path="/", produces = "application/json")
-	public RestResponse<User> getAssociation(HttpSession session)
+	@GetMapping(path="", produces = "application/json")
+	public RestResponse<Association> getAssociation(HttpSession session)
     {
-		// Check s'il y a un User dans la session
-		User u = (User)session.getAttribute("user");
-    	if(u==null)
-    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 1, "Not Connected");
-		
 		EntityManager em = StartListener.createEntityManager();
 		
-		User user = new User();
-    	
-    	
+		// Check si le User de la session est Individual
+		Association association = checkAllowToDoThat(session, em);
+		if(association==null)
+		{
+			em.close();
+			return new RestResponse<Association>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+		
+		
 		EntityGraph<Buyer> graph = em.createEntityGraph(Buyer.class);
     	
     	graph.addSubgraph("historicShoppingCarts");
     	graph.addSubgraph("dietaryRestrictions");
-    	
-    	// Recupere l'Association a partir du User de la session et check si c'est bien cette Association qui est connectee
-		try {
-			user = dao.find(Association.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(user==null)
-    	{
-    		em.close();
-    		return new RestResponse<User>(RestResponseStatus.FAIL, null, 5, "Error: wrong Association session information");
-    	}
 		
 		
 		em.close();
-		return new RestResponse<User>(RestResponseStatus.SUCCESS, user);
+		return new RestResponse<Association>(RestResponseStatus.SUCCESS, association);
     }
 	
 	
 	
 	/*****************************************************************************************
 	*										updateAssociation								 * 
-	*****************************************************************************************
+	******************************************************************************************
 	*
-	* Modifie les infos de l'Association connectee
+	* Modifie les infos de profil de l'Association connectee
 	*/
 	@PostMapping(path="/update", consumes = "application/json", produces = "application/json")
 	public RestResponse<Association> updateAssociation(@RequestBody Association a, HttpSession session, Locale locale, Model model)
     {
-		// Check s'il y a un User dans la session
-		User u = (User)session.getAttribute("user");
-    	if(u==null)
-    		return new RestResponse<Association>(RestResponseStatus.FAIL, null, 1, "Not Connected");
-    	
-		// Check si les champs obligatoires du formulaire sont null
-		if(	(a==null) || 
-			(a.getName()==null) || ( a.getName().trim().length() ==0) ||
-			(a.getEmail()==null) || ( a.getEmail().trim().length() ==0) ||
-			(a.getPassword()==null) || ( a.getPassword().trim().length() ==0) ||
-			(a.getCodeSiren()==null) || ( a.getCodeSiren().trim().length() ==0) ||
-			(a.getAddress()==null)
-			)
-			
-		{
-			return new RestResponse<Association>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
-		}
-		
-		Association association = new Association();
-		
 		EntityManager em = StartListener.createEntityManager();
 		
-		// Recupere l'Association a partir du User de la session et check si c'est bien cette Association qui est connectee
-		try {
-			association = dao.find(Association.class, ((User)session.getAttribute("user")).getId() , em);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// Check si le User de la session est Association
+		Association association = checkAllowToDoThat(session, em);
 		if(association==null)
-    	{
-    		em.close();
-    		return new RestResponse<Association>(RestResponseStatus.FAIL, null, 5, "Error: wrong Association session information");
-    	}
+		{
+			em.close();
+			return new RestResponse<Association>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+	
 		
-		// Check si le name ou l'email du User a modifier existe deja dans la BDD
-		// TODO Gerer le cas ou le champ n'a pas ete modifie (expl : l'email existe deja mais il s'agit de celui du User en cours)
-		User u_tmp = null;
-    	try 
-    	{
-    		List<User> listUsers = dao.findNamed(User.class, "name", a.getName(), em, false);
-    		if(listUsers.size()==0)
-    			listUsers = dao.findNamed(User.class, "email", a.getEmail(), em, false);
-			
-    		if(listUsers.size()!=0)
-    			u_tmp = listUsers.get(0);
-    		
-		} catch (Exception e) {
-			u_tmp = null;
-			e.printStackTrace();
+		// Verifie les champs modifies du formulaire
+		boolean isModifed = false;	
+		if((association.getCodeSiren()==null) && (a.getCodeSiren()!=null) )					// specificité : le code siren ne se modifie qu'une seule fois.
+		{
+			association.setCodeSiren(a.getCodeSiren());
+			isModifed = true;
 		}
 		
-    	if(u_tmp!=null)
-    	{
-    		em.close();
-    		return new RestResponse<Association>(RestResponseStatus.FAIL, null, 1, "Error: a User with this email or name already exists");
-    	}
-			
-    	// Persiste l'Association a modifier dans la BDD
-		try 
+		
+		if( (!association.getCodeAssociation().equals(a.getCodeAssociation())) )									// TODO regex
 		{
-			dao.saveOrUpdate(a, em, false);
-			System.out.println("update user (merchant): "+ a.getName() +" email:"+ a.getEmail());
-			
-		} catch (Exception e1) {
-			a = null;
-			e1.printStackTrace();
+			association.setCodeAssociation(a.getCodeAssociation());
+			isModifed = true;
+		}
+		
+		if( (a.getEmail() != null) && (!association.getEmail().equals(a.getEmail())) )									// TODO regex
+		{
+			association.setEmail(a.getEmail());
+			isModifed = true;
+		}
+		
+		if( (!association.getAvatarFilename().equals(a.getAvatarFilename())) )	
+		{
+			association.setAvatarFilename(a.getAvatarFilename());
+			isModifed = true;
+		}
+		
+		if( (!association.getPhoneNumber().equals(a.getPhoneNumber())) )												// TODO regex
+		{
+			association.setPhoneNumber(a.getPhoneNumber());
+			isModifed = true;
+		}
+		if( (!association.getPhoneNumber2().equals(a.getPhoneNumber2())) )													// TODO regex
+		{
+			association.setPhoneNumber2(a.getPhoneNumber2());
+			isModifed = true;
+		}
+		
+		if( (a.getAddress() != null) && (!association.getAddress().equals(a.getAddress())) )	
+		{
+			association.setAddress(a.getAddress());
+			isModifed = true;
+		}
+				
+		if( ( association.isNewsletterEnabled() != a.isNewsletterEnabled()) )	
+		{
+			association.setNewsletterEnabled(a.isNewsletterEnabled());
+			isModifed = true;
+		}
+		
+
+		if(isModifed)
+		{
+			try 
+			{
+				dao.saveOrUpdate(association, em, false);
+				System.out.println("update user (association): "+ association.getName() +" email:"+ association.getEmail());
+				
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				
+				em.close();
+				return new RestResponse<Association>(RestResponseStatus.FAIL, null, 1, "Error: on Update Operation");
+			}
 		}
 		
 		em.close();
