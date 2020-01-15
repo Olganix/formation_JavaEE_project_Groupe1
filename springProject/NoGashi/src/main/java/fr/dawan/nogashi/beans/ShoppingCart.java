@@ -29,10 +29,29 @@ public class ShoppingCart extends DbObject {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Buyer buyer;
 	
-	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "shoppingCart")
+	@OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL) @XmlTransient @JsonIgnore
 	private List<ShoppingCartByCommerce> shoppingCartByCommerces = new ArrayList<ShoppingCartByCommerce>();
 	
 	
+	
+	
+	
+	public ShoppingCartByCommerce getShoppingCartByCommerce(Commerce c) {
+		
+		for(ShoppingCartByCommerce sc : shoppingCartByCommerces)
+			if(sc.getCommerce()==c)
+				return sc;
+		
+		return null;
+	}
+	
+	public ShoppingCartByCommerce getShoppingCartByCommerce(int id) {
+		
+		for(ShoppingCartByCommerce sc : shoppingCartByCommerces)
+			if(sc.getCommerce().getId()==id)
+				return sc;
+		return null;
+	}
 	
 	
 	public void addShoppingCartByCommerces(ShoppingCartByCommerce sc) {

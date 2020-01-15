@@ -3,7 +3,6 @@ package fr.dawan.nogashi;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -12,8 +11,11 @@ import javax.persistence.Persistence;
 import org.mindrot.jbcrypt.BCrypt;
 
 import fr.dawan.nogashi.beans.ProductTemplate;
+import fr.dawan.nogashi.beans.ShoppingCart;
+import fr.dawan.nogashi.beans.ShoppingCartByCommerce;
 import fr.dawan.nogashi.beans.Address;
 import fr.dawan.nogashi.beans.Association;
+import fr.dawan.nogashi.beans.Buyer;
 import fr.dawan.nogashi.beans.Commerce;
 import fr.dawan.nogashi.beans.CreditCard;
 import fr.dawan.nogashi.beans.Individual;
@@ -38,60 +40,20 @@ public class Main
 		// decommenter, puis recommenter, pour eviter d'avoir x fois les elements
 		setupDataBase();
 		merchantStartDay();
+		individualInPromotion();
 		
-		//TestGetProductTemplateFromMerchant();
+		// un historic pour Gilles
+		// un shopping card payé pour Gilles.
+		// l'association stop gashi
+		
+		
+		
+		
 		
 		em.close();
 		emf.close();	
 	}
 
-	public static void TestGetProductTemplateFromMerchant()	// ex: pour Joffrey, recuperation des productTemplates appartenant a un merchant :
-	{
-		GenericDao dao = new GenericDao();
-		
-		String name = "Big Fernand";
-		
-		try {
-			 
-			// Ajoute l'address
-			EntityGraph<Merchant> graph = em.createEntityGraph(Merchant.class);
-	    	graph.addSubgraph("address");
-			
-	    	// Recup le Merchant via le name
-	    	Merchant mBf = null;
-			List<Merchant> lmBf = dao.findNamed(Merchant.class, "name", name, em, true, graph);
-			if(lmBf.size()!=0)
-				mBf = lmBf.get(0);
-			
-			if(mBf==null)
-			{
-				System.out.println("Fail recuperation de "+ name);
-				return;
-			}
-			
-			
-			//test premiere function
-			System.out.println("Test1 recuperation des productTemplate de "+ mBf +" :");
-		
-			List<ProductTemplate> listpt = dao.findBySomething(ProductTemplate.class, "merchant", mBf, em);
-			for(ProductTemplate ptTmp : listpt)
-				System.out.println(ptTmp);
-			
-			// _________________________
-			
-			//test deuxieme function
-			System.out.println("Test2 recuperation des productTemplate de "+ name +" :");
-			
-			listpt = dao.findBySomethingNamed(ProductTemplate.class, "merchant", "name", name, em);
-			for(ProductTemplate ptTmp : listpt)
-				System.out.println(ptTmp);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-		
-	
 	
 	public static void setupDataBase()
 	{
@@ -286,9 +248,11 @@ public class Main
 			{
 				System.out.println("tata");
 				m = lm.get(0);
+				
+				lc = dao.findBySomething(Commerce.class, "merchant", m, em);
 			}
 			
-			lc = dao.findBySomething(Commerce.class, "merchant", m, em);
+			
 			if(lc.size()>=2)
 			{
 				System.out.println("yoyo");
@@ -311,7 +275,6 @@ public class Main
 		for(ProductTemplate pt : c1.getProductTemplates())
 		{
 			int nbProducts = (int)Math.floor(Math.random() * 10);
-			System.out.println("nbProducts c1 : "+ nbProducts);
 			
 			for(int i = 0; i< nbProducts; i++)
 			{
@@ -323,7 +286,6 @@ public class Main
 		for(ProductTemplate pt : c2.getProductTemplates())
 		{
 			int nbProducts = (int)Math.floor(Math.random() * 10);
-			System.out.println("nbProducts c2 : "+ nbProducts);
 			
 			for(int i = 0; i< nbProducts; i++)
 			{
@@ -351,5 +313,113 @@ public class Main
 		}
 		
 		System.out.println("------------------------- merchantStartDay End -------------------------");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public static void individualInPromotion()
+	{
+		GenericDao dao = new GenericDao();
+		
+		
+		Buyer buyer = null;
+		ShoppingCart sc = null;
+		try {
+			List<Buyer> lb = dao.findNamed(Buyer.class, "name", "Gilles Collin", em);
+			if(lb.size()==0)
+				return;
+			buyer = lb.get(0);
+			
+			sc = (ShoppingCart) dao.findBySomething(ShoppingCart.class, "buyer", buyer, em);
+			System.out.println("ShoppingCart attendu pour tester le remplissage de la bdd :"+ sc);		//todo remove this print.
+			
+			if(sc!=null)
+				return;
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
+
+		System.out.println("------------------------- individualInPromotion Start -------------------------");
+		
+		
+		Merchant m = null;
+		List<Commerce> lc = new ArrayList<Commerce>();
+		
+		try {
+			List<Merchant> lm = new ArrayList<Merchant>();
+			
+			lm = dao.findNamed(Merchant.class, "name", "Big Fernand", em);
+			if(lm.size()!=0)
+			{
+				System.out.println("tata");
+				m = lm.get(0);
+				
+				lc = dao.findBySomething(Commerce.class, "merchant", m, em);
+			}
+			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		if((m==null) || (lc.size()==0))
+			return;
+		
+		
+		
+		sc = new ShoppingCart(buyer);
+		
+		List<Product> lp = new ArrayList<Product>();
+		
+		for(Commerce c : lc)
+		{
+			List<Product> lpt = c.getProducts();
+			
+			List<Integer> lpti = new ArrayList<Integer>();
+			for(int i = 0; i < lpt.size(); i++)
+				lpti.add(i);
+			
+			int nbProducts = (int)Math.round(Math.random() * lpti.size());
+			for(int i = 0;  i< nbProducts; i++)
+			{
+				int index = (int)Math.round(Math.random() * (lpti.size() - 1));
+				
+				ShoppingCartByCommerce scbc = sc.getShoppingCartByCommerce(c);
+				if(scbc==null)
+				{
+					scbc = new ShoppingCartByCommerce(c, sc);
+					sc.addShoppingCartByCommerces(scbc);
+				}
+				
+				scbc.addProduct( lpt.get(lpti.get(index)) );
+				lpti.remove((int)index);
+			}
+		}
+		
+		
+		try
+		{
+			et.begin();
+			
+			em.persist(sc);
+			em.persist(m);						//to save Commerce and ProducTemplate
+			em.persist(buyer);					//normally also save shoppingCart
+			
+			for(Product p : lp)
+				em.persist(p);
+			
+			et.commit();
+			
+			
+		} catch (Exception e) {
+			et.rollback();					//undo if troubles
+			e.printStackTrace();		
+		}
+		
+		System.out.println("------------------------- individualInPromotion End -------------------------");
 	}
 }

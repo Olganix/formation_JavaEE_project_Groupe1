@@ -22,6 +22,7 @@ import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.ProductTemplate;
 import fr.dawan.nogashi.beans.RestResponse;
+import fr.dawan.nogashi.beans.ShoppingCartByCommerce;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.RestResponseStatus;
@@ -445,7 +446,6 @@ public class MerchantController
 	*****************************************************************************************
 	*
 	* Supprime un Commerce du Merchant (User connecte) recupere via son id
-	* TODO supprimer toutes les instances de produits liees au Commerce lors de la suppression de la fiche
 	*/
 	@GetMapping(path="/commerce/{id}/remove", produces = "application/json")
 	// TODO Front: prevenir que la suppression de la fiche entrainera la suppression des produits en vente
@@ -464,14 +464,36 @@ public class MerchantController
 		
 		try 
 		{
-			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
-			
-			// TODO detacher le merchant
-			// TODO supprimer les products qui ne sont pas affecté a un des shoppingCarts.   //TODO : checker lors d'une annulation de shoppingcart ou d'un product , si le commerce n'existe plus il faut detruire le product. 			
-
-			
-			// Supprime le Commerce
-			dao.remove(Commerce.class, id, em, false);
+			Commerce c = dao.find(Commerce.class, id, "merchant", merchant, em);				//check si le merchant a le droit de supprimer ce commerce.			
+			if(c!=null)
+			{
+				c.setMerchant(null);				// detacher le merchant
+				
+				
+				// supprimer les products qui ne sont pas affecté a un des shoppingCarts.
+				List<Product> listToDelete = new ArrayList<Product>();
+				for(Product p : c.getProducts())
+				{
+					if(p.getShoppingCart() != null)
+					{
+						p.getShoppingCart().removeProduct(p);
+						p.getShoppingCart().setCommerce(null);
+						listToDelete.add(p);
+					}else {
+						dao.remove(p, em);											// si le commerce n'existe plus il faut detruire le product.
+					}
+				}
+				
+				for(Product p : listToDelete)
+					p.removeCommerces(c);
+				
+				for(ShoppingCartByCommerce scbc : c.getShoppingCartByCommerces())
+					scbc.setCommerce(null);
+				
+				
+				// Supprime le Commerce
+				dao.remove(Commerce.class, id, em, false);
+			}
 			
 		} catch (Exception e1) {
 			e1.printStackTrace();
