@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.Association;
@@ -23,17 +24,10 @@ import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.RestResponseStatus;
 import fr.dawan.nogashi.listeners.StartListener;
 
-/**
- * 
- * Listes des methodes :
- * 
- * getAssociationAccount
- * updateAssociationAccount
- * deactivateAssociationAccount
- *
- */
 @RestController
-@CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
+@CrossOrigin(origins="http://localhost:4200", allowCredentials = "true") 
+@RequestMapping("/association")
+// @CrossOrigin is used to handle the request from a difference origin.
 public class AssociationController
 {
 	@Autowired
@@ -42,13 +36,13 @@ public class AssociationController
 	
 	
 	/*****************************************************************************************
-	*										getAssociationAccount									 * 
+	*										getAssociation									* 
 	*****************************************************************************************
 	* 
 	* Recupere le User (Association) de la session via son id 
 	*/
-	@GetMapping(path="/association-account", produces = "application/json")
-	public RestResponse<User> getAssociationAccount(HttpSession session)
+	@GetMapping(path="/", produces = "application/json")
+	public RestResponse<User> getAssociation(HttpSession session)
     {
 		// Check s'il y a un User dans la session
 		User u = (User)session.getAttribute("user");
@@ -85,13 +79,13 @@ public class AssociationController
 	
 	
 	/*****************************************************************************************
-	*										updateAssociationAccount										 * 
+	*										updateAssociation								 * 
 	*****************************************************************************************
 	*
 	* Modifie les infos de l'Association connectee
 	*/
-	@PostMapping(path="/association-account/update", consumes = "application/json", produces = "application/json")
-	public RestResponse<Association> updateAssociationAccount(@RequestBody Association a, HttpSession session, Locale locale, Model model)
+	@PostMapping(path="/update", consumes = "application/json", produces = "application/json")
+	public RestResponse<Association> updateAssociation(@RequestBody Association a, HttpSession session, Locale locale, Model model)
     {
 		// Check s'il y a un User dans la session
 		User u = (User)session.getAttribute("user");
@@ -168,14 +162,14 @@ public class AssociationController
 	
 	
 	/*****************************************************************************************
-	*								deactivateAssociationAccount										* 
+	*								deactivateAssociation										* 
 	*****************************************************************************************
 	*
 	* Desactive le compte Association (User connecte)
 	* TODO conserver les ShoppingCart
 	*/
-	@GetMapping(path="/association-account/remove", produces = "application/json")
-	public RestResponse<Association> removeUser(HttpSession session, Locale locale, Model model)
+	@GetMapping(path="/remove", produces = "application/json")
+	public RestResponse<Association> deactivateAssociation(HttpSession session, Locale locale, Model model)
     {	
 		Association association = new Association();
 

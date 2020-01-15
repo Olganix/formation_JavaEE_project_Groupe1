@@ -29,31 +29,6 @@ import fr.dawan.nogashi.enums.UserRole;
 import fr.dawan.nogashi.listeners.StartListener;
 
 
-
-/**
- * Listes des methodes :
- * 
- * getMerchantAccount
- * updateMerchantAccount
- * deactivateMerchantAccount
- * 
- * getMyCommerces
- * getCommerceById
- * addCommerce
- * removeCommerce
- * 
- * getMyProductTemplates
- * getMyProductTemplateById
- * addMyProductTemplate
- * removeMyProductTemplate
- * 
- * getMyProducts
- * getMyProductsByCommerce
- * getMyProductsByCommerceName 
- *
- */
-
-
 ///commerce/{id_c}/carts									// ShoppingCartByCommerce pas encore payé, ca permet de filtrer les products reservé
 // /commerce/{id_c}/cart/{id}
 // /commerce/{id_c}/commands								// ShoppingCartByCommerce payée du jours
@@ -114,13 +89,13 @@ public class MerchantController
 	
 	
 	/*****************************************************************************************
-	*										getMerchantAccount								 * 
+	*										getMerchant										 * 
 	*****************************************************************************************
 	* 
 	* Recupere le User (Merchant) de la session via son id 
 	*/
 	@GetMapping(path="/", produces = "application/json")
-	public RestResponse<Merchant> getMerchantAccount(HttpSession session)
+	public RestResponse<Merchant> getMerchant(HttpSession session)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -144,13 +119,13 @@ public class MerchantController
 	
 	
 	/*****************************************************************************************
-	*										updateMerchantAccount							 * 
+	*										updateMerchant									 * 
 	*****************************************************************************************
 	*
 	* Modifie les infos du Merchant connecte
 	*/
 	@PostMapping(path="/update", consumes = "application/json", produces = "application/json")
-	public RestResponse<Merchant> updateMerchantAccount(@RequestBody Merchant m, HttpSession session, Locale locale, Model model)
+	public RestResponse<Merchant> updateMerchant(@RequestBody Merchant m, HttpSession session, Locale locale, Model model)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -202,14 +177,14 @@ public class MerchantController
 	
 	
 	/*****************************************************************************************
-	*								deactivateMerchantAccount		    					* 
+	*								deactivateMerchant										* 
 	*****************************************************************************************
 	*
 	* Desactive le compte Merchant (User connecte)
 	* TODO NE PAS FAIRE CETTE FONCTION DE SUITE.
 	*/
 	@GetMapping(path="/remove", produces = "application/json")
-	public RestResponse<Merchant> removeUser(HttpSession session, Locale locale, Model model)
+	public RestResponse<Merchant> deactivateMerchant(HttpSession session, Locale locale, Model model)
     {	
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -284,13 +259,13 @@ public class MerchantController
 	
 
 	/*****************************************************************************************
-	*										getMyCommerces									 * 
+	*										getCommerces									 * 
 	*****************************************************************************************
 	* 
 	* Liste les commerces du Merchant (User connecte)
 	*/
 	@GetMapping(path="/commerces", produces = "application/json")					// Pour Joffrey , c'est l'exemple a suivre : note : pas pour le test.
-	public RestResponse<List<Commerce>> getMyCommerces(HttpSession session)
+	public RestResponse<List<Commerce>> getCommerces(HttpSession session)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -554,7 +529,7 @@ public class MerchantController
 	* Liste les ProductTemplates du Merchant (User connecte)
 	*/
 	@GetMapping(path="/productTemplates", produces = "application/json")
-	public RestResponse<List<ProductTemplate>> getMyProductTemplates(HttpSession session)
+	public RestResponse<List<ProductTemplate>> getProductTemplates(HttpSession session)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -589,13 +564,13 @@ public class MerchantController
 	
 	
 	/*****************************************************************************************
-	*										getMyProductTemplateById						 * 
+	*										getProductTemplateById						 * 
 	*****************************************************************************************
 	* 
 	* Recupere un ProductTemplate via son id
 	*/
 	@GetMapping(path="/productTemplate/{id}", produces = "application/json")
-	public RestResponse<ProductTemplate> getMyProductTemplateById(@PathVariable(name="id") int id, HttpSession session)
+	public RestResponse<ProductTemplate> getProductTemplateById(@PathVariable(name="id") int id, HttpSession session)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -629,13 +604,13 @@ public class MerchantController
 	
 
 	/*****************************************************************************************
-	*										addMyProductTemplate								 * 
+	*										addProductTemplate								 * 
 	*****************************************************************************************
 	*
 	* Ajoute un nouveau ProductTemplate pour le Merchant (User connecte)
 	*/
 	@PostMapping(path="/productTemplate/addOrUpdate", consumes = "application/json", produces = "application/json")
-	public RestResponse<ProductTemplate> addMyProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model, boolean modif)
+	public RestResponse<ProductTemplate> addProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model, boolean modif)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -715,14 +690,14 @@ public class MerchantController
 	
 
 	/*****************************************************************************************
-	*										removeMyProductTemplate										* 
+	*										removeProductTemplate										* 
 	*****************************************************************************************
 	*
 	* Supprime un ProductTemplate du Merchant (User connecte) recupere via son id
 	* TODO supprimer toutes les instances de produits lors de la suppression de la fiche
 	*/
 	@GetMapping(path="/productTemplate/{id}/remove", produces = "application/json")
-	public RestResponse<ProductTemplate> removeMyProductTemplate(@PathVariable(name="id") int id, HttpSession session, Locale locale, Model model)
+	public RestResponse<ProductTemplate> removeProductTemplate(@PathVariable(name="id") int id, HttpSession session, Locale locale, Model model)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -800,13 +775,13 @@ public class MerchantController
 	
 	
 	/*****************************************************************************************
-	*										getMyProductsByCommerce							 * 
+	*										getProductsByCommerce							 * 
 	*****************************************************************************************
 	*
 	* Todo doc
 	*/
 	@GetMapping(path="/commerce/{id_c}/products", produces = "application/json")
-	public RestResponse<List<Product>> getMyProductsByCommerce(@PathVariable(name = "id_c") int id_c, HttpSession session)
+	public RestResponse<List<Product>> getProductsByCommerce(@PathVariable(name = "id_c") int id_c, HttpSession session)
     {
 		EntityManager em = StartListener.createEntityManager();
 		

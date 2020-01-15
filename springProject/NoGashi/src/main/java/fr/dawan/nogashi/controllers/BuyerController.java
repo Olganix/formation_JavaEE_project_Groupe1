@@ -14,29 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.Buyer;
 import fr.dawan.nogashi.beans.Commerce;
+import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.RestResponse;
+import fr.dawan.nogashi.beans.ShoppingCart;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.RestResponseStatus;
 import fr.dawan.nogashi.enums.UserRole;
 import fr.dawan.nogashi.listeners.StartListener;
 
-/**
- * 
- * Listes des methodes :
- * 
- * NB: le name des Commerces n'est pas unique
- * getCommerces: Liste tous les commerces
- * getCommerceById: Recupere un Commerce via son id 
- * 
- * getProductsByCity: Liste tous les Products d'une ville entree en parametre 
- * getProductsByCommerce: Liste les Products d'un Commerce dont l'id est entre en parametre
- * getProductById: Recupere un Product via son id
- * 
- * addProductToCart
- *
- */
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
 @RequestMapping("/buyer")
@@ -163,6 +150,45 @@ public class BuyerController
 		
 		em.close();
 		return new RestResponse<List<Product>>(RestResponseStatus.SUCCESS, listProducts);
+    }
+	
+	
+	
+
+	/*****************************************************************************************
+	*										getShoppingCart									 * 
+	*****************************************************************************************
+	* 
+	* Recupere le shoppingCart complet du Buyer (User connecte)
+	*/
+	@GetMapping(path="/shoppingCart", produces = "application/json")					
+	public RestResponse<ShoppingCart> getShoppingCart(HttpSession session)
+    {
+		EntityManager em = StartListener.createEntityManager();
+		
+		// Check si le User de la session est Buyer
+		Buyer buyer = checkAllowToDoThat(session, em);
+		if(buyer==null)
+		{
+			em.close();
+			return new RestResponse<ShoppingCart>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+		
+    	// Recupere le ShoppingCart du Buyer via son name
+		List<ShoppingCart> list_sc = new ArrayList<ShoppingCart>();
+		ShoppingCart sc = null;
+		try 
+		{	
+			list_sc = dao.findBySomething(ShoppingCart.class, "buyer", buyer, em, false);
+			if (list_sc.get(0)!=null)
+				sc = list_sc.get(0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		em.close();
+		return new RestResponse<ShoppingCart>(RestResponseStatus.SUCCESS, sc);
     }
 	
 	

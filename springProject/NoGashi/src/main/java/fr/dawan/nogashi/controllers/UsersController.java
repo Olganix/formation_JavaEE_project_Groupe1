@@ -39,29 +39,6 @@ import fr.dawan.nogashi.tools.EmailTool;
 
 //TODO: utiliser ce que l'on a fait le dernier jours du cours spring MVC , pour se debarasser de  persistence.xml (peut etre mis dans le root-context.xml (a spring bean config file)) 
 
-/**
- * 
- * Listes des methodes :
- * 
- * signin
- * emailValidation
- * sendEmailValidation
- * 
- * login
- * isLogged
- * logout
- * passwordRescue
- * passwordRescueModification
- * 
- * getUserById
- * 
- * getCommercesByCity (pour page ou nous trouver)
- * TODO: getAssociationsByCity (pour page ou nous trouver)
- * 
- * getUsers
- * getMerchants
- *
- */
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
 public class UsersController 
@@ -194,7 +171,7 @@ public class UsersController
 	*
 	* Check le token de l'User pour valider l'email
 	*/
-	@PostMapping(path="/email-validation", produces = "application/json")
+	@PostMapping(path="/emailValidation", produces = "application/json")
 	//test (better click from mail (fake SMTP server)): http://localhost:8080/nogashi/emailvalidation?token=XXXXXX
     public RestResponse<User> emailValidation(@RequestBody String token, HttpSession session, Locale locale, Model model)
     {
@@ -406,7 +383,7 @@ public class UsersController
 	*
 	* Check si un User est enregistre en session
 	*/
-	@GetMapping(path="/is-logged", produces = "application/json")
+	@GetMapping(path="/isLogged", produces = "application/json")
 	//test : http://localhost:8080/nogashi/islogged
     public RestResponse<User> isLogged(HttpSession session, Locale locale, Model model)
     {
@@ -458,7 +435,7 @@ public class UsersController
 	*
 	* 
 	*/
-	@RequestMapping(path="/password-rescue", produces = "application/json")					//TODO supprimer les "-" pour etre dans les meme normes, et engueler le mec qui a fait ca.
+	@RequestMapping(path="/passwordRescue", produces = "application/json")					//TODO supprimer les "-" pour etre dans les meme normes, et engueler le mec qui a fait ca.
 	//test : http://localhost:8080/nogashi/passwordRescue?email=aaa@toto.fr
     public RestResponse<User> passwordRescue(@RequestBody String email, HttpSession session, Locale locale, Model model)
     {
@@ -546,7 +523,7 @@ public class UsersController
 	*
 	* 
 	*/
-	@PostMapping(path="/password-rescue-modification", produces = "application/json")					//TODO supprimer les "-" pour etre dans les meme normes, et engueler le mec qui a fait ca.
+	@PostMapping(path="/passwordRescueModification", produces = "application/json")					//TODO supprimer les "-" pour etre dans les meme normes, et engueler le mec qui a fait ca.
 	//test : http://localhost:8080/nogashi/passwordRescueModification?password=toto&token=xxxxxxxxxxxxx
 	public RestResponse<User> passwordRescueModification(@RequestBody User user, HttpSession session, Locale locale, Model model)
     {
