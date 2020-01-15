@@ -258,8 +258,4 @@ export class TestComponent implements OnInit {
     this.scheduler.group.push(sched_productUnsold);
   }
 
-
-
-
-
 }

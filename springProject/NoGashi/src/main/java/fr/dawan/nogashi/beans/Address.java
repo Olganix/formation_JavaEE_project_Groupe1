@@ -25,13 +25,15 @@ public class Address extends DbObject {
 	private Double latitude = null;
 	
 	
-	public Address(String address, String addressExtra, String postalCode, String cityName, String stateName) {
+	public Address(String address, String addressExtra, String postalCode, String cityName, String stateName, Double longitude, Double latitude) {
 		super();
 		this.address = address;
 		this.addressExtra = addressExtra;
 		this.postalCode = postalCode;
 		this.cityName = cityName;
 		this.stateName = stateName;
+		this.longitude = longitude;
+		this.latitude = latitude;
 	}
 
 	public Address(Address other) {

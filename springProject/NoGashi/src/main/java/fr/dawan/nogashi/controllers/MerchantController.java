@@ -22,36 +22,12 @@ import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.ProductTemplate;
 import fr.dawan.nogashi.beans.RestResponse;
+import fr.dawan.nogashi.beans.ShoppingCartByCommerce;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.RestResponseStatus;
 import fr.dawan.nogashi.enums.UserRole;
 import fr.dawan.nogashi.listeners.StartListener;
-
-
-
-/**
- * Listes des methodes :
- * 
- * getMerchantAccount
- * updateMerchantAccount
- * deactivateMerchantAccount
- * 
- * getMyCommerces
- * getCommerceById
- * addCommerce
- * removeCommerce
- * 
- * getMyProductTemplates
- * getMyProductTemplateById
- * addMyProductTemplate
- * removeMyProductTemplate
- * 
- * getMyProducts
- * getMyProductsByCommerce
- * getMyProductsByCommerceName 
- *
- */
 
 
 ///commerce/{id_c}/carts									// ShoppingCartByCommerce pas encore payé, ca permet de filtrer les products reservé
@@ -68,21 +44,9 @@ import fr.dawan.nogashi.listeners.StartListener;
 
 
 
-// ------------------------- /individual
-// /creditCard											// recuperation de la credit card pour preremplir la page de payement (si il en a une).
-// /creditCard/update									// sauvegarde de la carte de crédit.
-// /payement											// on recoit les info de la carte de credit + shoppingcart. + envois de mail et ou de notification vers l'individual, vers le merchant/commerce.
-
-// ------------------------- /association
-// /reserve												// equivalent de payement, sans creditcart, puis avec 0 euros de depensé.
-
-
-
-
-
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
-@RequestMapping("/merchant")
+@RequestMapping(path = "/merchant")
 public class MerchantController 
 {
 	@Autowired
@@ -114,13 +78,13 @@ public class MerchantController
 	
 	
 	/*****************************************************************************************
-	*										getMerchantAccount								 * 
+	*										getMerchant										 * 
 	*****************************************************************************************
 	* 
 	* Recupere le User (Merchant) de la session via son id 
 	*/
-	@GetMapping(path="/", produces = "application/json")
-	public RestResponse<Merchant> getMerchantAccount(HttpSession session)
+	@GetMapping(path="", produces = "application/json")
+	public RestResponse<Merchant> getMerchant(HttpSession session)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -144,13 +108,13 @@ public class MerchantController
 	
 	
 	/*****************************************************************************************
-	*										updateMerchantAccount							 * 
+	*										updateMerchant									 * 
 	*****************************************************************************************
 	*
 	* Modifie les infos du Merchant connecte
 	*/
 	@PostMapping(path="/update", consumes = "application/json", produces = "application/json")
-	public RestResponse<Merchant> updateMerchantAccount(@RequestBody Merchant m, HttpSession session, Locale locale, Model model)
+	public RestResponse<Merchant> updateMerchant(@RequestBody Merchant m, HttpSession session, Locale locale, Model model)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -163,16 +127,57 @@ public class MerchantController
 		}
 		
 		
+		// Verifie les champs modifies du formulaire
 		boolean isModifed = false;
-		if((merchant.getCodeSiren()==null) && (m.getCodeSiren()!=null))					// specificité , le code siren ne se modifi qu'une seule fois.
+		if((merchant.getCodeSiren()==null) && (m.getCodeSiren()!=null) )					// specificité : le code siren ne se modifie qu'une seule fois.
 		{
 			merchant.setCodeSiren(m.getCodeSiren());
 			isModifed = true;
 		}
 		
+
+		if( (m.getEmail() != null) && (!merchant.getEmail().equals(m.getEmail())) )									// TODO regex
+		{
+			merchant.setEmail(m.getEmail());
+			isModifed = true;
+		}
 		
-		// Todo completer (voir mockup)
-		//if((m.getCodeSiren()!=null)&&(merchant.getCodeSiren().equals(m.getCodeSiren())))				// attention a ce que l'on veut que ce soit expres a null (si il veut supprimer l'info)
+		if( (!merchant.getAvatarFilename().equals(m.getAvatarFilename())) )	
+		{
+			merchant.setAvatarFilename(m.getAvatarFilename());
+			isModifed = true;
+		}
+		
+		if( (!merchant.getPhoneNumber().equals(m.getPhoneNumber())) )												// TODO regex
+		{
+			merchant.setPhoneNumber(m.getPhoneNumber());
+			isModifed = true;
+		}
+		if( (!merchant.getPhoneNumber2().equals(m.getPhoneNumber2())) )													// TODO regex
+		{
+			merchant.setPhoneNumber2(m.getPhoneNumber2());
+			isModifed = true;
+		}
+		
+		if( (m.getAddress() != null) && (!merchant.getAddress().equals(m.getAddress())) )	
+		{
+			merchant.setAddress(m.getAddress());
+			isModifed = true;
+		}
+		
+		if( (m.getCodeIBAN() != null) && (!merchant.getCodeIBAN().equals(m.getCodeIBAN())) )									// TODO regex
+		{
+			merchant.setCodeIBAN(m.getCodeIBAN());
+			isModifed = true;
+		}
+		if( (m.getCodeBic() != null) && (!merchant.getCodeBic().equals(m.getCodeBic())) )									// TODO regex
+		{
+			merchant.setCodeBic(m.getCodeBic());
+			isModifed = true;
+		}
+		
+		// Exemple
+		//if( (m.getCodeSiren() != null) && (merchant.getCodeSiren().equals(m.getCodeSiren())) )				// attention a ce que l'on veut que ce soit expres a null (si il veut supprimer l'info)
 		//{
 		//	merchant.setCodeSiren(m.getCodeSiren());
 		//	isModifed = true;
@@ -202,14 +207,14 @@ public class MerchantController
 	
 	
 	/*****************************************************************************************
-	*								deactivateMerchantAccount		    					* 
+	*								deactivateMerchant										* 
 	*****************************************************************************************
 	*
 	* Desactive le compte Merchant (User connecte)
 	* TODO NE PAS FAIRE CETTE FONCTION DE SUITE.
 	*/
 	@GetMapping(path="/remove", produces = "application/json")
-	public RestResponse<Merchant> removeUser(HttpSession session, Locale locale, Model model)
+	public RestResponse<Merchant> deactivateMerchant(HttpSession session, Locale locale, Model model)
     {	
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -284,13 +289,13 @@ public class MerchantController
 	
 
 	/*****************************************************************************************
-	*										getMyCommerces									 * 
+	*										getCommerces									 * 
 	*****************************************************************************************
 	* 
 	* Liste les commerces du Merchant (User connecte)
 	*/
 	@GetMapping(path="/commerces", produces = "application/json")					// Pour Joffrey , c'est l'exemple a suivre : note : pas pour le test.
-	public RestResponse<List<Commerce>> getMyCommerces(HttpSession session)
+	public RestResponse<List<Commerce>> getCommerces(HttpSession session)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -313,7 +318,7 @@ public class MerchantController
 		List<Commerce> listCommerces = new ArrayList<Commerce>();
 		try 
 		{	
-			listCommerces = dao.findBySomething(Commerce.class, "merchant", merchant, em, false);
+			listCommerces = merchant.getCommerces();
 			for(Commerce cTmp : listCommerces)
 				System.out.println(cTmp);
 			
@@ -350,7 +355,7 @@ public class MerchantController
 		Commerce commerce = null;
 		try 
 		{	
-			commerce = dao.find(Commerce.class, id, em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+			commerce = dao.find(Commerce.class, id, "merchant", merchant, em);
 		} catch (Exception e) {
 			e.printStackTrace();
 			
@@ -428,7 +433,7 @@ public class MerchantController
 				
 			}else{									// update
 				
-				c_bdd = dao.find(Commerce.class, c.getId(), em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+				c_bdd = dao.find(Commerce.class, c.getId(), "merchant", merchant, em);
 				if(c_bdd==null)
 		    	{
 		    		em.close();
@@ -470,7 +475,6 @@ public class MerchantController
 	*****************************************************************************************
 	*
 	* Supprime un Commerce du Merchant (User connecte) recupere via son id
-	* TODO supprimer toutes les instances de produits liees au Commerce lors de la suppression de la fiche
 	*/
 	@GetMapping(path="/commerce/{id}/remove", produces = "application/json")
 	// TODO Front: prevenir que la suppression de la fiche entrainera la suppression des produits en vente
@@ -489,14 +493,36 @@ public class MerchantController
 		
 		try 
 		{
-			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
-			
-			// TODO detacher le merchant
-			// TODO supprimer les products qui ne sont pas affecté a un des shoppingCarts.   //TODO : checker lors d'une annulation de shoppingcart ou d'un product , si le commerce n'existe plus il faut detruire le product. 			
-
-			
-			// Supprime le Commerce
-			dao.remove(Commerce.class, id, em, false);
+			Commerce c = dao.find(Commerce.class, id, "merchant", merchant, em);				//check si le merchant a le droit de supprimer ce commerce.			
+			if(c!=null)
+			{
+				c.setMerchant(null);				// detacher le merchant
+				
+				
+				// supprimer les products qui ne sont pas affecté a un des shoppingCarts.
+				List<Product> listToDelete = new ArrayList<Product>();
+				for(Product p : c.getProducts())
+				{
+					if(p.getShoppingCart() != null)
+					{
+						p.getShoppingCart().removeProduct(p);
+						p.getShoppingCart().setCommerce(null);
+						listToDelete.add(p);
+					}else {
+						dao.remove(p, em);											// si le commerce n'existe plus il faut detruire le product.
+					}
+				}
+				
+				for(Product p : listToDelete)
+					p.removeCommerces(c);
+				
+				for(ShoppingCartByCommerce scbc : c.getShoppingCartByCommerces())
+					scbc.setCommerce(null);
+				
+				
+				// Supprime le Commerce
+				dao.remove(Commerce.class, id, em, false);
+			}
 			
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -554,7 +580,7 @@ public class MerchantController
 	* Liste les ProductTemplates du Merchant (User connecte)
 	*/
 	@GetMapping(path="/productTemplates", produces = "application/json")
-	public RestResponse<List<ProductTemplate>> getMyProductTemplates(HttpSession session)
+	public RestResponse<List<ProductTemplate>> getProductTemplates(HttpSession session)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -571,7 +597,7 @@ public class MerchantController
 		List<ProductTemplate> listProductTemplates = new ArrayList<ProductTemplate>();
 		try 
 		{
-			listProductTemplates = dao.findBySomething(ProductTemplate.class, "merchant", merchant, em);
+			listProductTemplates = merchant.getProductTemplates();
 			for(ProductTemplate ptTmp : listProductTemplates)
 				System.out.println(ptTmp);
 			
@@ -589,13 +615,13 @@ public class MerchantController
 	
 	
 	/*****************************************************************************************
-	*										getMyProductTemplateById						 * 
+	*										getProductTemplateById						 * 
 	*****************************************************************************************
 	* 
 	* Recupere un ProductTemplate via son id
 	*/
 	@GetMapping(path="/productTemplate/{id}", produces = "application/json")
-	public RestResponse<ProductTemplate> getMyProductTemplateById(@PathVariable(name="id") int id, HttpSession session)
+	public RestResponse<ProductTemplate> getProductTemplateById(@PathVariable(name="id") int id, HttpSession session)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -614,7 +640,7 @@ public class MerchantController
 		try 
 		{
 			// Todo voir si l'on a pas besoin de graph pour les productDetails
-			productTemplate = dao.find(ProductTemplate.class, id, em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+			productTemplate = dao.find(ProductTemplate.class, id, "merchant", merchant, em);
 		} catch (Exception e) {
 			e.printStackTrace();
 		
@@ -629,13 +655,13 @@ public class MerchantController
 	
 
 	/*****************************************************************************************
-	*										addMyProductTemplate								 * 
+	*										addProductTemplate								 * 
 	*****************************************************************************************
 	*
 	* Ajoute un nouveau ProductTemplate pour le Merchant (User connecte)
 	*/
 	@PostMapping(path="/productTemplate/addOrUpdate", consumes = "application/json", produces = "application/json")
-	public RestResponse<ProductTemplate> addMyProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model, boolean modif)
+	public RestResponse<ProductTemplate> addProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model, boolean modif)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -677,7 +703,7 @@ public class MerchantController
 				
 			}else{									// update
 				
-				pt_bdd = dao.find(ProductTemplate.class, pt.getId(), em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+				pt_bdd = dao.find(ProductTemplate.class, pt.getId(), "merchant", merchant, em);
 				if(pt_bdd==null)
 		    	{
 		    		em.close();
@@ -715,14 +741,14 @@ public class MerchantController
 	
 
 	/*****************************************************************************************
-	*										removeMyProductTemplate										* 
+	*										removeProductTemplate										* 
 	*****************************************************************************************
 	*
 	* Supprime un ProductTemplate du Merchant (User connecte) recupere via son id
 	* TODO supprimer toutes les instances de produits lors de la suppression de la fiche
 	*/
 	@GetMapping(path="/productTemplate/{id}/remove", produces = "application/json")
-	public RestResponse<ProductTemplate> removeMyProductTemplate(@PathVariable(name="id") int id, HttpSession session, Locale locale, Model model)
+	public RestResponse<ProductTemplate> removeProductTemplate(@PathVariable(name="id") int id, HttpSession session, Locale locale, Model model)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -737,15 +763,14 @@ public class MerchantController
 		
 		try 
 		{
-			ProductTemplate pt = dao.find(ProductTemplate.class, id, em);					//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+			ProductTemplate pt = dao.find(ProductTemplate.class, id, "merchant", merchant, em);
 			if(pt!=null)
 			{
 				merchant.removeProductTemplate(pt);
 				for(Commerce c : pt.getCommerces())
 					pt.removeCommerces(c);
 				
-				//todo question : qu'est qui doit etre persisté pour la save bdd ?
-				dao.saveOrUpdate(merchant, em);
+				dao.saveOrUpdate(merchant, em);							//note: commerces sont en cascade all dans Merchant, donc normalement les Commerces sont aussi mise a jours. 
 				
 				//Todo supprimer seulement les products qui ne sont pas associés a une shoppingcart
 				
@@ -801,13 +826,13 @@ public class MerchantController
 	
 	
 	/*****************************************************************************************
-	*										getMyProductsByCommerce							 * 
+	*										getProductsByCommerce							 * 
 	*****************************************************************************************
 	*
 	* Todo doc
 	*/
 	@GetMapping(path="/commerce/{id_c}/products", produces = "application/json")
-	public RestResponse<List<Product>> getMyProductsByCommerce(@PathVariable(name = "id_c") int id_c, HttpSession session)
+	public RestResponse<List<Product>> getProductsByCommerce(@PathVariable(name = "id_c") int id_c, HttpSession session)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -819,18 +844,17 @@ public class MerchantController
 			return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
 		}
 	
-		
 		List<Product> listProducts = new ArrayList<Product>();
 		try 
 		{	
-			Commerce c = dao.find(Commerce.class, id_c, em);			//todo faire en sort que seulement le bon merchant peut voir avec le bon id.
+			Commerce c = dao.find(Commerce.class, id_c, "merchant", merchant, em);
 			if(c==null)
 			{
 				em.close();
 				return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 1, "Error: commerce not found operation");
 			}
 			
-			listProducts = dao.findBySomething(Product.class, "commerce", c, em);
+			listProducts = dao.findBySomething(Product.class, "commerce", c, em); // TODO exclure les Products des ShoppingCart
 			
 		} catch (Exception e) {
 			e.printStackTrace();
