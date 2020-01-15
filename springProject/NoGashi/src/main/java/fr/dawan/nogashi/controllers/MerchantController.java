@@ -719,8 +719,7 @@ public class MerchantController
 				for(Commerce c : pt.getCommerces())
 					pt.removeCommerces(c);
 				
-				//todo question : qu'est qui doit etre persisté pour la save bdd ?
-				dao.saveOrUpdate(merchant, em);
+				dao.saveOrUpdate(merchant, em);							//note: commerces sont en cascade all dans Merchant, donc normalement les Commerces sont aussi mise a jours. 
 				
 				//Todo supprimer seulement les products qui ne sont pas associés a une shoppingcart
 				
