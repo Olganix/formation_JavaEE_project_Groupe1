@@ -26,7 +26,7 @@ public class ShoppingCartByCommerce extends DbObject {
 	@ManyToOne
 	private Commerce commerce;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private ShoppingCart shoppingCart;
 	
 	@OneToMany(mappedBy = "shoppingCart")

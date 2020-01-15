@@ -42,16 +42,16 @@ public class Commerce extends DbObject {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Merchant merchant;
 	
-	@XmlTransient @JsonIgnore @OneToMany
+	@OneToMany @XmlTransient @JsonIgnore
 	private List<CommerceCategory> commerceCategories = new ArrayList<CommerceCategory>();
 	
-	@XmlTransient @JsonIgnore @ManyToMany(mappedBy = "commerces")
+	@ManyToMany(mappedBy = "commerces") @XmlTransient @JsonIgnore
 	private List<ProductTemplate> productTemplates = new ArrayList<ProductTemplate>();
 	
-	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "commerce")
+	@OneToMany(mappedBy = "commerce") @XmlTransient @JsonIgnore
 	private List<Product> products = new ArrayList<Product>();
 	
-	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "commerce")
+	@OneToMany(mappedBy = "commerce") @XmlTransient @JsonIgnore
 	private List<ShoppingCartByCommerce> shoppingCartByCommerces = new ArrayList<ShoppingCartByCommerce>();			//equivalent des commandes payées.
 	
 	
@@ -99,12 +99,18 @@ public class Commerce extends DbObject {
 	public void addProductTemplate(ProductTemplate pt) 
 	{	
 		if(!this.productTemplates.contains(pt))
-			this.productTemplates.add(pt);	
+		{
+			this.productTemplates.add(pt);
+			pt.addCommerces(this);
+		}
 	}
 	public void removeProductTemplate(ProductTemplate pt) 
 	{	
 		if(this.productTemplates.contains(pt))
-			this.productTemplates.remove(pt);	
+		{
+			this.productTemplates.remove(pt);
+			pt.removeCommerces(this);
+		}
 	}
 	
 	public void addShoppingCartByCommerces(ShoppingCartByCommerce sc) {
@@ -115,8 +121,8 @@ public class Commerce extends DbObject {
 	}
 	public void removeShoppingCartByCommerces(ShoppingCartByCommerce sc) {
 		if(shoppingCartByCommerces.contains(sc)) {
-			sc.setCommerce(null);
 			shoppingCartByCommerces.remove(sc);
+			sc.setCommerce(null);
 		}
 	}
 	
@@ -133,8 +139,8 @@ public class Commerce extends DbObject {
 	{	
 		if(this.products.contains(p))
 		{
-			p.setCommerce(null);
 			this.products.remove(p);
+			p.setCommerce(null);
 		}
 	}
 	public void clearProduct() 
