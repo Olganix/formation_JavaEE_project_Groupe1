@@ -41,6 +41,7 @@ import fr.dawan.nogashi.tools.EmailTool;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200", allowCredentials = "true")                           // @CrossOrigin is used to handle the request from a difference origin.
+@RequestMapping("/user")
 public class UsersController 
 {
 	private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
@@ -223,7 +224,7 @@ public class UsersController
 	*
 	* Envoie le mail de validation d'email
 	*/
-	@PostMapping(path="/send-email-validation", produces = "application/json")
+	@PostMapping(path="/sendEmailValidation", produces = "application/json")
 	//test : http://localhost:8080/nogashi/sendemailvalidation?email=aaa@toto.fr
     public RestResponse<User> sendEmailValidation(@RequestBody String email, HttpSession session, Locale locale, Model model)
     {
@@ -435,7 +436,7 @@ public class UsersController
 	*
 	* 
 	*/
-	@RequestMapping(path="/passwordRescue", produces = "application/json")					//TODO supprimer les "-" pour etre dans les meme normes, et engueler le mec qui a fait ca.
+	@RequestMapping(path="/passwordRescue", produces = "application/json")
 	//test : http://localhost:8080/nogashi/passwordRescue?email=aaa@toto.fr
     public RestResponse<User> passwordRescue(@RequestBody String email, HttpSession session, Locale locale, Model model)
     {
@@ -512,7 +513,7 @@ public class UsersController
     }
 	
 	
-	//
+	
 	
 	
 	
@@ -523,7 +524,7 @@ public class UsersController
 	*
 	* 
 	*/
-	@PostMapping(path="/passwordRescueModification", produces = "application/json")					//TODO supprimer les "-" pour etre dans les meme normes, et engueler le mec qui a fait ca.
+	@PostMapping(path="/passwordRescueModification", produces = "application/json")
 	//test : http://localhost:8080/nogashi/passwordRescueModification?password=toto&token=xxxxxxxxxxxxx
 	public RestResponse<User> passwordRescueModification(@RequestBody User user, HttpSession session, Locale locale, Model model)
     {

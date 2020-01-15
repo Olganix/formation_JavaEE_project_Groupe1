@@ -22,7 +22,7 @@ export class ConnexionService {
 
 
   signIn(user: User): Observable<RestResponse> {
-    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/signin', user.toHttpObject_signin(), { withCredentials: true }).pipe(
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/user/signin', user.toHttpObject_signin(), { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);
@@ -30,7 +30,7 @@ export class ConnexionService {
   }
 
   emailValidation(token: string): Observable<RestResponse> {
-    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/emailvalidation', token, { withCredentials: true }).pipe(
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/user/emailvalidation', token, { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);
@@ -38,7 +38,7 @@ export class ConnexionService {
   }
 
   sendEmailValidation(user: User): Observable<RestResponse> {
-    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/sendemailvalidation', user.email, { withCredentials: true }).pipe(
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/user/sendemailvalidation', user.email, { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);
@@ -47,7 +47,7 @@ export class ConnexionService {
 
   login(user: User): Observable<RestResponse> {
 
-    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/login', user.toHttpObject_login(), { withCredentials: true }).pipe(
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/user/login', user.toHttpObject_login(), { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         const rrpTmp = new RestResponse(rrp);
@@ -57,7 +57,7 @@ export class ConnexionService {
   }
 
   logout(): Observable<RestResponse> {
-    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/logout', { withCredentials: true }).pipe(
+    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/user/logout', { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         this.connectedUser = null;                                // Same if it's a fail (because is not connected), the result is the same.
@@ -66,7 +66,7 @@ export class ConnexionService {
   }
 
   isLoged() {
-    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/isloged', { withCredentials: true }).pipe(
+    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/user/isLogged', { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         const rrpTmp = new RestResponse(rrp);
@@ -78,7 +78,7 @@ export class ConnexionService {
 
   passwordRescue(user: User): Observable<RestResponse> {
 
-    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/passwordRescue', user.email, { withCredentials: true }).pipe(
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/user/passwordRescue', user.email, { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);
@@ -90,7 +90,7 @@ export class ConnexionService {
     console.log('service.passwordRescueModification()');
     console.log(user.toHttpObject_passwordRescueModification());
 
-    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/passwordRescueModification', user.toHttpObject_passwordRescueModification(), { withCredentials: true }).pipe(
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/user/passwordRescueModification', user.toHttpObject_passwordRescueModification(), { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);
@@ -100,14 +100,14 @@ export class ConnexionService {
 
 
   getUsers() {
-    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/getUsers', { withCredentials: true }).pipe(
+    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/user/getUsers', { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);
       }));
   }
   getMerchants() {
-    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/getMerchants', { withCredentials: true }).pipe(
+    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/user/getMerchants', { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);
@@ -142,7 +142,7 @@ export class ConnexionService {
 
 
   getProductsTemplates() {
-    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/getProductsTemplates', { withCredentials: true }).pipe(
+    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/merchant/getProductsTemplates', { withCredentials: true }).pipe(
       retry(3),
       map((rrp: RestResponse) => {
         return new RestResponse(rrp);
@@ -150,7 +150,7 @@ export class ConnexionService {
   }
 
   addProductTemplate(productTemplate: ProductTemplate): Observable<RestResponse> {
-    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/addProductTemplate', productTemplate.toHttpObject() , { withCredentials: true }).pipe(
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/merchant/addProductTemplate', productTemplate.toHttpObject() , { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);

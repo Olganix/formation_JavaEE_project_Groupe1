@@ -23,6 +23,7 @@ import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
+import fr.dawan.nogashi.enums.ProductStatus;
 import fr.dawan.nogashi.enums.UserRole;
 
 public class Main 
@@ -39,10 +40,14 @@ public class Main
 		
 		// decommenter, puis recommenter, pour eviter d'avoir x fois les elements
 		setupDataBase();
+		
+		previouslyInNogashi();								// un historic pour Gilles
+		
 		merchantStartDay();
 		individualInPromotion();
 		
-		// un historic pour Gilles
+		
+		
 		// un shopping card payé pour Gilles.
 		// l'association stop gashi
 		
@@ -217,10 +222,166 @@ public class Main
 	}
 	
 	
-	public static void merchantStartDay()
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public static void previouslyInNogashi()
 	{
 		GenericDao dao = new GenericDao();
 		try {
+			Product p = (Product) dao.find(Product.class, 0, em);
+			System.out.println("Product attendu pour tester le remplissage de la bdd :"+ p);		//todo remove this print.
+			
+			if(p!=null)
+				return;
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
+
+		System.out.println("------------------------- previouslyInNogashi Start -------------------------");
+		
+		
+		Merchant m = null;
+		List<Commerce> lc = new ArrayList<Commerce>();
+		Buyer buyer = null;
+		ShoppingCart sc = null;
+		
+		try {
+			List<Merchant> lm = new ArrayList<Merchant>();
+			
+			
+			lm = dao.findNamed(Merchant.class, "name", "Big Fernand", em);
+			if(lm.size()==0)
+				return;
+			
+			m = lm.get(0);
+			lc = m.getCommerces();
+			if(lc.size()==0)
+				return;
+			
+			
+			List<Buyer> lb = dao.findNamed(Buyer.class, "name", "Gilles Collin", em);
+			if(lb.size()==0)
+				return;
+			buyer = lb.get(0);
+			
+			List<ShoppingCart> lsc = dao.findBySomething(ShoppingCart.class, "buyer", buyer, em);
+			if(lsc.size()==0)
+				return;
+				
+			sc = lsc.get(0);
+			System.out.println("ShoppingCart attendu pour tester le remplissage de la bdd :"+ sc);		//todo remove this print.
+			
+			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
+		
+		
+		
+		// operations du merchant.
+		List<Product> lp = new ArrayList<Product>();
+		
+		for(Commerce c : m.getCommerces())
+		{
+			for(ProductTemplate pt : c.getProductTemplates())
+			{
+				int nbProducts = (int)Math.floor(Math.random() * 5);
+				
+				for(int i = 0; i< nbProducts; i++)
+					lp.add( pt.createProduct(c) );
+			}
+		}
+		
+		
+		// operations du buyer
+		sc = new ShoppingCart(buyer);
+		
+		
+		for(Commerce c : lc)
+		{
+			List<Product> lpt = c.getProducts();
+			
+			List<Integer> lpti = new ArrayList<Integer>();
+			for(int i = 0; i < lpt.size(); i++)
+				lpti.add(i);
+			
+			int nbProducts = lpt.size();
+			for(int i = 0;  i< nbProducts; i++)
+			{
+				int index = (int)Math.round(Math.random() * (lpti.size() - 1));
+				
+				ShoppingCartByCommerce scbc = sc.getShoppingCartByCommerce(c);
+				if(scbc==null)
+				{
+					scbc = new ShoppingCartByCommerce(c, sc);
+					sc.addShoppingCartByCommerces(scbc);
+				}
+				
+				Product p = lpt.get(lpti.get(index));
+				p.setStatus(ProductStatus.SOLD);
+				
+				scbc.addProduct( p );
+				lpti.remove((int)index);
+			}
+		}
+		
+		buyer.addHistoricShoppingCarts(sc);
+		
+		
+		try
+		{
+			et.begin();
+			
+			
+			em.persist(sc);
+			em.persist(m);						//to save Commerce and ProducTemplate
+			em.persist(buyer);					//normally also save shoppingCart
+			
+			for(Product p : lp)
+				em.persist(p);
+			
+			et.commit();
+			
+			
+		} catch (Exception e) {
+			et.rollback();					//undo if troubles
+			e.printStackTrace();		
+		}
+		
+		System.out.println("------------------------- previouslyInNogashi End -------------------------");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static void merchantStartDay()
+	{
+		GenericDao dao = new GenericDao();
+		
+		
+		try {										//Todo make a better check because of previouslyInNogashi
 			Product p = (Product) dao.find(Product.class, 0, em);
 			System.out.println("Product attendu pour tester le remplissage de la bdd :"+ p);		//todo remove this print.
 			

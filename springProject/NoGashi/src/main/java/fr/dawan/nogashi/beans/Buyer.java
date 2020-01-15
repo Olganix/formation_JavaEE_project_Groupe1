@@ -35,7 +35,23 @@ public class Buyer extends User {
 	
 	
 	//-------------------------------------
+
+	public void addHistoricShoppingCarts(ShoppingCart sc) {
 		
+		if(!historicShoppingCarts.contains(sc))
+		{
+			historicShoppingCarts.add(sc);
+			
+			if(sc == shoppingCart)
+				shoppingCart = null;
+		}
+	}
+	public void removeHistoricShoppingCarts(ShoppingCart sc) {
+		if(historicShoppingCarts.contains(sc))
+			historicShoppingCarts.remove(sc);
+	}
+
+	
 	
 	public void addDietaryRestrictions(DietaryRestriction dr) {
 		if(!dietaryRestrictions.contains(dr))
