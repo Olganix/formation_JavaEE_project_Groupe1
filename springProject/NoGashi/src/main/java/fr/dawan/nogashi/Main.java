@@ -18,6 +18,7 @@ import fr.dawan.nogashi.beans.Commerce;
 import fr.dawan.nogashi.beans.CreditCard;
 import fr.dawan.nogashi.beans.Individual;
 import fr.dawan.nogashi.beans.Merchant;
+import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.UserRole;
@@ -36,6 +37,7 @@ public class Main
 		
 		// decommenter, puis recommenter, pour eviter d'avoir x fois les elements
 		setupDataBase();
+		merchantStartDay();
 		
 		//TestGetProductTemplateFromMerchant();
 		
@@ -251,5 +253,103 @@ public class Main
 		}
 		
 		System.out.println("------------------------- setupDataBase End -------------------------");
+	}
+	
+	
+	public static void merchantStartDay()
+	{
+		GenericDao dao = new GenericDao();
+		try {
+			Product p = (Product) dao.find(Product.class, 0, em);
+			System.out.println("Product attendu pour tester le remplissage de la bdd :"+ p);		//todo remove this print.
+			
+			if(p!=null)
+				return;
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
+
+		System.out.println("------------------------- merchantStartDay Start -------------------------");
+		
+		
+		Merchant m = null;
+		Commerce c1 = null;
+		Commerce c2 = null;
+		
+		try {
+			List<Merchant> lm = new ArrayList<Merchant>();
+			List<Commerce> lc = new ArrayList<Commerce>();
+			
+			lm = dao.findNamed(Merchant.class, "name", "Big Fernand", em);
+			if(lm.size()!=0)
+			{
+				System.out.println("tata");
+				m = lm.get(0);
+			}
+			
+			lc = dao.findBySomething(Commerce.class, "merchant", m, em);
+			if(lc.size()>=2)
+			{
+				System.out.println("yoyo");
+				c1 = lc.get(0);
+				c2 = lc.get(1);
+			}
+			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		if((m==null) || (c1==null) || (c2==null))
+			return;
+		
+		
+		
+		
+		List<Product> lp = new ArrayList<Product>();
+		
+		
+		for(ProductTemplate pt : c1.getProductTemplates())
+		{
+			int nbProducts = (int)Math.floor(Math.random() * 10);
+			System.out.println("nbProducts c1 : "+ nbProducts);
+			
+			for(int i = 0; i< nbProducts; i++)
+			{
+				System.out.println("add to c1");
+				lp.add( pt.createProduct(c1) );
+			}
+		}
+		
+		for(ProductTemplate pt : c2.getProductTemplates())
+		{
+			int nbProducts = (int)Math.floor(Math.random() * 10);
+			System.out.println("nbProducts c2 : "+ nbProducts);
+			
+			for(int i = 0; i< nbProducts; i++)
+			{
+				System.out.println("add to c2");
+				lp.add( pt.createProduct(c2) );
+			}
+		}
+		
+		
+		try
+		{
+			et.begin();
+			
+			em.persist(m);						//to save Commerce and ProducTemplate 
+			
+			for(Product p : lp)
+				em.persist(p);
+			
+			et.commit();
+			
+			
+		} catch (Exception e) {
+			et.rollback();					//undo if troubles
+			e.printStackTrace();		
+		}
+		
+		System.out.println("------------------------- merchantStartDay End -------------------------");
 	}
 }
