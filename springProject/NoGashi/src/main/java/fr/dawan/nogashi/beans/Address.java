@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Entity
 @Component
 public class Address extends DbObject {
-
 	private static final long serialVersionUID = 1L;
 	
 	@Column(nullable = false, length = 500)

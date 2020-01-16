@@ -1,5 +1,6 @@
 package fr.dawan.nogashi;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,9 @@ import javax.persistence.Persistence;
 import org.mindrot.jbcrypt.BCrypt;
 
 import fr.dawan.nogashi.beans.ProductTemplate;
+import fr.dawan.nogashi.beans.SchedulerDay;
+import fr.dawan.nogashi.beans.SchedulerHoursRange;
+import fr.dawan.nogashi.beans.SchedulerWeek;
 import fr.dawan.nogashi.beans.ShoppingCart;
 import fr.dawan.nogashi.beans.ShoppingCartByCommerce;
 import fr.dawan.nogashi.beans.Address;
@@ -24,6 +28,7 @@ import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.ProductStatus;
+import fr.dawan.nogashi.enums.SchedulerWeekType;
 import fr.dawan.nogashi.enums.UserRole;
 
 public class Main 
@@ -79,7 +84,7 @@ public class Main
 		List<Individual> li = new ArrayList<Individual>();
 		List<Association> la = new ArrayList<Association>();
 		
-		User a = new User("Admin", "admin@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), 					UserRole.ADMIN, true); a.setEmailValid(true); a.setAvatarFilename("admin.jpg");
+		User a = new User("Admin", "admin@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.ADMIN, true); a.setEmailValid(true); a.setAvatarFilename("admin.jpg");
 		Merchant m = new Merchant(new User("Merchant", "merchant@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.03.03.03.03", 	new Address("59, Rue Merchant", "", "59000", "Lille", "France", 00.00, 00.00), true , true, "merchant.jpg"), "362 521 879 00030", "FR12 1234 1234 1234 1234 59", "12346"); lm.add(m);
 		Individual u = new Individual(	new User("User", "user@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, "01.01.01.01.01", new Address("59, Rue User", "", "59000", "Lille", "France", 00.00, 00.00), true , true, "user.jpg"), 	new CreditCard("MasterCard", "4539 1593 1309 2658", "User", "04/23", "092"));	li.add(u);
 		Association ass = new Association(	new User("Association", "associationt@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.ASSOCIATION, "02.02.02.02.02", 	new Address("59, Rue Association", "Au fond a Gauche", "59000", "Lille", "France", 00.00, 00.00), true , true, "association.jpg"), "362 521 880", "W751212507");	la.add(ass);
@@ -94,6 +99,7 @@ public class Main
 		li.add(new Individual(	new User("Charles Margand", "charles.margand@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, "01.65.89.96.02", 					new Address("13, rue Gouin de Beauchesne", "", "59680", "Wattignies", "France", 00.00, 00.00), true , true, "H_0002.jpg"), 				new CreditCard("Visa", "4556 7288 3650 6226", "Charles Margand", "12/22", "095")));
 		li.add(new Individual(	new User("Belisarda De La Vergne", "belisarda.de.la.vergne@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, "03.48.23.29.74", 	new Address("55, boulevard Aristide Briand", "", "59650", "Villeneuve d'Ascq", "France", 00.00, 00.00), true , true, "F_0040.jpg"), 	new CreditCard("MasterCard", "5469 4131 0379 1255", "Belisarda De La Vergne", "12/25", "892")));
 		li.add(new Individual(	new User("Gilles Collin", "gilles.collin@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, "03.82.19.05.37", 						new Address("34, Rue de la Pompe", "", "59700", "Marcq-en-Baroeul", "France", 00.00, 00.00), true , true, "H_0029.jpg"), 				new CreditCard("Visa", "5545 8830 0947 7027", "Gilles Collin", "02/24", "784")));
+		
 		//ex code siret 362 521 879 00034
 		//ex code siren 362 521 879
 		//ex code RNA (Association) W751212517
@@ -115,18 +121,50 @@ public class Main
 		Merchant mP =  	new Merchant(new User("Paul", "paul@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.20.57.40.99", 								new Address("19 place Général de Gaulle", "", "59000", "Lille", "France", 3.063, 50.6368), true , true, "paul.jpg"), "403 052 111 00420", "FR12 1234 1234 1234 1234 10", "12343");	lm.add(mP); 
 		Merchant mBf =  new Merchant(new User("Big Fernand", "big.fernand@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.20.94.77.767", 					new Address("107 rue Esquermoise", "", "59800", "Lille", "France", 3.05871, 50.6389), true , true, "big-fernand.png"), "830 134 458 00017", "FR12 1234 1234 1234 1234 09", "12342");	lm.add(mBf);
 		
+		/* ---------- SCHEDULER WEEKS ---------- */
+		SchedulerWeek sw = new SchedulerWeek();
+		sw.setType(SchedulerWeekType.GROUP);
+		List<SchedulerWeek> lsw = sw.getGroup();
+		
+		
+		SchedulerWeek swTmp = new SchedulerWeek();
+		swTmp.setType(SchedulerWeekType.OPEN);
+		lsw.add(swTmp);
+		List<SchedulerDay> lsd = swTmp.getDays();
+		
+		// Exemple d'horaires d'ouverture.
+		SchedulerHoursRange shr_am = new SchedulerHoursRange();
+		shr_am.setStartTime(9 * 60);		// 09h00
+		shr_am.setEndTime(12 * 60 + 30);	// 12h30
+		
+		SchedulerHoursRange shr_pm = new SchedulerHoursRange();
+		shr_pm.setStartTime(14 * 60);		// 14h00
+		shr_pm.setEndTime(19 * 60 + 30);	// 19h00
+		
+		SchedulerDay sd;
+		for(int i= 0; i <= 5; i++) { 		// Monday -> Friday
+			sd = new SchedulerDay();
+			sd.setDay( DayOfWeek.values()[i] );
+			lsd.add(sd);
+			List<SchedulerHoursRange> lshr = sd.getHoursRanges();
+			
+			lshr.add(shr_am);
+			lshr.add(shr_pm);
+		}
+		
 		/* ---------- COMMERCES ---------- */
-		Commerce mBC_c1 = new Commerce("Basilic & Co", "362 521 879 00033", 			new Address("80 rue Nationale", "", "59800", "Lille", "France", 3.059697, 50.635931), 				"basilic.png");   				mBC_c1.setMerchant(mBC);		
-		Commerce mDj_c1 = new Commerce("Daily-juicery", "362 521 879 00032", 			new Address("380 rue Léon Gambetta", "", "59000", "Lille", "France", 3.04787, 50.6267), 			"daily-juicery.png");			mDj_c1.setMerchant(mDj);
-		Commerce mBm_c1 = new Commerce("Boulangerie-Mathieu", "795 335 793 00027", 		new Address("82 rue du Molinel", "", "59000", "Lille", "France", 3.06686, 50.6341), 				"boulangerie-mathieu.jpeg");	mBm_c1.setMerchant(mBm);
-		Commerce mP_c1 = new Commerce("Paul", "403 052 111 00420", 						new Address("19 place Charles de Gaulle", "", "59000", "Lille", "France", 3.0630005, 50.6367832), 	"paul.jpg");					mP_c1.setMerchant(mP);
-		Commerce mBf_c1 = new Commerce("Big Fernand", "830 134 458 00017",				new Address("107 Rue Esquermoise", "", "59000", "Lille", "France", 3.0586802, 50.6388127), 			"big-fernand.png");  			mBf_c1.setMerchant(mBf);
-		Commerce mBf_c2 = new Commerce("Big Fernand", "830 134 458 00017", 				new Address("10 Rue Faidherbe", "", "59000", "Lille", "France", 3.0657011, 50.6369357), 			"big-fernand.png");				mBf_c2.setMerchant(mBf);
+		// Dénomination sociale du commerce						Numéro SIRET				Adresse du commerce (adresse, complément, code postal, ville, pays, longitude, latitude)			Logo du commerce				Image de description	Description du commerce				SchedulerWeek
+		Commerce mBC_c1 = new Commerce("Basilic & Co",			"362 521 879 00033", 		new Address("80 rue Nationale", "", "59800", "Lille", "France", 3.059697, 50.635931), 				"basilic.png",					"",						"Lorem ipsum dolor sit amet.",		sw);		mBC_c1.setMerchant(mBC);		
+		Commerce mDj_c1 = new Commerce("Daily-juicery",			"362 521 879 00032", 		new Address("380 rue Léon Gambetta", "", "59000", "Lille", "France", 3.04787, 50.6267), 			"daily-juicery.png",			"",						"Lorem ipsum dolor sit amet.",		sw);		mDj_c1.setMerchant(mDj);
+		Commerce mBm_c1 = new Commerce("Boulangerie-Mathieu",	"795 335 793 00027", 		new Address("82 rue du Molinel", "", "59000", "Lille", "France", 3.06686, 50.6341), 				"boulangerie-mathieu.jpeg", 	"",						"Lorem ipsum dolor sit amet.",		sw);		mBm_c1.setMerchant(mBm);
+		Commerce mP_c1 = new Commerce("Paul",					"403 052 111 00420", 		new Address("19 place Charles de Gaulle", "", "59000", "Lille", "France", 3.0630005, 50.6367832), 	"paul.jpg",						"",						"Lorem ipsum dolor sit amet.",		sw);		mP_c1.setMerchant(mP);
+		Commerce mBf_c1 = new Commerce("Big Fernand",			"830 134 458 00017",		new Address("107 Rue Esquermoise", "", "59000", "Lille", "France", 3.0586802, 50.6388127), 			"big-fernand.png",				"",						"Lorem ipsum dolor sit amet.",		sw);		mBf_c1.setMerchant(mBf);
+		Commerce mBf_c2 = new Commerce("Big Fernand",			"830 134 458 00017", 		new Address("10 Rue Faidherbe", "", "59000", "Lille", "France", 3.0657011, 50.6369357), 			"big-fernand.png",				"",						"Lorem ipsum dolor sit amet.",		sw);		mBf_c2.setMerchant(mBf);
 		
 		// TODO déplacer les ingredients de la description de chaque produit vers ProductDetail.
 		/* ---------- PRODUITS BASILIC AND CO ---------- */
 		// https://www.basilic-and-co.com/carte-pizzas
-		mBC.addProductTemplate(new ProductTemplate("Pizza savoyarde", "31 cm<br>Crème fraîche, mozzarella artisanale française, lardons fumés, Reblochon de Savoie AOP et fondue d’oignons maison", "0000001", true, 14.90, 10.43, "pizza_savoyarde.png"));
+		mBC.addProductTemplate(new ProductTemplate("Pizza savoyarde", "31 cm<br>Crème fraîche, mozzarella artisanale française, lardons fumés, Reblochon de Savoie AOP et fondue d’oignons maison", "0000001", true, 14.90, 10.43, "pizza-savoyarde.png"));
 		mBC.addProductTemplate(new ProductTemplate("Pizza 4 fromages des alpes", "31 cm<br>Sauce tomate BIO maison, mozzarella artisanale française, Tome des Bauges AOP, Bleu du Vercors AOP, Reblochon de Savoie AOP et origan. ", "0000001", true, 14.90, 10.43, "pizza-4-fromages-des-alpes-basilic.jpg"));
 		mBC.addProductTemplate(new ProductTemplate("Pizza bourguignonne", "31 cm<br>Sauce tomate BIO maison, mozzarella artisanale française, bœuf haché BIO, fondue d’oignons maison, filet de crème et origan", "0000001", true, 15.90, 11.33, "pizza-bourguignonne-basilic.jpeg"));
 		mBC.addProductTemplate(new ProductTemplate("Pizza baugienne", "31 cm<br>Crème fraîche, mozzarella artisanale française, champignons frais, lardons fumés, Tome des Bauges AOP et ciboulette fraîche.", "0000001", true, 15.90, 11.33, "pizza-baugienne-basilic.jpg"));
@@ -195,7 +233,12 @@ public class Main
 			for(Merchant mTmp : lm)
 			{
 				for(Commerce cTmp : mTmp.getCommerces())		//because the list is mapped that way : '@OneToMany(mappedBy = "merchant")', you don't have automatic persistence. so you have to it manually. If it's mapped on other class, it should be good , but problematic on loading merchant without loading all the bdd.
+				{
+					if(cTmp.getAddress()!=null)
+						em.persist(cTmp.getAddress());				//because of the OneToONe, witch make the follow error if there isn't Adress saved : "Caused by: org.hibernate.TransientPropertyValueException: object references an unsaved transient instance - save the transient instance before flushing : fr.dawan.nogashi.beans.Individual.address -> fr.dawan.nogashi.beans.Address"
+					
 					em.persist(cTmp);
+				}
 				
 				for(ProductTemplate ptTmp : mTmp.getProductTemplates())
 					em.persist(ptTmp);

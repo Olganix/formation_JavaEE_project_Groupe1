@@ -1,7 +1,5 @@
 package fr.dawan.nogashi.beans;
 
-import java.time.LocalTime;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,9 +15,9 @@ public class SchedulerHoursRange extends DbObject {
 	private static final long serialVersionUID = 1L;
 	
 	@Column(nullable = false)
-	private LocalTime startTime;
+	private int startTime;
 	@Column(nullable = false)
-	private LocalTime endTime;
+	private int endTime;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private SchedulerDay parent;
@@ -32,7 +30,7 @@ public class SchedulerHoursRange extends DbObject {
 	}
 
 
-	public SchedulerHoursRange(LocalTime startTime, LocalTime endTime, SchedulerDay parent) {
+	public SchedulerHoursRange(int startTime, int endTime, SchedulerDay parent) {
 		super();
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -40,22 +38,22 @@ public class SchedulerHoursRange extends DbObject {
 	}
 
 
-	public LocalTime getStartTime() {
+	public int getStartTime() {
 		return startTime;
 	}
 
 
-	public void setStartTime(LocalTime startTime) {
+	public void setStartTime(int startTime) {
 		this.startTime = startTime;
 	}
 
 
-	public LocalTime getEndTime() {
+	public int getEndTime() {
 		return endTime;
 	}
 
 
-	public void setEndTime(LocalTime endTime) {
+	public void setEndTime(int endTime) {
 		this.endTime = endTime;
 	}
 

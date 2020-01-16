@@ -36,7 +36,7 @@ public class Commerce extends DbObject {
 	private SchedulerWeek schedulerWeek;						// horaires. Todo in futur : a week calendar also for not school period + a holiday calendar + by saison.
 	
 	private String pictureLogo;									// logo for the merchant's (or commerce's) mark
-	private String pictureDescription = "NoDescription.jpg";	// real picture of commerce, or patchwork to describe the commerce.
+	private String pictureDescription;	// real picture of commerce, or patchwork to describe the commerce.
 	private boolean isOpened = false;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -61,17 +61,17 @@ public class Commerce extends DbObject {
 
 	
 	/* ---------- A RAJOUTER DANS LE CONSTRUCTEUR AU FUR ET A MESURE ---------- */
-	// String description, String uniqueIdName, SchedulerWeek schedulerWeek, String pictureLogo, String pictureDescription, Merchant merchant
-	public Commerce(String name, String codeSiret, Address address, String pictureLogo) {
+	// String uniqueIdName, String pictureLogo, Merchant merchant
+	public Commerce(String name, String codeSiret, Address address, String pictureLogo, String pictureDescription, String description, SchedulerWeek listsw) {
 		super();
 		this.name = name;
 		this.codeSiret = codeSiret;
 		this.address = address;
 		this.pictureLogo = pictureLogo;
-		// this.description = description;
+		this.pictureDescription = pictureDescription;
+		this.description = description;
+		this.schedulerWeek = listsw;
 		// this.uniqueIdName = uniqueIdName;
-		// this.schedulerWeek = schedulerWeek;
-		// this.pictureDescription = pictureDescription;
 		// this.merchant = merchant;
 	}
 	

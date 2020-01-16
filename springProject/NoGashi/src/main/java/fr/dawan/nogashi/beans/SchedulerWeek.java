@@ -1,5 +1,6 @@
 package fr.dawan.nogashi.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -32,10 +33,10 @@ public class SchedulerWeek extends DbObject {
 	private SchedulerWeekType type = SchedulerWeekType.OPEN;	// with the type, you will could have many layout
 	
 	@OneToMany
-	private List<SchedulerWeek> group = null;				// the case with many layouts.
+	private List<SchedulerWeek> group = new ArrayList<SchedulerWeek>();				// the case with many layouts.
 	
 	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
-	private List<SchedulerDay> days = null;
+	private List<SchedulerDay> days = new ArrayList<SchedulerDay>();
 	
 	
 	
