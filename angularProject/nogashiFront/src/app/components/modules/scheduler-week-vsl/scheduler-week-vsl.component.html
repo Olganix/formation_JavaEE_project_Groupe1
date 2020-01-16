@@ -2,10 +2,6 @@
 
 
 <div class="week">
-
-
-
-
   <div *ngIf="scheduler.type === 0; else singleDisplay" class="container_layers" >
     <div *ngFor="let weekTyped of scheduler.group" class="container_layers" >
       <div *ngFor="let day of weekTyped.days" class="hours_container offseted" [ngStyle]="{'left': (day.day * 90) + 'px'}" >
@@ -21,13 +17,13 @@
   </ng-template>
 
   <div class="hours_container offseted">
-    <div *ngFor="let hour of displaylistHours; index as i" class="hoursLine">
-      <div class="txt">{{hour}}h</div>
+    <div *ngFor="let hour of displaylistHours; index as i" class="heure-ligne">
+      <div class="heure">{{hour}}h</div>
     </div>
   </div>
 
-  <div *ngFor="let day of displaylistDay" class="day">
-    <div class="name">{{dayName(day)}}</div>
+  <div *ngFor="let day of displaylistDay" class="bloc-jour">
+    <div class="titre-jour">{{dayName(day)}}</div>
     <div class="hours_container">
     </div>
   </div>

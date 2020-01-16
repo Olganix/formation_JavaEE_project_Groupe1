@@ -2,23 +2,24 @@
 
 <div class="col-xs-12">
   <div *ngIf="scheduler_simplified">
-    <div>
-      <h3>Horaires {{typeName(schedulerType)}} :</h3>
-      <div *ngFor="let simpl of scheduler_simplified; index as i">
-        <div class="line">
+
+    <div class="bloc-horaires">
+      <h3 class="titre-horaires"><i class="fas fa-clock"></i> Horaires {{typeName(schedulerType)}} :</h3>
+      <div  class="fond-horaires" *ngFor="let simpl of scheduler_simplified; index as i">
+        <div class="bloc-text-horaires">
           <div *ngFor="let dayRange of simpl.dayRanges">
-            <div *ngIf="dayRange.startDay === dayRange.endDay; else rangeToDisplay" >
-              {{dayName(dayRange.startDay)}}
+            <div class="text-jour" *ngIf="dayRange.startDay === dayRange.endDay; else rangeToDisplay" >
+              {{dayName(dayRange.startDay)}} :
             </div>
             <ng-template #rangeToDisplay>
-              <p>Du {{dayName(dayRange.startDay)}} au {{dayName(dayRange.endDay)}}</p>
+              <p class="text-jour">Du {{dayName(dayRange.startDay)}} au {{dayName(dayRange.endDay)}} :</p>
             </ng-template>
           </div>
-          <div *ngFor="let hr of simpl.day.hoursRanges">
-            <div>{{minutesToTimeDisplay_TimeZoneClient(hr.startTime)}} - {{minutesToTimeDisplay_TimeZoneClient(hr.endTime)}}</div>
-          </div>
-          <div *ngIf="editMode">
-            <button class="delete" (click)="remove(i)" >x</button>
+            <div *ngFor="let hr of simpl.day.hoursRanges">
+              <div class="text-heure">{{minutesToTimeDisplay_TimeZoneClient(hr.startTime)}} - {{minutesToTimeDisplay_TimeZoneClient(hr.endTime)}}</div>
+            </div>
+         <div *ngIf="editMode">
+            <button class="delete" (click)="remove(i)" ><i class="fas fa-times-circle"></i></button>
           </div>
         </div>
       </div>
@@ -27,8 +28,8 @@
     <div *ngIf="editMode" class="editContainer">
 
       <!-- Disply cumulated dayRanges and HoursRanges, before adding into the real ScheduledDay. -->
-      <div>Edition : </div>
-      <div class="line">
+      <div class="text-edition">Edition : </div>
+      <div>
         <div *ngFor="let dayRange of edit_scheduler_simplified.dayRanges; index as i">
           <div *ngIf="dayRange.startDay === dayRange.endDay; else rangeToDisplay" >
             {{dayName(dayRange.startDay)}}
@@ -45,39 +46,42 @@
       </div>
 
 
-      <div>
+      <div class="bloc-edition">
         <p>Du
-        <select [(ngModel)]="ip_dayStart" >
-          <option *ngFor="let dayIndex of ip_listDayIndex" [ngValue]="dayIndex" >{{dayName(dayIndex)}}</option>
+        <select class="liste-deroulante"  [(ngModel)]="ip_dayStart" >
+          <option class="option" *ngFor="let dayIndex of ip_listDayIndex" [ngValue]="dayIndex" >{{dayName(dayIndex)}}</option>
         </select>
           au
-        <select [(ngModel)]="ip_dayEnd" >
-          <option *ngFor="let dayIndex of ip_listDayIndex" [ngValue]="dayIndex" >{{dayName(dayIndex)}}</option>
+        <select class="liste-deroulante" [(ngModel)]="ip_dayEnd" >
+          <option  *ngFor="let dayIndex of ip_listDayIndex" [ngValue]="dayIndex" >{{dayName(dayIndex)}}</option>
         </select>
-        <button (click)="addDayRange()" >Ajouter</button>
+        <button class="bouton-ajouter" (click)="addDayRange()" >Ajouter</button>
       </div>
-      <div>
+      <div class="bloc-edition">
+        <div class="bloc-select">
+          <label class="label-formulaire"> Ouverture :</label>
+            <select class="liste-deroulante2" [(ngModel)]="ip_hourStart_h" >
+              <option *ngFor="let h of ip_listHours" [ngValue]="h" >{{h}} h</option>
+            </select>
+            <select class="liste-deroulante2"[(ngModel)]="ip_hourStart_min" >
+              <option *ngFor="let minutes of ip_listMinutes" [ngValue]="minutes" >{{minutes}} m</option>
+            </select>
+        </div>
         <div>
-          <select [(ngModel)]="ip_hourStart_h" >
+          <label class="label-formulaire"> Fermeture :</label>
+          <select class="liste-deroulante2" [(ngModel)]="ip_hourEnd_h" >
             <option *ngFor="let h of ip_listHours" [ngValue]="h" >{{h}} h</option>
           </select>
-          <select [(ngModel)]="ip_hourStart_min" >
+          <select class="liste-deroulante2" [(ngModel)]="ip_hourEnd_min" >
             <option *ngFor="let minutes of ip_listMinutes" [ngValue]="minutes" >{{minutes}} m</option>
           </select>
         </div>
-        <div>
-          <select [(ngModel)]="ip_hourEnd_h" >
-            <option *ngFor="let h of ip_listHours" [ngValue]="h" >{{h}} h</option>
-          </select>
-          <select [(ngModel)]="ip_hourEnd_min" >
-            <option *ngFor="let minutes of ip_listMinutes" [ngValue]="minutes" >{{minutes}} m</option>
-          </select>
+        <div class="groupe-bouton">
+          <button class="bouton-ajouter2" (click)="addHoursRange()" ><i class="fas fa-plus"></i> Ajouter</button>
+          <button class="bouton-ajouter3"  (click)="saveSimplifiedScheduler()" ><i class="fas fa-save"></i> Enregistrer</button>
         </div>
-        <button (click)="addHoursRange()" >Ajouter</button>
       </div>
-      <button (click)="saveSimplifiedScheduler()" >Enregistrer</button>
     </div>
-
   </div>
 </div>
 

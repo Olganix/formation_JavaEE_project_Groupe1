@@ -26,7 +26,7 @@ public class ShoppingCartByCommerce extends DbObject {
 	@ManyToOne
 	private Commerce commerce;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private ShoppingCart shoppingCart;
 	
 	@OneToMany(mappedBy = "shoppingCart")
@@ -44,8 +44,8 @@ public class ShoppingCartByCommerce extends DbObject {
 	public void removeProduct(Product p) {
 		if(products.contains(p))
 		{
-			p.setShoppingCart(null);
 			products.remove(p);
+			p.setShoppingCart(null);
 		}
 	}
 	

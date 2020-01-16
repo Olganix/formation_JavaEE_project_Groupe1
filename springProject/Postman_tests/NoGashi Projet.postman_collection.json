@@ -9,6 +9,113 @@
 			"name": "UserController",
 			"item": [
 				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "getUsersById",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/nogashi/user/users/8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"nogashi",
+										"user",
+										"users",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUsers",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/nogashi/user/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"nogashi",
+										"user",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getMerchants",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/nogashi/user/merchants",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"nogashi",
+										"user",
+										"merchants"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "signin (as Merchant)",
 					"request": {
 						"method": "POST",
@@ -30,7 +137,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/signin",
+							"raw": "http://localhost:8080/nogashi/user/signin",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -38,6 +145,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"signin"
 							]
 						}
@@ -66,7 +174,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/signin",
+							"raw": "http://localhost:8080/nogashi/user/signin",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -74,6 +182,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"signin"
 							]
 						}
@@ -102,7 +211,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/signin",
+							"raw": "http://localhost:8080/nogashi/user/signin",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -110,6 +219,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"signin"
 							]
 						}
@@ -138,7 +248,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/emailValidation",
+							"raw": "http://localhost:8080/nogashi/user/emailValidation",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -146,6 +256,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"emailValidation"
 							]
 						}
@@ -174,7 +285,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/sendEmailValidation",
+							"raw": "http://localhost:8080/nogashi/user/sendEmailValidation",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -182,6 +293,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"sendEmailValidation"
 							]
 						}
@@ -210,7 +322,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/login",
+							"raw": "http://localhost:8080/nogashi/user/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -218,6 +330,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"login"
 							]
 						}
@@ -246,7 +359,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/login",
+							"raw": "http://localhost:8080/nogashi/user/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -254,6 +367,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"login"
 							]
 						}
@@ -282,7 +396,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/login",
+							"raw": "http://localhost:8080/nogashi/user/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -290,6 +404,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"login"
 							]
 						}
@@ -318,7 +433,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/login",
+							"raw": "http://localhost:8080/nogashi/user/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -326,6 +441,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"login"
 							]
 						}
@@ -350,7 +466,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/isLogged",
+							"raw": "http://localhost:8080/nogashi/user/isLogged",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -358,6 +474,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"isLogged"
 							]
 						}
@@ -382,7 +499,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/logout",
+							"raw": "http://localhost:8080/nogashi/user/logout",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -390,6 +507,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"logout"
 							]
 						}
@@ -418,7 +536,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/passwordRescue",
+							"raw": "http://localhost:8080/nogashi/user/passwordRescue",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -426,6 +544,7 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"passwordRescue"
 							]
 						}
@@ -454,7 +573,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/passwordRescueModification",
+							"raw": "http://localhost:8080/nogashi/user/passwordRescueModification",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -462,136 +581,8 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
+								"user",
 								"passwordRescueModification"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getCommercesByCity",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"cityName\": \"Lille\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/nogashi/commerces-samples",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"nogashi",
-								"commerces-samples"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getUsersById",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/nogashi/users/8",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"nogashi",
-								"users",
-								"8"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getUsers (à supprimer)",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/nogashi/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"nogashi",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getMerchants (à supprimer)",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/nogashi/merchants",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"nogashi",
-								"merchants"
 							]
 						}
 					},
@@ -621,7 +612,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/merchant",
+							"raw": "http://localhost:8080/nogashi/merchant/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -629,7 +620,8 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"merchant"
+								"merchant",
+								""
 							]
 						}
 					},
@@ -649,7 +641,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Anaïs Des pinedes\",\n\t\"email\": \"anais-despins@noghasi.org\",\n\t\"password\": \"totototo\"\n}",
+							"raw": "{\n\t\"name\": \"Big Fernand\",\n\t\"email\": \"big_big@big.fr\",\n\t\"password\": \"totototo\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -879,7 +871,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/nogashi/merchant/productTemplate/47",
+							"raw": "http://localhost:8080/nogashi/merchant/productTemplate/77",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -889,7 +881,7 @@
 								"nogashi",
 								"merchant",
 								"productTemplate",
-								"47"
+								"77"
 							]
 						}
 					},
@@ -1055,28 +1047,6 @@
 					"response": []
 				},
 				{
-					"name": "getProductById TODO",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/nogashi/buyer/products/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"nogashi",
-								"buyer",
-								"products",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "getShoppingCart",
 					"request": {
 						"method": "GET",
@@ -1092,6 +1062,52 @@
 								"nogashi",
 								"buyer",
 								"shoppingCart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeProductTemplate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/nogashi/buyer/cart/remove/4/74",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"buyer",
+								"cart",
+								"remove",
+								"4",
+								"74"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clearShoppingCart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/nogashi/buyer/cart/clear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"buyer",
+								"cart",
+								"clear"
 							]
 						}
 					},
@@ -1121,7 +1137,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/association",
+							"raw": "http://localhost:8080/nogashi/association/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1129,7 +1145,8 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"association"
+								"association",
+								""
 							]
 						}
 					},
@@ -1157,7 +1174,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/users/association/update",
+							"raw": "http://localhost:8080/nogashi/association/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1165,7 +1182,6 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"users",
 								"association",
 								"update"
 							]
@@ -1198,7 +1214,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/users/association/remove",
+							"raw": "http://localhost:8080/nogashi/association/remove",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1206,7 +1222,6 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"users",
 								"association",
 								"remove"
 							]
@@ -1238,7 +1253,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/nogashi/individual",
+							"raw": "http://localhost:8080/nogashi/individual/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1246,7 +1261,8 @@
 							"port": "8080",
 							"path": [
 								"nogashi",
-								"individual"
+								"individual",
+								""
 							]
 						}
 					},
@@ -1347,6 +1363,65 @@
 								"nogashi",
 								"individual",
 								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCreditCard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/nogashi/individual/creditCard",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"individual",
+								"creditCard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCreditCard",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"visa\",\n\t\"codeNumber\": \"2165416531531\",\n\t\"ownerName\": \"Connor John\",\n\t\"expirationDate\": \"04-23\",\n\t\"codeSecurity\": \"759\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/individual/creditCard/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"individual",
+								"creditCard",
+								"update"
 							]
 						}
 					},

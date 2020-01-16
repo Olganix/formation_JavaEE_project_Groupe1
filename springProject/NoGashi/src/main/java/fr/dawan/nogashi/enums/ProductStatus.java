@@ -8,6 +8,6 @@ public enum ProductStatus {
 	RESERVED,
 	SOLD,
 	UNSOLD
-
+	// Statut RECUPERE
 	
 }

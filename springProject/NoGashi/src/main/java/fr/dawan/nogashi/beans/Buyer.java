@@ -3,6 +3,7 @@ package fr.dawan.nogashi.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -27,14 +28,30 @@ public class Buyer extends User {
 	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "buyer")
 	private List<Subscription> subscriptions = new ArrayList<Subscription>();
 	
-	@OneToOne(mappedBy = "buyer")
+	@OneToOne(mappedBy = "buyer", cascade = CascadeType.ALL)
 	private ShoppingCart shoppingCart;
 	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "buyer")
 	private List<ShoppingCart> historicShoppingCarts;
 	
 	
 	//-------------------------------------
+
+	public void addHistoricShoppingCarts(ShoppingCart sc) {
 		
+		if(!historicShoppingCarts.contains(sc))
+		{
+			historicShoppingCarts.add(sc);
+			
+			if(sc == shoppingCart)
+				shoppingCart = null;
+		}
+	}
+	public void removeHistoricShoppingCarts(ShoppingCart sc) {
+		if(historicShoppingCarts.contains(sc))
+			historicShoppingCarts.remove(sc);
+	}
+
+	
 	
 	public void addDietaryRestrictions(DietaryRestriction dr) {
 		if(!dietaryRestrictions.contains(dr))
