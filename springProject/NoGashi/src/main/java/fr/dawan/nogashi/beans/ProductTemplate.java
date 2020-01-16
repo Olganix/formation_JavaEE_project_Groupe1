@@ -57,7 +57,7 @@ public class ProductTemplate extends DbObject {
 	private int maxDurationCart;
 	
 	@Column(nullable = false)
-	private String image;
+	private String image = "NoProduct.jpg";
 
 	
 	

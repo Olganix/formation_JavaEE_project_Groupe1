@@ -35,8 +35,8 @@ public class Commerce extends DbObject {
 	@OneToOne
 	private SchedulerWeek schedulerWeek;						// horaires. Todo in futur : a week calendar also for not school period + a holiday calendar + by saison.
 	
-	private String pictureLogo;									// logo for the merchant's (or commerce's) mark
-	private String pictureDescription;	// real picture of commerce, or patchwork to describe the commerce.
+	private String pictureLogo = "NoLogo.jpg";									// logo for the merchant's (or commerce's) mark
+	private String pictureDescription = "NoDescription.jpg";	// real picture of commerce, or patchwork to describe the commerce.
 	private boolean isOpened = false;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
