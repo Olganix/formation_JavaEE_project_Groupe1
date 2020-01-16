@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {ProductTemplate} from '../../../../classes/product-template';
+import {ActivatedRoute} from '@angular/router';
+import {BuyerService} from '../../../../services/buyer.service';
+import {RestResponse} from '../../../../classes/rest-response';
 
 @Component({
   selector: 'app-product-sheet',
@@ -7,9 +11,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductSheetComponent implements OnInit {
 
-  constructor() { }
+  productTemplate: ProductTemplate;
+
+  constructor(private buyerService: BuyerService,
+              private route: ActivatedRoute
+              ) { }
 
   ngOnInit() {
+    const id = this.route.snapshot.params.id;
+
+    this.buyerService.getProductTemplateById(+id).subscribe(    // le + c'est pour caster un string en number
+    (rrp: RestResponse) => {
+
+      if (rrp.status === 'SUCCESS') {
+        this.productTemplate = rrp.data;
+      } else {
+        console.log('Echec de la recuperation de la liste des fiches produits : ' + rrp.errormessage);
+      }
+    },
+    error => {
+      console.log('Echec de la recuperation de la liste des fiches produits : ', error);
+    });
   }
 
 }

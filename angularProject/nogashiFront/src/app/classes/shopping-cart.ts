@@ -1,13 +1,17 @@
 import {ShoppingCartByCommerce} from './shopping-cart-by-commerce';
 import {ShoppingCartStatus} from '../enum/shopping-cart-status.enum';
+import {Buyer} from './buyer';
 
 export class ShoppingCart {
 
+  private _id: number;
   private _status: ShoppingCartStatus;
+  private _price: number;
+
   private _shoppingCartByCommerces: ShoppingCartByCommerce[];
 
   // --- Information to complete the java class
-  // Buyer buyer;
+  private _buyer: Buyer;
 
   constructor(obj?: object) {
     if (obj !== null) {
@@ -30,5 +34,31 @@ export class ShoppingCart {
 
   set shoppingCartByCommerces(value: ShoppingCartByCommerce[]) {
     this._shoppingCartByCommerces = value;
+  }
+
+
+  get id(): number {
+    return this._id;
+  }
+
+  set id(value: number) {
+    this._id = value;
+  }
+
+  get price(): number {
+    return this._price;
+  }
+
+  set price(value: number) {
+    this._price = value;
+  }
+
+
+  get buyer(): Buyer {
+    return this._buyer;
+  }
+
+  set buyer(value: Buyer) {
+    this._buyer = value;
   }
 }
