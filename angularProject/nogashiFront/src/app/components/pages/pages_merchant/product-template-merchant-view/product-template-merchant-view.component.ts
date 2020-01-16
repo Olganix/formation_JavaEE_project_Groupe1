@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ProductTemplate} from '../../../../classes/product-template';
 
 @Component({
   selector: 'app-product-template-merchant-view',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-template-merchant-view.component.scss']
 })
 export class ProductTemplateMerchantViewComponent implements OnInit {
+
+  @Input() productTemplate: ProductTemplate;
 
   constructor() { }
 

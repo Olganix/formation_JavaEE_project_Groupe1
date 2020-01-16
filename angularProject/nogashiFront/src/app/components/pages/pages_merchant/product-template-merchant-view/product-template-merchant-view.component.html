@@ -1,12 +1,17 @@
+
+
+
+
+
 <div class="bloc-affichage-produit col-12">
   <div class="img-affichage col-6 no-gutters">
     <article>
       <figure class="work-img no-gutters">
-        <img class="img col-12" src="/assets/img/produit/eclairchocoloat-mathieu.jpg" alt="image du produit">
+        <img class="img col-12" src="/assets/img/produit/{{productTemplate.image}}" alt="image du produit">
         <figcaption>
           <div class="fond-filtre" ></div>
           <div class="note">
-            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>  <!-- Todo -->
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -18,21 +23,20 @@
   </div>
 
   <div class="informations-affichage col-6">
-    <h5>Jus de fruits frais :</h5>
-    <p class="composition-affichage"> Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.
-      Royal Gala - Cox orange Granny smith - Vanille Bourbon de Madagascar.</p>
-    <p class="key-allergene"> > Sans-gluten > Sportif </p>
+    <h5>{{productTemplate.name}} :</h5>
+    <p class="composition-affichage">{{productTemplate.description}}</p>
+    <p class="key-allergene"> > Sans-gluten > Sportif </p> <!-- todo -->
     <div class="Lieu-affichage col-8">
       <select id="liste-mois" class="liste-mois col-12">
-        <option>Promotion</option>
+        <option>Promotion</option> <!-- todo revoir un peu ca -->
         <option>Invendu</option>
       </select>
     </div>
     <div class="bloc-prix-affichage col-12">
       <div class="affichage col-6">
-        <div class="prix-affichage">144,90 €</div>
+        <div class="prix-affichage">{{productTemplate.salePrice}} €</div>
         <div class="bloc-prix-barre">
-          <div class="prix-barre-affichage">25,00 €</div>
+          <div class="prix-barre-affichage">{{productTemplate.price}} €</div>
           <div class="trait"></div>
         </div>
       </div>

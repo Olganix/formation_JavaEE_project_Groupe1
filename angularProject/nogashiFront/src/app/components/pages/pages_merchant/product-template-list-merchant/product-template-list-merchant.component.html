@@ -157,7 +157,7 @@
 
       <div class="bloc-affichage col-10">
 
-        <app-product-template-merchant-view></app-product-template-merchant-view>
+        <app-product-template-merchant-view  *ngFor="let pt of productTemplates" [productTemplate]="pt" ></app-product-template-merchant-view>
 
         <div class="bloc-pagination col-12">
           <div class="pagination">
