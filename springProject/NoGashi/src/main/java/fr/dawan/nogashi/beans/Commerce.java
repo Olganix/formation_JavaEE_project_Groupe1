@@ -35,7 +35,7 @@ public class Commerce extends DbObject {
 	@OneToOne
 	private SchedulerWeek schedulerWeek;						// horaires. Todo in futur : a week calendar also for not school period + a holiday calendar + by saison.
 	
-	private String pictureLogo = "NoLogo.jpg";					// logo for the merchant's (or commerce's) mark
+	private String pictureLogo;									// logo for the merchant's (or commerce's) mark
 	private String pictureDescription = "NoDescription.jpg";	// real picture of commerce, or patchwork to describe the commerce.
 	private boolean isOpened = false;
 	
@@ -60,20 +60,19 @@ public class Commerce extends DbObject {
 
 
 	
-	
-	
-	public Commerce(String name, String codeSiret, String description, String uniqueIdName, Address address,
-			SchedulerWeek schedulerWeek, String pictureLogo, String pictureDescription, Merchant merchant) {
+	/* ---------- A RAJOUTER DANS LE CONSTRUCTEUR AU FUR ET A MESURE ---------- */
+	// String description, String uniqueIdName, SchedulerWeek schedulerWeek, String pictureLogo, String pictureDescription, Merchant merchant
+	public Commerce(String name, String codeSiret, Address address, String pictureLogo) {
 		super();
 		this.name = name;
 		this.codeSiret = codeSiret;
-		this.description = description;
-		this.uniqueIdName = uniqueIdName;
 		this.address = address;
-		this.schedulerWeek = schedulerWeek;
 		this.pictureLogo = pictureLogo;
-		this.pictureDescription = pictureDescription;
-		this.merchant = merchant;
+		// this.description = description;
+		// this.uniqueIdName = uniqueIdName;
+		// this.schedulerWeek = schedulerWeek;
+		// this.pictureDescription = pictureDescription;
+		// this.merchant = merchant;
 	}
 	
 	

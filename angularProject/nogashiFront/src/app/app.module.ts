@@ -84,6 +84,7 @@ import { CommerceListMerchantComponent } from './components/pages/pages_merchant
 import { CommandListMerchantComponent } from './components/pages/pages_merchant/command-list-merchant/command-list-merchant.component';
 import { ProductTemplateListMerchantComponent } from './components/pages/pages_merchant/product-template-list-merchant/product-template-list-merchant.component';
 import { ProductTemplateMerchantViewComponent } from './components/pages/pages_merchant/product-template-merchant-view/product-template-merchant-view.component';
+import { ProductTemplateViewComponent } from './components/pages/pages_common/product-template-view/product-template-view.component';
 import { CommerceMerchantViewComponent } from './components/pages/pages_merchant/commerce-merchant-view/commerce-merchant-view.component';
 import { CommandMerchantViewComponent } from './components/pages/pages_merchant/command-merchant-view/command-merchant-view.component';
 
@@ -116,7 +117,7 @@ const appRoutes: Routes =
   { path: 'commandConfirmation', component: CommandConfirmationComponent },
   { path: 'tchat', component: TchatComponent },
   { path: 'comments', component: CommentsComponent },
-  { path: 'productSheet', component: ProductSheetComponent },
+  { path: 'productSheet/:id', component: ProductSheetComponent },
   { path: 'myProfile', component: CompteComponent },
   { path: 'myOrders', component: CompteCommandesComponent },
   { path: 'myComments', component: CompteCommentairesComponent },
@@ -198,8 +199,7 @@ const appRoutes: Routes =
     ProductTemplateListMerchantComponent,
     ProductTemplateMerchantViewComponent,
     CommerceMerchantViewComponent,
-    CommandMerchantViewComponent],
-  imports: [
+    CommandMerchantViewComponent],  imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,

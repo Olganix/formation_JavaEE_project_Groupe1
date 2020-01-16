@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {map, retry} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {Commerce} from '../classes/commerce';
+import {ProductTemplate} from '../classes/product-template';
 
 @Injectable({
   providedIn: 'root'
