@@ -157,12 +157,12 @@ public class Main
 		
 		/* ---------- COMMERCES ---------- */
 		// Dénomination sociale du commerce						Numéro SIRET				Adresse du commerce (adresse, complément, code postal, ville, pays, longitude, latitude)			Logo du commerce				Description du commerce				SchedulerWeek
-		Commerce mBC_c1 = new Commerce("Basilic & Co",			"362 521 879 00033", 		new Address("80 rue Nationale", "", "59800", "Lille", "France", 3.059697, 50.635931), 				"basilic.png",					"",									"Lorem ipsum dolor sit amet.",		swTmp);		mBC_c1.setMerchant(mBC);		
-		Commerce mDj_c1 = new Commerce("Daily-juicery",			"362 521 879 00032", 		new Address("380 rue Léon Gambetta", "", "59000", "Lille", "France", 3.04787, 50.6267), 			"daily-juicery.png",			"",									"Lorem ipsum dolor sit amet.",		swTmp);		mDj_c1.setMerchant(mDj);
-		Commerce mBm_c1 = new Commerce("Boulangerie-Mathieu",	"795 335 793 00027", 		new Address("82 rue du Molinel", "", "59000", "Lille", "France", 3.06686, 50.6341), 				"boulangerie-mathieu.jpeg", 	"",									"Lorem ipsum dolor sit amet.",		swTmp);		mBm_c1.setMerchant(mBm);
-		Commerce mP_c1 = new Commerce("Paul",					"403 052 111 00420", 		new Address("19 place Charles de Gaulle", "", "59000", "Lille", "France", 3.0630005, 50.6367832), 	"paul.jpg",						"",									"Lorem ipsum dolor sit amet.",		swTmp);		mP_c1.setMerchant(mP);
-		Commerce mBf_c1 = new Commerce("Big Fernand",			"830 134 458 00017",		new Address("107 Rue Esquermoise", "", "59000", "Lille", "France", 3.0586802, 50.6388127), 			"big-fernand.png",				"",									"Lorem ipsum dolor sit amet.",		swTmp);		mBf_c1.setMerchant(mBf);
-		Commerce mBf_c2 = new Commerce("Big Fernand",			"830 134 458 00017", 		new Address("10 Rue Faidherbe", "", "59000", "Lille", "France", 3.0657011, 50.6369357), 			"big-fernand.png",				"",									"Lorem ipsum dolor sit amet.",		swTmp);		mBf_c2.setMerchant(mBf);
+		Commerce mBC_c1 = new Commerce("Basilic & Co",			"362 521 879 00033", 		new Address("80 rue Nationale", "", "59800", "Lille", "France", 3.059697, 50.635931), 				"basilic.png",					"basilic-and-co-pizza.png",			"TODO Anais COPIER COLLER D'INTERNET",		swTmp);		mBC_c1.setMerchant(mBC);		
+		Commerce mDj_c1 = new Commerce("Daily-juicery",			"362 521 879 00032", 		new Address("380 rue Léon Gambetta", "", "59000", "Lille", "France", 3.04787, 50.6267), 			"daily-juicery.png",			"daily-juicery.png",				"TODO Anais",								swTmp);		mDj_c1.setMerchant(mDj);
+		Commerce mBm_c1 = new Commerce("Boulangerie-Mathieu",	"795 335 793 00027", 		new Address("82 rue du Molinel", "", "59000", "Lille", "France", 3.06686, 50.6341), 				"boulangerie-mathieu.jpeg", 	"boulangerie-mathieu.jpeg",			"TODO Anais",								swTmp);		mBm_c1.setMerchant(mBm);
+		Commerce mP_c1 = new Commerce("Paul",					"403 052 111 00420", 		new Address("19 place Charles de Gaulle", "", "59000", "Lille", "France", 3.0630005, 50.6367832), 	"paul.jpg",						"paul.jpg",							"TODO Anais",								swTmp);		mP_c1.setMerchant(mP);
+		Commerce mBf_c1 = new Commerce("Big Fernand",			"830 134 458 00017",		new Address("107 Rue Esquermoise", "", "59000", "Lille", "France", 3.0586802, 50.6388127), 			"big-fernand.png",				"big-fernand.png",					"TODO Anais",								swTmp);		mBf_c1.setMerchant(mBf);
+		Commerce mBf_c2 = new Commerce("Big Fernand",			"830 134 458 00017", 		new Address("10 Rue Faidherbe", "", "59000", "Lille", "France", 3.0657011, 50.6369357), 			"big-fernand.png",				"big-fernand.png",					"TODO Anais",								swTmp);		mBf_c2.setMerchant(mBf);
 		
 		// TODO déplacer les ingredients de la description de chaque produit vers ProductDetail.
 		/* ---------- PRODUITS BASILIC AND CO ---------- */

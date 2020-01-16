@@ -199,7 +199,9 @@ const appRoutes: Routes =
     ProductTemplateListMerchantComponent,
     ProductTemplateMerchantViewComponent,
     CommerceMerchantViewComponent,
-    CommandMerchantViewComponent],  imports: [
+    CommandMerchantViewComponent,
+    ProductTemplateViewComponent
+  ], imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
