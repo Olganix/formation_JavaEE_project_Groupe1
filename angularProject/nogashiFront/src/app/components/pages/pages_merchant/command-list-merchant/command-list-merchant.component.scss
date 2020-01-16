@@ -1,0 +1,102 @@
+
+/* SECTION -> Bloc Commandee en Cours */
+
+.section-commande {
+  margin-top: 50px;
+  margin-bottom: 70px;
+}
+
+.bloc-titre-commandes {
+  width: 100%;
+  min-height: 460px;
+  background-color: var(--couleurGrisClair);
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+  padding-bottom: 60px;
+}
+
+.titre-commandes {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.6em;
+  font-weight: 600;
+  color: var(--couleurNoir);
+  text-align: center;
+  padding-top: 90px;
+}
+
+.texte-commandes {
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  color: var(--couleurNoir);
+  margin-left: 50%;
+  -webkit-transform: translate(-50%,0);
+  transform: translate(-50%,0);
+}
+
+.bloc-commerce-commande {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.titre-commerce {
+  width: 250px;
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 600;
+  text-align: center;
+  color: var(--couleurBlancCreme);
+  background-color: var(--couleurVerte);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 30px;
+}
+
+.table-commande {
+  width: 100%;
+  height: 40px;
+  background-color: var(--couleurBlancCreme);
+  text-align: center;
+  margin-top: 5px;
+}
+
+.td-titre {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.95em;
+  font-weight: 600;
+  border-bottom: 1px solid var(--couleurVerte);
+  background-color: var(--couleurNoir);
+  color: var(--couleurBlancCreme);
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.tr {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--couleurNoir);
+  background-color: var(--couleurBlancCreme);
+  border-bottom: 1px solid var(--couleurVerte);
+}
+
+.td {
+  color: var(--couleurNoir);
+  padding-top: 14px;
+  padding-bottom: 14px;
+  background-color: var(--couleurGrisClair);
+}
+
+.td-lien {
+  text-decoration: underline;
+  color: var(--couleurNoir);
+  padding-top: 14px;
+  padding-bottom: 14px;
+  background-color: var(--couleurGrisClair);
+  cursor: pointer;
+}
+
+.fa-file-pdf {
+  text-align: center;
+  cursor: pointer;
+}

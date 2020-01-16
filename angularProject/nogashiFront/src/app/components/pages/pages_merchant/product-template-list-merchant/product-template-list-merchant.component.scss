@@ -1,0 +1,362 @@
+
+
+
+
+/* SECTION -> Rechercher un Produit */
+.titre-rechercher-produit {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.4em;
+  font-weight: 600;
+  color: var(--couleurNoir);
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  margin-left: 20px;
+}
+
+.texte-produit {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 0.9em;
+  font-weight: 400;
+  color: var(--couleurNoir);
+  text-align: left;
+  padding-right: 15%;
+  padding-left: 15%;
+  margin-bottom: 50px;
+}
+
+.texte-recomandation {
+  font-size: 1.2em;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.bloc-map {
+  width: 100%;
+  background-color: var(--couleurBlancCreme);
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+  padding: 40px;
+}
+
+.bloc-input-recherche {
+  display: flex;
+}
+
+.display-input {
+  display: flex;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.bloc-ou {
+  background-color: var(--couleurNoir);
+  box-shadow: 4px 4px 10px 2px rgba(0,0,0,0.15);
+}
+
+.bloc-quoi {
+  background-color: var(--couleurNoir);
+  box-shadow: 4px 4px 10px 2px rgba(0,0,0,0.15);
+}
+
+.text-input {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--couleurVerte);
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+}
+
+.bouton-search {
+  position: absolute;
+  right: 0;
+}
+
+.recherche-quoi {
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  font-family: 'roboto', sans-serif;
+  font-size: 0.8em;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--couleurNoir);
+  padding-left: 15px;
+  margin-left: 50%;
+  margin-bottom: 35px;
+  transform: translate(-50%);
+}
+
+.bloc-rechercher {
+  background-color: var(--couleurVerte);
+  box-shadow: 4px 4px 10px 2px rgba(0,0,0,0.15);
+}
+
+.bouton-rechercher {
+  width: 130px;
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--couleurVerte);
+  background: var(--couleurNoir);
+  border: none;
+  border-radius: 28px;
+  transform: translate(0%, 0%);
+  padding: 12px 20px 12px 20px;
+  margin-top: 20%;
+  margin-left: 50%;
+  transform: translate(-50%);
+  -webkit-box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  cursor: pointer;
+}
+
+.bouton-rechercher:hover {
+  color: var(--couleurVerte);
+  background:  var(--couleurBlancCreme);
+}
+
+
+
+
+
+/* SECTION -> Section Affichage Produit */
+.bloc-trie {
+  min-height: 400px;
+  background-color: var(--couleurGrisClair);
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+  padding-top: 40px;
+  padding-bottom: 70px;
+}
+
+/* Panneau - Allergenes */
+.label-formulaire {
+  width: 110px;
+  font-family: 'roboto', sans-serif;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--couleurNoir);
+  margin-bottom: 4px;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
+.liste-deroulante {
+  width: 110px;
+  height: 22px;
+  font-family: 'roboto', sans-serif;
+  font-size: 0.75em;
+  font-weight: 400;
+  color: var(--couleurNoir);
+  border: 1.5px solid #000;
+  border-radius: 5px;
+  margin-bottom: 14px;
+  margin-left: 50%;
+  padding-left: 10px;
+  transform: translate(-50%);
+  display: block;
+}
+
+.bloc-checkbox {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.8em;
+  font-weight: 400;
+  font-style: italic;
+  margin-left: 30px;
+  display: flex;
+}
+
+.checkbox {
+  margin-right: 8px;
+}
+
+
+.titre-avancee {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.80em;
+  font-weight: 600;
+  font-style: italic;
+  margin-top: 60px;
+  margin-left: 10%;
+}
+
+.titre-filtre-regime {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.75em;
+  font-weight: 600;
+  font-style: italic;
+  margin-bottom: 15px;
+  margin-top: 20px;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
+.bloc-checkbox-regime {
+  display: flex;
+}
+
+.checkbox-regime {
+  margin-bottom: 10px;
+  margin-left: 30px;
+  margin-right: 8px;
+}
+
+.label-regime {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.72em;
+  font-weight: 400;
+}
+
+.titre-filtre-allergene {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.75em;
+  font-weight: 600;
+  font-style: italic;
+  margin-bottom: 15px;
+  margin-top: 40px;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
+.bloc-checkbox-allergene {
+  display: flex;
+}
+
+.checkbox-allergene {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.72em;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 10px;
+  margin-left: 30px;
+  margin-right: 8px;
+}
+
+.label-allergene {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.72em;
+  font-weight: 400;
+}
+
+select:focus {
+  background-color: var(--couleurVerte);
+  border: none;
+}
+
+input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+}
+
+
+input[type=checkbox] {
+  -border-radius: 4px;
+  height: 15px;
+  width: 15px;
+  background: #fff;
+  border: 1px solid var(--couleurNoir);
+}
+
+input[type="checkbox"]:checked {
+  background: var(--couleurVerte);
+  position: relative;
+  &:before {
+    font-family: FontAwesome;
+    content: '\f00c';
+    display: block;
+    color: grey;
+    font-size: 13px;
+    position: absolute;
+  }
+}
+
+
+/* bloc-affichage - Produit */
+.bloc-affichage {
+  width: 100%;
+  background-color: var(--couleurBlancCreme);
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+  padding-top: 40px;
+  padding-bottom: 70px;
+
+}
+
+
+.bloc-pagination {
+  width: 100%;
+  height: 45px;
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  background-color: var(--couleurGrisClair);
+  color: var(--couleurNoir);
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+  right: 0;
+  display: flex;
+  bottom: -45px;
+  position: absolute;
+}
+
+.pagination {
+  margin-top: 7px;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
+
+.fa-angle-left {
+  color: var(--couleurNoir);
+  font-size: 1.4em;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.fa-angle-double-left {
+  color: var(--couleurNoir);
+  margin-top: 5px;
+  font-size: 1.4em;
+}
+
+.fa-angle-right {
+  color: var(--couleurNoir);
+  font-size: 1.4em;
+  margin-top: 5px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.fa-angle-double-right {
+  color: var(--couleurNoir);
+  font-size: 1.4em;
+  margin-top: 5px;
+}
+
+.text-page {
+  color: var(--couleurNoir);
+  margin-top: 7px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.cercle-element {
+  width: 30px;
+  height: 30px;
+  color: var(--couleurVerte);
+  background-color: var(--couleurNoir);
+  border-radius: 50%;
+  margin-right: 7px;
+}
+
+.elements-pagination {
+  margin-left: 50%;
+  transform: translate(-30%, 20%);
+}

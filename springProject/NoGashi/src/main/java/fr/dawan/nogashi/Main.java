@@ -94,7 +94,6 @@ public class Main
 		li.add(new Individual(	new User("Charles Margand", "charles.margand@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, "01.65.89.96.02", 					new Address("13, rue Gouin de Beauchesne", "", "59680", "Wattignies", "France", 00.00, 00.00), true , true, "H_0002.jpg"), 				new CreditCard("Visa", "4556 7288 3650 6226", "Charles Margand", "12/22", "095")));
 		li.add(new Individual(	new User("Belisarda De La Vergne", "belisarda.de.la.vergne@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, "03.48.23.29.74", 	new Address("55, boulevard Aristide Briand", "", "59650", "Villeneuve d'Ascq", "France", 00.00, 00.00), true , true, "F_0040.jpg"), 	new CreditCard("MasterCard", "5469 4131 0379 1255", "Belisarda De La Vergne", "12/25", "892")));
 		li.add(new Individual(	new User("Gilles Collin", "gilles.collin@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, "03.82.19.05.37", 						new Address("34, Rue de la Pompe", "", "59700", "Marcq-en-Baroeul", "France", 00.00, 00.00), true , true, "H_0029.jpg"), 				new CreditCard("Visa", "5545 8830 0947 7027", "Gilles Collin", "02/24", "784")));
-		
 		//ex code siret 362 521 879 00034
 		//ex code siren 362 521 879
 		//ex code RNA (Association) W751212517
@@ -107,14 +106,14 @@ public class Main
 		
 		
 		
-		Merchant mBC =  new Merchant(new User("BASILIC & CO Développement", "contact@basilic-and-co.com", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "04.75.45.96.78", new Address("80 rue Nationale", "", "59800", "Lille", "France", 3.05968, 50.6359), true , true, "basilic-and-co-pizza.png"), "362 521 879 00034", "FR12 1234 1234 1234 1234 12", "12345");	lm.add(mBC); 
+		Merchant mBC =  new Merchant(new User("BASILIC & CO Développement", "contact@basilic-and-co.com", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "04.75.45.96.78", new Address("80 rue Nationale", "", "59800", "Lille", "France", 3.05968, 50.6359), true , true, "basilic.png"), "362 521 879 00034", "FR12 1234 1234 1234 1234 12", "12345");	lm.add(mBC); 
 		
 		// TODO corriger apres tous ce qu'il y a apres
 		/* ---------- MERCHANTS ---------- */
-		Merchant mDj =  new Merchant(new User("Daily-juicery", "thedailyjuicery@gmail.com", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.20.30.79.73", 				new Address("380 rue Léon Gambetta", "", "59800", "Lille", "France", 3.04787, 50.6267), true , true), "362 521 879 00034", "FR12 1234 1234 1234 1234 12", "12345");	lm.add(mDj); 
-		Merchant mBm =  new Merchant(new User("Boulangerie-Mathieu", "boulangerie.mathieu@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.20.55.66.57", 	new Address("82 rue du Molinel", "", "59800", "Lille", "France", 3.06686, 50.6341), true , true), "795 335 793 00027", "FR12 1234 1234 1234 1234 11", "12344");	lm.add(mBm); 
-		Merchant mP =  	new Merchant(new User("Paul", "paul@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.20.57.40.99", 								new Address("19 place Général de Gaulle", "", "59000", "Lille", "France", 3.063, 50.6368), true , true), "403 052 111 00420", "FR12 1234 1234 1234 1234 10", "12343");	lm.add(mP); 
-		Merchant mBf =  new Merchant(new User("Big Fernand", "big.fernand@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.20.94.77.767", 					new Address("107 rue Esquermoise", "", "59800", "Lille", "France", 3.05871, 50.6389), true , true), "830 134 458 00017", "FR12 1234 1234 1234 1234 09", "12342");	lm.add(mBf);
+		Merchant mDj =  new Merchant(new User("Daily-juicery", "thedailyjuicery@gmail.com", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.20.30.79.73", 				new Address("380 rue Léon Gambetta", "", "59800", "Lille", "France", 3.04787, 50.6267), true , true, "daily-juicery.png"), "362 521 879 00034", "FR12 1234 1234 1234 1234 12", "12345");	lm.add(mDj); 
+		Merchant mBm =  new Merchant(new User("Boulangerie-Mathieu", "boulangerie.mathieu@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.20.55.66.57", 	new Address("82 rue du Molinel", "", "59800", "Lille", "France", 3.06686, 50.6341), true , true, "boulangerie-mathieu.jpeg"), "795 335 793 00027", "FR12 1234 1234 1234 1234 11", "12344");	lm.add(mBm); 
+		Merchant mP =  	new Merchant(new User("Paul", "paul@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.20.57.40.99", 								new Address("19 place Général de Gaulle", "", "59000", "Lille", "France", 3.063, 50.6368), true , true, "paul.jpg"), "403 052 111 00420", "FR12 1234 1234 1234 1234 10", "12343");	lm.add(mP); 
+		Merchant mBf =  new Merchant(new User("Big Fernand", "big.fernand@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.20.94.77.767", 					new Address("107 rue Esquermoise", "", "59800", "Lille", "France", 3.05871, 50.6389), true , true, "big-fernand.png"), "830 134 458 00017", "FR12 1234 1234 1234 1234 09", "12342");	lm.add(mBf);
 		
 		/* ---------- COMMERCES ---------- */
 		Commerce mBC_c1 = new Commerce("Basilic & Co", "362 521 879 00033", 			new Address("80 rue Nationale", "", "59800", "Lille", "France", 3.059697, 50.635931), 				"basilic.png");   				mBC_c1.setMerchant(mBC);		

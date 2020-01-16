@@ -18,7 +18,7 @@ export class MerchantService {
 
 
   getCommerces() {
-    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/getCommerces', { withCredentials: true }).pipe(
+    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/merchant/commerces', { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);
@@ -26,12 +26,20 @@ export class MerchantService {
   }
 
   addCommerce(commerce: Commerce): Observable<RestResponse> {
-    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/addCommerce', commerce.toHttpObject(), { withCredentials: true }).pipe(
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/merchant/commerce/addOrUpdate', commerce.toHttpObject(), { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);
       }));
   }
 
+
+  getProductTemplates() {
+    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/merchant/productTemplates', { withCredentials: true }).pipe(
+      retry(3),
+      map( (rrp: RestResponse) => {
+        return new RestResponse(rrp);
+      }));
+  }
 
 }

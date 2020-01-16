@@ -73,7 +73,6 @@ import { ProductSheetComponent } from './components/pages/pages_common/product-s
 import { CommentsComponent } from './components/modules/comments/comments.component';
 import { DeactivateAccountComponent } from './components/pages/pages_common/deactivate-account/deactivate-account.component';
 import { PasswordRescueModificationComponent } from './components/pages/pages_anonyme/password-rescue-modification/password-rescue-modification.component';
-import { ListProductsTemplatesComponent } from './components/pages/pages_merchant/list-products-templates/list-products-templates.component';
 import { CompteComponent } from './components/pages/pages_common/compte/compte.component';
 import { CompteCommandesComponent } from './components/pages/pages_common/compte-commandes/compte-commandes.component';
 import { CompteCommentairesComponent } from './components/pages/pages_common/compte-commentaires/compte-commentaires.component';
@@ -81,6 +80,10 @@ import { ComptePreferencesComponent } from './components/pages/pages_common/comp
 import { SchedulerWeekTxtComponent } from './components/modules/scheduler-week-txt/scheduler-week-txt.component';
 import { SchedulerWeekVslComponent } from './components/modules/scheduler-week-vsl/scheduler-week-vsl.component';
 import { MapComponent } from './components/modules/map/map.component';
+import { CommerceListMerchantComponent } from './components/pages/pages_merchant/commerce-list-merchant/commerce-list-merchant.component';
+import { CommandListMerchantComponent } from './components/pages/pages_merchant/command-list-merchant/command-list-merchant.component';
+import { ProductTemplateListMerchantComponent } from './components/pages/pages_merchant/product-template-list-merchant/product-template-list-merchant.component';
+import { ProductTemplateMerchantViewComponent } from './components/pages/pages_merchant/product-template-merchant-view/product-template-merchant-view.component';
 
 
 
@@ -122,7 +125,6 @@ const appRoutes: Routes =
 
   { path: 'merchant/welcome',     canActivate: [ConnexionMerchantGuard],    component: WelcomeMerchantComponent },
   { path: 'merchant/faq',         canActivate: [ConnexionMerchantGuard],    component: FaqMerchantComponent },
-  { path: 'merchant/listProductsTemplates', canActivate: [ConnexionGuard], component: ListProductsTemplatesComponent },
 
 
   { path: 'association/welcome',  canActivate: [ConnexionAssociationGuard], component: WelcomeAssociationComponent },
@@ -184,12 +186,15 @@ const appRoutes: Routes =
     CompteComponent,
     CompteCommandesComponent,
     PasswordRescueModificationComponent,
-    ListProductsTemplatesComponent,
     CompteCommentairesComponent,
     ComptePreferencesComponent,
     SchedulerWeekTxtComponent,
     SchedulerWeekVslComponent,
-    MapComponent],
+    MapComponent,
+    CommerceListMerchantComponent,
+    CommandListMerchantComponent,
+    ProductTemplateListMerchantComponent,
+    ProductTemplateMerchantViewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
