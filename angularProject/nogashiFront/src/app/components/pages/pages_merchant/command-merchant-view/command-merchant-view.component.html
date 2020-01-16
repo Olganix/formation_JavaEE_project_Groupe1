@@ -1,0 +1,24 @@
+
+
+
+
+
+
+<table class="table-commande col-12" *ngIf="shoppingCartByCommerce.status == ShoppingCartStatus.IN_PROGRESS">
+  <tr class="tr-titre">
+    <td class="td-titre col-1">Numero Commande</td>
+    <td class="td-titre col-1">Prix</td>
+    <td class="td-titre col-1">Quantité</td>
+    <td class="td-titre col-3">Statut</td>
+    <td class="td-titre col-3">Client</td>
+    <td class="td-titre col-3">Facture</td>
+  </tr>
+  <tr class="tr">
+    <td class="td-produits">#{{ Utils.leftFill(shoppingCartByCommerce.id, 9, '0') }} </td>
+    <td class="td ">{{ shoppingCartByCommerce.price }}€</td>
+    <td class="td">02</td>
+    <td class="td">{{ shoppingCartByCommerce.status }}</td>
+    <a href=""><td class="td-lien">{{ shoppingCartByCommerce.shoppingCart.buyer.name }}</td></a>
+    <a href=""><td class="td"><i class="far fa-file-pdf"></i></td></a>
+  </tr>
+</table>

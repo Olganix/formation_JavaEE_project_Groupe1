@@ -26,6 +26,9 @@ public class ShoppingCart extends DbObject {
 	@Enumerated(EnumType.ORDINAL)
 	private ShoppingCartStatus status;
 	
+	private double price;
+	
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Buyer buyer;
 	
@@ -100,5 +103,12 @@ public class ShoppingCart extends DbObject {
 	}
 	public void setStatus(ShoppingCartStatus status) {
 		this.status = status;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
 	}	
+	
 }

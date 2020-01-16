@@ -18,7 +18,7 @@ export class SchedulerWeekTxtComponent implements OnInit {
   @Input() scheduler: SchedulerWeek;
   @Input() schedulerType: SchedulerWeekType;
   @Output() schedulerChange = new EventEmitter();
-  @Input() editMode = true;
+  @Input() editMode = false;
 
   scheduler_simplified: any;
   edit_scheduler_simplified = null;
