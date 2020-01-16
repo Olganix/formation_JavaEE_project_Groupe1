@@ -29,6 +29,7 @@ public class EnumManager extends DbObject {
 	@OneToMany(mappedBy = "enumManager")
 	private List<DietaryRestriction> dietaryRestrictions = new ArrayList<DietaryRestriction>();
 
+	private long timeOffset;
 	
 	
 	public void addCommerceCategory(CommerceCategory cc) 
@@ -110,4 +111,13 @@ public class EnumManager extends DbObject {
 	public void setDietaryRestrictions(List<DietaryRestriction> dietaryRestrictions) {
 		this.dietaryRestrictions = dietaryRestrictions;
 	}
+	public long getTimeOffset() {
+		return timeOffset;
+	}
+	public void setTimeOffset(long timeOffset) {
+		this.timeOffset = timeOffset;
+	}
+	
+	
+	
 }
