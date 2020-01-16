@@ -1,15 +1,19 @@
 import {Product} from './product';
 import {ShoppingCartStatus} from '../enum/shopping-cart-status.enum';
 import {Commerce} from './commerce';
+import {ShoppingCart} from './shopping-cart';
 
 export class ShoppingCartByCommerce {
 
+  private _id: number;
   private _status: ShoppingCartStatus;
+  private _price: number;
+
   private _commerce: Commerce;
   private _products: Product[];
 
   // --- Information to complete the java class
-  // ShoppingCart shoppingCart;
+  private _shoppingCart: ShoppingCart;
 
   constructor(obj?: object) {
     if (obj !== null) {
@@ -40,5 +44,31 @@ export class ShoppingCartByCommerce {
 
   set products(value: Product[]) {
     this._products = value;
+  }
+
+  get price(): number {
+    return this._price;
+  }
+
+  set price(value: number) {
+    this._price = value;
+  }
+
+
+  get id(): number {
+    return this._id;
+  }
+
+  set id(value: number) {
+    this._id = value;
+  }
+
+
+  get shoppingCart(): ShoppingCart {
+    return this._shoppingCart;
+  }
+
+  set shoppingCart(value: ShoppingCart) {
+    this._shoppingCart = value;
   }
 }
