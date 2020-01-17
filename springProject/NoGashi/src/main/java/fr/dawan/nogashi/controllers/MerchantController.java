@@ -670,6 +670,9 @@ public class MerchantController
 	@PostMapping(path="/productTemplate/addOrUpdate", consumes = "application/json", produces = "application/json")
 	public RestResponse<ProductTemplate> addProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model, boolean modif)
     {
+		System.out.println("/merchant/productTemplate/addOrUpdate");
+		System.out.println(pt);
+		
 		EntityManager em = StartListener.createEntityManager();
 		
 		// Check si le User de la session est Merchant

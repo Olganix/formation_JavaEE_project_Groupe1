@@ -78,4 +78,13 @@ public class CreditCard extends DbObject {
 		this.codeSecurity = codeSecurity;
 	}
 
+	public Individual getIndividual() {
+		return individual;
+	}
+
+	public void setIndividual(Individual individual) {
+		this.individual = individual;
+	}
+	
+
 }

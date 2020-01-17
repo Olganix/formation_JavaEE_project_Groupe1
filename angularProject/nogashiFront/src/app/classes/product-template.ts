@@ -34,11 +34,17 @@ export class ProductTemplate {
     return {id: this._id, name: this._name, description: this._description, externalCode: this._externalCode, isPackaged: this._isPackaged, price: this._price, salePrice: this._salePrice, timeControlStatus: this._timeControlStatus, schedulerWeekForSaleAndUnsold: this.schedulerWeekForSaleAndUnsold, maxDurationCart: this._maxDurationCart, image: this._image };
   }
 
-  setAddProductTemplate(name: string, description: string, price: number, isPackaged: boolean) {
+  setFromAddForm(id: number, name: string, description: string, externalCode: string, isPackaged: boolean, price: number, salePrice: number, timeControlStatus: boolean, maxDurationCart: number, image: string) {
+    this._id = id;
     this._name = name;
     this._description = description;
-    this._price = price;
+    this._externalCode = externalCode;
     this._isPackaged = isPackaged;
+    this._price = price;
+    this._salePrice = salePrice;
+    this._timeControlStatus = timeControlStatus;
+    this._maxDurationCart = maxDurationCart;
+    this._image = image;
   }
 
 

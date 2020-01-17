@@ -10,6 +10,11 @@
     <div class="cercle-bookmark">
       <i class="fas fa-bookmark"></i>
     </div>
+
+    <div class="cercle-bookmark" *ngIf="connexionService.getLocalConnectedRole()===UserRole.MERCHANT"  [routerLink]="'/merchant/productTemplate/addOrUpdate/' + productTemplate.id" >
+      <i class="fas fa-pencil-alt" ></i>
+    </div>
+
   </div>
 
   <div class="bloc-affichage-produit col-12">
@@ -39,7 +44,7 @@
               <div class="trait"></div>
             </div>
           </div>
-          <div class="bloc-panier">
+          <div class="bloc-panier" *ngIf="connexionService.getLocalConnectedRole()!==UserRole.MERCHANT" >
             <a href=""><div id ="bouton-panier" class="bouton-panier"><i class="fas fa-shopping-bag"></i>AJOUTER AU PANIER</div></a>
           </div>
         </div>
@@ -54,6 +59,8 @@
             <option>Daily Juicery (lille)</option>
           </select>
         </div>
+
+        <!-- todo -->
         <div class="bloc-quantite-produit col-6" *ngIf="productTemplate.schedulerWeekForSaleAndUnsold && productTemplate.schedulerWeekForSaleAndUnsold.days && (productTemplate.schedulerWeekForSaleAndUnsold.days.length==2) && productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges && (productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges.length>=1) ">
           <p class="offre-disponible"><i class="fas fa-asterisk"></i> Offre disponible jusqu'à {{productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges[0].endTime}}.</p>
         </div>
