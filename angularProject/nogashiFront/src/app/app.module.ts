@@ -121,18 +121,17 @@ const appRoutes: Routes =
   { path: 'tchat', component: TchatComponent },
   { path: 'comments', component: CommentsComponent },
   { path: 'productSheet/:id', component: ProductSheetComponent },
+  { path: 'commerceSheet/:id', component: CommerceSheetComponent },
   { path: 'myProfile', component: CompteComponent },
   { path: 'myOrders', component: CompteCommandesComponent },
   { path: 'myComments', component: CompteCommentairesComponent },
   { path: 'myPreferences', component: ComptePreferencesComponent },
 
   { path: 'individual/welcome',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
-  { path: 'individual/commerce/:id',   canActivate: [ConnexionIndividualGuard],  component: CommerceSheetComponent },
 
 
   { path: 'merchant/welcome',     canActivate: [ConnexionMerchantGuard],    component: WelcomeMerchantComponent },
   { path: 'merchant/faq',         canActivate: [ConnexionMerchantGuard],    component: FaqMerchantComponent },
-  //{ path: 'merchant/commerce/:id',         canActivate: [ConnexionMerchantGuard],    component: CommerceSheetMerchantComponent },
   { path: 'merchant/productTemplate/addOrUpdate/:id',         canActivate: [ConnexionMerchantGuard],    component: AddProductTemplateComponent },
 
 
@@ -205,7 +204,7 @@ const appRoutes: Routes =
     ProductTemplateListMerchantComponent,
     ProductTemplateMerchantViewComponent,
     CommerceMerchantViewComponent,
-    CommandMerchantViewComponent, 
+    CommandMerchantViewComponent,
     ProductTemplateViewComponent,
     CommerceSheetComponent,
     CommerceViewComponent,
