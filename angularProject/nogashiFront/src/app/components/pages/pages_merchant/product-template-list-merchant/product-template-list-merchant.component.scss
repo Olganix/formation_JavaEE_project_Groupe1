@@ -14,17 +14,6 @@
   margin-left: 20px;
 }
 
-.texte-produit {
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 0.9em;
-  font-weight: 400;
-  color: var(--couleurNoir);
-  text-align: left;
-  padding-right: 15%;
-  padding-left: 15%;
-  margin-bottom: 50px;
-}
-
 .texte-recomandation {
   font-size: 1.2em;
   font-style: italic;
@@ -44,6 +33,7 @@
 }
 
 .display-input {
+  font-size: 1.1em;
   display: flex;
   padding-left: 5%;
   padding-right: 5%;

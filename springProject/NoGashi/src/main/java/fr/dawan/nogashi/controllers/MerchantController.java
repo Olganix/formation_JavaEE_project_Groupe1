@@ -338,42 +338,6 @@ public class MerchantController
     }
 	
 	
-	/*****************************************************************************************
-	*										getCommerceById									 * 
-	*****************************************************************************************
-	* 
-	* Recupere un Commerce via son id
-	*/
-	@GetMapping(path="/commerce/{id}", produces = "application/json")
-	public RestResponse<Commerce> getCommerceById(@PathVariable(name="id") int id, HttpSession session)
-    {
-		EntityManager em = StartListener.createEntityManager();
-		
-		// Check si le User de la session est Merchant
-		Merchant merchant = checkAllowToDoThat(session, em);
-		if(merchant==null)
-		{
-			em.close();
-			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
-		}
-		
-		
-    	// Recupere le Commerce dont l'id est passe en parametre
-		Commerce commerce = null;
-		try 
-		{	
-			commerce = dao.find(Commerce.class, id, "merchant", merchant, em);
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-			em.close();
-			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: on getting Commerce");
-		}
-		
-		em.close();
-		return new RestResponse<Commerce>(RestResponseStatus.SUCCESS, commerce);
-    }
-	
 	
 	
 	

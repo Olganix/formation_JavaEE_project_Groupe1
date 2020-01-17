@@ -5,7 +5,7 @@
 
 <div class="super-bloc-fiche-produit" *ngIf="productTemplate" >
   <div class="bloc-titre col-12">
-    <h4 class="titre-produit">-<a [routerLink]="'/productSheet/' + productTemplate.id">{{productTemplate.name}}</a> -</h4>
+    <h4 class="titre-produit">- <a [routerLink]="'/productSheet/' + productTemplate.id">{{productTemplate.name}}</a> -</h4>
 
     <div class="cercle-bookmark">
       <i class="fas fa-bookmark"></i>
@@ -74,23 +74,23 @@
         <div class="composition-produit">
           <h4 class="titre-detail">// DETAILS DU PRODUIT</h4>
           <h5><i class="fas fa-caret-right"></i> Composition</h5>
-          <hr>
           <p class="composition-affichage">{{productTemplate.description}}</p>
+          <hr>
         </div>
         <div class="composition-produit">
           <h5><i class="fas fa-caret-right"></i> Emballage</h5>
-          <hr>
           <p class="composition-affichage"> {{productTemplate.isPackaged ? 'Avec emballage.': 'Sans emballage.'}}</p>
+          <hr>
         </div>
         <div class="composition-produit col-12">
           <h5><i class="fas fa-caret-right"></i> Régime Alimentaire compatible</h5>
-          <hr>
           <p class="composition-affichage"> Sportif - </p>
+          <hr>
         </div>
         <div class="composition-produit col-12">
           <h5><i class="fas fa-caret-right"></i> Allergènes</h5>
-          <hr>
           <p class="composition-affichage"> Gluten - Fruit à coque</p>
+          <hr>
         </div>
       </div>
     </div>

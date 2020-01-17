@@ -85,6 +85,5 @@ public class CreditCard extends DbObject {
 	public void setIndividual(Individual individual) {
 		this.individual = individual;
 	}
-	
 
 }

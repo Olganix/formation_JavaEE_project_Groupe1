@@ -5,6 +5,10 @@
 <div class="row">
   <div class="bloc-ouverture-commerce col-12 no-gutters" id="il-faut-aller-ici-commerces" *ngIf="commerce">
 
+    <div class="cercle-bookmark" *ngIf="connexionService.getLocalConnectedRole()===UserRole.MERCHANT"  [routerLink]="'/commerce/addOrUpdate/' + commerce.id" >
+      <i class="fas fa-pencil-alt" ></i>
+    </div>
+
     <div class="img-vitrine col-6 no-gutters">
       <a [routerLink]="'/commerceSheet/' + commerce.id"></a><img class="img-vitrine" src="/assets/img/commerce/{{ commerce.pictureDescription }}" alt="image de {{ commerce.name }}">
     </div>
