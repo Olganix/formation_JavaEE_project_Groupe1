@@ -1,0 +1,95 @@
+
+
+
+
+
+<div class="super-bloc-fiche-produit" >
+  <form class="" [formGroup]="form1" (submit)="onSubmit()" >
+
+    <div class="bloc-titre col-12">
+
+
+      <label class="label-formulaire" for=""><i class="fas fa-asterisk" ></i>Nom du produit : <h4 class="titre-produit">- {{productTemplate.name}} -</h4></label>
+    <input formControlName="name" name="name" class="name" type="text" placeholder="Nom" required>
+    <span class="text-danger" *ngIf="controlName(); let message">{{message}}</span>
+
+    <div class="cercle-bookmark">
+      <i class="fas fa-bookmark"></i>
+    </div>
+  </div>
+
+  <div class="bloc-affichage-produit col-12">
+    <div class="img-affichage col-6 no-gutters">
+      <article>
+        <figure class="work-img no-gutters">
+          <img class="img col-12" src="/assets/img/produit/{{productTemplate.image}}" alt="image du produit">
+          <figcaption>
+            <div class="fond-filtre" ></div>
+            <div class="note">
+              <i class="fas fa-star"></i> <!-- todo -->
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </figcaption>
+        </figure>
+      </article>
+    </div>
+    <div class="informations-affichage col-6">
+      <div class="commerce-affichage">
+        <div class="bloc-prix-affichage col-12">
+          <div class="affichage col-6">
+            <div class="prix-affichage">
+              <label class="label-formulaire"><i class="fas fa-asterisk"></i> Prix : </label>
+              <input formControlName="price" name="price" class="price" type="text" placeholder="Prix" required>
+              {{productTemplate.salePrice}} €
+            </div>
+            <div class="bloc-prix-barre">
+              <div class="prix-barre-affichage">{{productTemplate.price}} €</div>
+              <div class="trait"></div>
+            </div>
+          </div>
+          <div class="bloc-panier">
+            <a href=""><div id ="bouton-panier" class="bouton-panier"><i class="fas fa-shopping-bag"></i>AJOUTER AU PANIER</div></a>
+          </div>
+        </div>
+
+        <div class="bloc-quantite-produit col-6" *ngIf="productTemplate.schedulerWeekForSaleAndUnsold && productTemplate.schedulerWeekForSaleAndUnsold.days && (productTemplate.schedulerWeekForSaleAndUnsold.days.length==2) && productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges && (productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges.length>=1) ">
+          <p class="offre-disponible"><i class="fas fa-asterisk"></i> Offre disponible jusqu'à {{productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges[0].endTime}}.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="bloc-composition-produit col-12">
+        <div class="composition-produit">
+          <h4 class="titre-detail">// DETAILS DU PRODUIT</h4>
+          <h5><i class="fas fa-caret-right"></i> Composition</h5>
+          <hr>
+          <p class="composition-affichage">{{productTemplate.description}}</p>
+        </div>
+        <div class="composition-produit">
+          <h5><i class="fas fa-caret-right"></i> Emballage</h5>
+          <hr>
+          <p class="composition-affichage"> {{productTemplate.isPackaged ? 'Avec emballage.': 'Sans emballage.'}}</p>
+        </div>
+        <div class="composition-produit col-12">
+          <h5><i class="fas fa-caret-right"></i> Régime Alimentaire compatible</h5>
+          <hr>
+          <p class="composition-affichage"> Sportif - </p>
+        </div>
+        <div class="composition-produit col-12">
+          <h5><i class="fas fa-caret-right"></i> Allergènes</h5>
+          <hr>
+          <p class="composition-affichage"> Gluten - Fruit à coque</p>
+        </div>
+      </div>
+      <button id ="bt_signin_submit" class="bouton-inscription" type="submit" [disabled]="form1.invalid" >Ajouter la fiche</button>
+      <p *ngIf="form1.invalid" class="avertissement-inscription">* Veuillez remplir tous les champs pour valider la fiche.</p>
+    </div>
+
+  </div>
+  </form >
+</div>
