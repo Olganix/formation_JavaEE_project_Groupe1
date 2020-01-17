@@ -1,5 +1,6 @@
 package fr.dawan.nogashi.beans;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -11,7 +12,7 @@ public class Individual extends Buyer {
 
 	private static final long serialVersionUID = 1L;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private CreditCard creditCard;
 
 	
@@ -21,6 +22,7 @@ public class Individual extends Buyer {
 	public Individual(CreditCard creditCard) {
 		super(false);
 		this.creditCard = creditCard;
+		this.creditCard.setIndividual(this);
 	}
 
 	public Individual() {
@@ -33,12 +35,18 @@ public class Individual extends Buyer {
 	public Individual(User user, CreditCard creditCard) {
 		super(user);
 		this.creditCard = creditCard;
+		this.creditCard.setIndividual(this);
 	}
 	
 	public CreditCard getCreditCard() {
 		return creditCard;
 	}
 	public void setCreditCard(CreditCard creditCard) {
+		
+		if(this.creditCard != null)
+			this.creditCard.setIndividual(null);
+
 		this.creditCard = creditCard;
+		this.creditCard.setIndividual(this);
 	}
 }

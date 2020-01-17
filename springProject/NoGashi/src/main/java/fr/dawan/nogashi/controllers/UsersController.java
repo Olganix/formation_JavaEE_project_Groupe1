@@ -26,10 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.Association;
-import fr.dawan.nogashi.beans.Buyer;
 import fr.dawan.nogashi.beans.Commerce;
 import fr.dawan.nogashi.beans.Individual;
 import fr.dawan.nogashi.beans.Merchant;
+import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.ProductTemplate;
 import fr.dawan.nogashi.beans.RestResponse;
 import fr.dawan.nogashi.beans.SchedulerWeek;
@@ -754,6 +754,34 @@ public class UsersController
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	**********************************************************************************************************************************************
+	*********************************************************************************************************************************************/
+	
+	
+	
 	/*****************************************************************************************
 	*										getCommerceById									 * 
 	*****************************************************************************************
@@ -793,6 +821,60 @@ public class UsersController
 		
 		em.close();
 		return new RestResponse<Commerce>(RestResponseStatus.SUCCESS, commerce);
+    }
+	
+	
+	
+	
+	/*****************************************************************************************
+	*										getCommercesByProductTemplate							 * 
+	*****************************************************************************************
+	*
+	* TODO Recup les Commerces d'un ProductTemplate via son id
+	*/
+	@GetMapping(path="/productTemplate/{id_pt}/commerces", produces = "application/json")
+	public RestResponse<List<Commerce>> getCommercesByProductTemplate(@PathVariable(name = "id_pt") int id_pt, HttpSession session)
+    {
+		EntityManager em = StartListener.createEntityManager();
+		
+		// Check si le User de la session est User
+		User user = checkAllowToDoThat(session, em);
+		if(user==null)
+		{
+			em.close();
+			return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+	
+		List<Commerce> listCommerces = new ArrayList<Commerce>();
+		try 
+		{	
+			ProductTemplate pt = dao.find(ProductTemplate.class, id_pt, em);
+			if(pt==null)
+			{
+				em.close();
+				return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 1, "Error: commerce not found operation");
+			}
+			
+			listCommerces = pt.getCommerces();
+			for(Commerce cTmp : listCommerces)
+			{
+				System.out.println(cTmp);
+				
+				SchedulerWeek sw = cTmp.getSchedulerWeek();
+				for(SchedulerWeek swTmp : sw.getGroup())				//Todo faire mieux pour charger les group, et eviter la merde au niveau de Jsckon
+					System.out.println(swTmp);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			em.close();
+			return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 1, "Error: getting productTemplates by commerce operation");
+		}
+		
+		em.close();
+		return new RestResponse<List<Commerce>>(RestResponseStatus.SUCCESS, listCommerces);
     }
 	
 	
