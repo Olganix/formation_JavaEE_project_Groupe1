@@ -1,0 +1,40 @@
+
+
+
+
+<div class="row">
+  <div class="bloc-ouverture-commerce col-12 no-gutters" id="il-faut-aller-ici-commerces" *ngIf="commerce">
+
+    <div class="img-vitrine col-6 no-gutters">
+      <img class="img-vitrine" src="/assets/img/commerce/{{ commerce.pictureDescription }}" alt="image de {{ commerce.name }}">
+    </div>
+
+    <div class="detail-commerce col-6">
+
+      <div class="bloc-information-commerce col-12">
+        <h2 class="nom-commerce">{{commerce.name}} - {{commerce.uniqueIdName}}</h2>
+        <p class="rue-commerce">{{commerce.address}}</p>
+        <div class="bloc-ouverture ">
+          <a href=""><div id ="bouton-ouverture" class="bouton-ouverture">{{ commerce.isOpened ? 'OUVERT' : 'FERME' }}</div></a>
+        </div>
+      </div>
+
+      <div class="bloc-information-horaire col-12">
+        <app-scheduler-week-txt [scheduler]="commerce.schedulerWeek" [schedulerType]="SchedulerWeekType.OPEN"></app-scheduler-week-txt>
+        <!--
+        <ul>
+          <li class="detail-ouverture">Horaires d'ouverture :</li>
+          <li class="detail-horaires">Lundi: <span class="details-fermer">fermer</span></li>
+          <li class="detail-horaires">Mardi: <span class="italic-horaire">7h-19h</span></li>
+          <li class="detail-horaires">Mercredi: <span class="italic-horaire"> 7h-19h</span></li>
+          <li class="detail-horaires">Jeudi:<span class="italic-horaire"> 7h-19h</span></li>
+          <li class="detail-horaires">Vendredi: <span class="italic-horaire">7h-19h</span> </li>
+          <li class="detail-horaires">Samedi: <span class="italic-horaire"> 9h-16h30</span></li>
+          <li class="detail-horaires">Dimanche: <span class="italic-horaire">9h-12h</span></li>
+        </ul>
+        -->
+
+      </div>
+    </div>
+  </div>
+</div>

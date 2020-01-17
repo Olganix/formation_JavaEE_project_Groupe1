@@ -22,6 +22,7 @@ import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.ProductTemplate;
 import fr.dawan.nogashi.beans.RestResponse;
+import fr.dawan.nogashi.beans.SchedulerWeek;
 import fr.dawan.nogashi.beans.ShoppingCartByCommerce;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
@@ -320,7 +321,12 @@ public class MerchantController
 		{	
 			listCommerces = merchant.getCommerces();
 			for(Commerce cTmp : listCommerces)
+			{
 				System.out.println(cTmp);
+				SchedulerWeek sw = cTmp.getSchedulerWeek();
+				for(SchedulerWeek swTmp : sw.getGroup())				//Todo faire mieux pour charger les group, et eviter la merde au niveau de Jsckon
+					System.out.println(swTmp);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
