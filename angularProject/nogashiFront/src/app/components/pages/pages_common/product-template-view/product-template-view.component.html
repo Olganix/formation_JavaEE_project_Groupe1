@@ -5,7 +5,8 @@
 
 <div class="super-bloc-fiche-produit" *ngIf="productTemplate" >
   <div class="bloc-titre col-12">
-    <h4 class="titre-produit">- {{productTemplate.name}} -</h4>
+    <h4 class="titre-produit">-<a [routerLink]="'/productSheet/' + productTemplate.id">{{productTemplate.name}}</a> -</h4>
+
     <div class="cercle-bookmark">
       <i class="fas fa-bookmark"></i>
     </div>
@@ -15,7 +16,7 @@
     <div class="img-affichage col-6 no-gutters">
       <article>
         <figure class="work-img no-gutters">
-          <img class="img col-12" src="/assets/img/produit/{{productTemplate.image}}" alt="image du produit">
+          <a [routerLink]="'/productSheet/' + productTemplate.id"><img class="img col-12" src="/assets/img/produit/{{productTemplate.image}}" alt="image du produit"></a>
           <figcaption>
             <div class="fond-filtre" ></div>
             <div class="note">
