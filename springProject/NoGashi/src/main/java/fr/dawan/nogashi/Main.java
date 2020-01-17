@@ -90,7 +90,7 @@ public class Main
 		Merchant m = new Merchant(new User("Merchant", "merchant@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.MERCHANT, "03.03.03.03.03", 	new Address("59, Rue Merchant", "", "59000", "Lille", "France", 00.00, 00.00), true , true, "merchant.jpg"), "362 521 879 00030", "FR12 1234 1234 1234 1234 59", "12346"); lm.add(m);
 		Individual u = new Individual(	new User("User", "user@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, "01.01.01.01.01", new Address("59, Rue User", "", "59000", "Lille", "France", 00.00, 00.00), true , true, "user.jpg"), 	new CreditCard("MasterCard", "4539 1593 1309 2658", "User", "04/23", "092"));	li.add(u);
 		Association ass = new Association(	new User("Association", "associationt@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.ASSOCIATION, "02.02.02.02.02", 	new Address("59, Rue Association", "Au fond a Gauche", "59000", "Lille", "France", 00.00, 00.00), true , true, "association.jpg"), "362 521 880", "W751212507");	la.add(ass);
-		li.add(new Individual(	new User("Anonymous", "anonymous@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, null, null, true , true), null));
+		// li.add(new Individual(	new User("Anonymous", "anonymous@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, null, null, true , true), null));
 		
 		li.add(new Individual(	new User("Anaïs Despins", "anais.despins@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, "01.56.78.43.93", 						new Address("9, boulevard d'Alsace", "", "59000", "Lille", "France", 00.00, 00.00), true , true, "F_0001.jpg"), 						new CreditCard("Visa", "4539 1593 1309 2658", "Anaïs Despins", "04/23", "092"))); li.get(li.size()-1).setPhoneNumber2("06.77.77.77.16"); 
 		li.add(new Individual(	new User("Éléonore Asselin", "eleonore.asselin@noghasi.org", BCrypt.hashpw("totototo", BCrypt.gensalt()), UserRole.INDIVIDUAL, "03.88.05.42.57", 				new Address("29, Chemin Challet", "", "59000", "Lille", "France", 00.00, 00.00), true , true, "F_0046.jpg"), 							new CreditCard("MasterCard", "4929 2911 9298 7563", "Éléonore Asselin", "03/25", "572")));
@@ -157,16 +157,20 @@ public class Main
 			lshr.add(shr_pm);
 		}
 		
-		/* ---------- COMMERCE CATEGORIES  ---------- */
-		// fuck my life
-		
 		/* ---------- COMMERCES ---------- */
 		Commerce mBC_c1 = new Commerce("Basilic & Co", "362 521 879 00033", new Address("80 rue Nationale", "", "59800", "Lille", "France", 3.059697, 50.635931), "basilic.png", "basilic_desc.jpg", "24, c'est le nombre de restaurants que compte désormais le réseau Basilic & Co, depuis l'ouverture de son nouveau point de vente de Tours Nord. Depuis début Novembre 2019, Aurélien Harnay et Geoffrey Vilain vous accueillent au 42 rue Daniel Mayer, en plein coeur de Monconseil. Très impliqués localement, ils s'investissent pour faire de leur pizzeria de terroir l'un des lieux de vie incontournables du quartier. Leur ouverture s'est traduite par un succès retentissant, pour le plus grand bonheur des Tourangeaux !", swTmp, "Nationale"); mBC_c1.setMerchant(mBC);		
 		Commerce mDj_c1 = new Commerce("Daily-juicery", "362 521 879 00032", new Address("380 rue Léon Gambetta", "", "59000", "Lille", "France", 3.04787, 50.6267), "daily-juicery.png", "dailyjuicery_desc.png", "Buvez et mangez vos 5 fruits et légumes par jour grâce à nos jus DETOX pressés à froid & à nos préparations HEALTHY  100% à base de fruits et légumes frais et de saison, sans sucres ajoutés ni conservateurs !", swTmp, "Gambetta"); mDj_c1.setMerchant(mDj);
 		Commerce mBm_c1 = new Commerce("Boulangerie-Mathieu", "795 335 793 00027", new Address("82 rue du Molinel", "", "59000", "Lille", "France", 3.06686, 50.6341), "boulangerie-mathieu.jpeg", "mathieu_desc.jpg", "Un bon pain c’est tout d’abord un bon partenariat avec son meunier qui saura apporter des farines de qualité, mais c’est aussi le temps de travail avec de bons levains. Nous avons à cœur de créer et de réaliser des recettes respectueuses de l’environnement pour vous proposer une variété de pains bio, composés d’une multitude de céréales.", swTmp, "Molinel"); mBm_c1.setMerchant(mBm);
 		Commerce mP_c1 = new Commerce("Paul", "403 052 111 00420", new Address("19 place Charles de Gaulle", "", "59000", "Lille", "France", 3.0630005, 50.6367832), "paul.jpg", "paul_desc.jpg", "Après 125 ans d’existence, PAUL est l’ambassadeur de l’Art de vivre à la française. Les équipes de l’enseigne, présentent dans plus de 33 pays, partagent le goût du travail bien fait, la joie d’offrir chaque jour des produits de qualité et d’accueillir les clients dans un cadre enchanteur et unique.", swTmp, "Charles de Gaulle"); mP_c1.setMerchant(mP);
 		Commerce mBf_c1 = new Commerce("Big Fernand", "830 134 458 00017", new Address("107 Rue Esquermoise", "", "59000", "Lille", "France", 3.0586802, 50.6388127), "big-fernand.png", "fernand_desc.jpg", "\"Faudro qt'arrêtes eud' mier des burgers, mies des hamburgés, che ben meilleu\"<br/>L'équipe", swTmp, "Esquermoise"); mBf_c1.setMerchant(mBf);
-		Commerce mBf_c2 = new Commerce("Big Fernand", "830 134 458 00017", new Address("10 Rue Faidherbe", "", "59000", "Lille", "France", 3.0657011, 50.6369357), "big-fernand.png", "fernand_desc.jpg", "\"Faudro qt'arrêtes eud' mier des burgers, mies des hamburgés, che ben meilleu\"<br/>L'équipe", swTmp, "Faidherbe"); mBf_c2.setMerchant(mBf);
+		Commerce mBf_c2 = new Commerce("Big Fernand", "830 134 458 00017", new Address("10 Rue Faidherbe", "", "59000", "Lille", "France", 3.0657011, 50.6369357), "big-fernand.png", "fernand_desc_2.jpg", "\"Faudro qt'arrêtes eud' mier des burgers, mies des hamburgés, che ben meilleu\"<br/>L'équipe", swTmp, "Faidherbe"); mBf_c2.setMerchant(mBf);
+		
+		/* ---------- COMMERCE CATEGORIES  ---------- */
+		// TODO compléter même si je suis en train de pleurer sur ce truc
+		/* EnumManager enuma = new EnumManager();
+		enuma.addCommerceCategory(new CommerceCategory("Pizzeria"));
+		enuma.addCommerceCategory(new CommerceCategory("Boulangerie"));
+		enuma.addCommerceCategory(new CommerceCategory("Restaurant")); */
 		
 		// TODO déplacer les ingredients de la description de chaque produit vers ProductDetail.
 		/* ---------- PRODUITS BASILIC AND CO ---------- */
