@@ -66,11 +66,21 @@ export class ConnexionService {
   }
 
   isLoged() {
+
+    if ( (localStorage) && (localStorage.getItem('connectedUser'))) { // Todo supprimer car pas tres secure. cf probleme de switch de page
+      this.connectedUser = new User( JSON.parse( localStorage.getItem('connectedUser') ));
+    }
+
     return this._http.get<RestResponse>(environment.nogashiRestUrl + '/user/isLogged', { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         const rrpTmp = new RestResponse(rrp);
         this.connectedUser = (rrpTmp.status === 'SUCCESS') ? (new User(rrpTmp.data)) : null;
+
+        if (localStorage) {           // Todo supprimer car pas tres secure. cf probleme de switch de page
+          localStorage.setItem('connectedUser', JSON.stringify(this.connectedUser));
+        }
+
         return rrpTmp;
       }));
   }

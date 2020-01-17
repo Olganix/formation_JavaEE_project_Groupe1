@@ -26,8 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.Association;
+import fr.dawan.nogashi.beans.Buyer;
 import fr.dawan.nogashi.beans.Individual;
 import fr.dawan.nogashi.beans.Merchant;
+import fr.dawan.nogashi.beans.ProductTemplate;
 import fr.dawan.nogashi.beans.RestResponse;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
@@ -734,6 +736,63 @@ public class UsersController
 		em.close();
 		return new RestResponse<List<Merchant>>(RestResponseStatus.SUCCESS, listMerchants);
     }
+	
+	
+	
+	
+
+	
+	// Retourne User si le User de la session est un User
+	public User checkAllowToDoThat(HttpSession session, EntityManager em)
+	{
+		User u = (User)session.getAttribute("user");
+		System.out.println("UserController.checkAllowToDoThat : "+ u);
+		
+		return u;
+	}
+	
+	
+	
+	
+	
+	/*****************************************************************************************
+	*										getProductTemplateById						 * 
+	*****************************************************************************************
+	* 
+	* Recupere un ProductTemplate via son id
+	*/
+	@GetMapping(path="/productTemplate/{id}", produces = "application/json")
+	public RestResponse<ProductTemplate> getProductTemplateById(@PathVariable(name="id") int id, HttpSession session)
+    {
+		EntityManager em = StartListener.createEntityManager();
+		
+		// Check si le User de la session est Merchant
+		User user = checkAllowToDoThat(session, em);
+		if(user==null)
+		{
+			em.close();
+			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+		
+		
+		
+    	// Recupere le ProductTemplate dont l'id est passe en parametre
+		ProductTemplate productTemplate = null;
+		try 
+		{
+			// Todo voir si l'on a pas besoin de graph pour les productDetails
+			productTemplate = dao.find(ProductTemplate.class, id, em);
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+			em.close();
+			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: getting ProductTemplate operation");
+		}
+		
+		em.close();
+		return new RestResponse<ProductTemplate>(RestResponseStatus.SUCCESS, productTemplate);
+    }
+	
 	
 	
     
