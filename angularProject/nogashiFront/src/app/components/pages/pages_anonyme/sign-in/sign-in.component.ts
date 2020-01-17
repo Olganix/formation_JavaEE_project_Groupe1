@@ -92,7 +92,7 @@ export class SignInComponent implements OnInit {
 
 
               if (rrp.status === 'SUCCESS') {
-                this.infoBoxNotificationsService.addMessage('info', 'Votre inscription est bien prise en compte. Veuilliez consulter vos mails afin de repondre à la validation de votre email. Merci.', 10);
+                this.infoBoxNotificationsService.addMessage('info', 'Votre inscription est bien prise en compte. Veuillez consulter vos mails afin de repondre à la validation de votre email. Merci.', 10);
                 this.router.navigate(['/login']);
 
               } else {

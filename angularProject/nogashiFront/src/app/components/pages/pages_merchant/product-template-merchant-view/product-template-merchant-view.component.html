@@ -7,7 +7,7 @@
   <div class="img-affichage col-6 no-gutters">
     <article>
       <figure class="work-img no-gutters">
-        <img class="img col-12" src="/assets/img/produit/{{productTemplate.image}}" alt="image du produit">
+        <a [routerLink]="'/productSheet/' + productTemplate.id"><img class="img col-12" src="/assets/img/produit/{{productTemplate.image}}" alt="image du produit"></a>
         <figcaption>
           <div class="fond-filtre" ></div>
           <div class="note">
@@ -23,7 +23,7 @@
   </div>
 
   <div class="informations-affichage col-6">
-    <h5>{{productTemplate.name}} :</h5>
+    <h5><a [routerLink]="'/productSheet/' + productTemplate.id">{{productTemplate.name}}</a> :</h5>
     <p class="composition-affichage">{{productTemplate.description}}</p>
     <p class="key-allergene"> > Sans-gluten > Sportif </p> <!-- todo -->
     <div class="Lieu-affichage col-8">
