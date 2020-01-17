@@ -202,7 +202,6 @@ public class Main
 		mBf.addProductTemplate(new ProductTemplate("Le Bartholomé", "Bœuf (race à viande), raclette des Alpes au lait cru, poitrine de porc fumée, oignons confits – ciboulette, sauce BB Fernand (sauce barbecue big fernand)", "0000001", true, 16.0, 11.2, "lebartho.jpg"));
 		
 		// TODO mettre les URL individuelles des produits pour les retrouver facilement (j'ai mis que les URL principales pour l'instant).
-		// TODO chopper les images des produits (3 restantes).
 		for(Merchant mTmp : lm)
 			for(Commerce cTmp : mTmp.getCommerces())
 				for(ProductTemplate ptTmp : mTmp.getProductTemplates())
