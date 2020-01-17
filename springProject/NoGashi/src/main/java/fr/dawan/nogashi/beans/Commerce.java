@@ -62,8 +62,8 @@ public class Commerce extends DbObject {
 
 	
 	/* ---------- A RAJOUTER DANS LE CONSTRUCTEUR AU FUR ET A MESURE ---------- */
-	// String uniqueIdName, String pictureLogo, Merchant merchant
-	public Commerce(String name, String codeSiret, Address address, String pictureLogo, String pictureDescription, String description, SchedulerWeek listsw) {
+	// Merchant merchant
+	public Commerce(String name, String codeSiret, Address address, String pictureLogo, String pictureDescription, String description, SchedulerWeek listsw, String uniqueIdName) {
 		super();
 		this.name = name;
 		this.codeSiret = codeSiret;
@@ -72,7 +72,7 @@ public class Commerce extends DbObject {
 		this.pictureDescription = pictureDescription;
 		this.description = description;
 		this.schedulerWeek = listsw;
-		// this.uniqueIdName = uniqueIdName;
+		this.uniqueIdName = uniqueIdName;
 		// this.merchant = merchant;
 	}
 	
