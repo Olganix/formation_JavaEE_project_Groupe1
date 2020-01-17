@@ -4,8 +4,12 @@
 
 /* SECTION -> Bloc Détails Commerce */
 
+a {
+  color: var(--couleurVerte);
+}
+
 .bloc-ouverture-commerce {
-  margin-top: 70px;
+  margin-top: 30px;
   background-color: var(--couleurBlancCreme);
   display: flex;
   box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
@@ -60,7 +64,7 @@
   font-size: 1em;
   font-weight: 600;
   color: var(--couleurNoir);
-  margin-left: 30px;
+  margin-left: 10px;
   margin-top: 20px;
   margin-bottom: 10px;
 }
