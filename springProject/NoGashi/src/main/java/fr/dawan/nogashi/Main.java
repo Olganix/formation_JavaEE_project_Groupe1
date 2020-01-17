@@ -21,7 +21,9 @@ import fr.dawan.nogashi.beans.Address;
 import fr.dawan.nogashi.beans.Association;
 import fr.dawan.nogashi.beans.Buyer;
 import fr.dawan.nogashi.beans.Commerce;
+import fr.dawan.nogashi.beans.CommerceCategory;
 import fr.dawan.nogashi.beans.CreditCard;
+import fr.dawan.nogashi.beans.EnumManager;
 import fr.dawan.nogashi.beans.Individual;
 import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.Product;
@@ -155,8 +157,8 @@ public class Main
 			lshr.add(shr_pm);
 		}
 		
-		/* ---------- COMMERCECATEGORY ---------- */
-		// omg tuez-moi
+		/* ---------- COMMERCE CATEGORIES  ---------- */
+		// fuck my life
 		
 		/* ---------- COMMERCES ---------- */
 		Commerce mBC_c1 = new Commerce("Basilic & Co", "362 521 879 00033", new Address("80 rue Nationale", "", "59800", "Lille", "France", 3.059697, 50.635931), "basilic.png", "basilic_desc.jpg", "24, c'est le nombre de restaurants que compte désormais le réseau Basilic & Co, depuis l'ouverture de son nouveau point de vente de Tours Nord. Depuis début Novembre 2019, Aurélien Harnay et Geoffrey Vilain vous accueillent au 42 rue Daniel Mayer, en plein coeur de Monconseil. Très impliqués localement, ils s'investissent pour faire de leur pizzeria de terroir l'un des lieux de vie incontournables du quartier. Leur ouverture s'est traduite par un succès retentissant, pour le plus grand bonheur des Tourangeaux !", swTmp, "Nationale"); mBC_c1.setMerchant(mBC);		
