@@ -36,7 +36,7 @@ public class Commerce extends DbObject {
 	@OneToOne(fetch = FetchType.EAGER)
 	private SchedulerWeek schedulerWeek;						// horaires. Todo in futur : a week calendar also for not school period + a holiday calendar + by saison.
 	
-	private String pictureLogo = "NoLogo.jpg";									// logo for the merchant's (or commerce's) mark
+	private String pictureLogo = "NoLogo.jpg";					// logo for the merchant's (or commerce's) mark
 	private String pictureDescription = "NoDescription.jpg";	// real picture of commerce, or patchwork to describe the commerce.
 	private boolean isOpened = false;
 	
@@ -61,7 +61,7 @@ public class Commerce extends DbObject {
 
 
 	
-	/* ---------- A RAJOUTER DANS LE CONSTRUCTEUR AU FUR ET A MESURE ---------- */
+	/* ---------- TRUCS A RAJOUTER DANS LE CONSTRUCTEUR AU FUR ET A MESURE ---------- */
 	// Merchant merchant
 	public Commerce(String name, String codeSiret, Address address, String pictureLogo, String pictureDescription, String description, SchedulerWeek listsw, String uniqueIdName) {
 		super();
