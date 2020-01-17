@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
               ) { }
 
   ngOnInit() {
-    this.connexionService.checkRemoteConnected();
+    this.connexionService.checkRemoteConnected();         // TODO Probleme avec le fait qu'au rechargement,  ca prend du temps d'aller checker sur le serveur du coups, la route est appliqué et on est  ejecté de la page, ce qui est tres chiant.
   }
 
 
