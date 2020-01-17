@@ -1,34 +1,37 @@
 
 
-<div class="header_space"></div>
+<section class="section-email-validation">
 
-<div *ngIf="!haveCkeckToken; else divHaveCkeckToken" >
-  <p>Veuillez patienter, nous interrogeons le serveur...</p>
-</div>
 
-<ng-template #divHaveCkeckToken >
+  <div *ngIf="!haveCkeckToken; else divHaveCkeckToken" >
+    <p class="message-patienter"> // Veuillez patienter, nous interrogeons le serveur...</p>
+  </div>
 
-    <div *ngIf="token==null; else divToken" >
-      <p>Veuillez patienter, nous interrogeons le serveur...</p>
-    </div>
+  <ng-template #divHaveCkeckToken >
 
-    <ng-template #divToken >
-      <div *ngIf="!haveRet; else divRet" >
-        <p>Veuillez patienter, nous interrogeons le serveur...</p>
+      <div *ngIf="token==null; else divToken" >
+        <p class="message-patienter"> // Veuillez patienter, nous interrogeons le serveur...</p>
       </div>
 
-      <ng-template #divRet >
-        <div>
-          <div *ngIf="!isValidate; else divValidate" >
-            <p>Nous sommes désolés, le lien pour valider votre adresse e-mail n'est pas valide.<br>Si vous avez déjà validé votre adresse e-mail auparavant, il n'est plus nécessaire de le faire.<br>Si vous avez reçu un e-mail plus récent, veuillez utiliser le lien de validation contenu dans ce dernier.<br>Sinon, vous pouvez vous <a class="nav-link" routerLink="/login" > connecter</a> et demander l'envoi d'un nouvel e-mail de validation.<br></p>
-          </div>
-
-          <ng-template #divValidate >
-            <div>
-              <p>Votre adresse e-mail est validée.<br>Vous pouvez désormais vous <a class="nav-link" routerLink="/login" >connecter</a> à votre compte pour accéder à nos services.<br>Nous vous souhaitons la bienvenue sur NoGashi !</p>
-            </div>
-          </ng-template>
+      <ng-template #divToken >
+        <div *ngIf="!haveRet; else divRet" >
+          <p class="message-patienter"> // Veuillez patienter, nous interrogeons le serveur...</p>
         </div>
+
+        <ng-template #divRet >
+          <div>
+            <div *ngIf="!isValidate; else divValidate" >
+              <p class="message-patienter">Nous sommes désolés, le lien pour valider votre adresse e-mail n'est pas valide.<br>Si vous avez déjà validé votre adresse e-mail auparavant, il n'est plus nécessaire de le faire.<br>Si vous avez reçu un e-mail plus récent, veuillez utiliser le lien de validation contenu dans ce dernier.<br>Sinon, vous pouvez vous <a class="nav-link" routerLink="/login" > connecter</a> et demander l'envoi d'un nouvel e-mail de validation.<br></p>
+            </div>
+
+            <ng-template #divValidate >
+              <div>
+                <p class="message-patienter"> Votre adresse e-mail est validée.<br>Vous pouvez désormais vous <a class="nav-link" routerLink="/login" >connecter</a> à votre compte pour accéder à nos services.<br>Nous vous souhaitons la bienvenue sur NoGashi !</p>
+              </div>
+            </ng-template>
+          </div>
+        </ng-template>
       </ng-template>
-    </ng-template>
-</ng-template>
+  </ng-template>
+
+</section>

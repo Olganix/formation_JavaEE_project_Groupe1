@@ -15,6 +15,7 @@ export class CommerceMerchantViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.commerce);
   }
 
 }

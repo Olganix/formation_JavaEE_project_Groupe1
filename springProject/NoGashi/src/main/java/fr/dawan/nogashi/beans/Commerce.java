@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -32,7 +33,7 @@ public class Commerce extends DbObject {
 	private String description;
 	@OneToOne
 	private Address address;
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	private SchedulerWeek schedulerWeek;						// horaires. Todo in futur : a week calendar also for not school period + a holiday calendar + by saison.
 	
 	private String pictureLogo = "NoLogo.jpg";									// logo for the merchant's (or commerce's) mark
@@ -61,8 +62,8 @@ public class Commerce extends DbObject {
 
 	
 	/* ---------- A RAJOUTER DANS LE CONSTRUCTEUR AU FUR ET A MESURE ---------- */
-	// String uniqueIdName, String pictureLogo, Merchant merchant
-	public Commerce(String name, String codeSiret, Address address, String pictureLogo, String pictureDescription, String description, SchedulerWeek listsw) {
+	// Merchant merchant
+	public Commerce(String name, String codeSiret, Address address, String pictureLogo, String pictureDescription, String description, SchedulerWeek listsw, String uniqueIdName) {
 		super();
 		this.name = name;
 		this.codeSiret = codeSiret;
@@ -71,7 +72,7 @@ public class Commerce extends DbObject {
 		this.pictureDescription = pictureDescription;
 		this.description = description;
 		this.schedulerWeek = listsw;
-		// this.uniqueIdName = uniqueIdName;
+		this.uniqueIdName = uniqueIdName;
 		// this.merchant = merchant;
 	}
 	
