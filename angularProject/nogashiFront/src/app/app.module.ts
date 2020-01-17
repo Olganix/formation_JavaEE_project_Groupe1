@@ -87,6 +87,9 @@ import { ProductTemplateMerchantViewComponent } from './components/pages/pages_m
 import { ProductTemplateViewComponent } from './components/pages/pages_common/product-template-view/product-template-view.component';
 import { CommerceMerchantViewComponent } from './components/pages/pages_merchant/commerce-merchant-view/commerce-merchant-view.component';
 import { CommandMerchantViewComponent } from './components/pages/pages_merchant/command-merchant-view/command-merchant-view.component';
+import { CommerceSheetComponent } from './components/pages/pages_common/commerce-sheet/commerce-sheet.component';
+import { CommerceViewComponent } from './components/pages/pages_common/commerce-view/commerce-view.component';
+import { AddProductTemplateComponent } from './components/pages/pages_merchant/add-product-template/add-product-template.component';
 
 
 
@@ -124,10 +127,13 @@ const appRoutes: Routes =
   { path: 'myPreferences', component: ComptePreferencesComponent },
 
   { path: 'individual/welcome',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
+  { path: 'individual/commerce/:id',   canActivate: [ConnexionIndividualGuard],  component: CommerceSheetComponent },
 
 
   { path: 'merchant/welcome',     canActivate: [ConnexionMerchantGuard],    component: WelcomeMerchantComponent },
   { path: 'merchant/faq',         canActivate: [ConnexionMerchantGuard],    component: FaqMerchantComponent },
+  //{ path: 'merchant/commerce/:id',         canActivate: [ConnexionMerchantGuard],    component: CommerceSheetMerchantComponent },
+  { path: 'merchant/productTemplate/addOrUpdate/:id',         canActivate: [ConnexionMerchantGuard],    component: AddProductTemplateComponent },
 
 
   { path: 'association/welcome',  canActivate: [ConnexionAssociationGuard], component: WelcomeAssociationComponent },
@@ -199,9 +205,12 @@ const appRoutes: Routes =
     ProductTemplateListMerchantComponent,
     ProductTemplateMerchantViewComponent,
     CommerceMerchantViewComponent,
-    CommandMerchantViewComponent,
-    ProductTemplateViewComponent
-  ], imports: [
+    CommandMerchantViewComponent, 
+    ProductTemplateViewComponent,
+    CommerceSheetComponent,
+    CommerceViewComponent,
+    AddProductTemplateComponent
+], imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,

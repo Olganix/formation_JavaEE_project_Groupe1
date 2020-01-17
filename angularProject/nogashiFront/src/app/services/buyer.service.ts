@@ -13,5 +13,12 @@ export class BuyerService {
   constructor(private _http: HttpClient) { }
 
 
+  getCommerceById(id) {
+    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/buyer/commerce/' + id.toString(), { withCredentials: true }).pipe(
+      retry(3),
+      map( (rrp: RestResponse) => {
+        return new RestResponse(rrp);
+      }));
+  }
 
 }
