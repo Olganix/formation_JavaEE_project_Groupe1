@@ -27,10 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.Association;
 import fr.dawan.nogashi.beans.Buyer;
+import fr.dawan.nogashi.beans.Commerce;
 import fr.dawan.nogashi.beans.Individual;
 import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.ProductTemplate;
 import fr.dawan.nogashi.beans.RestResponse;
+import fr.dawan.nogashi.beans.SchedulerWeek;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.RestResponseStatus;
@@ -752,6 +754,47 @@ public class UsersController
 	}
 	
 	
+	/*****************************************************************************************
+	*										getCommerceById									 * 
+	*****************************************************************************************
+	* 
+	* Recupere un Commerce via son id
+	*/
+	@GetMapping(path="/commerce/{id}", produces = "application/json")
+	public RestResponse<Commerce> getCommerceById(@PathVariable(name="id") int id, HttpSession session)
+    {
+		EntityManager em = StartListener.createEntityManager();
+		
+		// Check si le User de la session est User
+		User user = checkAllowToDoThat(session, em);
+		if(user==null)
+		{
+			em.close();
+			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+		
+		
+    	// Recupere le Commerce dont l'id est passe en parametre
+		Commerce commerce = null;
+		try 
+		{	
+			commerce = dao.find(Commerce.class, id, em);
+			
+			SchedulerWeek sw = commerce.getSchedulerWeek();
+			for(SchedulerWeek swTmp : sw.getGroup())				//Todo faire mieux pour charger les group, et eviter la merde au niveau de Jsckon
+				System.out.println(swTmp);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			em.close();
+			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: on getting Commerce");
+		}
+		
+		em.close();
+		return new RestResponse<Commerce>(RestResponseStatus.SUCCESS, commerce);
+    }
+	
 	
 	
 	
@@ -766,7 +809,7 @@ public class UsersController
     {
 		EntityManager em = StartListener.createEntityManager();
 		
-		// Check si le User de la session est Merchant
+		// Check si le User de la session est User
 		User user = checkAllowToDoThat(session, em);
 		if(user==null)
 		{
