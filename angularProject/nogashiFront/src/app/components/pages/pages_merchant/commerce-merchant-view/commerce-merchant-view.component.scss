@@ -7,38 +7,47 @@
 .bloc-ouverture-commerce {
   margin-top: 70px;
   background-color: var(--couleurBlancCreme);
-  display: block;
+  display: flex;
   box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
 }
 
-.img-vitrine {
-  height: 400px;
+.bloc-vitrine {
+  width: 100%;
+  height: 100%;
   background-color: var(--couleurGrisClair);
-  margin-top: 15px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.img-vitrine {
+  height: 300px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .detail-commerce {
-  display: flex;
+  display: block;
 }
 
 .bloc-information-commerce {
   background-color: var(--couleurNoir);
-
 }
 
 .nom-commerce {
   font-family: 'Ubuntu', sans-serif;
-  font-size: 1.6em;
-  font-weight: 600;
+  font-size: 1.4em;
+  font-weight: 400;
   color: var(--couleurBlancCreme);
   text-align: center;
-  padding-top: 50px;
+  padding-top: 25px;
 }
 
 .rue-commerce {
   font-family: 'roboto', sans-serif;
   font-size: 0.85em;
-  font-weight: 600;
+  font-weight: 400;
   font-style: italic;
   color: var(--couleurBlancCreme);
   text-align: center;
@@ -48,35 +57,31 @@
 
 .detail-ouverture {
   font-family: 'roboto', sans-serif;
-  font-size: 0.85em;
+  font-size: 1em;
   font-weight: 600;
   color: var(--couleurNoir);
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin-left: 30px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.fa-clock {
+  color: var(--couleurVerte);
 }
 
 .detail-horaires {
   font-family: 'roboto', sans-serif;
-  font-size: 0.90em;
-  font-weight: 600;
+  font-size: 0.95em;
+  font-weight: 400;
   color: var(--couleurNoir);
-  text-align: center;
+  margin-left: 30px;
   margin-top: 5px;
   margin-bottom: 7px;
 }
 
-.details-fermer {
-  font-family: 'roboto', sans-serif;
-  font-size: 0.85em;
-  font-weight: 400;
-  color: var(--couleurRougeIncorrect);
-  font-style: italic;
-}
-
 .italic-horaire {
   font-family: 'roboto', sans-serif;
-  font-size: 0.85em;
+  font-size: 0.95em;
   font-weight: 400;
   color: var(--couleurNoir);
   font-style: italic;
@@ -84,12 +89,13 @@
 
 .bloc-ouverture {
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 55px;
+  padding-bottom: 25px;
+  margin-top: 25px;
+
 }
 
 .bouton-ouverture {
-  width: 185px;
+  width: 160px;
   font-family: 'roboto', sans-serif;
   font-size: 1em;
   font-weight: 600;
@@ -99,8 +105,8 @@
   box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
   border: 2px solid var(--couleurBlancCreme);
   border-radius: 28px;
-  padding: 14px 20px 14px 20px;
-  margin-left: 32%;
+  padding: 10px 16px 10px 16px;
+  margin-left: 34%;
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   cursor: pointer;
@@ -113,7 +119,5 @@
   border-radius: 28px;
 }
 
-.bloc-information-horaire {
-  padding-top: 30px;
-}
+
 

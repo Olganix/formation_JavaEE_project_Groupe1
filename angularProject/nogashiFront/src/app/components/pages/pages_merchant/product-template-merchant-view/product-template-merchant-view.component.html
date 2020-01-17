@@ -4,10 +4,10 @@
 
 
 <div class="bloc-affichage-produit col-12">
-  <div class="img-affichage col-6 no-gutters">
+  <div class="img-affichage col-6">
     <article>
       <figure class="work-img no-gutters">
-        <a [routerLink]="'/productSheet/' + productTemplate.id"><img class="img col-12" src="/assets/img/produit/{{productTemplate.image}}" alt="image du produit"></a>
+        <a [routerLink]="'/productSheet/' + productTemplate.id"><img class="img col-12 no-gutters" src="/assets/img/produit/{{productTemplate.image}}" alt="image du produit"></a>
         <figcaption>
           <div class="fond-filtre" ></div>
           <div class="note">
@@ -36,7 +36,7 @@
       <div class="affichage col-6">
         <div class="prix-affichage">{{productTemplate.salePrice}} €</div>
         <div class="bloc-prix-barre">
-          <div class="prix-barre-affichage">{{productTemplate.price}} €</div>
+          <div class="prix-barre-affichage"><span class="prix-barre">{{productTemplate.price}} €</span></div>
           <div class="trait"></div>
         </div>
       </div>
