@@ -30,7 +30,7 @@ export class ConnexionService {
   }
 
   emailValidation(token: string): Observable<RestResponse> {
-    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/user/emailvalidation', token, { withCredentials: true }).pipe(
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/user/emailValidation', token, { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);
@@ -38,7 +38,7 @@ export class ConnexionService {
   }
 
   sendEmailValidation(user: User): Observable<RestResponse> {
-    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/user/sendemailvalidation', user.email, { withCredentials: true }).pipe(
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/user/sendEmailValidation', user.email, { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);

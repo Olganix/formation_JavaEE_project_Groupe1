@@ -22,7 +22,8 @@ public class Individual extends Buyer {
 	public Individual(CreditCard creditCard) {
 		super(false);
 		this.creditCard = creditCard;
-		this.creditCard.setIndividual(this);
+		if (creditCard != null)
+			this.creditCard.setIndividual(this);
 	}
 
 	public Individual() {
@@ -35,7 +36,8 @@ public class Individual extends Buyer {
 	public Individual(User user, CreditCard creditCard) {
 		super(user);
 		this.creditCard = creditCard;
-		this.creditCard.setIndividual(this);
+		if (creditCard != null)
+			this.creditCard.setIndividual(this);
 	}
 	
 	public CreditCard getCreditCard() {
@@ -47,6 +49,7 @@ public class Individual extends Buyer {
 			this.creditCard.setIndividual(null);
 
 		this.creditCard = creditCard;
-		this.creditCard.setIndividual(this);
+		if (creditCard != null)
+			this.creditCard.setIndividual(this);
 	}
 }
