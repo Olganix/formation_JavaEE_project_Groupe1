@@ -1,4 +1,8 @@
 
+a {
+  color: var(--couleurNoir);
+}
+
 .super-bloc-fiche-produit {
   background-color: var(--couleurBlancCreme);
   box-shadow: 4px 4px 6px 1px rgba(0, 0, 0, 0.30);
@@ -12,7 +16,7 @@
 
 .titre-produit {
   font-family: 'Ubuntu', sans-serif;
-  font-size: 1.5em;
+  font-size: 1.7em;
   font-weight: 600;
   color: var(--couleurNoir);
   margin-left: 110px;
@@ -32,14 +36,11 @@
 
 }
 
-
 .bloc-affichage-produit {
   margin-top: 30px;
   margin-bottom: 30px;
   display: flex;
 }
-
-
 
 .fa-bookmark {
   font-size: 1.2em;
@@ -47,8 +48,6 @@
   margin-top: 50%;
   transform: translate(-50%, -50%);
 }
-
-
 
 .img-affichage {
   background-color: var(--couleurBlancCreme);
@@ -58,8 +57,6 @@
   background-color: var(--couleurNoir);
   padding-bottom: 7px;
 }
-
-
 
 .icones-affichage {
   font-family: 'roboto', sans-serif;
@@ -72,7 +69,9 @@
   width: 600px;
   max-height: 350px;
   object-fit: cover;
-  box-shadow: 6px 6px 10px 1px rgba(0,0,0,0.08);
+  box-shadow: 6px 6px 10px 1px rgba(0, 0, 0, 0.08);
+  padding-top: 15px;
+  padding-bottom: 15px;
   position: relative;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
@@ -111,10 +110,11 @@ figure:hover figcaption {
 }
 
 .note {
+  font-size: 1.4em;
   color: var(--couleurVerte);
   margin-top: 20px;
   text-align: center;
-  margin-top: -25%;
+  margin-top: -32%;
   position: relative;
   visibility: hidden
 }
@@ -165,7 +165,6 @@ figure:hover figcaption {
   margin-bottom: 10px;
 }
 
-
 .liste-mois {
   width: 450px;
   height: 30px;
@@ -195,13 +194,11 @@ input[type=password]:focus {
   border: none;
 }
 
-
 input[type=checkbox] {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
 }
-
 
 input[type=checkbox] {
   -border-radius: 4px;
@@ -252,7 +249,6 @@ input[type="checkbox"]:checked {
   padding-bottom: 10px;
 }
 
-
 .bouton-panier {
   width: 185px;
   font-family: sans-serif;
@@ -270,7 +266,6 @@ input[type="checkbox"]:checked {
   transition: all 0.2s ease-out;
   cursor: pointer;
 }
-
 
 .bouton-panier:hover {
   color: var(--couleurBlancCreme);
@@ -301,13 +296,18 @@ input[type="checkbox"]:checked {
   color: var(--couleurNoir);
   background-color: var(--couleurRougeIncorrect);
   padding: 5px 14px;
+
+}
+
+.prix-barre {
+  margin-left: 7px;
 }
 
 .trait {
   width: 70%;
   height: 1px;
   background-color: var(--couleurNoir);
-  margin-top: -12px;
+  margin-top: -15px;
   margin-left: 50%;
   transform: translate(-50%);
 }
@@ -384,7 +384,8 @@ input[type="checkbox"]:checked {
 
 .bloc-composition-produit {
   background-color: var(--couleurGrisClair);
-  padding-top: 40px;
+  margin-top: 40px;
+  padding-bottom: 50px;
 }
 
 .composition-produit {
@@ -392,21 +393,27 @@ input[type="checkbox"]:checked {
   padding-right: 10%;
 }
 
+.fa-caret-right {
+  color: var(--couleurVerte);
+}
+
 h5 {
-  background-color: var(--couleurBlancCreme);
-  background-color: var(--couleurVerte);
-  border-bottom: 1px solid var(--couleurNoir);
+  font-family: 'roboto', sans-serif;
+  font-size: 1.2em;
+  font-style: italic;
+  font-weight: 600;
   padding-top: 5px;
   padding-bottom: 5px;
-  margin-right: 60%;
 }
 
 .titre-detail {
   font-family: 'roboto', sans-serif;
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 50px;
+  color: var(--couleurNoir);
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .composition-affichage {
