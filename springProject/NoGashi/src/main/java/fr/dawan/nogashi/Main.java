@@ -21,9 +21,9 @@ import fr.dawan.nogashi.beans.Address;
 import fr.dawan.nogashi.beans.Association;
 import fr.dawan.nogashi.beans.Buyer;
 import fr.dawan.nogashi.beans.Commerce;
-import fr.dawan.nogashi.beans.CommerceCategory;
+//import fr.dawan.nogashi.beans.CommerceCategory;
 import fr.dawan.nogashi.beans.CreditCard;
-import fr.dawan.nogashi.beans.EnumManager;
+//import fr.dawan.nogashi.beans.EnumManager;
 import fr.dawan.nogashi.beans.Individual;
 import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.Product;
@@ -167,10 +167,10 @@ public class Main
 		
 		/* ---------- COMMERCE CATEGORIES  ---------- */
 		// TODO compléter même si je suis en train de pleurer sur ce truc
-		EnumManager enuma = new EnumManager();
+		/* EnumManager enuma = new EnumManager();
 		enuma.addCommerceCategory(new CommerceCategory("Pizzeria"));
 		enuma.addCommerceCategory(new CommerceCategory("Boulangerie"));
-		enuma.addCommerceCategory(new CommerceCategory("Restaurant"));
+		enuma.addCommerceCategory(new CommerceCategory("Restaurant")); */
 		
 		// TODO déplacer les ingredients de la description de chaque produit vers ProductDetail.
 		/* ---------- PRODUITS BASILIC AND CO ---------- */
