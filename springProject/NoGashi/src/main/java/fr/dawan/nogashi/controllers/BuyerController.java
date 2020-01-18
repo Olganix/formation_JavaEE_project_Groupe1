@@ -48,7 +48,6 @@ public class BuyerController
 	// /commerce/{id_c}/product/{id}/reserve				// ca ne marche qu'avec l'idée de la personnalisation (non prioritaire)
 	// /commerce/{id_c}/productTemplate/{id}/reserve/{quantity}		//add ou remove en fonction de la quantité. => attention au message de warning utilisateur si c'est au dessus du nombre d'elements.
 	
-	
 	// Retourne Buyer si le User de la session est un Buyer et qu'il est bien dans la Bdd
 	public Buyer checkAllowToDoThat(HttpSession session, EntityManager em)
 	{
@@ -85,7 +84,7 @@ public class BuyerController
     {
 		EntityManager em = StartListener.createEntityManager();
 		
-		// Check si le User de la session est Merchant
+		// Check si le User de la session est Buyer
 		Buyer buyer = checkAllowToDoThat(session, em);
 		if(buyer==null)
 		{
@@ -138,6 +137,47 @@ public class BuyerController
 	**********************************************************************************************************************************************
 	**********************************************************************************************************************************************
 	*********************************************************************************************************************************************/
+	
+	
+	
+	/*****************************************************************************************
+	*										getProductsByName							 * 
+	*****************************************************************************************
+	*
+	* Liste les Products dont le name est entre en parametre
+	*/
+	@GetMapping(path="/products/{name}", produces = "application/json")
+	public RestResponse<List<Product>> getProductsByName(@PathVariable(name="name") String name, HttpSession session)
+    {
+		EntityManager em = StartListener.createEntityManager();
+		
+		// Check si le User de la session est Buyer
+		Buyer buyer = checkAllowToDoThat(session, em);
+		if(buyer==null)
+		{
+			em.close();
+			return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+		
+		
+    	// Recupere la liste des Products qui correspondent au name
+    	List<Product> listProducts = new ArrayList<Product>();
+		try 
+		{	
+			String n = name.trim();
+			if(n != null)
+				listProducts = dao.findNamed(Product.class, "name", n, em);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			em.close();
+			return new RestResponse<List<Product>>(RestResponseStatus.FAIL, null, 1, "Error: get products by name operation");
+		}
+		
+		em.close();
+		return new RestResponse<List<Product>>(RestResponseStatus.SUCCESS, listProducts);
+    }
 	
 	
 	
