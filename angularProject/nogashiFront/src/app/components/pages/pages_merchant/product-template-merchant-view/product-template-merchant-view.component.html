@@ -5,6 +5,9 @@
 
 <div class="bloc-affichage-produit col-12">
   <div class="img-affichage col-6">
+
+
+
     <article>
       <figure class="work-img no-gutters">
         <a [routerLink]="'/productSheet/' + productTemplate.id"><img class="img col-12 no-gutters" src="/assets/img/produit/{{productTemplate.image}}" alt="image du produit"></a>
@@ -24,8 +27,12 @@
 
   <div class="informations-affichage col-6">
     <h5>- <a [routerLink]="'/productSheet/' + productTemplate.id">{{productTemplate.name}}</a> -</h5>
+    <div class="cercle-bookmark" [routerLink]="'/merchant/productTemplate/addOrUpdate/' + productTemplate.id" >
+      <i class="fas fa-pencil-alt" ></i>
+    </div>
     <p class="composition-affichage">{{productTemplate.description}}</p>
     <p class="key-allergene"> > Sans-gluten > Sportif </p> <!-- todo -->
+
     <div class="Lieu-affichage col-8">
       <select id="liste-mois" class="liste-mois col-12">
         <option>Promotion</option> <!-- todo revoir un peu ca -->
