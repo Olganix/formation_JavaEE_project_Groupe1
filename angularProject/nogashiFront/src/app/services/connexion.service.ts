@@ -65,7 +65,7 @@ export class ConnexionService {
       }));
   }
 
-  isLoged() {
+  isLogged() {
 
     if ( (localStorage) && (localStorage.getItem('connectedUser'))) { // Todo supprimer car pas tres secure. cf probleme de switch de page
       this.connectedUser = new User( JSON.parse( localStorage.getItem('connectedUser') ));
@@ -130,9 +130,9 @@ export class ConnexionService {
 
   checkRemoteConnected() {
 
-    this.isLoged().subscribe(
+    this.isLogged().subscribe(
       (rrp: RestResponse) => {
-        console.log('checkRemoteConnected: isLoged');
+        console.log('checkRemoteConnected: isLogged');
         console.log(rrp);
       },
       error => {

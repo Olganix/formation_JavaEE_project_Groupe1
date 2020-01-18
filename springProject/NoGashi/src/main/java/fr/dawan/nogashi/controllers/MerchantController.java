@@ -472,6 +472,12 @@ public class MerchantController
 					isModifed = true;
 				}
 				
+				if( (c_bdd.isOpened() != c.isOpened()) )	
+				{
+					c_bdd.setOpened(c.isOpened());
+					isModifed = true;
+				}
+				
 			}
 		
 			if(isModifed)
@@ -775,6 +781,12 @@ public class MerchantController
 					isModifed = true;
 				}
 				
+				if( (pt_bdd.isPackaged() != pt.isPackaged()) )	
+				{
+					pt_bdd.setPackaged(pt.isPackaged());
+					isModifed = true;
+				}
+				
 				if( (Double.valueOf(pt.getPrice()) != null) && (pt_bdd.getPrice() != pt.getPrice()) )	
 				{
 					pt_bdd.setPrice(pt.getPrice());
@@ -784,6 +796,12 @@ public class MerchantController
 				if( (Double.valueOf(pt.getSalePrice()) != null) && (pt_bdd.getSalePrice() != pt.getSalePrice()) )	
 				{
 					pt_bdd.setSalePrice(pt.getSalePrice());
+					isModifed = true;
+				}
+				
+				if( (pt_bdd.isTimeControlStatus() != pt.isTimeControlStatus()) )	
+				{
+					pt_bdd.setTimeControlStatus(pt.isTimeControlStatus());
 					isModifed = true;
 				}
 				

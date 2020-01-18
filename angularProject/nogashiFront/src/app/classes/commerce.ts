@@ -3,7 +3,7 @@ import {SchedulerWeek} from './scheduler-week';
 
 export class Commerce {
 
-  private _id: string;
+  private _id: number;
   private _name: string;
 
   private _codeSiret: string;
@@ -33,7 +33,8 @@ export class Commerce {
   }
 
 
-  setAddCommerce(name: string, codeSiret: string, uniqueIdName: string, description: string, address: Address, pictureLogo: string, pictureDescription: string, isOpened: boolean) {
+  setAddCommerce(id: number, name: string, codeSiret: string, uniqueIdName: string, description: string, address: Address, pictureLogo: string, pictureDescription: string, isOpened: boolean) {
+    this._id = id;
     this._name = name;
     this._codeSiret = codeSiret;
     this._uniqueIdName = uniqueIdName;
@@ -48,11 +49,11 @@ export class Commerce {
     return {id: this._id, name: this._name, codeSiret: this._codeSiret, uniqueIdName: this._uniqueIdName, description: this._description, address: this._address.toHttpObject(), pictureLogo: this._pictureLogo, pictureDescription: this._pictureDescription, isOpened: this._isOpened };
   }
 
-  get id(): string {
+  get id(): number {
     return this._id;
   }
 
-  set id(value: string) {
+  set id(value: number) {
     this._id = value;
   }
 
