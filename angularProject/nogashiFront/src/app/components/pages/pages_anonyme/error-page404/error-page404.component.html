@@ -1,8 +1,17 @@
 
 <div class="header_space"></div>
 
-<h2>Erreur 404</h2>
-<p>La page que vous cherchez n'existe pas ou n'est plus disponible.<br>Nous vous invitons à retourner à la page d'<a routerLink="/welcome-merchant" *ngIf="connexionService.getLocalConnectedRole()===UserRole.MERCHANT">accueil</a>
-<a routerLink="/welcome-individual" *ngIf="connexionService.getLocalConnectedRole()===UserRole.INDIVIDUAL">accueil</a>
-<a routerLink="/welcome-association" *ngIf="connexionService.getLocalConnectedRole()===UserRole.ASSOCIATION">accueil</a>
-<a routerLink="/welcome" *ngIf="!connexionService.isLocalConnected()">accueil</a>.</p>
+
+<div class="container col-12">
+  <div class="row">
+    <div class="bloc-404 col-12">
+      <h2>404</h2>
+      <p class="text-404"><span class="oups">OUPS !</span> , Page non trouvée.<br><br><span class="text-retour">retour page d'<a routerLink="/welcome-merchant" *ngIf="connexionService.getLocalConnectedRole()===UserRole.MERCHANT">accueil</a></span>
+        <a routerLink="/welcome-individual" *ngIf="connexionService.getLocalConnectedRole()===UserRole.INDIVIDUAL">accueil</a>
+        <a routerLink="/welcome-association" *ngIf="connexionService.getLocalConnectedRole()===UserRole.ASSOCIATION">accueil</a>
+        <a routerLink="/welcome" *ngIf="!connexionService.isLocalConnected()">accueil</a>.
+      </p>
+    </div>
+  </div>
+</div>
+

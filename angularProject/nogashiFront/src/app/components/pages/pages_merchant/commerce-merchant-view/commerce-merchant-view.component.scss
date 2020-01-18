@@ -9,10 +9,31 @@ a {
 }
 
 .bloc-ouverture-commerce {
+  padding-top: 15px;
+  padding-bottom: 15px;
   margin-top: 30px;
   background-color: var(--couleurBlancCreme);
   display: flex;
   box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+}
+
+.fa-pencil-alt {
+  font-size: 0.90em;
+  border-radius: 50%;
+  margin-left: 8px;
+  padding: 8px;
+  background-color: var(--couleurVerte);
+  color: var(--couleurNoir);
+  -webkit-box-shadow: 6px 14px 22px -1px rgba(0,0,0,0.18);
+  -moz-box-shadow: 6px 14px 22px -1px rgba(0,0,0,0.18);
+  box-shadow: 6px 14px 22px -1px rgba(0,0,0,0.18);
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+}
+
+.fa-pencil-alt:hover {
+  background-color: var(--couleurNoir);
+  color: var(--couleurVerte);
 }
 
 .bloc-vitrine {

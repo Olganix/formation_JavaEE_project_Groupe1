@@ -1,9 +1,9 @@
-
-
-
-
-
 /* bloc-affichage - Produit */
+
+a {
+  color: var(--couleurNoir);
+}
+
 .bloc-affichage-produit {
   margin-bottom: 140px;
   display: flex;
@@ -99,7 +99,7 @@ figure:hover figcaption {
 
 h5 {
   font-family: 'roboto', sans-serif;
-  font-size: 1.3em;
+  font-size: 1.1em;
   font-weight: 600;
   text-decoration: none;
   color: var(--couleurNoir);
@@ -109,8 +109,24 @@ h5 {
   margin-right: 5%;
 }
 
-a {
+.fa-pencil-alt {
+  font-size: 1.2em;
+  border-radius: 50%;
+  padding: 10px;
+  background-color: var(--couleurVerte);
   color: var(--couleurNoir);
+  -webkit-box-shadow: 6px 14px 22px -1px rgba(0,0,0,0.18);
+  -moz-box-shadow: 6px 14px 22px -1px rgba(0,0,0,0.18);
+  box-shadow: 6px 14px 22px -1px rgba(0,0,0,0.18);
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+}
+
+.fa-pencil-alt:hover {
+  font-size: 1.2em;
+  padding: 11px;
+  background-color: var(--couleurNoir);
+  color: var(--couleurVerte);
 }
 
 .composition-affichage {

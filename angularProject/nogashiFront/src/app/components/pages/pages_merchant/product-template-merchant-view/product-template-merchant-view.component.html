@@ -26,10 +26,8 @@
   </div>
 
   <div class="informations-affichage col-6">
-    <h5>- <a [routerLink]="'/productSheet/' + productTemplate.id">{{productTemplate.name}}</a> -</h5>
-    <div class="cercle-bookmark" [routerLink]="'/merchant/productTemplate/addOrUpdate/' + productTemplate.id" >
-      <i class="fas fa-pencil-alt" ></i>
-    </div>
+    <h5>- <a [routerLink]="'/productSheet/' + productTemplate.id">{{productTemplate.name}}</a> - <i class="fas fa-pencil-alt" [routerLink]="'/merchant/productTemplate/addOrUpdate/' + productTemplate.id"></i></h5>
+
     <p class="composition-affichage">{{productTemplate.description}}</p>
     <p class="key-allergene"> > Sans-gluten > Sportif </p> <!-- todo -->
 
@@ -39,6 +37,7 @@
         <option>Invendu</option>
       </select>
     </div>
+
     <div class="bloc-prix-affichage col-12">
       <div class="affichage col-6">
         <div class="prix-affichage">{{productTemplate.salePrice}} €</div>
@@ -56,6 +55,7 @@
       </div>
     </div>
   </div>
+
   <div class="bloc-panier">
     <a href=""><div id ="bouton-panier" class="bouton-panier">DUPLIQUER</div></a>
   </div>
