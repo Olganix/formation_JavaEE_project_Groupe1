@@ -587,6 +587,97 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getCommerceById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/user/commerce/88",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"user",
+								"commerce",
+								"88"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommercesByProductTemplate",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nogashi/user/productTemplate/93/commerces",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"user",
+								"productTemplate",
+								"93",
+								"commerces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductTemplateById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/nogashi/merchant/productTemplate/77",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nogashi",
+								"merchant",
+								"productTemplate",
+								"77"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -726,40 +817,6 @@
 					"response": []
 				},
 				{
-					"name": "getCommerceById",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/nogashi/merchant/commerce/74",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"nogashi",
-								"merchant",
-								"commerce",
-								"74"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "addCommerce",
 					"request": {
 						"method": "POST",
@@ -773,7 +830,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"magasin Postman\",\n\t\"codeSiret\": \"DF54654\",\n\t\"address\": {\n            \"id\": 0,\n            \"address\": \"59, Rue Merchant\",\n            \"addressExtra\": \"\",\n            \"postalCode\": \"59000\",\n            \"cityName\": \"Lille\",\n            \"stateName\": \"France\",\n            \"longitude\": null,\n            \"latitude\": null\n        }\n}",
+							"raw": " {\r\n    \"name\": \"Big Fernand\",\r\n    \"codeSiret\": \"830 134 458 02153\",\r\n    \"uniqueIdName\": \"Postman\",\r\n    \"description\": \"C'est la postman... Postman party !\",\r\n    \"pictureLogo\": \"big-fernand.png\",\r\n    \"pictureDescription\": \"fernand_desc_2.jpg\",\r\n    \"opened\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -866,28 +923,6 @@
 					"response": []
 				},
 				{
-					"name": "getProductTemplateById",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/nogashi/merchant/productTemplate/77",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"nogashi",
-								"merchant",
-								"productTemplate",
-								"77"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "addProductTemplate (as Big Fernand)",
 					"request": {
 						"method": "POST",
@@ -901,7 +936,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Le Postman\",\r\n    \"description\": \"Fiche produit de Postman\",\r\n    \"externalCode\": \"0000071\",\r\n    \"price\": 167.0,\r\n    \"salePrice\": 110.2,\r\n    \"timeControlStatus\": false,\r\n    \"schedulerWeekForSaleAndUnsold\": null,\r\n    \"maxDurationCart\": 0,\r\n    \"image\": \"NoProduct.jpg\",\r\n    \"packaged\": true\r\n}",
+							"raw": "{\r\n    \"name\": \"Le Postman\",\r\n    \"description\": \"Le meilleur des hamburgers pour les Postmaniacs\",\r\n    \"externalCode\": \"0000118\",\r\n    \"price\": 167.0,\r\n    \"salePrice\": 110.2,\r\n    \"timeControlStatus\": false,\r\n    \"schedulerWeekForSaleAndUnsold\": null,\r\n    \"maxDurationCart\": 10,\r\n    \"image\": \"NoProduct.jpg\",\r\n    \"packaged\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
