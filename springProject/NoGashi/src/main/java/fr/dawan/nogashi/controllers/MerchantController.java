@@ -632,7 +632,7 @@ public class MerchantController
 	* Ajoute un nouveau ProductTemplate pour le Merchant (User connecte)
 	*/
 	@PostMapping(path="/productTemplate/addOrUpdate", consumes = "application/json", produces = "application/json")
-	public RestResponse<ProductTemplate> addProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model, boolean modif)
+	public RestResponse<ProductTemplate> addProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model)
     {
 		System.out.println("/merchant/productTemplate/addOrUpdate");
 		System.out.println(pt);
@@ -647,22 +647,32 @@ public class MerchantController
 			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
 		}
 		
+		// merchant = merchant récup de la session et vérifié dans la bdd
+		// pt = productTemplate du formulaire (champs saisis ou récup puis revalidés)
+		// 
 		
-		// Check si tous les champs du formulaire sont null ou si le name, l'externalCode ou le prix est null
+		// Check sur les champs obligatoires du formulaire sont null
 		if(	(pt==null) || 
 			(pt.getName()==null) || ( pt.getName().trim().length() ==0) ||
-			(Double.valueOf(pt.getPrice())==null) )													//TODO replacer les double pour Double dans les beans pour eviter les exception sur les null.
-			//TODO completer
+			(pt.getDescription()==null) || ( pt.getDescription().trim().length() ==0) ||
+			(Double.valueOf(pt.getPrice())==null) || 										//TODO replacer les double pour Double dans les beans pour eviter les exception sur les null.
+			(Double.valueOf(pt.getSalePrice())==null) ||							
+			(Integer.valueOf(pt.getMaxDurationCart())==null) ||
+			(pt.getImage()==null) || ( pt.getImage().trim().length() ==0)
+		  )
 		{
+			em.close();
 			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
 		}
 		
 		
+
 		
 		ProductTemplate pt_bdd = null;
 		boolean isUnique = true;
+		boolean isModifed = false;
 		try 
-		{
+		{			
 			if(pt.getId()==0)						// c'est un add que l'on fait.
 			{
 	    		//check si name est completement unique, ca aide l'utilisateur a s'y retrouver.
@@ -674,6 +684,7 @@ public class MerchantController
 	    		pt_bdd = pt;
 				// Attribue le Merchant connecte au ProductTemplate a ajouter
 	    		pt_bdd.setMerchant(merchant);
+	    		isModifed = true;
 				
 			}else{									// update
 				
@@ -681,20 +692,72 @@ public class MerchantController
 				if(pt_bdd==null)
 		    	{
 		    		em.close();
-		    		return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: ProductTemplate not exists");
+		    		return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: ProductTemplate doesn't exist");
 		    	}
+							
 				
-				
-				
-				pt_bdd.setDescription(pt.getDescription());
+				//pt_bdd.setDescription(pt.getDescription());
 				// Todo completer en s'inspirant updateMerchantAccount
+				
+				
+				// Verifie les champs modifies du formulaire	
+				if( (pt.getName() != null) && (!pt_bdd.getName().equals(pt.getName())) )	
+				{
+					pt_bdd.setName(pt.getName());
+					isModifed = true;
+				}
+				
+				if( (pt.getDescription() != null) && (!pt_bdd.getDescription().equals(pt.getDescription())) )	
+				{
+					pt_bdd.setDescription(pt.getDescription());
+					isModifed = true;
+				}
+
+				if( (pt.getExternalCode() != null) && (!pt_bdd.getExternalCode().equals(pt.getExternalCode())) )	
+				{
+					pt_bdd.setExternalCode(pt.getExternalCode());
+					isModifed = true;
+				}
+				
+				if( (Double.valueOf(pt.getPrice()) != null) && (pt_bdd.getPrice() != pt.getPrice()) )	
+				{
+					pt_bdd.setPrice(pt.getPrice());
+					isModifed = true;
+				}
+				
+				if( (Double.valueOf(pt.getSalePrice()) != null) && (pt_bdd.getSalePrice() != pt.getSalePrice()) )	
+				{
+					pt_bdd.setSalePrice(pt.getSalePrice());
+					isModifed = true;
+				}
+				
+				if( (pt.getSchedulerWeekForSaleAndUnsold() != null) && (!pt_bdd.getSchedulerWeekForSaleAndUnsold().equals(pt.getSchedulerWeekForSaleAndUnsold())) )	
+				{
+					pt_bdd.setSchedulerWeekForSaleAndUnsold(pt.getSchedulerWeekForSaleAndUnsold());
+					isModifed = true;
+				}
+				
+				if( (Integer.valueOf(pt.getMaxDurationCart()) != null) && (pt_bdd.getMaxDurationCart() != pt.getMaxDurationCart()) )	
+				{
+					pt_bdd.setMaxDurationCart(pt.getMaxDurationCart());
+					isModifed = true;
+				}
+				
+				if( (pt.getImage() != null) && (!pt_bdd.getImage().equals(pt.getImage())) )	
+				{
+					pt_bdd.setImage(pt.getImage());
+					isModifed = true;
+				}
+				
 			}
 		
 			
-			// Persiste le Commerce a ajouter dans la BDD
-			System.out.println("productTemplate: "+ pt_bdd.getExternalCode() +" name:"+ pt_bdd.getName() +" "+ (((pt.getId()==0)) ? "created" : "updated"));
-			dao.saveOrUpdate(pt_bdd, em, false);
-			
+			if(isModifed)
+			{
+				// Persiste le Commerce a ajouter dans la BDD
+				System.out.println("productTemplate: "+ pt_bdd.getExternalCode() +" name:"+ pt_bdd.getName() +" "+ (((pt.getId()==0)) ? "created" : "updated"));
+				dao.saveOrUpdate(pt_bdd, em, false);
+			}
 			
 		} catch (Exception e1) {
 			e1.printStackTrace();
