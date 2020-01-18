@@ -33,6 +33,7 @@ export class TestSpringRestComponent implements OnInit {
 
 
   // formAddCommerce
+  commerce_id: FormControl;
   commerce_isOpened: FormControl;
   commerce_name: FormControl;
   commerce_codeSiret: FormControl;
@@ -167,9 +168,9 @@ export class TestSpringRestComponent implements OnInit {
       console.log(this.formAddCommerce.value);
 
       const commerce = new Commerce();
-      commerce.setAddCommerce(this.formAddCommerce.value.commerce_name, this.formAddCommerce.value.commerce_codeSiret, this.formAddCommerce.value.commerce_uniqueIdName, this.formAddCommerce.value.commerce_description, new Address({address: this.formAddCommerce.value.commerce_address, addressExtra: this.formAddCommerce.value.commerce_addressExtra, postalCode: this.formAddCommerce.value.commerce_postalCode, cityName: this.formAddCommerce.value.commerce_cityName, stateName: this.formAddCommerce.value.commerce_stateName, longitude : this.formAddCommerce.value.commerce_longitude,  latitude: this.formAddCommerce.value.commerce_latitude}),  this.formAddCommerce.value.commerce_pictureLogo, this.formAddCommerce.value.commerce_pictureDescription, this.formAddCommerce.value.commerce_isOpened === 1);
+      commerce.setAddCommerce(this.formAddCommerce.value.commerce_id, this.formAddCommerce.value.commerce_name, this.formAddCommerce.value.commerce_codeSiret, this.formAddCommerce.value.commerce_uniqueIdName, this.formAddCommerce.value.commerce_description, new Address({address: this.formAddCommerce.value.commerce_address, addressExtra: this.formAddCommerce.value.commerce_addressExtra, postalCode: this.formAddCommerce.value.commerce_postalCode, cityName: this.formAddCommerce.value.commerce_cityName, stateName: this.formAddCommerce.value.commerce_stateName, longitude : this.formAddCommerce.value.commerce_longitude,  latitude: this.formAddCommerce.value.commerce_latitude}),  this.formAddCommerce.value.commerce_pictureLogo, this.formAddCommerce.value.commerce_pictureDescription, this.formAddCommerce.value.commerce_isOpened === 1);
 
-      this.merchantService.addCommerce( commerce ).subscribe(
+      this.merchantService.addOrUpdateCommerce( commerce ).subscribe(
         (rrp: RestResponse) => {
 
           console.log('component.signIn: ');

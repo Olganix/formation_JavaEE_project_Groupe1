@@ -26,8 +26,11 @@ export class MerchantService {
       }));
   }
 
-  addCommerce(commerce: Commerce): Observable<RestResponse> {
-    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/merchant/commerce/addOrUpdate', commerce.toHttpObject(), { withCredentials: true }).pipe(
+  addOrUpdateCommerce(c: Commerce): Observable<RestResponse> {
+
+    console.log(c);
+
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/merchant/commerce/addOrUpdate', c.toHttpObject(), { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);

@@ -14,12 +14,10 @@ import { UserRole } from 'src/app/enum/user-role.enum';
 export class CommerceViewComponent implements OnInit {
 
   UserRole = UserRole;
-  SchedulerWeekType = SchedulerWeekType;
+  // SchedulerWeekType = SchedulerWeekType;
   @Input() commerce: Commerce;
 
   constructor(private connexionService: ConnexionService,
-              private merchantService: MerchantService,
-              private route: ActivatedRoute,
 
       ) { }
 
