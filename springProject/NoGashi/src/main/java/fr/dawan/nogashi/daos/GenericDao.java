@@ -259,7 +259,7 @@ public class GenericDao
 	// Recheche une liste de tuples par object
 		public <T extends DbObject, R extends DbObject> List<T> findNamedBySomething(Class<T> tClass, String column, String name, String columnR, R something, EntityManager em, boolean strictClass, EntityGraph<T> graph, boolean closeConnection) throws Exception
 		{
-			TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity JOIN entity."+ columnR +" as ent2 WHERE "+ column +"=:name AND ent2=:something "+ ((strictClass) ? ("AND TYPE(entity) = "+ tClass.getName()) : ""), tClass);
+			TypedQuery<T> query = em.createQuery("SELECT entity from "+ tClass.getName() + " as entity JOIN entity."+ columnR +" as ent2 WHERE entity."+ column +"=:name AND ent2=:something "+ ((strictClass) ? ("AND TYPE(entity) = "+ tClass.getName()) : ""), tClass);
 			query.setParameter("name", name);
 			query.setParameter("something", something);
 			

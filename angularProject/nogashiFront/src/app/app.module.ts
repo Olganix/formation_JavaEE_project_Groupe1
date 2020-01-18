@@ -91,6 +91,8 @@ import { CommerceSheetComponent } from './components/pages/pages_common/commerce
 import { CommerceViewComponent } from './components/pages/pages_common/commerce-view/commerce-view.component';
 import { AddProductTemplateComponent } from './components/pages/pages_merchant/add-product-template/add-product-template.component';
 import { AddCommerceComponent } from './components/pages/pages_merchant/add-commerce/add-commerce.component';
+import { ProductListComponent } from './components/pages/pages_common/product-list/product-list.component';
+import { ProductTemplateCommonViewComponent } from './components/pages/pages_common/product-template-common-view/product-template-common-view.component';
 
 
 
@@ -210,7 +212,9 @@ const appRoutes: Routes =
     CommerceSheetComponent,
     CommerceViewComponent,
     AddProductTemplateComponent,
-    AddCommerceComponent
+    AddCommerceComponent,
+    ProductListComponent,
+    ProductTemplateCommonViewComponent
 ], imports: [
     BrowserModule,
     AppRoutingModule,

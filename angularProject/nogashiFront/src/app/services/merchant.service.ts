@@ -43,4 +43,15 @@ export class MerchantService {
       }));
   }
 
+  addOrUpdateProductTemplate(pt: ProductTemplate) {
+
+    console.log(pt);
+
+    return this._http.post<RestResponse>(environment.nogashiRestUrl + '/merchant/productTemplate/addOrUpdate', pt.toHttpObject(), { withCredentials: true }).pipe(
+      retry(3),
+      map( (rrp: RestResponse) => {
+        return new RestResponse(rrp);
+      }));
+  }
+
 }

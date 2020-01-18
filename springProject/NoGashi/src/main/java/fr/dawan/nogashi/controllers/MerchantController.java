@@ -345,11 +345,14 @@ public class MerchantController
 	*										addCommerce										 * 
 	*****************************************************************************************
 	*
-	* Ajoute un nouveau Commerce pour le Merchant (User connecte)
+	* Ajoute ou modifie un Commerce pour le Merchant (User connecte)
 	*/
 	@PostMapping(path="/commerce/addOrUdapte", consumes = "application/json", produces = "application/json")
 	public RestResponse<Commerce> addCommerce(@RequestBody Commerce c, HttpSession session, Locale locale, Model model)
     {
+		System.out.println("/merchant/commerce/addOrUpdate");
+		System.out.println(c);
+		
 		EntityManager em = StartListener.createEntityManager();
 		
 		// Check si le User de la session est Merchant
@@ -361,12 +364,14 @@ public class MerchantController
 		}
 		
 		
-		// Check si tous les champs du formulaire sont null ou si le name, le codeSiret ou l'adresse est null
+		// Check sur les champs obligatoires du formulaire sont null
 		if(	(c==null) || 
 			(c.getName()==null) || ( c.getName().trim().length() ==0) ||
-			(c.getCodeSiret()==null) || ( c.getCodeSiret().trim().length() ==0) ||
-			(c.getAddress()==null) )
+			(c.getCodeSiret()==null) || ( c.getCodeSiret().trim().length() ==0)
+			//(c.getAddress()==null) 
+			)
 		{
+			em.close();
 			return new RestResponse<Commerce>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
 		}
 
@@ -376,6 +381,7 @@ public class MerchantController
 		
 		Commerce c_bdd = null;
 		boolean isUnique = true;
+		boolean isModifed = false;
 		try 
     	{
 			if(c.getId()==0)						// c'est un add que l'on fait.
@@ -401,6 +407,7 @@ public class MerchantController
 				c_bdd = c;
 				// Attribue le Merchant connecte au Commerce a ajouter
 				c_bdd.setMerchant(merchant);
+				isModifed = true;
 				
 			}else{									// update
 				
@@ -413,15 +420,68 @@ public class MerchantController
 				
 				
 				
-				c_bdd.setCodeSiret(c.getCodeSiret());
+				//c_bdd.setCodeSiret(c.getCodeSiret());
 				// Todo completer en s'inspirant updateMerchantAccount
+				
+				// Verifie les champs modifies du formulaire	
+				if( (c.getName() != null) && (!c_bdd.getName().equals(c.getName())) )	
+				{
+					c_bdd.setName(c.getName());
+					isModifed = true;
+				}
+				
+				if( (c.getCodeSiret() != null) && (!c_bdd.getCodeSiret().equals(c.getCodeSiret())) )	
+				{
+					c_bdd.setCodeSiret(c.getCodeSiret());
+					isModifed = true;
+				}
+
+				if( (c.getUniqueIdName() != null) && (!c_bdd.getUniqueIdName().equals(c.getUniqueIdName())) )	
+				{
+					c_bdd.setUniqueIdName(c.getUniqueIdName());
+					isModifed = true;
+				}
+				
+				if( (c.getDescription() != null) && (!c_bdd.getDescription().equals(c.getDescription())) )	
+				{
+					c_bdd.setDescription(c.getDescription());
+					isModifed = true;
+				}
+				
+				if( (c.getAddress() != null) && (!c_bdd.getAddress().equals(c.getAddress())) )	
+				{
+					c_bdd.setAddress(c.getAddress());
+					isModifed = true;
+				}
+				
+				if( (c.getSchedulerWeek() != null) && (!c_bdd.getSchedulerWeek().equals(c.getSchedulerWeek())) )	
+				{
+					c_bdd.setSchedulerWeek(c.getSchedulerWeek());
+					isModifed = true;
+				}
+				
+				if( (c.getPictureLogo() != null) && (!c_bdd.getPictureLogo().equals(c.getPictureLogo())) )	
+				{
+					c_bdd.setPictureLogo(c.getPictureLogo());
+					isModifed = true;
+				}
+				
+				if( (c.getPictureDescription() != null) && (!c_bdd.getPictureDescription().equals(c.getPictureDescription())) )	
+				{
+					c_bdd.setPictureDescription(c.getPictureDescription());
+					isModifed = true;
+				}
+				
 			}
 		
-			
-			// Persiste le Commerce a ajouter dans la BDD
-			System.out.println("commerce : "+ c_bdd.getName() +" siret:"+ c_bdd.getCodeSiret() +" "+ (((c.getId()==0)) ? "created" : "updated"));
-			dao.saveOrUpdate(c_bdd, em, false);
-			
+			if(isModifed)
+			{	
+				// Persiste le Commerce a ajouter dans la BDD
+				System.out.println("commerce : "+ c_bdd.getName() +" siret:"+ c_bdd.getCodeSiret() +" "+ (((c.getId()==0)) ? "created" : "updated"));
+				dao.saveOrUpdate(c_bdd, em, false);
+				
+				// TODO créer nouvelle adresse s'il y a lieu
+			}	
 			
 			
     	} catch (Exception e) {
@@ -629,11 +689,14 @@ public class MerchantController
 	*										addProductTemplate								 * 
 	*****************************************************************************************
 	*
-	* Ajoute un nouveau ProductTemplate pour le Merchant (User connecte)
+	* Ajoute ou modifie un ProductTemplate pour le Merchant (User connecte)
 	*/
 	@PostMapping(path="/productTemplate/addOrUpdate", consumes = "application/json", produces = "application/json")
-	public RestResponse<ProductTemplate> addProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model, boolean modif)
+	public RestResponse<ProductTemplate> addProductTemplate(@RequestBody ProductTemplate pt, HttpSession session, Locale locale, Model model)
     {
+		System.out.println("/merchant/productTemplate/addOrUpdate");
+		System.out.println(pt);
+		
 		EntityManager em = StartListener.createEntityManager();
 		
 		// Check si le User de la session est Merchant
@@ -644,22 +707,28 @@ public class MerchantController
 			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
 		}
 		
-		
-		// Check si tous les champs du formulaire sont null ou si le name, l'externalCode ou le prix est null
+		// Check sur les champs obligatoires du formulaire sont null
 		if(	(pt==null) || 
 			(pt.getName()==null) || ( pt.getName().trim().length() ==0) ||
-			(Double.valueOf(pt.getPrice())==null) )													//TODO replacer les double pour Double dans les beans pour eviter les exception sur les null.
-			//TODO completer
+			(pt.getDescription()==null) || ( pt.getDescription().trim().length() ==0) ||
+			(Double.valueOf(pt.getPrice())==null) || 										//TODO replacer les double pour Double dans les beans pour eviter les exception sur les null.
+			(Double.valueOf(pt.getSalePrice())==null) ||							
+			(Integer.valueOf(pt.getMaxDurationCart())==null) ||
+			(pt.getImage()==null) || ( pt.getImage().trim().length() ==0)
+		  )
 		{
+			em.close();
 			return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: Not enough arguments");
 		}
 		
 		
+
 		
 		ProductTemplate pt_bdd = null;
 		boolean isUnique = true;
+		boolean isModifed = false;
 		try 
-		{
+		{			
 			if(pt.getId()==0)						// c'est un add que l'on fait.
 			{
 	    		//check si name est completement unique, ca aide l'utilisateur a s'y retrouver.
@@ -671,6 +740,7 @@ public class MerchantController
 	    		pt_bdd = pt;
 				// Attribue le Merchant connecte au ProductTemplate a ajouter
 	    		pt_bdd.setMerchant(merchant);
+	    		isModifed = true;
 				
 			}else{									// update
 				
@@ -678,20 +748,72 @@ public class MerchantController
 				if(pt_bdd==null)
 		    	{
 		    		em.close();
-		    		return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: ProductTemplate not exists");
+		    		return new RestResponse<ProductTemplate>(RestResponseStatus.FAIL, null, 1, "Error: ProductTemplate doesn't exist");
 		    	}
+							
 				
-				
-				
-				pt_bdd.setDescription(pt.getDescription());
+				//pt_bdd.setDescription(pt.getDescription());
 				// Todo completer en s'inspirant updateMerchantAccount
+				
+				
+				// Verifie les champs modifies du formulaire	
+				if( (pt.getName() != null) && (!pt_bdd.getName().equals(pt.getName())) )	
+				{
+					pt_bdd.setName(pt.getName());
+					isModifed = true;
+				}
+				
+				if( (pt.getDescription() != null) && (!pt_bdd.getDescription().equals(pt.getDescription())) )	
+				{
+					pt_bdd.setDescription(pt.getDescription());
+					isModifed = true;
+				}
+
+				if( (pt.getExternalCode() != null) && (!pt_bdd.getExternalCode().equals(pt.getExternalCode())) )	
+				{
+					pt_bdd.setExternalCode(pt.getExternalCode());
+					isModifed = true;
+				}
+				
+				if( (Double.valueOf(pt.getPrice()) != null) && (pt_bdd.getPrice() != pt.getPrice()) )	
+				{
+					pt_bdd.setPrice(pt.getPrice());
+					isModifed = true;
+				}
+				
+				if( (Double.valueOf(pt.getSalePrice()) != null) && (pt_bdd.getSalePrice() != pt.getSalePrice()) )	
+				{
+					pt_bdd.setSalePrice(pt.getSalePrice());
+					isModifed = true;
+				}
+				
+				if( (pt.getSchedulerWeekForSaleAndUnsold() != null) && (!pt_bdd.getSchedulerWeekForSaleAndUnsold().equals(pt.getSchedulerWeekForSaleAndUnsold())) )	
+				{
+					pt_bdd.setSchedulerWeekForSaleAndUnsold(pt.getSchedulerWeekForSaleAndUnsold());
+					isModifed = true;
+				}
+				
+				if( (Integer.valueOf(pt.getMaxDurationCart()) != null) && (pt_bdd.getMaxDurationCart() != pt.getMaxDurationCart()) )	
+				{
+					pt_bdd.setMaxDurationCart(pt.getMaxDurationCart());
+					isModifed = true;
+				}
+				
+				if( (pt.getImage() != null) && (!pt_bdd.getImage().equals(pt.getImage())) )	
+				{
+					pt_bdd.setImage(pt.getImage());
+					isModifed = true;
+				}
+				
 			}
 		
 			
-			// Persiste le Commerce a ajouter dans la BDD
-			System.out.println("productTemplate: "+ pt_bdd.getExternalCode() +" name:"+ pt_bdd.getName() +" "+ (((pt.getId()==0)) ? "created" : "updated"));
-			dao.saveOrUpdate(pt_bdd, em, false);
-			
+			if(isModifed)
+			{
+				// Persiste le Commerce a ajouter dans la BDD
+				System.out.println("productTemplate: "+ pt_bdd.getExternalCode() +" name:"+ pt_bdd.getName() +" "+ (((pt.getId()==0)) ? "created" : "updated"));
+				dao.saveOrUpdate(pt_bdd, em, false);
+			}
 			
 		} catch (Exception e1) {
 			e1.printStackTrace();

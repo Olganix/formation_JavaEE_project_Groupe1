@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 // it's managed by admin, and have filled bu reading the Bdd.
 
 
-//todo : make it singleton , (but also have a unique table in bdd)
+// TODO : make it singleton , (but also have a unique table in bdd)
 
 @Entity
 @Component

@@ -1,16 +1,19 @@
 
+<section class="section-fiche-produit">
+  <div class="container">
+    <div class="row col-12">
 
 
 
+
+
+<form [formGroup]="form1" (submit)="onSubmit()" >
 
 <div class="super-bloc-fiche-produit" >
-  <form class="" [formGroup]="form1" (submit)="onSubmit()" >
+  <input formControlName="id" name="id" class="hidden" type="text">
 
-    <div class="bloc-titre col-12">
-
-
-      <label class="label-formulaire" for=""><i class="fas fa-asterisk" ></i>Nom du produit : <h4 class="titre-produit">- {{productTemplate.name}} -</h4></label>
-    <input formControlName="name" name="name" class="name" type="text" placeholder="Nom" required>
+  <div class="bloc-titre col-12">
+    <h4 class="titre-produit">- <i class="fas fa-asterisk" ></i><input formControlName="name" name="name" class="name" type="text" placeholder="Nom" required> - </h4>
     <span class="text-danger" *ngIf="controlName(); let message">{{message}}</span>
 
     <div class="cercle-bookmark">
@@ -22,7 +25,10 @@
     <div class="img-affichage col-6 no-gutters">
       <article>
         <figure class="work-img no-gutters">
-          <img class="img col-12" src="/assets/img/produit/{{productTemplate.image}}" alt="image du produit">
+          <i class="fas fa-asterisk" ></i>
+          <img class="img col-12" src="/assets/img/produit/{{form1.value.image}}" alt="image du produit">
+          <input formControlName="image" name="image" type="file" placeholder="Image du produit" required> <!-- Todo upload -->
+          <span class="text-danger" *ngIf="controlImage(); let message">{{message}}</span>
           <figcaption>
             <div class="fond-filtre" ></div>
             <div class="note">
@@ -40,23 +46,38 @@
         <div class="bloc-prix-affichage col-12">
           <div class="affichage col-6">
             <div class="prix-affichage">
-              <label class="label-formulaire"><i class="fas fa-asterisk"></i> Prix : </label>
-              <input formControlName="price" name="price" class="price" type="text" placeholder="Prix" required>
-              {{productTemplate.salePrice}} €
+              <i class="fas fa-asterisk" ></i>
+              <input formControlName="salePrice" name="salePrice" type="number" placeholder="Prix en promotion" required> €
+              <span class="text-danger" *ngIf="controlSalePrice(); let message">{{message}}</span>
             </div>
             <div class="bloc-prix-barre">
-              <div class="prix-barre-affichage">{{productTemplate.price}} €</div>
-              <div class="trait"></div>
+                <div class="prix-barre-affichage">
+                  <i class="fas fa-asterisk" ></i>
+                  <input formControlName="price" name="price" type="number" placeholder="Prix" required> €
+                  <span class="text-danger" *ngIf="controlPrice(); let message">{{message}}</span>
+                </div>
+              	<div class="trait"></div>
             </div>
           </div>
-          <div class="bloc-panier">
-            <a href=""><div id ="bouton-panier" class="bouton-panier"><i class="fas fa-shopping-bag"></i>AJOUTER AU PANIER</div></a>
-          </div>
+
+        </div>
+        <div class="Lieu-affichage col-8">
+          <label for="liste-mois" class="label-formulaire"> Votre produit est disponible ici :</label>
+          <select id="liste-mois" class="liste-mois col-12">
+            <option>Daily Juicery (lille)</option>  <!-- todo -->
+            <option>Daily Juicery (lille)</option>
+            <option>Daily Juicery (lille)</option>
+            <option>Daily Juicery (lille)</option>
+            <option>Daily Juicery (lille)</option>
+            <option>Daily Juicery (lille)</option>
+          </select>
         </div>
 
+        <!-- todo
         <div class="bloc-quantite-produit col-6" *ngIf="productTemplate.schedulerWeekForSaleAndUnsold && productTemplate.schedulerWeekForSaleAndUnsold.days && (productTemplate.schedulerWeekForSaleAndUnsold.days.length==2) && productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges && (productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges.length>=1) ">
           <p class="offre-disponible"><i class="fas fa-asterisk"></i> Offre disponible jusqu'à {{productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges[0].endTime}}.</p>
         </div>
+        -->
       </div>
     </div>
 
@@ -68,13 +89,44 @@
           <h4 class="titre-detail">// DETAILS DU PRODUIT</h4>
           <h5><i class="fas fa-caret-right"></i> Composition</h5>
           <hr>
-          <p class="composition-affichage">{{productTemplate.description}}</p>
+          <p class="composition-affichage">
+            <i class="fas fa-asterisk" ></i>
+            <textarea formControlName="description" name="description" type="text" placeholder="Description" required></textarea>
+            <span class="text-danger" *ngIf="controlDescription(); let message">{{message}}</span>
+          </p>
         </div>
         <div class="composition-produit">
           <h5><i class="fas fa-caret-right"></i> Emballage</h5>
           <hr>
-          <p class="composition-affichage"> {{productTemplate.isPackaged ? 'Avec emballage.': 'Sans emballage.'}}</p>
+          <p class="composition-affichage">
+            <input formControlName="isPackaged" name="isPackaged" type="checkbox"  >
+          </p>
         </div>
+        <div class="composition-produit col-12">
+          <h5><i class="fas fa-caret-right"></i> Code Produit </h5>
+          <hr>
+          <p class="composition-affichage">
+            <input formControlName="externalCode" name="externalCode" class="externalCode" type="text" placeholder="Code Produit" >
+          </p>
+        </div>
+        <div class="composition-produit">
+          <h5><i class="fas fa-caret-right"></i> Mise en Promotion et Invendu Automatique </h5>
+          <hr>
+          <p class="composition-affichage">
+            <input formControlName="timeControlStatus" name="timeControlStatus" type="checkbox" >
+          </p>
+        </div>
+
+        <div class="composition-produit">
+          <h5><i class="fas fa-caret-right"></i> Durée maximum maintien dans le panier </h5>
+          <hr>
+          <p class="composition-affichage">
+            <i class="fas fa-asterisk" ></i>
+            <input formControlName="maxDurationCart" name="maxDurationCart" type="number" placeholder="Durée maximum mainteint dans le panier" required>
+            <span class="text-danger" *ngIf="controlMaxDurationCart(); let message">{{message}}</span>
+          </p>
+        </div>
+
         <div class="composition-produit col-12">
           <h5><i class="fas fa-caret-right"></i> Régime Alimentaire compatible</h5>
           <hr>
@@ -86,10 +138,23 @@
           <p class="composition-affichage"> Gluten - Fruit à coque</p>
         </div>
       </div>
-      <button id ="bt_signin_submit" class="bouton-inscription" type="submit" [disabled]="form1.invalid" >Ajouter la fiche</button>
-      <p *ngIf="form1.invalid" class="avertissement-inscription">* Veuillez remplir tous les champs pour valider la fiche.</p>
+
+
+      <div class="bouton-panier" >
+        <button id ="bt_signin_submit" class="bouton-inscription" type="submit" [disabled]="form1.invalid" >Sauvegarder</button>
+        <p *ngIf="form1.invalid" class="avertissement-inscription">* Veuillez remplir tous les champs pour valider la fiche.</p>
+      </div>
     </div>
 
   </div>
-  </form >
+
 </div>
+
+</form >
+
+
+
+
+    </div>
+  </div>
+</section>
