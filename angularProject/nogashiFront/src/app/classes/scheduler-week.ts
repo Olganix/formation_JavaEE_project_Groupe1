@@ -47,6 +47,26 @@ export class SchedulerWeek {
     }
   }
 
+  copy(other: SchedulerWeek) {
+    this._name = other._name;
+    this._description = other._description;
+    this._type = other._type;
+
+    this._group = [];
+    for (const tmp of other._group) {
+      const sw = new SchedulerWeek();
+      sw.copy(tmp);
+      this._group.push(sw);
+    }
+
+    this._days = [];
+    for (const tmp of other._days) {
+      const sd = new SchedulerDay();
+      sd.copy(tmp);
+      this._days.push(sd);
+    }
+  }
+
 
 
   getSimplifiedRangeForTextDisplay_typed(type: SchedulerWeekType): any {

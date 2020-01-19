@@ -1,14 +1,13 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Commerce} from '../../../../classes/commerce';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MerchantService} from '../../../../services/merchant.service';
 import {InfoBoxNotificationsService} from '../../../../services/InfoBoxNotifications.services';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RestResponse} from '../../../../classes/rest-response';
-import {ProductTemplate} from '../../../../classes/product-template';
 import {UserService} from '../../../../services/user.service';
 import {Address} from '../../../../classes/address';
-import { SchedulerWeekType } from 'src/app/enum/scheduler-week-type.enum';
+import {SchedulerWeekType} from 'src/app/enum/scheduler-week-type.enum';
 import {SchedulerWeek} from '../../../../classes/scheduler-week';
 
 @Component({
@@ -38,6 +37,8 @@ export class AddCommerceComponent implements OnInit {
   address_latitude: FormControl;
 
   private schedulerWeek: SchedulerWeek;
+  private schedulerWeek_onError = false;
+
   pictureLogo: FormControl;
   private defaultLogo = 'NoLogo.jpg';
   pictureDescription: FormControl;
@@ -60,27 +61,31 @@ export class AddCommerceComponent implements OnInit {
       ) { }
 
   ngOnInit() {
-    const id = (this.route.snapshot.params.id !== '') ? Number(this.route.snapshot.params.id) : 0;
+    const id = ((this.route.snapshot.params.id !== undefined) && (this.route.snapshot.params.id !== '')) ? Number(this.route.snapshot.params.id) : 0;
 
     this.id = new FormControl(id, [ Validators.required ]);
     this.name = new FormControl(null, [ Validators.required ]);
     this.codeSiret = new FormControl(null, [ Validators.required ]);
-    this.uniqueIdName = new FormControl(null, [ Validators.required ]);
+    this.uniqueIdName = new FormControl(null, [ ]);
     this.description = new FormControl(null, [ Validators.required ]);
 
     this.address_id = new FormControl(null, []);
-    this.address_address = new FormControl(null, []);
+    this.address_address = new FormControl(null, [ Validators.required ]);
     this.address_addressExtra = new FormControl(null, []);
-    this.address_postalCode = new FormControl(null, []);
-    this.address_cityName = new FormControl(null, []);
-    this.address_stateName = new FormControl(null, []);
-    this.address_longitude = new FormControl(null, []);
-    this.address_latitude = new FormControl(null, []);
+    this.address_postalCode = new FormControl(null, [ Validators.required ]);
+    this.address_cityName = new FormControl(null, [ Validators.required ]);
+    this.address_stateName = new FormControl(null, [ Validators.required ]);
+    this.address_longitude = new FormControl(null, [ Validators.required ]);
+    this.address_latitude = new FormControl(null, [ Validators.required ]);
 
+    this.schedulerWeek_onError = false;
     this.schedulerWeek = new SchedulerWeek();
-    this.pictureLogo = new FormControl(null, [ Validators.required ]);
-    this.pictureDescription = new FormControl(null, [ Validators.required ]);
-    this.isOpened = new FormControl(false, [ Validators.required ]);
+    this.schedulerWeek.type = SchedulerWeekType.OPEN;
+    this.schedulerWeek.days = [];
+
+    this.pictureLogo = new FormControl(null, [ ]);
+    this.pictureDescription = new FormControl(null, [ ]);
+    this.isOpened = new FormControl(false, [ ]);
 
 
     this.form1 = this.fb.group({
@@ -142,14 +147,33 @@ export class AddCommerceComponent implements OnInit {
     this.address_longitude.setValue(c.address.longitude);
     this.address_latitude.setValue(c.address.latitude);
 
-    this.schedulerWeek = c.schedulerWeek;     // todo rendre required
+    this.schedulerWeek_onError = false;
+    this.schedulerWeek = new SchedulerWeek();     // Todo avec la reaffectation, le onChange fonctionn mais la connection inverse est rompu. comme si ... je ne sais pas voir avec scheduler-week-txt.component.
+    this.schedulerWeek.copy(c.schedulerWeek);
+
     this.defaultLogo = c.pictureLogo;
     this.defaultDescription = c.pictureDescription;
     this.isOpened.setValue(c.isOpened);
   }
 
-  onSubmit() {
+  onSubmit(e) {
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    this.schedulerWeek_onError = false;
+    if ((this.schedulerWeek.type !== SchedulerWeekType.OPEN) ||      // check if there is a minimum required.
+      (this.schedulerWeek.days.length === 0) ||
+      (this.schedulerWeek.days[0].hoursRanges.length === 0)
+    ) {
+      this.schedulerWeek_onError = true;
+      return false;
+    }
+
+
+
     if (this.form1.valid) {
+
 
       console.log('form:');
       console.log(this.form1.value);
@@ -169,7 +193,7 @@ export class AddCommerceComponent implements OnInit {
           if (rrp.status === 'SUCCESS') {
             this.infoBoxNotificationsService.addMessage('info', 'La sauvegarde de la fiche commerce a bien été effectuée.', 10);
 
-            const cRet = new Commerce(rrp);
+            const cRet = new Commerce(rrp.data);
             this.router.navigate(['/commerceSheet/' + cRet.id]);
 
           } else {
@@ -180,9 +204,9 @@ export class AddCommerceComponent implements OnInit {
           console.log('Error occured', error);
           this.infoBoxNotificationsService.addMessage('error', 'Echec de la sauvegarde de la fiche commerce : ' + error, 10);
         });
-
-      this.form1.reset();
     }
+
+    return false;
   }
 
 
@@ -272,8 +296,8 @@ export class AddCommerceComponent implements OnInit {
 
 
   public controlPictureLogo(): string {
-    if (this.name.touched) {
-      if (this.name.hasError('required')) {
+    if (this.pictureLogo.touched) {
+      if (this.pictureLogo.hasError('required')) {
         return `Le logo du commerce est obligatoire`;
       }
     }

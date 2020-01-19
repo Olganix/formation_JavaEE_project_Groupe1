@@ -38,8 +38,19 @@ export class SchedulerDay {
         }
       }
     }
-
   }
+
+  copy(other: SchedulerDay) {
+    this._day = other._day;
+
+    this._hoursRanges = [];
+    for (const tmp of other._hoursRanges) {
+      const shr = new SchedulerHoursRange();
+      shr.copy(tmp);
+      this._hoursRanges.push(shr);
+    }
+  }
+
 
   isSimilarDay(other: SchedulerDay): boolean {
 

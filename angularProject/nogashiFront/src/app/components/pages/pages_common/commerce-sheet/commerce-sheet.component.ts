@@ -18,7 +18,7 @@ export class CommerceSheetComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.params.id;
+    const id = ((this.route.snapshot.params.id !== undefined) && (this.route.snapshot.params.id !== '')) ? Number(this.route.snapshot.params.id) : 0;
 
     this.userService.getCommerceById(+id).subscribe(    // le + c'est pour caster un string en number
       (rrp: RestResponse) => {

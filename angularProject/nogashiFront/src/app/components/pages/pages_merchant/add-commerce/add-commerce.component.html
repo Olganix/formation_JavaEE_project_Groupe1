@@ -4,21 +4,21 @@
 
 <div class="row">
 
-  <form [formGroup]="form1" (submit)="onSubmit()" >
+  <form [formGroup]="form1" (submit)="onSubmit($event)" >
 
     <div class="bloc-ouverture-commerce col-12 no-gutters" id="il-faut-aller-ici-commerces">
       <input formControlName="id" name="id" class="hidden" type="text">
 
       <div>
         <img class="" src="/assets/img/commerce/{{((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : defaultLogo}}" alt="logo du commerce">
-        <input formControlName="pictureLogo" name="pictureLogo" type="file" placeholder="Logo du commerce" required> <!-- Todo upload -->
+        <input formControlName="pictureLogo" name="pictureLogo" type="file" placeholder="Logo du commerce" > <!-- Todo upload -->
         <span class="text-danger" *ngIf="controlPictureLogo(); let message">{{message}}</span>
       </div>
 
 
       <div class="img-vitrine col-6 no-gutters">
         <img class="img-vitrine" src="/assets/img/commerce/{{((this.form1.value.pictureDescription !== null) && (this.form1.value.pictureDescription.trim() !== '') ) ? this.form1.value.pictureDescription : defaultDescription}}" alt="image du commerce">
-        <input formControlName="pictureDescription" name="pictureDescription" type="file" placeholder="Image du commerce" required> <!-- Todo upload -->
+        <input formControlName="pictureDescription" name="pictureDescription" type="file" placeholder="Image du commerce" > <!-- Todo upload -->
         <span class="text-danger" *ngIf="controlPictureDescription(); let message">{{message}}</span>
       </div>
 
@@ -41,6 +41,9 @@
 
           <p class="rue-commerce"><i class="fas fa-asterisk" ></i><input formControlName="address_address" name="address_address" type="text" placeholder="Numéro et rue du commerce" required></p>
           <span class="text-danger" *ngIf="controlAddress_address(); let message">{{message}}</span>
+
+          <p class="rue-commerce"><input formControlName="address_addressExtra" name="address_addressExtra" type="text" placeholder="informations supplémentaires"></p>
+
 
           <p class="rue-commerce"><i class="fas fa-asterisk" ></i><input formControlName="address_postalCode" name="address_postalCode" type="text" placeholder="Code postal" required></p>
           <span class="text-danger" *ngIf="controlAddress_postalCode(); let message">{{message}}</span>
@@ -73,19 +76,7 @@
 
         <div class="bloc-information-horaire col-12">
           <app-scheduler-week-txt [scheduler]="schedulerWeek" [schedulerType]="SchedulerWeekType.OPEN" [editMode]="true" (schedulerChange)="this.schedulerWeek = $event" ></app-scheduler-week-txt>
-
-          <!-- Todo a virer.
-          <ul>
-            <li class="detail-ouverture">Horaires d'ouverture :</li>
-            <li class="detail-horaires">Lundi: <span class="details-fermer">fermer</span></li>
-            <li class="detail-horaires">Mardi: <span class="italic-horaire">7h-19h</span></li>
-            <li class="detail-horaires">Mercredi: <span class="italic-horaire"> 7h-19h</span></li>
-            <li class="detail-horaires">Jeudi:<span class="italic-horaire"> 7h-19h</span></li>
-            <li class="detail-horaires">Vendredi: <span class="italic-horaire">7h-19h</span> </li>
-            <li class="detail-horaires">Samedi: <span class="italic-horaire"> 9h-16h30</span></li>
-            <li class="detail-horaires">Dimanche: <span class="italic-horaire">9h-12h</span></li>
-          </ul>
-          -->
+          <span class="text-danger" *ngIf="schedulerWeek_onError">Des horaires d'ouverture du commerce est obligatoire</span>
 
           <div class="bouton-panier" >
             <button id ="bt_signin_submit" class="bouton-inscription" type="submit" [disabled]="form1.invalid" >Sauvegarder</button>

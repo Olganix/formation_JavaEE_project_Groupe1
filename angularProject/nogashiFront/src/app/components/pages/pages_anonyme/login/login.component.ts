@@ -42,7 +42,10 @@ export class LoginComponent implements OnInit {
 
 
 
-  onSubmit() {
+  onSubmit(e) {
+
+    e.preventDefault();
+    e.stopPropagation();
 
     console.log(this.form1.value);
 
@@ -85,6 +88,7 @@ export class LoginComponent implements OnInit {
           this.infoBoxNotificationsService.addMessage('error', 'Echec de la connexion : ' + error, 10);
         });
     }
+    return false;
   }
 
   sendEmailValidation() {

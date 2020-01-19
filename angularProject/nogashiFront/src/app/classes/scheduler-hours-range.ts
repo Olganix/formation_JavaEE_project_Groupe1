@@ -9,10 +9,20 @@ export class SchedulerHoursRange {
   // SchedulerDay parent;
 
 
+
+
+
+
   constructor(obj?: object) {
     if (obj !== null) {
       Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regler le soucis, avec un Pip dans le service.
     }
+  }
+
+
+  copy(other: SchedulerHoursRange) {
+    this._startTime = other._startTime;
+    this._endTime = other._endTime;
   }
 
 

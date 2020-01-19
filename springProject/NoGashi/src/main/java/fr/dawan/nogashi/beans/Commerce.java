@@ -31,7 +31,7 @@ public class Commerce extends DbObject {
 	private String uniqueIdName;					//to make difference between 2 subway in the same city (or the same street), you add a unique subName to make them different.
 	@Column(length = 1000)
 	private String description;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 	@OneToOne(fetch = FetchType.EAGER)
 	private SchedulerWeek schedulerWeek;						// horaires. Todo in futur : a week calendar also for not school period + a holiday calendar + by saison.

@@ -350,7 +350,7 @@ public class MerchantController
 	*
 	* Ajoute ou modifie un Commerce pour le Merchant (User connecte)
 	*/
-	@PostMapping(path="/commerce/addOrUdapte", consumes = "application/json", produces = "application/json")
+	@PostMapping(path="/commerce/addOrUpdate", consumes = "application/json", produces = "application/json")
 	public RestResponse<Commerce> addCommerce(@RequestBody Commerce c, HttpSession session, Locale locale, Model model)
     {
 		System.out.println("/merchant/commerce/addOrUpdate");
@@ -488,8 +488,6 @@ public class MerchantController
 				// Persiste le Commerce a ajouter dans la BDD
 				System.out.println("commerce : "+ c_bdd.getName() +" siret:"+ c_bdd.getCodeSiret() +" "+ (((c.getId()==0)) ? "created" : "updated"));
 				dao.saveOrUpdate(c_bdd, em, false);
-				
-				// TODO créer nouvelle adresse s'il y a lieu
 			}	
 			
 			

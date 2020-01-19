@@ -7,7 +7,7 @@
 
 
 
-<form [formGroup]="form1" (submit)="onSubmit()" >
+<form [formGroup]="form1" (submit)="onSubmit($event)" >
 
 <div class="super-bloc-fiche-produit" >
   <input formControlName="id" name="id" class="hidden" type="text">
@@ -26,7 +26,7 @@
       <article>
         <figure class="work-img no-gutters">
           <img class="img col-12" src="/assets/img/produit/{{((this.form1.value.image !== null) && (this.form1.value.image.trim() !== '') ) ? this.form1.value.image :  defaultImage}}" alt="image du produit">
-          <input class="input-chargement" formControlName="image" name="image" type="file" placeholder="Image du produit" required> <!-- Todo upload -->
+          <input class="input-chargement" formControlName="image" name="image" type="file" placeholder="Image du produit" > <!-- Todo upload -->
           <span class="text-danger" *ngIf="controlImage(); let message">{{message}}</span>
           <figcaption>
             <div class="fond-filtre" ></div>
@@ -117,6 +117,11 @@
           </p>
           <hr>
         </div>
+
+
+        <app-scheduler-week-txt [scheduler]="this.schedulerWeekForSaleAndUnsold.group[0]" [schedulerType]="SchedulerWeekType.PRODUCT_PROMOTION" [editMode]="true" (schedulerChange)="this.schedulerWeekForSaleAndUnsold.group[0] = $event" ></app-scheduler-week-txt>
+        <app-scheduler-week-txt [scheduler]="this.schedulerWeekForSaleAndUnsold.group[1]" [schedulerType]="SchedulerWeekType.PRODUCT_PROMOTION" [editMode]="true" (schedulerChange)="this.schedulerWeekForSaleAndUnsold.group[1] = $event" ></app-scheduler-week-txt>
+        <span class="text-danger" *ngIf="schedulerWeekForSaleAndUnsold_onError">Des horaires de mise en promotion et invendu du produit est obligatoire</span>
 
         <div class="composition-produit">
           <h5><i class="fas fa-caret-right"></i> Durée maximale dans le panier </h5>

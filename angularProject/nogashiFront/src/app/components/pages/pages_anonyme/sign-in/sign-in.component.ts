@@ -75,7 +75,10 @@ export class SignInComponent implements OnInit {
     }
 
 
-  onSubmit() {
+  onSubmit(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
         if (this.form1.valid) {
 
           console.log('form:');
@@ -106,6 +109,8 @@ export class SignInComponent implements OnInit {
 
           this.form1.reset();
         }
+
+        return false;
     }
 
 

@@ -50,14 +50,16 @@ export class PasswordRescueModificationComponent implements OnInit {
   }
 
 
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault();
+    e.stopPropagation();
 
     if (this.form1.valid) {
 
       if (this.token === null) {
         this.infoBoxNotificationsService.addMessage('error', 'Error : Donnée de la page invalide.', 10);
         this.form1.reset();
-        return;
+        return false;
       }
 
 
@@ -87,6 +89,7 @@ export class PasswordRescueModificationComponent implements OnInit {
 
       this.form1.reset();
     }
+    return false;
   }
 
 
