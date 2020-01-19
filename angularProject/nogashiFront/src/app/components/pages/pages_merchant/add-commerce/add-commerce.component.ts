@@ -55,8 +55,8 @@ export class AddCommerceComponent implements OnInit {
     this.description = new FormControl(null, [ Validators.required ]);
     this.address = new FormControl(null, []);
     // this.schedulerWeek = new FormControl(null, [ Validators.required ]);
-    this.pictureLogo = new FormControl('NoLogo.jpg', [ Validators.required ]);
-    this.pictureDescription = new FormControl('NoDescription.jpg', []);
+    this.pictureLogo = new FormControl(null, [ Validators.required ]);
+    this.pictureDescription = new FormControl(null, [ Validators.required ]);
     this.isOpened = new FormControl(false, [ Validators.required ]);
 
 
@@ -81,8 +81,10 @@ export class AddCommerceComponent implements OnInit {
       console.log('form:');
       console.log(this.form1.value);
 
+
+
       const c = new Commerce();
-      c.setAddCommerce(this.form1.value.id, this.form1.value.name, this.form1.value.codeSiret, this.form1.value.uniqueIdName, this.form1.value.description, this.form1.value.address, this.form1.value.pictureLogo, this.form1.value.pictureDescription, this.form1.value.isOpened);
+      c.setAddCommerce(this.form1.value.id, this.form1.value.name, this.form1.value.codeSiret, this.form1.value.uniqueIdName, this.form1.value.description, this.form1.value.address, ((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : 'NoLogo.jpg', ((this.form1.value.pictureDescription !== null) && (this.form1.value.pictureDescription.trim() !== '') ) ? this.form1.value.pictureDescription : 'NoDescription.jpg', this.form1.value.isOpened);
 
       this.merchantService.addOrUpdateCommerce( c ).subscribe(
         (rrp: RestResponse) => {
@@ -141,6 +143,24 @@ export class AddCommerceComponent implements OnInit {
     if (this.description.touched) {
       if (this.description.hasError('required')) {
         return `La description du commerce est obligatoire`;
+      }
+    }
+    return null;
+  }
+
+  public controlPictureLogo(): string {
+    if (this.name.touched) {
+      if (this.name.hasError('required')) {
+        return `Le logo du commerce est obligatoire`;
+      }
+    }
+    return null;
+  }
+
+  public controlPictureDescription(): string {
+    if (this.pictureDescription.touched) {
+      if (this.pictureDescription.hasError('required')) {
+        return `L'image de description du commerce est obligatoire`;
       }
     }
     return null;
