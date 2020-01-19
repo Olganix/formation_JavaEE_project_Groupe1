@@ -3,9 +3,11 @@ package fr.dawan.nogashi.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 // import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
@@ -48,7 +50,7 @@ public class ProductTemplate extends DbObject {
 	private boolean timeControlStatus;					// for automatic switch on hours.
 	
 	@XmlTransient
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private SchedulerWeek schedulerWeekForSaleAndUnsold;	// horaires pour definir les periodes / heures ou le produit pourra être vendu en promotion, et de meme pour le status invendu.  
 	
 	

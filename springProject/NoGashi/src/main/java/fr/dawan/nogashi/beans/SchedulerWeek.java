@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.stereotype.Component;
 
 import fr.dawan.nogashi.enums.SchedulerWeekType;
@@ -33,10 +35,10 @@ public class SchedulerWeek extends DbObject {
 	@Enumerated(EnumType.ORDINAL)
 	private SchedulerWeekType type = SchedulerWeekType.OPEN;	// with the type, you will could have many layout
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)  @LazyCollection(LazyCollectionOption.FALSE)
 	private List<SchedulerWeek> group = new ArrayList<SchedulerWeek>();				// the case with many layouts.
 	
-	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)  @LazyCollection(LazyCollectionOption.FALSE)					// @LazyCollection : remplacement du eager qui marche : https://stackoverflow.com/questions/4334970/hibernate-throws-multiplebagfetchexception-cannot-simultaneously-fetch-multipl
 	private List<SchedulerDay> days = new ArrayList<SchedulerDay>();
 	
 	
