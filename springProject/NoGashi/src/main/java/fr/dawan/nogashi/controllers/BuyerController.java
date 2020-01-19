@@ -165,7 +165,7 @@ public class BuyerController
 		List<ProductTemplate> listProductTemplates = new ArrayList<ProductTemplate>();
 		try 
 		{
-			listProductTemplates = dao.findAll(ProductTemplate.class, em);
+			listProductTemplates = dao.findAll(ProductTemplate.class, em, true);
 			for(ProductTemplate ptTmp : listProductTemplates)
 				System.out.println(ptTmp);
 			

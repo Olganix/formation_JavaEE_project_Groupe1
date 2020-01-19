@@ -160,10 +160,12 @@
       </div>
 
 
-      <app-product-template-common-view *ngFor="let pt of productTemplates" [productTemplate]="pt" ></app-product-template-common-view>
+      <div class="bloc-affichage col-10">
+
+        <app-product-template-common-view *ngFor="let pt of productTemplates" [productTemplate]="pt" ></app-product-template-common-view>
 
 
-      <div class="bloc-pagination col-12">
+        <div class="bloc-pagination col-12">
           <div class="pagination">
             <a href="">
               <i class="fas fa-angle-double-left"></i>
@@ -200,9 +202,9 @@
             </a>
           </div>
         </div>
-
       </div>
     </div>
+  </div>
 
 
 </section>

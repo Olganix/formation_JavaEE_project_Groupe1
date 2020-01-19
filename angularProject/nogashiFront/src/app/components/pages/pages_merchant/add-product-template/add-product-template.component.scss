@@ -24,9 +24,18 @@
   margin-top: 150px;
 }
 
+.titre-modifications-produit {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.6em;
+  font-weight: 600;
+  text-align: center;
+  color: var(--couleurNoir);
+  padding-top: 95px;
+}
+
 .bloc-titre {
   padding-top: 50px;
-  margin-left: 100px;
+  padding-left: 100px;
 }
 
 .label-produit {
@@ -81,7 +90,6 @@
   margin-bottom: 30px;
   display: flex;
 }
-
 
 .img-affichage {
   background-color: var(--couleurBlancCreme);
@@ -171,28 +179,18 @@ figure:hover figcaption {
   margin-right: 5%;
 }
 
-.bloc-prix-affichage {
-  display: flex;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  background-color: var(--couleurGrisClair);
-}
-
 .prix-affichage {
   min-width: 100px;
   font-family: 'roboto', sans-serif;
-  font-size: 1.4em;
+  font-size: 1em;
   font-weight: 600;
   color: var(--couleurGrisClair);
   background-color: var(--couleurVerte);
-  position: absolute;
   padding: 7px 14px;
 }
 
 .Lieu-affichage {
-  display: block;
   margin-left: 10px;
-
 }
 
 .label-formulaire {
@@ -219,6 +217,97 @@ figure:hover figcaption {
   display: block;
 }
 
+.textarea {
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  color: var(--couleurNoir);
+  border-radius: 5px;
+  outline: none;
+  height: 125px;
+  padding: 10px;
+}
+
+.input {
+  width: 300px;
+  height: 30px;
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  color: var(--couleurNoir);
+  border: 1.5px solid #000;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.input-duree {
+  width: 120px;
+  height: 30px;
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  color: var(--couleurNoir);
+  border: 1.5px solid #000;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.text-danger-duree {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--couleurRougeIncorrect);
+  margin-top: 8px;
+}
+
+.grand-bloc-input-3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.bloc-input3 {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.fa-asterisk {
+  margin-right: 10px;
+}
+
+.font-input3 {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--couleurRougeIncorrect);
+
+}
+
+.font-input3-bis {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--couleurVerte);
+}
+
+.text-danger-input3 {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--couleurRougeIncorrect);
+}
+
+.input3 {
+  width: 200px;
+  height: 30px;
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  color: var(--couleurNoir);
+  border: 1.5px solid #000;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
 select:focus {
   background-color: var(--couleurVerte);
   border: none;
@@ -229,9 +318,13 @@ input[type=text]:focus {
   border: none;
 }
 
+input[type=number]:focus {
+  background-color: var(--couleurBlancCreme);
+}
+
 input[type=password]:focus {
-  background-color: var(--couleurVerte);
-  border: none;
+   background-color: var(--couleurVerte);
+   border: none;
 }
 
 input[type=checkbox] {
@@ -289,7 +382,11 @@ input[type="checkbox"]:checked {
   padding-bottom: 10px;
 }
 
-.bouton-panier {
+.bloc-bouton {
+  display: block;
+}
+
+.bouton-sauvegarder {
   width: 185px;
   font-family: sans-serif;
   font-size: 0.75em;
@@ -302,17 +399,30 @@ input[type="checkbox"]:checked {
   border: 2px solid var(--couleurVerte);
   border-radius: 28px;
   padding: 14px 20px 14px 20px;
+  margin-top: 40px;
+  margin-left: 50%;
+  transform: translate(-50%);
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   cursor: pointer;
 }
 
-.bouton-panier:hover {
+.bouton-sauvegarder:hover {
   color: var(--couleurBlancCreme);
   background: var(--couleurNoir);
   border: 2px solid var(--couleurBlancCreme);
   border-radius: 28px;
   padding: 16px 20px 16px 20px;
+}
+
+.avertissement-inscription {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 400;
+  font-style: italic;
+  text-align: center;
+  margin-top: 7px;
+  margin-bottom: 70px;
 }
 
 .fa-shopping-bag {
@@ -423,7 +533,7 @@ input[type="checkbox"]:checked {
 
 .bloc-composition-produit {
   background-color: var(--couleurGrisClair);
-  margin-top: 150px;
+  margin-top: 130px;
   padding-bottom: 50px;
 }
 
@@ -465,17 +575,8 @@ h5 {
   margin-bottom: 12px;
   margin-right: 15%;
   margin-left: 5%;
+  display: block;
 }
 
-.input {
-  width: 300px;
-  height: 30px;
-  font-family: 'roboto', sans-serif;
-  font-size: 1em;
-  font-weight: 400;
-  color: var(--couleurNoir);
-  border: 1.5px solid #000;
-  border-radius: 5px;
-  padding-left: 10px;
-}
+
 
