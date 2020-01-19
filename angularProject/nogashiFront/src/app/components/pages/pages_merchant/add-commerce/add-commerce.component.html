@@ -7,6 +7,12 @@
   <form [formGroup]="form1" (submit)="onSubmit()" >
 
   <div class="bloc-ouverture-commerce col-12 no-gutters" id="il-faut-aller-ici-commerces">
+    <input formControlName="id" name="id" class="hidden" type="text">
+
+    <div>
+      <img class="" src="/assets/img/commerce/{{form1.value.pictureLogo}}" alt="logo du commerce">
+      <input formControlName="pictureLogo" name="pictureLogo" type="file" placeholder="Logo du commerce"> <!-- Todo upload -->
+    </div>
 
 
     <div class="img-vitrine col-6 no-gutters">
@@ -23,17 +29,26 @@
         <p><i class="fas fa-asterisk" ></i><input formControlName="codeSiret" name="codeSiret" type="text" placeholder="numéro Siret" required></p>
         <span class="text-danger" *ngIf="controlcodeSiret(); let message">{{message}}</span>
 
-        <p class="rue-commerce"><i class="fas fa-asterisk" ></i><input formControlName="Address" name="Address" type="text" placeholder="Adresse du commerce" required></p>
+        <p class="rue-commerce"><i class="fas fa-asterisk" ></i><input formControlName="address" name="address" type="text" placeholder="Adresse du commerce" required></p>
         <span class="text-danger" *ngIf="controlAddress(); let message">{{message}}</span>
+
+        <p class="composition-affichage">
+          <i class="fas fa-asterisk" ></i>
+          <textarea formControlName="description" name="description" type="text" placeholder="Description" required></textarea>
+          <span class="text-danger" *ngIf="controlDescription(); let message">{{message}}</span>
+        </p>
 
         <div class="bloc-ouverture ">
           <a href=""><div id ="bouton-ouverture" class="bouton-ouverture">{{ form1.value.isOpened ? 'OUVERT' : 'FERME' }}</div></a>
         </div>
       </div>
 
+
+
       <div class="bloc-information-horaire col-12">
-        <app-scheduler-week-txt [scheduler]="commerce.schedulerWeek" [schedulerType]="SchedulerWeekType.OPEN"></app-scheduler-week-txt>
         <!--
+        <app-scheduler-week-txt [scheduler]="commerce.schedulerWeek" [schedulerType]="SchedulerWeekType.OPEN"></app-scheduler-week-txt>
+
         <ul>
           <li class="detail-ouverture">Horaires d'ouverture :</li>
           <li class="detail-horaires">Lundi: <span class="details-fermer">fermer</span></li>
@@ -45,6 +60,12 @@
           <li class="detail-horaires">Dimanche: <span class="italic-horaire">9h-12h</span></li>
         </ul>
         -->
+
+        <div class="bouton-panier" >
+          <button id ="bt_signin_submit" class="bouton-inscription" type="submit" [disabled]="form1.invalid" >Sauvegarder</button>
+          <p *ngIf="form1.invalid" class="avertissement-inscription">* Veuillez remplir tous les champs marqués d'un * pour valider la fiche.</p>
+        </div>
+
 
       </div>
     </div>

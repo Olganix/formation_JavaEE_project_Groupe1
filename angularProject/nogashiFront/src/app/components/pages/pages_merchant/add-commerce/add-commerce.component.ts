@@ -136,4 +136,13 @@ export class AddCommerceComponent implements OnInit {
     }
     return null;
   }
+
+  public controlDescription(): string {
+    if (this.description.touched) {
+      if (this.description.hasError('required')) {
+        return `La description du commerce est obligatoire`;
+      }
+    }
+    return null;
+  }
 }
