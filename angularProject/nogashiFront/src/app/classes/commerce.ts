@@ -30,6 +30,19 @@ export class Commerce {
     if (obj !== null) {
       Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regler le soucis, avec un Pip dans le service.
     }
+
+
+    /* tslint:disable:no-string-literal */
+    if ( (obj !== undefined) && (obj !== null) ) {
+
+      if ((obj.hasOwnProperty('schedulerWeek')) && (obj['schedulerWeek'] !== null)) {
+        this._schedulerWeek = new SchedulerWeek(obj['schedulerWeek']);
+      }
+
+      if ((obj.hasOwnProperty('address')) && (obj['address'] !== null)) {
+        this._address = new Address(obj['address']);
+      }
+    }
   }
 
 

@@ -132,7 +132,8 @@ public class Main
 		lsw.add(swTmp);
 		*/
 		
-		SchedulerWeek swTmp = new SchedulerWeek();
+		
+		SchedulerWeek swTmp = new SchedulerWeek();			// template d'ouverture.
 		swTmp.setName("Horaire d'ouverture");
 		swTmp.setType(SchedulerWeekType.OPEN);
 		List<SchedulerDay> lsd = swTmp.getDays();
@@ -158,15 +159,15 @@ public class Main
 		}
 		
 		/* ---------- COMMERCES ---------- */
-		Commerce mBC_c1 = new Commerce("Basilic & Co", "362 521 879 00033", new Address("80 rue Nationale", "", "59800", "Lille", "France", 3.059697, 50.635931), "basilic.png", "basilic_desc.jpg", "24, c'est le nombre de restaurants que compte désormais le réseau Basilic & Co, depuis l'ouverture de son nouveau point de vente de Tours Nord. Depuis début Novembre 2019, Aurélien Harnay et Geoffrey Vilain vous accueillent au 42 rue Daniel Mayer, en plein coeur de Monconseil. Très impliqués localement, ils s'investissent pour faire de leur pizzeria de terroir l'un des lieux de vie incontournables du quartier. Leur ouverture s'est traduite par un succès retentissant, pour le plus grand bonheur des Tourangeaux !", swTmp, "Nationale"); mBC_c1.setMerchant(mBC);		
-		Commerce mDj_c1 = new Commerce("Daily-juicery", "362 521 879 00032", new Address("380 rue Léon Gambetta", "", "59000", "Lille", "France", 3.04787, 50.6267), "daily-juicery.png", "dailyjuicery_desc.png", "Buvez et mangez vos 5 fruits et légumes par jour grâce à nos jus DETOX pressés à froid & à nos préparations HEALTHY  100% à base de fruits et légumes frais et de saison, sans sucres ajoutés ni conservateurs !", swTmp, "Gambetta"); mDj_c1.setMerchant(mDj);
-		Commerce mBm_c1 = new Commerce("Boulangerie-Mathieu", "795 335 793 00027", new Address("82 rue du Molinel", "", "59000", "Lille", "France", 3.06686, 50.6341), "boulangerie-mathieu.jpeg", "mathieu_desc.jpg", "Un bon pain c’est tout d’abord un bon partenariat avec son meunier qui saura apporter des farines de qualité, mais c’est aussi le temps de travail avec de bons levains. Nous avons à cœur de créer et de réaliser des recettes respectueuses de l’environnement pour vous proposer une variété de pains bio, composés d’une multitude de céréales.", swTmp, "Molinel"); mBm_c1.setMerchant(mBm);
-		Commerce mP_c1 = new Commerce("Paul", "403 052 111 00420", new Address("19 place Charles de Gaulle", "", "59000", "Lille", "France", 3.0630005, 50.6367832), "paul.jpg", "paul_desc.jpg", "Après 125 ans d’existence, PAUL est l’ambassadeur de l’Art de vivre à la française. Les équipes de l’enseigne, présentent dans plus de 33 pays, partagent le goût du travail bien fait, la joie d’offrir chaque jour des produits de qualité et d’accueillir les clients dans un cadre enchanteur et unique.", swTmp, "Charles de Gaulle"); mP_c1.setMerchant(mP);
-		Commerce mBf_c1 = new Commerce("Big Fernand", "830 134 458 00017", new Address("107 Rue Esquermoise", "", "59000", "Lille", "France", 3.0586802, 50.6388127), "big-fernand.png", "fernand_desc.jpg", "\"Faudro qt'arrêtes eud' mier des burgers, mies des hamburgés, che ben meilleu\"<br/>L'équipe", swTmp, "Esquermoise"); mBf_c1.setMerchant(mBf);
-		Commerce mBf_c2 = new Commerce("Big Fernand", "830 134 458 00017", new Address("10 Rue Faidherbe", "", "59000", "Lille", "France", 3.0657011, 50.6369357), "big-fernand.png", "fernand_desc_2.jpg", "\"Faudro qt'arrêtes eud' mier des burgers, mies des hamburgés, che ben meilleu\"<br/>L'équipe", swTmp, "Faidherbe"); mBf_c2.setMerchant(mBf);
+		Commerce mBC_c1 = new Commerce("Basilic & Co", "362 521 879 00033", new Address("80 rue Nationale", "", "59800", "Lille", "France", 3.059697, 50.635931), "basilic.png", "basilic_desc.jpg", "24, c'est le nombre de restaurants que compte désormais le réseau Basilic & Co, depuis l'ouverture de son nouveau point de vente de Tours Nord. Depuis début Novembre 2019, Aurélien Harnay et Geoffrey Vilain vous accueillent au 42 rue Daniel Mayer, en plein coeur de Monconseil. Très impliqués localement, ils s'investissent pour faire de leur pizzeria de terroir l'un des lieux de vie incontournables du quartier. Leur ouverture s'est traduite par un succès retentissant, pour le plus grand bonheur des Tourangeaux !", new SchedulerWeek(swTmp), "Nationale"); mBC_c1.setMerchant(mBC);		
+		Commerce mDj_c1 = new Commerce("Daily-juicery", "362 521 879 00032", new Address("380 rue Léon Gambetta", "", "59000", "Lille", "France", 3.04787, 50.6267), "daily-juicery.png", "dailyjuicery_desc.png", "Buvez et mangez vos 5 fruits et légumes par jour grâce à nos jus DETOX pressés à froid & à nos préparations HEALTHY  100% à base de fruits et légumes frais et de saison, sans sucres ajoutés ni conservateurs !", new SchedulerWeek(swTmp), "Gambetta"); mDj_c1.setMerchant(mDj);
+		Commerce mBm_c1 = new Commerce("Boulangerie-Mathieu", "795 335 793 00027", new Address("82 rue du Molinel", "", "59000", "Lille", "France", 3.06686, 50.6341), "boulangerie-mathieu.jpeg", "mathieu_desc.jpg", "Un bon pain c’est tout d’abord un bon partenariat avec son meunier qui saura apporter des farines de qualité, mais c’est aussi le temps de travail avec de bons levains. Nous avons à cœur de créer et de réaliser des recettes respectueuses de l’environnement pour vous proposer une variété de pains bio, composés d’une multitude de céréales.", new SchedulerWeek(swTmp), "Molinel"); mBm_c1.setMerchant(mBm);
+		Commerce mP_c1 = new Commerce("Paul", "403 052 111 00420", new Address("19 place Charles de Gaulle", "", "59000", "Lille", "France", 3.0630005, 50.6367832), "paul.jpg", "paul_desc.jpg", "Après 125 ans d’existence, PAUL est l’ambassadeur de l’Art de vivre à la française. Les équipes de l’enseigne, présentent dans plus de 33 pays, partagent le goût du travail bien fait, la joie d’offrir chaque jour des produits de qualité et d’accueillir les clients dans un cadre enchanteur et unique.", new SchedulerWeek(swTmp), "Charles de Gaulle"); mP_c1.setMerchant(mP);
+		Commerce mBf_c1 = new Commerce("Big Fernand", "830 134 458 00017", new Address("107 Rue Esquermoise", "", "59000", "Lille", "France", 3.0586802, 50.6388127), "big-fernand.png", "fernand_desc.jpg", "\"Faudro qt'arrêtes eud' mier des burgers, mies des hamburgés, che ben meilleu\"<br/>L'équipe", new SchedulerWeek(swTmp), "Esquermoise"); mBf_c1.setMerchant(mBf);
+		Commerce mBf_c2 = new Commerce("Big Fernand", "830 134 458 00017", new Address("10 Rue Faidherbe", "", "59000", "Lille", "France", 3.0657011, 50.6369357), "big-fernand.png", "fernand_desc_2.jpg", "\"Faudro qt'arrêtes eud' mier des burgers, mies des hamburgés, che ben meilleu\"<br/>L'équipe", new SchedulerWeek(swTmp), "Faidherbe"); mBf_c2.setMerchant(mBf);
 		
 		/* ---------- COMMERCE CATEGORIES  ---------- */
-		// TODO compléter même si je suis en train de pleurer sur ce truc
+		// TODO compléter même si je suis en train de pleurer sur ce truc => OV: c'est ultra facile, et on est toujours la pour aider. ne te plaint pas stp. 
 		/* EnumManager enuma = new EnumManager();
 		enuma.addCommerceCategory(new CommerceCategory("Pizzeria"));
 		enuma.addCommerceCategory(new CommerceCategory("Boulangerie"));
@@ -221,14 +222,6 @@ public class Main
 			et.begin();
 			
 			em.persist(a);
-			
-			for(SchedulerDay sdTmp : swTmp.getDays())
-			{
-				for(SchedulerHoursRange shrTmp : sdTmp.getHoursRanges())
-					em.persist(shrTmp);
-				em.persist(sdTmp);
-			}
-			em.persist(swTmp);
 				
 			for(Individual i : li)
 			{
@@ -252,6 +245,29 @@ public class Main
 			{
 				for(Commerce cTmp : mTmp.getCommerces())		//because the list is mapped that way : '@OneToMany(mappedBy = "merchant")', you don't have automatic persistence. so you have to it manually. If it's mapped on other class, it should be good , but problematic on loading merchant without loading all the bdd.
 				{
+					SchedulerWeek swt = cTmp.getSchedulerWeek(); 
+					if(swt!=null)
+					{
+						for(SchedulerWeek swt2 : swt.getGroup())
+						{
+							for(SchedulerDay sdTmp : swt2.getDays())
+							{
+								for(SchedulerHoursRange shrTmp : sdTmp.getHoursRanges())
+									em.persist(shrTmp);
+								em.persist(sdTmp);
+							}
+							em.persist(swt2);
+						}
+						
+						for(SchedulerDay sdTmp : swt.getDays())
+						{
+							for(SchedulerHoursRange shrTmp : sdTmp.getHoursRanges())
+								em.persist(shrTmp);
+							em.persist(sdTmp);
+						}
+						em.persist(swt);
+					}
+					
 					if(cTmp.getAddress()!=null)
 						em.persist(cTmp.getAddress());				//because of the OneToONe, witch make the follow error if there isn't Adress saved : "Caused by: org.hibernate.TransientPropertyValueException: object references an unsaved transient instance - save the transient instance before flushing : fr.dawan.nogashi.beans.Individual.address -> fr.dawan.nogashi.beans.Address"
 					

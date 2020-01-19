@@ -3,6 +3,7 @@ import {SchedulerWeekType} from '../enum/scheduler-week-type.enum';
 import {SchedulerHoursRange} from './scheduler-hours-range';
 import {DayOfWeek, DayOfWeek_toDisplayString} from '../enum/day-of-week.enum';
 import {Utils} from './utils';
+import {UserRole} from '../enum/user-role.enum';
 
 
 export class SchedulerWeek {
@@ -16,6 +17,33 @@ export class SchedulerWeek {
   constructor(obj?: object) {
     if (obj !== null) {
       Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regler le soucis, avec un Pip dans le service.
+    }
+
+    /* tslint:disable:no-string-literal */
+    if ( (obj !== undefined) && (obj !== null) ) {
+
+      if ( (obj.hasOwnProperty('type')) && (obj['type'] !== null)) {
+        switch (obj['type']) {
+          case 'GROUP': this._type = SchedulerWeekType.GROUP; break;
+          case 'OPEN': this._type = SchedulerWeekType.OPEN; break;
+          case 'PRODUCT_PROMOTION': this._type = SchedulerWeekType.PRODUCT_PROMOTION; break;
+          case 'PRODUCT_UNSOLD': this._type = SchedulerWeekType.PRODUCT_UNSOLD; break;
+        }
+      }
+
+      this._group = [];
+      if ((obj.hasOwnProperty('group')) && (obj['group'] !== null)) {
+        for (const tmp of obj['group']) {
+          this._group.push(new SchedulerWeek(tmp));
+        }
+      }
+
+      this._days = [];
+      if ((obj.hasOwnProperty('days')) && (obj['days'] !== null)) {
+        for (const tmp of obj['days']) {
+          this._days.push(new SchedulerDay(tmp));
+        }
+      }
     }
   }
 
