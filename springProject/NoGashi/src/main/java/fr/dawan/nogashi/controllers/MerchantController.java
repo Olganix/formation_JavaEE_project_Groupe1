@@ -325,8 +325,11 @@ public class MerchantController
 				System.out.println(cTmp);
 				
 				SchedulerWeek sw = cTmp.getSchedulerWeek();
-				for(SchedulerWeek swTmp : sw.getGroup())				//Todo faire mieux pour charger les group, et eviter la merde au niveau de Jsckon
-					System.out.println(swTmp);
+				if(sw!=null)
+				{
+					for(SchedulerWeek swTmp : sw.getGroup())				//Todo faire mieux pour charger les group, et eviter la merde au niveau de Jsckon
+						System.out.println(swTmp);
+				}
 			}
 			
 		} catch (Exception e) {

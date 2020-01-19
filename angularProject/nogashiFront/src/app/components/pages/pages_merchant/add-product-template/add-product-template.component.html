@@ -24,7 +24,7 @@
     <div class="img-affichage col-6 no-gutters">
       <article>
         <figure class="work-img no-gutters">
-          <img class="img col-12" src="/assets/img/produit/{{form1.value.image}}" alt="image du produit">
+          <img class="img col-12" src="/assets/img/produit/{{((this.form1.value.image !== null) && (this.form1.value.image.trim() !== '') ) ? this.form1.value.image :  defaultImage}}" alt="image du produit">
           <input class="input-chargement" formControlName="image" name="image" type="file" placeholder="Image du produit" required> <!-- Todo upload -->
           <span class="text-danger" *ngIf="controlImage(); let message">{{message}}</span>
           <figcaption>

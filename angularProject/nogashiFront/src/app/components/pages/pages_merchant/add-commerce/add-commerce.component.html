@@ -10,14 +10,14 @@
     <input formControlName="id" name="id" class="hidden" type="text">
 
     <div>
-      <img class="" src="/assets/img/commerce/{{((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : 'NoLogo.jpg'}}" alt="logo du commerce">
+      <img class="" src="/assets/img/commerce/{{((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : defaultLogo}}" alt="logo du commerce">
       <input formControlName="pictureLogo" name="pictureLogo" type="file" placeholder="Logo du commerce" required> <!-- Todo upload -->
       <span class="text-danger" *ngIf="controlPictureLogo(); let message">{{message}}</span>
     </div>
 
 
     <div class="img-vitrine col-6 no-gutters">
-      <img class="img-vitrine" src="/assets/img/commerce/{{((this.form1.value.pictureDescription !== null) && (this.form1.value.pictureDescription.trim() !== '') ) ? this.form1.value.pictureDescription : 'NoDescription.jpg'}}" alt="image du commerce">
+      <img class="img-vitrine" src="/assets/img/commerce/{{((this.form1.value.pictureDescription !== null) && (this.form1.value.pictureDescription.trim() !== '') ) ? this.form1.value.pictureDescription : defaultDescription}}" alt="image du commerce">
       <input formControlName="pictureDescription" name="pictureDescription" type="file" placeholder="Image du commerce" required> <!-- Todo upload -->
       <span class="text-danger" *ngIf="controlPictureDescription(); let message">{{message}}</span>
     </div>
