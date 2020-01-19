@@ -20,6 +20,26 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
 
 
+    this.buyerService.getProductTemplates().subscribe(
+      (rrp: RestResponse) => {
+
+        if (rrp.status === 'SUCCESS') {
+
+          this.productTemplates = [];
+          for (const pt of rrp.data) {
+            this.productTemplates.push( new ProductTemplate(pt) );
+          }
+
+          this.productTemplates = rrp.data;
+        } else {
+          console.log('Echec de la recuperation de la liste des productTemplates : ' + rrp.errormessage);
+        }
+      },
+      error => {
+        console.log('Echec de la recuperation de la liste des productTemplates : ', error);
+      });
+
+
     this.buyerService.getProductsByName(name).subscribe(
       (rrp: RestResponse) => {
 

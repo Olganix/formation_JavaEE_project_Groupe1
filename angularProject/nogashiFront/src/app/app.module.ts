@@ -130,6 +130,8 @@ const appRoutes: Routes =
   { path: 'myComments', component: CompteCommentairesComponent },
   { path: 'myPreferences', component: ComptePreferencesComponent },
 
+  { path: 'common/productTemplates',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
+
   { path: 'individual/welcome',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
 
 
