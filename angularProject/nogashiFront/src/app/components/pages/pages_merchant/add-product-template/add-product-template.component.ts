@@ -8,6 +8,7 @@ import {User} from '../../../../classes/user';
 import {RestResponse} from '../../../../classes/rest-response';
 import {CustomValidators} from '../../../../validators/custom-validators';
 import {MerchantService} from '../../../../services/merchant.service';
+import {UserService} from '../../../../services/user.service';
 
 @Component({
   selector: 'app-add-product-template',
@@ -31,11 +32,13 @@ export class AddProductTemplateComponent implements OnInit {
   // schedulerWeekForSaleAndUnsold: FormControl;   // Todo
   maxDurationCart: FormControl;
   image: FormControl;
+  private defaultImage = 'NoProduct.jpg';
   // _productDetails  // Todo
   // List<Commerce> commerces // todo
 
 
   constructor(private merchantService: MerchantService,
+              private userService: UserService,
               private infoBoxNotificationsService: InfoBoxNotificationsService,
               private router: Router,
               private route: ActivatedRoute,
@@ -44,10 +47,8 @@ export class AddProductTemplateComponent implements OnInit {
 
   ngOnInit() {
 
-    // Todo aller recuperer les info pour l'update.
-
-
     const id = (this.route.snapshot.params.id !== '') ? Number(this.route.snapshot.params.id) : 0;
+
 
     this.id = new FormControl(id, [ Validators.required ]);
     this.name = new FormControl(null, [ Validators.required ]);
@@ -58,7 +59,7 @@ export class AddProductTemplateComponent implements OnInit {
     this.salePrice = new FormControl(null, [ Validators.required ]);
     this.timeControlStatus = new FormControl(true, []);
     this.maxDurationCart = new FormControl(20, [ Validators.required ]);
-    this.image = new FormControl('NoProduct.jpg', [ Validators.required ]);
+    this.image = new FormControl(null, [ Validators.required ]);
 
 
     this.form1 = this.fb.group({
@@ -74,6 +75,40 @@ export class AddProductTemplateComponent implements OnInit {
       image: this.image
     });
 
+
+    // recuperation les info pour l'update.
+    if (id !== 0) {
+      if ((this.merchantService.lastProductTemplate) && (this.merchantService.lastProductTemplate.id === id)) {               // on a gardé le dernier pour eviter les problemes dans les changement de page.
+        this.__setFormData(this.merchantService.lastProductTemplate);
+      } else {
+
+        this.userService.getProductTemplateById(id).subscribe(    // le + c'est pour caster un string en number
+          (rrp: RestResponse) => {
+
+            if (rrp.status === 'SUCCESS') {
+              this.__setFormData(new ProductTemplate(rrp.data));
+            } else {
+              console.log('Echec de la recuperation de la liste des fiches produits : ' + rrp.errormessage);
+            }
+          },
+          error => {
+            console.log('Echec de la recuperation de la liste des fiches produits : ', error);
+          });
+      }
+    }
+  }
+
+  private __setFormData(pt: ProductTemplate) {
+
+    this.name.setValue(pt.name);
+    this.description.setValue(pt.description);
+    this.externalCode.setValue(pt.externalCode);
+    this.isPackaged.setValue(pt.isPackaged);
+    this.price.setValue(pt.price);
+    this.salePrice.setValue(pt.salePrice);
+    this.timeControlStatus.setValue(pt.timeControlStatus);
+    this.maxDurationCart.setValue(pt.maxDurationCart);
+    this.defaultImage = pt.image;
   }
 
 
@@ -84,7 +119,7 @@ export class AddProductTemplateComponent implements OnInit {
       console.log(this.form1.value);
 
       const pt = new ProductTemplate();
-      pt.setFromAddForm(this.form1.value.id, this.form1.value.name, this.form1.value.description, this.form1.value.externalCode, this.form1.value.isPackaged, this.form1.value.price, this.form1.value.salePrice, this.form1.value.timeControlStatus, this.form1.value.maxDurationCart, this.form1.value.image);
+      pt.setFromAddForm(this.form1.value.id, this.form1.value.name, this.form1.value.description, this.form1.value.externalCode, this.form1.value.isPackaged, this.form1.value.price, this.form1.value.salePrice, this.form1.value.timeControlStatus, this.form1.value.maxDurationCart,  ((this.form1.value.image !== null) && (this.form1.value.image.trim() !== '') ) ? this.form1.value.image : this.defaultImage);
 
       this.merchantService.addOrUpdateProductTemplate( pt ).subscribe(
         (rrp: RestResponse) => {
@@ -106,8 +141,6 @@ export class AddProductTemplateComponent implements OnInit {
           console.log('Error occured', error);
           this.infoBoxNotificationsService.addMessage('error', 'Echec de la sauvegarde de la fiche produit : ' + error, 10);
         });
-
-      this.form1.reset();
     }
   }
 

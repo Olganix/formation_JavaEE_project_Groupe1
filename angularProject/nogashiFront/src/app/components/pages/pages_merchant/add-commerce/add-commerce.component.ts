@@ -5,6 +5,8 @@ import {MerchantService} from '../../../../services/merchant.service';
 import {InfoBoxNotificationsService} from '../../../../services/InfoBoxNotifications.services';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RestResponse} from '../../../../classes/rest-response';
+import {ProductTemplate} from '../../../../classes/product-template';
+import {UserService} from '../../../../services/user.service';
 
 @Component({
   selector: 'app-add-commerce',
@@ -25,8 +27,12 @@ export class AddCommerceComponent implements OnInit {
   address: FormControl; // TODO
   // schedulerWeek: FormControl; // TODO
   pictureLogo: FormControl;
+  private defaultLogo = 'NoLogo.jpg';
   pictureDescription: FormControl;
+  private defaultDescription = 'NoDescription.jpg';
   isOpened: FormControl;
+
+
   /*
     commerceCategories: FormControl; // TODO
     productTemplates: FormControl; // TODO
@@ -35,6 +41,7 @@ export class AddCommerceComponent implements OnInit {
    */
 
   constructor(private merchantService: MerchantService,
+              private userService: UserService,
               private infoBoxNotificationsService: InfoBoxNotificationsService,
               private router: Router,
               private route: ActivatedRoute,
@@ -42,10 +49,6 @@ export class AddCommerceComponent implements OnInit {
       ) { }
 
   ngOnInit() {
-
-    // Todo aller recuperer les info pour l'update.
-
-
     const id = (this.route.snapshot.params.id !== '') ? Number(this.route.snapshot.params.id) : 0;
 
     this.id = new FormControl(id, [ Validators.required ]);
@@ -73,6 +76,41 @@ export class AddCommerceComponent implements OnInit {
       isOpened: this.isOpened
     });
 
+    // recuperation les info pour l'update.
+    if (id !== 0) {
+      if ((this.merchantService.lastCommerce) && (this.merchantService.lastCommerce.id === id)) {               // on a gardé le dernier pour eviter les problemes dans les changement de page.
+        this.__setFormData(this.merchantService.lastCommerce);
+      } else {
+
+        this.userService.getCommerceById(id).subscribe(    // le + c'est pour caster un string en number
+          (rrp: RestResponse) => {
+
+            if (rrp.status === 'SUCCESS') {
+              this.__setFormData(new Commerce(rrp.data));
+            } else {
+              console.log('Echec de la recuperation de la liste des fiches produits : ' + rrp.errormessage);
+            }
+          },
+          error => {
+            console.log('Echec de la recuperation de la liste des fiches produits : ', error);
+          });
+      }
+    }
+  }
+
+
+  private __setFormData(c: Commerce) {
+
+    this.name.setValue(c.name);
+    this.codeSiret.setValue(c.codeSiret);
+    this.uniqueIdName.setValue(c.uniqueIdName);
+    this.description.setValue(c.description);
+
+    // this.address.setValue(c.address); // TODO
+
+    this.defaultLogo = c.pictureLogo;
+    this.defaultDescription = c.pictureDescription;
+    this.isOpened.setValue(c.isOpened);
   }
 
   onSubmit() {
@@ -84,7 +122,7 @@ export class AddCommerceComponent implements OnInit {
 
 
       const c = new Commerce();
-      c.setAddCommerce(this.form1.value.id, this.form1.value.name, this.form1.value.codeSiret, this.form1.value.uniqueIdName, this.form1.value.description, this.form1.value.address, ((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : 'NoLogo.jpg', ((this.form1.value.pictureDescription !== null) && (this.form1.value.pictureDescription.trim() !== '') ) ? this.form1.value.pictureDescription : 'NoDescription.jpg', this.form1.value.isOpened);
+      c.setAddCommerce(this.form1.value.id, this.form1.value.name, this.form1.value.codeSiret, this.form1.value.uniqueIdName, this.form1.value.description, this.form1.value.address, ((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : this.defaultLogo, ((this.form1.value.pictureDescription !== null) && (this.form1.value.pictureDescription.trim() !== '') ) ? this.form1.value.pictureDescription : this.defaultDescription, this.form1.value.isOpened);
 
       this.merchantService.addOrUpdateCommerce( c ).subscribe(
         (rrp: RestResponse) => {
