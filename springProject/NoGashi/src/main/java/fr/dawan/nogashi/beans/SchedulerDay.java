@@ -11,8 +11,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Component
@@ -23,11 +26,11 @@ public class SchedulerDay extends DbObject {
 	@Enumerated(EnumType.ORDINAL)
 	private DayOfWeek day = DayOfWeek.MONDAY;
 	
-	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<SchedulerHoursRange> hoursRanges = new ArrayList<SchedulerHoursRange>();
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne @XmlTransient @JsonIgnore
 	private SchedulerWeek parent;
 	
 	
@@ -38,6 +41,16 @@ public class SchedulerDay extends DbObject {
 			this.hoursRanges.add(hr);
 			hr.setParent(this);
 		}
+	}
+	
+	
+	public SchedulerDay(SchedulerDay other, SchedulerWeek parent) {				//constructeur de copie
+		super();
+		this.day = other.day;
+		this.parent = parent;
+		
+		for(SchedulerHoursRange hr : other.hoursRanges)
+			this.hoursRanges.add( new SchedulerHoursRange(hr, this));
 	}
 	
 	

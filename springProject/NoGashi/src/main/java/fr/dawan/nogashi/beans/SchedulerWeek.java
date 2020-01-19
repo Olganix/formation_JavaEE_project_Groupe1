@@ -36,7 +36,7 @@ public class SchedulerWeek extends DbObject {
 	@OneToMany
 	private List<SchedulerWeek> group = new ArrayList<SchedulerWeek>();				// the case with many layouts.
 	
-	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<SchedulerDay> days = new ArrayList<SchedulerDay>();
 	
 	
@@ -55,6 +55,19 @@ public class SchedulerWeek extends DbObject {
 	}
 
 
+	public SchedulerWeek(SchedulerWeek other) {					//constructeur de copie
+		super();
+		this.name = other.name;
+		this.description = other.description;
+		this.type = other.type;
+		
+		for(SchedulerWeek sw : other.group)
+			this.group.add( new SchedulerWeek(sw));
+		
+		for(SchedulerDay d : other.days)
+			this.days.add( new SchedulerDay(d, this));
+	}
+	
 	
 	
 	//---------------------------------
@@ -78,7 +91,7 @@ public class SchedulerWeek extends DbObject {
 	public SchedulerWeek() {
 		super();
 	}
-
+	
 
 
 
