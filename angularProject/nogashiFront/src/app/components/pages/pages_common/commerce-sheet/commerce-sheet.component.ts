@@ -24,7 +24,7 @@ export class CommerceSheetComponent implements OnInit {
       (rrp: RestResponse) => {
 
         if (rrp.status === 'SUCCESS') {
-          this.commerce = rrp.data;
+          this.commerce = new Commerce(rrp.data);
         } else {
           console.log('Echec de la recuperation de la liste des fiches commerces : ' + rrp.errormessage);
         }

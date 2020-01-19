@@ -8,6 +8,8 @@ import {RestResponse} from '../../../../classes/rest-response';
 import {ProductTemplate} from '../../../../classes/product-template';
 import {UserService} from '../../../../services/user.service';
 import {Address} from '../../../../classes/address';
+import { SchedulerWeekType } from 'src/app/enum/scheduler-week-type.enum';
+import {SchedulerWeek} from '../../../../classes/scheduler-week';
 
 @Component({
   selector: 'app-add-commerce',
@@ -16,7 +18,7 @@ import {Address} from '../../../../classes/address';
 })
 export class AddCommerceComponent implements OnInit {
 
-  @Output() commerce: Commerce;
+  SchedulerWeekType = SchedulerWeekType;
 
   form1: FormGroup;
 
@@ -35,13 +37,12 @@ export class AddCommerceComponent implements OnInit {
   address_longitude: FormControl;
   address_latitude: FormControl;
 
-  // schedulerWeek: FormControl; // TODO
+  private schedulerWeek: SchedulerWeek;
   pictureLogo: FormControl;
   private defaultLogo = 'NoLogo.jpg';
   pictureDescription: FormControl;
   private defaultDescription = 'NoDescription.jpg';
   isOpened: FormControl;
-
 
   /*
     commerceCategories: FormControl; // TODO
@@ -61,8 +62,6 @@ export class AddCommerceComponent implements OnInit {
   ngOnInit() {
     const id = (this.route.snapshot.params.id !== '') ? Number(this.route.snapshot.params.id) : 0;
 
-    const address_id = (this.route.snapshot.params.address_id !== '') ? Number(this.route.snapshot.params.address_id) : 0;
-
     this.id = new FormControl(id, [ Validators.required ]);
     this.name = new FormControl(null, [ Validators.required ]);
     this.codeSiret = new FormControl(null, [ Validators.required ]);
@@ -78,7 +77,7 @@ export class AddCommerceComponent implements OnInit {
     this.address_longitude = new FormControl(null, []);
     this.address_latitude = new FormControl(null, []);
 
-    // this.schedulerWeek = new FormControl(null, [ Validators.required ]);
+    this.schedulerWeek = new SchedulerWeek();
     this.pictureLogo = new FormControl(null, [ Validators.required ]);
     this.pictureDescription = new FormControl(null, [ Validators.required ]);
     this.isOpened = new FormControl(false, [ Validators.required ]);
@@ -100,7 +99,6 @@ export class AddCommerceComponent implements OnInit {
       address_longitude: this.address_longitude,
       address_latitude: this.address_latitude,
 
-      // schedulerWeek: this.schedulerWeek,
       pictureLogo: this.pictureLogo,
       pictureDescription: this.pictureDescription,
       isOpened: this.isOpened
@@ -144,6 +142,7 @@ export class AddCommerceComponent implements OnInit {
     this.address_longitude.setValue(c.address.longitude);
     this.address_latitude.setValue(c.address.latitude);
 
+    this.schedulerWeek = c.schedulerWeek;     // todo rendre required
     this.defaultLogo = c.pictureLogo;
     this.defaultDescription = c.pictureDescription;
     this.isOpened.setValue(c.isOpened);
@@ -155,12 +154,11 @@ export class AddCommerceComponent implements OnInit {
       console.log('form:');
       console.log(this.form1.value);
 
-
-
       const c = new Commerce();
       const a = new Address();
       a.setAddress(this.form1.value.address_id, this.form1.value.address_address, this.form1.value.address_addressExtra, this.form1.value.address_postalCode, this.form1.value.address_cityName, this.form1.value.address_stateName, this.form1.value.address_longitude, this.form1.value.address_latitude);
       c.setAddCommerce(this.form1.value.id, this.form1.value.name, this.form1.value.codeSiret, this.form1.value.uniqueIdName, this.form1.value.description, a, ((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : this.defaultLogo, ((this.form1.value.pictureDescription !== null) && (this.form1.value.pictureDescription.trim() !== '') ) ? this.form1.value.pictureDescription : this.defaultDescription, this.form1.value.isOpened);
+      c.schedulerWeek = this.schedulerWeek;
 
       this.merchantService.addOrUpdateCommerce( c ).subscribe(
         (rrp: RestResponse) => {

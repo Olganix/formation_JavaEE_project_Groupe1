@@ -26,8 +26,8 @@ export class InfoBoxNotificationsService
     }
 
     removeMessage(id: number) {
-        for(let i = 0, nb = this.messages.length; i < nb; i++) {
-            if(this.messages[i].id === id) {
+        for (let i = 0, nb = this.messages.length; i < nb; i++) {
+            if (this.messages[i].id === id) {
                 if (this.messages[i].handler != null) {
                     clearTimeout(this.messages[i].handler);
                 }
@@ -39,6 +39,12 @@ export class InfoBoxNotificationsService
             }
         }
     }
+
+  removeAllMessage() {
+    this.messages = [];
+    this.emitMessagesSubject();
+  }
+
 
     getMessageById(id: number) {
         const message = this.messages.find((m) => {

@@ -52,7 +52,7 @@ export class SchedulerWeek {
   getSimplifiedRangeForTextDisplay_typed(type: SchedulerWeekType): any {
 
     if (type === SchedulerWeekType.GROUP) {
-      return null;
+      return [];
     }
 
     if (this._type === type) {
@@ -65,7 +65,7 @@ export class SchedulerWeek {
         }
       }
     }
-    return null;
+    return [];
   }
 
   addSimplifiedRange_typed(similarDay: any, type: SchedulerWeekType) {
@@ -176,13 +176,15 @@ export class SchedulerWeek {
 
   getSimplifiedRangeForTextDisplay(): any {
 
+    const similarDaysIndex = [];
+
     if (this._days.length === 0) {
-      return null;
+      return similarDaysIndex;
     }
 
     this.reOrderDays();             // on ordonne les elements pour qu'ils soit plus facile a comparer
 
-    const similarDaysIndex = [];
+
 
     let isFound: boolean;
     let day: SchedulerDay;
