@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.Buyer;
 import fr.dawan.nogashi.beans.Commerce;
+import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.ProductTemplate;
 import fr.dawan.nogashi.beans.RestResponse;
@@ -137,6 +138,48 @@ public class BuyerController
 	**********************************************************************************************************************************************
 	**********************************************************************************************************************************************
 	*********************************************************************************************************************************************/
+	
+	
+	
+	/****************************************************************************************
+	*										getProductTemplates							* 
+	*****************************************************************************************
+	*
+	* Liste tous les ProductTemplates
+	*/
+	@GetMapping(path="/productTemplates", produces = "application/json")
+	public RestResponse<List<ProductTemplate>> getProductTemplates(HttpSession session)
+    {
+		EntityManager em = StartListener.createEntityManager();
+		
+		// Check si le User de la session est Buyer
+		Buyer buyer = checkAllowToDoThat(session, em);
+		if(buyer==null)
+		{
+			em.close();
+			return new RestResponse<List<ProductTemplate>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+	
+		
+    	// Recupere la liste de tous les ProductTemplates
+		List<ProductTemplate> listProductTemplates = new ArrayList<ProductTemplate>();
+		try 
+		{
+			listProductTemplates = dao.findAll(ProductTemplate.class, em);
+			for(ProductTemplate ptTmp : listProductTemplates)
+				System.out.println(ptTmp);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			em.close();
+			return new RestResponse<List<ProductTemplate>>(RestResponseStatus.FAIL, null, 1, "Error: on getproductTemplates operation");
+		}
+		
+		em.close();
+		return new RestResponse<List<ProductTemplate>>(RestResponseStatus.SUCCESS, listProductTemplates);
+    }
+	
 	
 	
 	

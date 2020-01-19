@@ -614,7 +614,7 @@ public class MerchantController
 	
 	
 	/****************************************************************************************
-	*										getMyProductTemplates							* 
+	*										getProductTemplates							* 
 	*****************************************************************************************
 	*
 	* Liste les ProductTemplates du Merchant (User connecte)

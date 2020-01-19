@@ -1,8 +1,8 @@
 <header>
     <div class="menu">
-        <a routerLink="/welcome-merchant" *ngIf="connexionService.getLocalConnectedRole()===UserRole.MERCHANT"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
-        <a routerLink="/welcome-individual" *ngIf="connexionService.getLocalConnectedRole()===UserRole.INDIVIDUAL"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
-        <a routerLink="/welcome-association" *ngIf="connexionService.getLocalConnectedRole()===UserRole.ASSOCIATION"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
+        <a routerLink="/merchant/welcome" *ngIf="connexionService.getLocalConnectedRole()===UserRole.MERCHANT"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
+        <a routerLink="/individual/welcome" *ngIf="connexionService.getLocalConnectedRole()===UserRole.INDIVIDUAL"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
+        <a routerLink="/association/welcome" *ngIf="connexionService.getLocalConnectedRole()===UserRole.ASSOCIATION"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>
         <a routerLink="/welcome" *ngIf="!connexionService.isLocalConnected()"><div class="cercle"><i class="fab fa-maxcdn"></i></div></a>        <div class="icones-menu">
           <div class="icones-user">
                 <i class="fas fa-user-circle"></i>
