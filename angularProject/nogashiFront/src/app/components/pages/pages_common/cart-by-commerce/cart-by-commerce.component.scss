@@ -1,0 +1,105 @@
+
+
+
+.bloc-commerce-commande {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.titre-commerce {
+  width: 250px;
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 600;
+  text-align: center;
+  color: var(--couleurBlancCreme);
+  background-color: var(--couleurVerte);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 40px;
+}
+
+.table-commande {
+  width: 100%;
+  height: 40px;
+  background-color: var(--couleurBlancCreme);
+  text-align: center;
+  margin-top: 3px;
+}
+
+.tr-titre {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 600;
+  background-color: var(--couleurNoir);
+  color: var(--couleurBlancCreme);
+
+}
+
+.tr {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.85em;
+  font-weight: 600;
+  font-style: italic;
+  border-bottom: 1px solid var(--couleurVerte);
+
+}
+
+.td-titre {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.95em;
+  font-weight: 600;
+  background-color: var(--couleurNoir);
+  color: var(--couleurBlancCreme);
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+
+
+.bloc-prix-affichage {
+  display: flex;
+}
+
+.text-total {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--couleurNoir);
+  margin-top: 20px;
+  margin-right: 10%;
+  position: absolute;
+  right: 0;
+
+}
+
+.prix-affichage {
+  font-family: 'roboto', sans-serif;
+  font-size: 1.3em;
+  font-weight: 600;
+  color: var(--couleurGrisClair);
+  background-color: var(--couleurVerte);
+  margin-right: 10%;
+  margin-top: 45px;
+  padding: 10px 14px;
+  position: absolute;
+  right: 0;
+}
+
+
+
+.time {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.80em;
+  font-weight: 400;
+  font-style: italic;
+  text-align: center;
+  color: var(--couleurBlancCreme);
+  background-color: var(--couleurRougeIncorrect);
+  padding-top: 1rem;
+  padding-bottom: 1px;
+  margin-top: 5px;
+  margin-left: 30%;
+  margin-right: 30%;
+
+}

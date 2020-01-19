@@ -15,140 +15,53 @@
           <div class="onglet-commande col-12">
             <p class="titre-commerce2">Commerces<i class="fas fa-sort-down"></i></p>
           </div>
-          <div class="bloc-commerce-commande">
-            <div class="bloc-titre-commerce">
-              <h3 class="titre-commerce">- Boulangerie Mathieu -</h3>
-              <i class="fas fa-map-marker-alt"></i>
-            </div>
-            <table class="table-commande col-12">
-              <thead>
-              <tr class="tr-titre">
-                <th class="td-titre col-3">Produits</th>
-                <th class="td-titre col-3">Prix</th>
-                <th class="td-titre col-5">Quantité</th>
-                <th class="td-titre col-1">Expiration</th>
-                <th class="td-titre col-1">Total</th>
-                <th class="td-titre col-1"></th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr class="tr">
-                <td class="td-produit"><img class=" img" src="/assets/img/produit/croissant-mathieu.jpg" alt="">Croissant</td>
-                <td class="td ">100.10€</td>
-                <td class="td">02<i class="fas fa-plus-circle"></i><i class="fas fa-less-circle"></i><i class="fas fa-minus-circle"></i></td>
-                <td class="td">20 minutes</td>
-                <td class="td">99.99€</td>
-                <td class="td"><i class="fas fa-trash-alt"></i></td>
-              </tr>
-              </tbody>
-              <tbody>
-              <tr class="tr">
-                <td class="td-produit"><img class=" img" src="/assets/img/produit/croissant-mathieu.jpg" alt="">Croissant</td>
-                <td class="td ">100.10€</td>
-                <td class="td">02<i class="fas fa-plus-circle"></i><i class="fas fa-less-circle"></i><i class="fas fa-minus-circle"></i></td>
-                <td class="td">20 minutes</td>
-                <td class="td">99.99€</td>
-                <td class="td"><i class="fas fa-trash-alt"></i></td>
-              </tr>
-              </tbody>
-            </table>
-            <div class="time">
-              <p class="texte-time"><i class="fas fa-exclamation-circle"></i> Veuillez récupérer vos produits avant : 18h00</p>
-            </div>
-          </div>
 
-          <div class="bloc-prix-affichage col-12">
-            <div class="text-total">Total Panier :</div>
-            <div class="prix-affichage">114,90 €</div>
-          </div>
-          <div class="bloc-bouton-commande col-12">
-            <div class="bloc-payer">
-              <a href="paiement.html"><div id ="bouton-payer" class="bouton-payer">PAYER</div></a>
-            </div>
+            <app-cart-by-commerce *ngFor="let scbc of shoppingCart.shoppingCartByCommerces" [shoppingCartByCommerce]="scbc"></app-cart-by-commerce>
+
+          <div class="time">
+            <p class="texte-time"><i class="fas fa-exclamation-circle"></i> Veuillez récupérer vos produits avant : 18h00</p>
           </div>
         </div>
 
 
-        <div class="bloc-produits">
-          <div class="onglet-commande col-12">
-            <p class="titre-commerce2">Produits<i class="fas fa-sort-down"></i></p>
-          </div>
-          <div class="bloc-commerce-commande">
-            <table class="table-commande col-12">
-              <thead>
-              <tr class="tr-titre">
-                <th class="td-titre col-3">Produits</th>
-                <th class="td-titre col-3">Prix</th>
-                <th class="td-titre col-5">Quantité</th>
-                <th class="td-titre col-1">Expiration</th>
-                <th class="td-titre col-1">Total</th>
-                <th class="td-titre col-1"></th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr class="tr">
-                <td class="td-produit"><img class=" img" src="/assets/img/produit/croissant-mathieu.jpg" alt="">Croissant</td>
-                <td class="td ">100.10€</td>
-                <td class="td">02<i class="fas fa-plus-circle"></i><i class="fas fa-less-circle"></i><i class="fas fa-minus-circle"></i></td>
-                <td class="td">20 minutes</td>
-                <td class="td">99.99€</td>
-                <td class="td"><i class="fas fa-trash-alt"></i></td>
-              </tr>
-              </tbody>
-              <tbody>
-              <tr class="tr">
-                <td class="td-produit"><img class=" img" src="/assets/img/produit/croissant-mathieu.jpg" alt="">Croissant</td>
-                <td class="td ">100.10€</td>
-                <td class="td">02<i class="fas fa-plus-circle"></i><i class="fas fa-less-circle"></i><i class="fas fa-minus-circle"></i></td>
-                <td class="td">20 minutes</td>
-                <td class="td">99.99€</td>
-                <td class="td"><i class="fas fa-trash-alt"></i></td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="bloc-prix-affichage col-12">
-            <div class="text-total">Total Panier :</div>
-            <div class="prix-affichage">114,90 €</div>
-          </div>
-
-          <div class="bloc-bouton-commande col-12">
-            <div class="bloc-payer">
-              <a href="paiement.html"><div id ="bouton-payer" class="bouton-payer">PAYER</div></a>
-            </div>
-          </div>
+        <div class="bloc-prix-affichage col-12">
+          <div class="text-total">Total Panier :</div>
+          <div class="prix-affichage">114,90 €</div>
         </div>
 
-
-
-        <div class="bloc-produits-expires">
-          <div class="onglet-commande col-12">
-            <p class="titre-commerce2">Produits Expirés<i class="fas fa-sort-down"></i></p>
+        <div class="bloc-bouton-commande col-12">
+          <div class="bloc-payer">
+            <a href="paiement.html"><div id ="bouton-payer" class="bouton-payer">PAYER</div></a>
           </div>
-          <div class="bloc-commerce-commande">
-            <table class="table-commande col-12">
-              <thead>
+        </div>
+      </div>
+
+
+
+      <div class="bloc-produits-expires">
+        <div class="onglet-commande col-12">
+          <p class="titre-commerce2">Produits Expirés<i class="fas fa-sort-down"></i></p>
+        </div>
+        <div class="bloc-commerce-commande">
+          <table class="table-commande col-12">
+            <thead>
               <tr class="tr-titre">
                 <th class="td-titre col-3">Produits</th>
                 <th class="td-titre col-3">Prix</th>
                 <th class="td-titre col-">Quantité</th>
                 <th class="td-titre col-"></th>
               </tr>
-              </thead>
-              <tbody>
+            </thead>
+            <tbody>
               <tr class="tr">
                 <td class="td-produit"><img class=" img" src="/assets/img/produit/croissant-mathieu.jpg" alt="">Croissant</td>
                 <td class="td">100.10€</td>
                 <td class="td">02</td>
                 <td class="td"><i class="fas fa-shopping-bag"></i> </td>
               </tr>
-              </tbody>
-
-            </table>
-          </div>
+            </tbody>
+          </table>
         </div>
-
       </div>
     </div>
   </div>
