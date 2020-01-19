@@ -14,10 +14,10 @@
 
 
 
-.hidden
-{
+.hidden {
   display: none;
 }
+
 .super-bloc-fiche-produit {
   background-color: var(--couleurBlancCreme);
   box-shadow: 4px 4px 6px 1px rgba(0, 0, 0, 0.30);
@@ -26,47 +26,61 @@
 
 .bloc-titre {
   padding-top: 50px;
-  display: flex;
+  margin-left: 100px;
 }
 
-.titre-produit {
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 1.7em;
+.label-produit {
+  font-family: 'roboto', sans-serif;
+  font-size: 1.3em;
   font-weight: 600;
-  color: var(--couleurNoir);
-  margin-left: 110px;
-  padding-right: 10px;
 }
 
-.cercle-bookmark {
-  width: 40px;
-  height: 40px;
-  background-color: var(--couleurVerte);
+.fa-asterisk {
+  font-size: 0.90em;
+}
+
+.fa-bookmark {
+  font-size: 0.90em;
   border-radius: 50%;
+  padding: 12px;
+  background-color: var(--couleurVerte);
+  color: var(--couleurNoir);
+  margin-left: 8px;
+  -webkit-box-shadow: 6px 14px 22px -1px rgba(0,0,0,0.18);
+  -moz-box-shadow: 6px 14px 22px -1px rgba(0,0,0,0.18);
+  box-shadow: 6px 14px 22px -1px rgba(0,0,0,0.18);
+  transition: all 0.3s ease-out;
+  cursor: pointer;
 }
 
-.cercle-bookmark:hover ,fa-bookmark {
-  color: var(--couleurVerte);
+.fa-bookmark:hover {
   background-color: var(--couleurNoir);
-
+  color: var(--couleurVerte);
 }
 
+.name {
+    width: 300px;
+    height: 30px;
+    font-family: 'roboto', sans-serif;
+    font-size: 0.85em;
+    font-weight: 400;
+    color: var(--couleurNoir);
+    border: 1.5px solid #000;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-top: 12px;
+}
+
+.text-danger {
+  font-size: 0.85em;
+  margin-left: 20px;
+}
 
 .bloc-affichage-produit {
   margin-top: 30px;
   margin-bottom: 30px;
   display: flex;
 }
-
-
-
-.fa-bookmark {
-  font-size: 1.2em;
-  margin-left: 50%;
-  margin-top: 50%;
-  transform: translate(-50%, -50%);
-}
-
 
 
 .img-affichage {
@@ -77,8 +91,6 @@
   background-color: var(--couleurNoir);
   padding-bottom: 7px;
 }
-
-
 
 .icones-affichage {
   font-family: 'roboto', sans-serif;
@@ -94,6 +106,8 @@
   box-shadow: 6px 6px 10px 1px rgba(0, 0, 0, 0.08);
   padding-top: 15px;
   padding-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
   position: relative;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
@@ -102,7 +116,11 @@
 
 .img:hover {
   opacity: 0.85;
+}
 
+.input-chargement {
+  margin-top: 15px;
+  margin-left: 100px;
 }
 
 figure:hover .note {
@@ -136,7 +154,7 @@ figure:hover figcaption {
   color: var(--couleurVerte);
   margin-top: 20px;
   text-align: center;
-  margin-top: -32%;
+  margin-top: -40%;
   position: relative;
   visibility: hidden
 }
@@ -405,7 +423,7 @@ input[type="checkbox"]:checked {
 
 .bloc-composition-produit {
   background-color: var(--couleurGrisClair);
-  margin-top: 40px;
+  margin-top: 150px;
   padding-bottom: 50px;
 }
 
@@ -429,11 +447,11 @@ h5 {
 
 .titre-detail {
   font-family: 'roboto', sans-serif;
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: 600;
   text-align: center;
   color: var(--couleurNoir);
-  margin-top: 30px;
+  margin-top: 50px;
   margin-bottom: 30px;
 }
 
@@ -448,3 +466,16 @@ h5 {
   margin-right: 15%;
   margin-left: 5%;
 }
+
+.input {
+  width: 300px;
+  height: 30px;
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  color: var(--couleurNoir);
+  border: 1.5px solid #000;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+

@@ -13,11 +13,10 @@
   <input formControlName="id" name="id" class="hidden" type="text">
 
   <div class="bloc-titre col-12">
-    <h4 class="titre-produit">- <i class="fas fa-asterisk" ></i><input formControlName="name" name="name" class="name" type="text" placeholder="Nom" required> - </h4>
-    <span class="text-danger" *ngIf="controlName(); let message">{{message}}</span>
-
-    <div class="cercle-bookmark">
-      <i class="fas fa-bookmark"></i>
+    <div>
+      <label class="label-produit"><i class="fas fa-asterisk"></i>  Nom Produit </label><i class="fas fa-bookmark"></i>
+      <h4 class="titre-produit">- <input formControlName="name" name="name" class="name" type="text" placeholder="Nom" required> - </h4>
+      <span class="text-danger" *ngIf="controlName(); let message">{{message}}</span>
     </div>
   </div>
 
@@ -25,9 +24,8 @@
     <div class="img-affichage col-6 no-gutters">
       <article>
         <figure class="work-img no-gutters">
-          <i class="fas fa-asterisk" ></i>
           <img class="img col-12" src="/assets/img/produit/{{form1.value.image}}" alt="image du produit">
-          <input formControlName="image" name="image" type="file" placeholder="Image du produit" required> <!-- Todo upload -->
+          <input class="input-chargement" formControlName="image" name="image" type="file" placeholder="Image du produit" required> <!-- Todo upload -->
           <span class="text-danger" *ngIf="controlImage(); let message">{{message}}</span>
           <figcaption>
             <div class="fond-filtre" ></div>
@@ -106,7 +104,7 @@
           <h5><i class="fas fa-caret-right"></i> Code Produit </h5>
           <hr>
           <p class="composition-affichage">
-            <input formControlName="externalCode" name="externalCode" class="externalCode" type="text" placeholder="Code Produit" >
+            <input class="input" formControlName="externalCode" name="externalCode" class="externalCode" type="text" placeholder="Code Produit" >
           </p>
         </div>
         <div class="composition-produit">
@@ -118,11 +116,10 @@
         </div>
 
         <div class="composition-produit">
-          <h5><i class="fas fa-caret-right"></i> Durée maximum maintien dans le panier </h5>
+          <h5><i class="fas fa-caret-right"></i> Durée maximum maintien dans le panier  <i class="fas fa-asterisk" ></i> </h5>
           <hr>
           <p class="composition-affichage">
-            <i class="fas fa-asterisk" ></i>
-            <input formControlName="maxDurationCart" name="maxDurationCart" type="number" placeholder="Durée maximum mainteint dans le panier" required>
+            <input class="input" formControlName="maxDurationCart" name="maxDurationCart" type="number" placeholder="Durée maximum mainteint dans le panier" required>
             <span class="text-danger" *ngIf="controlMaxDurationCart(); let message">{{message}}</span>
           </p>
         </div>
