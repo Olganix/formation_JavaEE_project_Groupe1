@@ -1,0 +1,28 @@
+
+
+
+
+<!-- Un product du shoppingCartByCommerce -->
+
+Recap
+<tr class="tr">
+  <td class="td-produits col-3">{{product.name}}  {{product.typedName}}</td>
+  <td class="td col-3">{{product.price}} €</td> <!-- TODO prix en fonction du statut du produit ou deja fait a ce stade ? -->
+  <td class="td col-5">01</td>
+  <td class="td col-1">{{product.maxDurationCart}} minutes</td>
+  <td class="td col-1"> €</td>
+  <td class="td col-1"></td>
+</tr>
+
+
+Panier
+<tbody>
+  <tr class="tr">
+    <td class="td-produit"><img class=" img" src="/assets/img/produit/{{product.image}}" alt="image de {{product.image}}">{{product.name}}  {{product.typedName}}</td>
+    <td class="td ">{{product.price}} €</td>
+    <td class="td">02<i class="fas fa-plus-circle"></i><i class="fas fa-less-circle"></i><i class="fas fa-minus-circle"></i></td>
+    <td class="td">{{product.maxDurationCart}} minutes</td>
+    <td class="td"> €</td>
+    <td class="td"><i class="fas fa-trash-alt"></i></td>
+  </tr>
+</tbody>

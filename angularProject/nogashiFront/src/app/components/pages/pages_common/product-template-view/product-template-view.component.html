@@ -45,7 +45,7 @@
             </div>
           </div>
           <div class="bloc-panier" *ngIf="connexionService.getLocalConnectedRole()!==UserRole.MERCHANT" >
-            <a href=""><div id ="bouton-panier" class="bouton-panier"><i class="fas fa-shopping-bag"></i>AJOUTER AU PANIER</div></a>
+            <a routerLink="common/cart/add"><div id ="bouton-panier" class="bouton-panier"><i class="fas fa-shopping-bag"></i>AJOUTER AU PANIER</div></a>
           </div>
         </div>
         <div class="Lieu-affichage col-8">

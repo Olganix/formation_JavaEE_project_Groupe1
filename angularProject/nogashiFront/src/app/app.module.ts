@@ -93,6 +93,8 @@ import { AddProductTemplateComponent } from './components/pages/pages_merchant/a
 import { AddCommerceComponent } from './components/pages/pages_merchant/add-commerce/add-commerce.component';
 import { ProductListComponent } from './components/pages/pages_common/product-list/product-list.component';
 import { ProductTemplateCommonViewComponent } from './components/pages/pages_common/product-template-common-view/product-template-common-view.component';
+import { CartByCommerceComponent } from './components/pages/pages_common/cart-by-commerce/cart-by-commerce.component';
+import { ProductItemInCartByCommerceComponent } from './components/pages/pages_common/product-item-in-cart-by-commerce/product-item-in-cart-by-commerce.component';
 
 
 
@@ -130,7 +132,8 @@ const appRoutes: Routes =
   { path: 'myComments', component: CompteCommentairesComponent },
   { path: 'myPreferences', component: ComptePreferencesComponent },
 
-  { path: 'common/productTemplates',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
+  { path: 'common/productTemplates',   canActivate: [ConnexionIndividualGuard],  component: ProductListComponent },
+  { path: 'common/cart/add',   canActivate: [ConnexionIndividualGuard],  component: ShoppingCartComponent },
 
   { path: 'individual/welcome',   canActivate: [ConnexionIndividualGuard],  component: WelcomeIndividualComponent },
 
@@ -224,7 +227,9 @@ const appRoutes: Routes =
     AddProductTemplateComponent,
     AddCommerceComponent,
     ProductListComponent,
-    ProductTemplateCommonViewComponent
+    ProductTemplateCommonViewComponent,
+    CartByCommerceComponent,
+    ProductItemInCartByCommerceComponent
 ], imports: [
     BrowserModule,
     AppRoutingModule,

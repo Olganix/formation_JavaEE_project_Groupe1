@@ -1,0 +1,37 @@
+
+
+<!-- Un ShoppingCartByCommerce du ShoppingCart -->
+
+<div class="bloc-commerce-commande">
+  <div class="bloc-titre-commerce">
+    <h3 class="titre-commerce">- {{shoppingCartByCommerce.commerce.name}} - {{shoppingCartByCommerce.commerce.uniqueIdName}} -</h3>
+    <i class="fas fa-map-marker-alt"></i>
+  </div>
+  <table class="table-commande col-12">
+    <thead>
+    <tr class="tr-titre">
+      <th class="td-titre col-3">Produits</th>
+      <th class="td-titre col-3">Prix</th>
+      <th class="td-titre col-5">Quantité</th>
+      <th class="td-titre col-1">Expiration</th>
+      <th class="td-titre col-1">Total</th>
+      <th class="td-titre col-1"></th>
+    </tr>
+    </thead>
+
+
+    <app-product-item-in-cart-by-commerce *ngFor="let p of shoppingCartByCommerce.products" [product]="p"></app-product-item-in-cart-by-commerce>
+
+
+  </table>
+
+  <div class="bloc-prix-affichage col-12">
+    <div class="text-total">Total panier chez {{shoppingCartByCommerce.commerce.name}} - {{shoppingCartByCommerce.commerce.uniqueIdName}} : </div>
+    <div class="prix-affichage">{{shoppingCartByCommerce.price}} €</div>
+  </div>
+
+  <div class="time">
+    <!-- TODO heure de recuperation du product -->
+    <p class="texte-time"><i class="fas fa-exclamation-circle"></i> Veuillez récupérer vos produits avant : 17h30</p>
+  </div>
+</div>

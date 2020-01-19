@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.dawan.nogashi.beans.Buyer;
 import fr.dawan.nogashi.beans.Commerce;
-import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.ProductTemplate;
 import fr.dawan.nogashi.beans.RestResponse;
@@ -27,6 +26,7 @@ import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.ProductStatus;
 import fr.dawan.nogashi.enums.RestResponseStatus;
+import fr.dawan.nogashi.enums.ShoppingCartStatus;
 import fr.dawan.nogashi.enums.UserRole;
 import fr.dawan.nogashi.listeners.StartListener;
 
@@ -37,7 +37,6 @@ public class BuyerController
 {
 	@Autowired
 	GenericDao dao;
-	
 	
 	//TODO
 	// ------------------------- /buyer
@@ -327,6 +326,146 @@ public class BuyerController
 		em.close();
 		return new RestResponse<ShoppingCart>(RestResponseStatus.SUCCESS, sc);
     }
+	
+	
+	
+	/*****************************************************************************************
+	*										addProductsToShoppingCart										* 
+	*****************************************************************************************
+	*
+	* Ajoute une ligne de producTemplate au ShoppingCart, et du coup on ajoute au ShoppingCart x products associés.
+	* Puis, on retire les Products au Commerce
+	* 
+	*/
+	@GetMapping(path="/cart/add/{id_pt}/{id_c}", produces = "application/json")
+	public RestResponse<ShoppingCart> addProductsToShoppingCart(@PathVariable(name="id_pt") int id_pt, @PathVariable(name="id_c") int id_c, HttpSession session, Locale locale, Model model)
+    {
+		EntityManager em = StartListener.createEntityManager();
+		
+		// Check si le User de la session est Buyer
+		Buyer buyer = checkAllowToDoThat(session, em);
+		if(buyer==null)
+		{
+			em.close();
+			return new RestResponse<ShoppingCart>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+		
+	
+		List<Product> listProductsToAdd = new ArrayList<Product>();
+		Commerce c = null;
+		ShoppingCartByCommerce scbc = null;
+		
+		// Recup le ShoppingCart du buyer ou en cree un nouveau s'il n'existe pas
+		ShoppingCart sc = buyer.getShoppingCart();
+		double totalShoppingCart = 0, totalShoppingCartByCommerce = 0;
+		if (sc != null) { // sc existe
+			
+			// Recup le ShoppingCartByCommerce du ShoppingCart ou en crée un nouveau s'il n'existe pas
+			scbc = sc.getShoppingCartByCommerce(id_c);
+			if (scbc != null) { 						// scbc existe (donc, appartient au sc)
+				
+				totalShoppingCart = sc.getPrice();
+				totalShoppingCartByCommerce = scbc.getPrice();
+				c = scbc.getCommerce(); 				// Recup le Commerce lié au ShoppingCartByCommerce
+				System.out.println("Recup le Commerce lié au ShoppingCartByCommerce, scbc existait : " + c);
+	
+			} else { // scbc n'existait pas
+				
+				totalShoppingCart = sc.getPrice();
+				
+				// Recup le Commerce via l'id_c en param
+				try {
+					c = dao.find(Commerce.class, id_c, em);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					
+					em.close();
+					return new RestResponse<ShoppingCart>(RestResponseStatus.FAIL, null, 1, "Error: on add ProductTemplate to ShoppingCart");
+				}				
+				
+				scbc = new ShoppingCartByCommerce(); 	// On le cree
+				scbc.setCommerce(c); 					// Attribue le commerce au ShoppingCartByCommerce
+				scbc.setShoppingCart(sc); 				// On l'associe au ShoppingCart existant
+				sc.addShoppingCartByCommerces(scbc); 	// Ajoute le nouveau ShoppingCartByCommerce au ShoppingCart existant
+				
+				System.out.println("Recup le Commerce lié au ShoppingCartByCommerce, scbc n'existait pas : " + c);
+			}
+			
+		} else { 												// le ShoppingCart n'existait pas (donc le ShoppingCartByCommerce non plus)
+			
+			// Recup le Commerce via l'id_c en param
+			try {
+				c = dao.find(Commerce.class, id_c, em);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				
+				em.close();
+				return new RestResponse<ShoppingCart>(RestResponseStatus.FAIL, null, 1, "Error: on add ProductTemplate to ShoppingCart");
+			}
+			
+			sc = new ShoppingCart(); 					// On le cree
+			scbc = new ShoppingCartByCommerce(); 		// On cree aussi un ShoppingCartByCommerce
+			scbc.setCommerce(c); 						// Attribue le commerce au ShoppingCartByCommerce
+			scbc.setShoppingCart(sc); 					// On l'associe au nouveau ShoppingCart
+			sc.addShoppingCartByCommerces(scbc); 		// Ajoute le nouveau ShoppingCartByCommerce au ShoppingCart existant
+			
+			System.out.println("Recup le Commerce lié au ShoppingCartByCommerce, sc et scbc n'existaient pas : " + c);
+		}
+
+		
+		System.out.println("c.getProducts()" + c.getProducts());	
+		
+		
+		// Liste les products a ajouter au ShoppingCartByCommerce et calcule les totaux
+		for (Product p : c.getProducts()) {
+			if (p.getReference().getId() == id_pt) {
+				listProductsToAdd.add(p);
+					
+				if (p.getStatus() == ProductStatus.AVAILABLE)
+					totalShoppingCartByCommerce += p.getPrice();
+				else if (p.getStatus() == ProductStatus.PROMOTION)
+					totalShoppingCartByCommerce += p.getSalePrice();
+				else if (p.getStatus() == ProductStatus.UNSOLD)
+					totalShoppingCartByCommerce += 0;
+			}
+		}	
+		
+		totalShoppingCart += totalShoppingCartByCommerce;	
+		sc.setPrice(totalShoppingCart);
+		scbc.setPrice(totalShoppingCartByCommerce);
+		
+		sc.setStatus(ShoppingCartStatus.IN_PROGRESS);
+		scbc.setStatus(ShoppingCartStatus.IN_PROGRESS);
+		
+		
+		try 
+		{
+			// Ajoute les products au ShoppingCartByCommerce et les retire du Commerce
+			for (Product p : listProductsToAdd) {
+				
+				scbc.addProduct(p);			
+				c.removeProduct(p);
+				p.setStatus(ProductStatus.RESERVED);	
+				
+				dao.saveOrUpdate(c, em);
+				dao.saveOrUpdate(p, em);
+			}
+			dao.saveOrUpdate(scbc, em);
+			dao.saveOrUpdate(sc, em);
+			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		
+			em.close();
+			return new RestResponse<ShoppingCart>(RestResponseStatus.FAIL, null, 1, "Error: on add ProductTemplate to ShoppingCart");
+		}	
+		
+		em.close();
+		return new RestResponse<ShoppingCart>(RestResponseStatus.SUCCESS, null);
+    }	
+		
+		
+	
 	
 	
 	/*****************************************************************************************

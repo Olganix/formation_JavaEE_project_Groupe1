@@ -9,7 +9,10 @@ import {HttpClient} from '@angular/common/http';
 })
 export class BuyerService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient
+              ) { }
+
+
 
   getProductTemplates() {
     return this._http.get<RestResponse>(environment.nogashiRestUrl + '/buyer/productTemplates', { withCredentials: true }).pipe(
@@ -21,6 +24,14 @@ export class BuyerService {
 
   getProductsByName(name) {
     return this._http.get<RestResponse>(environment.nogashiRestUrl + '/buyer/products/' + name, { withCredentials: true }).pipe(
+      retry(3),
+      map( (rrp: RestResponse) => {
+        return new RestResponse(rrp);
+      }));
+  }
+
+  getShoppingCart() {
+    return this._http.get<RestResponse>(environment.nogashiRestUrl + '/buyer/shoppingCart', { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
         return new RestResponse(rrp);
