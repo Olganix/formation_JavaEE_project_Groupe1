@@ -25,7 +25,7 @@ export class ProductSheetComponent implements OnInit {
     (rrp: RestResponse) => {
 
       if (rrp.status === 'SUCCESS') {
-        this.productTemplate = rrp.data;
+        this.productTemplate = new ProductTemplate(rrp.data);
       } else {
         console.log('Echec de la recuperation de la liste des fiches produits : ' + rrp.errormessage);
       }

@@ -22,6 +22,10 @@ export class InfoBoxNotificationsComponent implements OnInit, OnDestroy {
     this.infoBoxNotificationsService.emitMessagesSubject();
   }
 
+  removeAllMessage() {
+    this.infoBoxNotificationsService.removeAllMessage();
+  }
+
   removeMessage(id: number) {
     this.infoBoxNotificationsService.removeMessage(id);
   }

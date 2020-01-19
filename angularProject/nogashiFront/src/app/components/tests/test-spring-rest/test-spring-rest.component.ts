@@ -12,6 +12,7 @@ import {User} from '../../../classes/user';
 import {Commerce} from '../../../classes/commerce';
 import {Address} from '../../../classes/address';
 import { UserRole } from 'src/app/enum/user-role.enum';
+import {Merchant} from '../../../classes/merchant';
 @Component({
   selector: 'app-test-spring-rest',
   templateUrl: './test-spring-rest.component.html',
@@ -64,7 +65,11 @@ export class TestSpringRestComponent implements OnInit {
       (rrp: RestResponse) => {
 
         if (rrp.status === 'SUCCESS') {
-          this.users = rrp.data;
+
+          this.users = [];
+          for (const tmp of rrp.data) {
+            this.users.push(new User(tmp));
+          }
         } else {
           console.log('Echec de la recuperation de la liste des users : ' + rrp.errormessage);
         }
@@ -79,7 +84,10 @@ export class TestSpringRestComponent implements OnInit {
       (rrp: RestResponse) => {
 
         if (rrp.status === 'SUCCESS') {
-          this.merchants = rrp.data;
+          this.merchants = [];
+          for (const tmp of rrp.data) {
+            this.merchants.push( new Merchant(tmp) );
+          }
         } else {
           console.log('Echec de la recuperation de la liste des merchants : ' + rrp.errormessage);
         }
@@ -94,7 +102,10 @@ export class TestSpringRestComponent implements OnInit {
       (rrp: RestResponse) => {
 
         if (rrp.status === 'SUCCESS') {
-          this.listProductsTemplates = rrp.data;
+          this.listProductsTemplates = [];
+          for (const tmp of rrp.data) {
+            this.listProductsTemplates.push( new ProductTemplate(tmp) );
+          }
         } else {
           console.log('Echec de la recuperation de la liste des fiches produits : ' + rrp.errormessage);
         }
@@ -109,7 +120,10 @@ export class TestSpringRestComponent implements OnInit {
       (rrp: RestResponse) => {
 
         if (rrp.status === 'SUCCESS') {
-          this.commerces = rrp.data;
+          this.commerces = [];
+          for (const tmp of rrp.data) {
+            this.commerces.push(new Commerce(tmp));
+          }
         } else {
 
           console.log('Echec de la recuperation de la liste des Commerces : ' + rrp.errormessage);

@@ -24,7 +24,11 @@ export class ProductListComponent implements OnInit {
       (rrp: RestResponse) => {
 
         if (rrp.status === 'SUCCESS') {
-          this.productTemplates = rrp.data;
+
+          this.productTemplates = [];
+          for (const tmp of rrp.data) {
+            this.productTemplates.push(new ProductTemplate(tmp));
+          }
         } else {
           console.log('Echec de la recuperation de la liste des products : ' + rrp.errormessage);
         }

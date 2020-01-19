@@ -4,12 +4,12 @@
 
 
 
-<div *ngIf="messages" class="infobox_container">
+<div *ngIf="messages" class="infobox_container" (click)="removeAllMessage()" >
 
     <div class="infobox {{msg.type}}" *ngFor="let msg of messages"  (click)="removeMessage(msg.id)">
         <div class="infobox_message">
             {{msg.message}}
         </div>
     </div>
-    
+
 </div>

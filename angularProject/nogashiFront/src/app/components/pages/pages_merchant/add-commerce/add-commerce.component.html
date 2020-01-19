@@ -8,7 +8,6 @@
 
     <div class="bloc-ouverture-commerce col-12 no-gutters" id="il-faut-aller-ici-commerces">
       <input formControlName="id" name="id" class="hidden" type="text">
-      <input formControlName="id_address" name="id_address" class="hidden" type="text">
 
       <div>
         <img class="" src="/assets/img/commerce/{{((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : defaultLogo}}" alt="logo du commerce">
@@ -26,11 +25,19 @@
       <div class="detail-commerce col-6">
 
         <div class="bloc-information-commerce col-12">
-          <h2 class="nom-commerce">- <i class="fas fa-asterisk" ></i><input formControlName="name" name="name" class="name" type="text" placeholder="Nom" required> <input formControlName="uniqueIdName" name="uniqueIdName" class="uniqueIdName" type="text" placeholder="Complément de nom" ></h2>
+
+          <h2 class="nom-commerce">- <i class="fas fa-asterisk" ></i>
+            <input formControlName="name" name="name" class="name" type="text" placeholder="Nom" required>
+            <input formControlName="uniqueIdName" name="uniqueIdName" class="uniqueIdName" type="text" placeholder="Complément de nom" >
+          </h2>
           <span class="text-danger" *ngIf="controlName(); let message">{{message}}</span>
 
           <p><i class="fas fa-asterisk" ></i><input formControlName="codeSiret" name="codeSiret" type="text" placeholder="numéro Siret" required></p>
           <span class="text-danger" *ngIf="controlcodeSiret(); let message">{{message}}</span>
+
+
+
+          <input formControlName="address_id" name="address_id" class="hidden" type="text">
 
           <p class="rue-commerce"><i class="fas fa-asterisk" ></i><input formControlName="address_address" name="address_address" type="text" placeholder="Numéro et rue du commerce" required></p>
           <span class="text-danger" *ngIf="controlAddress_address(); let message">{{message}}</span>
@@ -45,10 +52,10 @@
           <span class="text-danger" *ngIf="controlAddress_stateName(); let message">{{message}}</span>
 
           <p class="rue-commerce"><i class="fas fa-asterisk" ></i><input formControlName="address_longitude" name="address_longitude" type="text" placeholder="Longitude" required></p>
-          <span class="text-danger" *ngIf="controlAddress_cityName(); let message">{{message}}</span>
+          <span class="text-danger" *ngIf="controlAddress_longitude(); let message">{{message}}</span>
 
           <p class="rue-commerce"><i class="fas fa-asterisk" ></i><input formControlName="address_latitude" name="address_latitude" type="text" placeholder="Latitude" required></p>
-          <span class="text-danger" *ngIf="controlAddress_cityName(); let message">{{message}}</span>
+          <span class="text-danger" *ngIf="controlAddress_latitude(); let message">{{message}}</span>
 
 
           <p class="composition-affichage">
@@ -65,9 +72,9 @@
 
 
         <div class="bloc-information-horaire col-12">
-          <!--
-          <app-scheduler-week-txt [scheduler]="commerce.schedulerWeek" [schedulerType]="SchedulerWeekType.OPEN"></app-scheduler-week-txt>
+          <app-scheduler-week-txt [scheduler]="schedulerWeek" [schedulerType]="SchedulerWeekType.OPEN" [editMode]="true" (schedulerChange)="this.schedulerWeek = $event" ></app-scheduler-week-txt>
 
+          <!-- Todo a virer.
           <ul>
             <li class="detail-ouverture">Horaires d'ouverture :</li>
             <li class="detail-horaires">Lundi: <span class="details-fermer">fermer</span></li>
@@ -84,8 +91,6 @@
             <button id ="bt_signin_submit" class="bouton-inscription" type="submit" [disabled]="form1.invalid" >Sauvegarder</button>
             <p *ngIf="form1.invalid" class="avertissement-inscription">* Veuillez remplir tous les champs marqués d'un * pour valider la fiche.</p>
           </div>
-
-
         </div>
       </div>
     </div>
