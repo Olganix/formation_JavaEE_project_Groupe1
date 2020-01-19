@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {RestResponse} from '../../../../classes/rest-response';
 import {ProductTemplate} from '../../../../classes/product-template';
 import {UserService} from '../../../../services/user.service';
+import {Address} from '../../../../classes/address';
 
 @Component({
   selector: 'app-add-commerce',
@@ -24,7 +25,16 @@ export class AddCommerceComponent implements OnInit {
   codeSiret: FormControl;
   uniqueIdName: FormControl;
   description: FormControl;
-  address: FormControl; // TODO
+
+  address_id: FormControl;
+  address_address: FormControl;
+  address_addressExtra: FormControl;
+  address_postalCode: FormControl;
+  address_cityName: FormControl;
+  address_stateName: FormControl;
+  address_longitude: FormControl;
+  address_latitude: FormControl;
+
   // schedulerWeek: FormControl; // TODO
   pictureLogo: FormControl;
   private defaultLogo = 'NoLogo.jpg';
@@ -51,12 +61,23 @@ export class AddCommerceComponent implements OnInit {
   ngOnInit() {
     const id = (this.route.snapshot.params.id !== '') ? Number(this.route.snapshot.params.id) : 0;
 
+    const address_id = (this.route.snapshot.params.address_id !== '') ? Number(this.route.snapshot.params.address_id) : 0;
+
     this.id = new FormControl(id, [ Validators.required ]);
     this.name = new FormControl(null, [ Validators.required ]);
     this.codeSiret = new FormControl(null, [ Validators.required ]);
     this.uniqueIdName = new FormControl(null, [ Validators.required ]);
     this.description = new FormControl(null, [ Validators.required ]);
-    this.address = new FormControl(null, []);
+
+    this.address_id = new FormControl(null, []);
+    this.address_address = new FormControl(null, []);
+    this.address_addressExtra = new FormControl(null, []);
+    this.address_postalCode = new FormControl(null, []);
+    this.address_cityName = new FormControl(null, []);
+    this.address_stateName = new FormControl(null, []);
+    this.address_longitude = new FormControl(null, []);
+    this.address_latitude = new FormControl(null, []);
+
     // this.schedulerWeek = new FormControl(null, [ Validators.required ]);
     this.pictureLogo = new FormControl(null, [ Validators.required ]);
     this.pictureDescription = new FormControl(null, [ Validators.required ]);
@@ -69,7 +90,16 @@ export class AddCommerceComponent implements OnInit {
       codeSiret : this.codeSiret,
       uniqueIdName: this.uniqueIdName,
       description: this.description,
-      address: this.address,
+
+      address_id: this.address_id,
+      address_address: this.address_address,
+      address_addressExtra: this.address_addressExtra,
+      address_postalCode: this.address_postalCode,
+      address_cityName: this.address_cityName,
+      address_stateName: this.address_stateName,
+      address_longitude: this.address_longitude,
+      address_latitude: this.address_latitude,
+
       // schedulerWeek: this.schedulerWeek,
       pictureLogo: this.pictureLogo,
       pictureDescription: this.pictureDescription,
@@ -106,7 +136,13 @@ export class AddCommerceComponent implements OnInit {
     this.uniqueIdName.setValue(c.uniqueIdName);
     this.description.setValue(c.description);
 
-    // this.address.setValue(c.address); // TODO
+    this.address_address.setValue(c.address.address);
+    this.address_addressExtra.setValue(c.address.addressExtra);
+    this.address_postalCode.setValue(c.address.postalCode);
+    this.address_cityName.setValue(c.address.cityName);
+    this.address_stateName.setValue(c.address.stateName);
+    this.address_longitude.setValue(c.address.longitude);
+    this.address_latitude.setValue(c.address.latitude);
 
     this.defaultLogo = c.pictureLogo;
     this.defaultDescription = c.pictureDescription;
@@ -122,7 +158,9 @@ export class AddCommerceComponent implements OnInit {
 
 
       const c = new Commerce();
-      c.setAddCommerce(this.form1.value.id, this.form1.value.name, this.form1.value.codeSiret, this.form1.value.uniqueIdName, this.form1.value.description, this.form1.value.address, ((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : this.defaultLogo, ((this.form1.value.pictureDescription !== null) && (this.form1.value.pictureDescription.trim() !== '') ) ? this.form1.value.pictureDescription : this.defaultDescription, this.form1.value.isOpened);
+      const a = new Address();
+      a.setAddress(this.form1.value.address_id, this.form1.value.address_address, this.form1.value.address_addressExtra, this.form1.value.address_postalCode, this.form1.value.address_cityName, this.form1.value.address_stateName, this.form1.value.address_longitude, this.form1.value.address_latitude);
+      c.setAddCommerce(this.form1.value.id, this.form1.value.name, this.form1.value.codeSiret, this.form1.value.uniqueIdName, this.form1.value.description, a, ((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : this.defaultLogo, ((this.form1.value.pictureDescription !== null) && (this.form1.value.pictureDescription.trim() !== '') ) ? this.form1.value.pictureDescription : this.defaultDescription, this.form1.value.isOpened);
 
       this.merchantService.addOrUpdateCommerce( c ).subscribe(
         (rrp: RestResponse) => {
@@ -168,15 +206,6 @@ export class AddCommerceComponent implements OnInit {
     return null;
   }
 
-  public controlAddress(): string {
-    if (this.address.touched) {
-      if (this.address.hasError('required')) {
-        return `L'adresse du commerce est obligatoire`;
-      }
-    }
-    return null;
-  }
-
   public controlDescription(): string {
     if (this.description.touched) {
       if (this.description.hasError('required')) {
@@ -185,6 +214,64 @@ export class AddCommerceComponent implements OnInit {
     }
     return null;
   }
+
+
+
+  public controlAddress_address(): string {
+    if (this.address_address.touched) {
+      if (this.address_address.hasError('required')) {
+        return `La rue du commerce est obligatoire`;
+      }
+    }
+    return null;
+  }
+
+  public controlAddress_postalCode(): string {
+    if (this.address_postalCode.touched) {
+      if (this.address_postalCode.hasError('required')) {
+        return `Le code postal du commerce est obligatoire`;
+      }
+    }
+    return null;
+  }
+
+  public controlAddress_cityName(): string {
+    if (this.address_cityName.touched) {
+      if (this.address_cityName.hasError('required')) {
+        return `La ville du commerce est obligatoire`;
+      }
+    }
+    return null;
+  }
+
+  public controlAddress_stateName(): string {
+    if (this.address_stateName.touched) {
+      if (this.address_stateName.hasError('required')) {
+        return `Le pays du commerce est obligatoire`;
+      }
+    }
+    return null;
+  }
+
+  public controlAddress_longitude(): string {
+    if (this.address_longitude.touched) {
+      if (this.address_longitude.hasError('required')) {
+        return `La longitude du commerce est obligatoire`;
+      }
+    }
+    return null;
+  }
+
+  public controlAddress_latitude(): string {
+    if (this.address_latitude.touched) {
+      if (this.address_latitude.hasError('required')) {
+        return `La latitude du commerce est obligatoire`;
+      }
+    }
+    return null;
+  }
+
+
 
   public controlPictureLogo(): string {
     if (this.name.touched) {
