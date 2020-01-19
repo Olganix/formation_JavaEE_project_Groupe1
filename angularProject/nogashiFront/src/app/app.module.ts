@@ -136,8 +136,9 @@ const appRoutes: Routes =
   { path: 'merchant/welcome',     canActivate: [ConnexionMerchantGuard],    component: WelcomeMerchantComponent },
   { path: 'merchant/faq',         canActivate: [ConnexionMerchantGuard],    component: FaqMerchantComponent },
   { path: 'merchant/productTemplate/addOrUpdate/:id',  canActivate: [ConnexionMerchantGuard],    component: AddProductTemplateComponent },
-
+  { path: 'merchant/productTemplate/addOrUpdate',  canActivate: [ConnexionMerchantGuard],    component: AddProductTemplateComponent },
   { path: 'merchant/commerce/addOrUpdate/:id',         canActivate: [ConnexionMerchantGuard],    component: AddCommerceComponent },
+  { path: 'merchant/commerce/addOrUpdate',         canActivate: [ConnexionMerchantGuard],    component: AddCommerceComponent },
 
 
 

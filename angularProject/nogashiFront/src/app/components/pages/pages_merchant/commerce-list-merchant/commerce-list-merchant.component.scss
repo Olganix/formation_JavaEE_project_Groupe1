@@ -15,3 +15,58 @@
   color: var(--couleurNoir);
   padding-top: 7px;
 }
+
+
+
+
+/* Bouton ajouter une nouvelle fiche commerce */
+.bouton-ajouter {
+  width: 185px;
+  font-family: sans-serif;
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--couleurVerte);
+  background: var(--couleurNoir);
+  box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--couleurVerte);
+  border-radius: 28px;
+  padding: 14px 20px 14px 20px;
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+
+.bouton-ajouter:hover {
+  color: var(--couleurBlancCreme);
+  background: var(--couleurNoir);
+  border: 2px solid var(--couleurBlancCreme);
+  border-radius: 28px;
+  padding: 16px 20px 16px 20px;
+}
+
+.cercle-plus {
+  width: 40px;
+  height: 40px;
+  background-color: var(--couleurVerte);
+  border-radius: 50%;
+  margin-left: -20px;
+  margin-top: 15px;
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+.cercle-plus:hover {
+  background-color: var(--couleurBlancCreme);
+  color: var(--couleurVerte);
+
+}
+
+.fa-plus {
+  font-size: 1.5em;
+  color: var(--couleurNoir);
+  margin-left: 50%;
+  margin-top: 50%;
+  transform: translate(-50%, -50%);
+}
