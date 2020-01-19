@@ -1,6 +1,7 @@
 import {SchedulerHoursRange} from './scheduler-hours-range';
 import {DayOfWeek, DayOfWeek_toDisplayString} from '../enum/day-of-week.enum';
 import {Utils} from './utils';
+import {SchedulerWeekType} from '../enum/scheduler-week-type.enum';
 
 export class SchedulerDay {
 
@@ -14,6 +15,30 @@ export class SchedulerDay {
     if (obj !== null) {
       Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regler le soucis, avec un Pip dans le service.
     }
+
+    /* tslint:disable:no-string-literal */
+    if ( (obj !== undefined) && (obj !== null) ) {
+
+      if ( (obj.hasOwnProperty('day')) && (obj['day'] !== null)) {
+        switch (obj['day']) {
+          case 'MONDAY': this._day = DayOfWeek.MONDAY; break;
+          case 'TUESDAY': this._day = DayOfWeek.TUESDAY; break;
+          case 'WEDNESDAY': this._day = DayOfWeek.WEDNESDAY; break;
+          case 'THURSDAY': this._day = DayOfWeek.THURSDAY; break;
+          case 'FRIDAY': this._day = DayOfWeek.FRIDAY; break;
+          case 'SATURDAY': this._day = DayOfWeek.SATURDAY; break;
+          case 'SUNDAY': this._day = DayOfWeek.SUNDAY; break;
+        }
+      }
+
+      this._hoursRanges = [];
+      if ((obj.hasOwnProperty('hoursRanges')) && (obj['hoursRanges'] !== null)) {
+        for (const tmp of obj['hoursRanges']) {
+          this._hoursRanges.push(new SchedulerHoursRange(tmp));
+        }
+      }
+    }
+
   }
 
   isSimilarDay(other: SchedulerDay): boolean {

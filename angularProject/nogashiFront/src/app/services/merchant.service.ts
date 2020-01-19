@@ -6,11 +6,15 @@ import {map, retry} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {Commerce} from '../classes/commerce';
 import {ProductTemplate} from '../classes/product-template';
+import {User} from '../classes/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MerchantService {
+
+  lastCommerce: Commerce;                                   // commerce precedent pour eviter d'aller toujours charger des donénes d'une page a l'autre. Note : ce ne previent pas d'un rechargement de page, où il faut quand meme aller rechercher les données
+  lastProductTemplate: ProductTemplate;                     // (De meme) DONC, il faut toujours comparer les id, a chaque utilisation.
 
   constructor(private _http: HttpClient
               ) { }
@@ -27,13 +31,14 @@ export class MerchantService {
   }
 
   addOrUpdateCommerce(c: Commerce): Observable<RestResponse> {
-
-    console.log(c);
-
     return this._http.post<RestResponse>(environment.nogashiRestUrl + '/merchant/commerce/addOrUpdate', c.toHttpObject(), { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
-        return new RestResponse(rrp);
+
+        const rrpTmp = new RestResponse(rrp);
+        this.lastCommerce = (rrpTmp.status === 'SUCCESS') ? (new Commerce(rrpTmp.data)) : null;
+
+        return rrpTmp;
       }));
   }
 
@@ -47,13 +52,14 @@ export class MerchantService {
   }
 
   addOrUpdateProductTemplate(pt: ProductTemplate) {
-
-    console.log(pt);
-
     return this._http.post<RestResponse>(environment.nogashiRestUrl + '/merchant/productTemplate/addOrUpdate', pt.toHttpObject(), { withCredentials: true }).pipe(
       retry(3),
       map( (rrp: RestResponse) => {
-        return new RestResponse(rrp);
+
+        const rrpTmp = new RestResponse(rrp);
+        this.lastProductTemplate = (rrpTmp.status === 'SUCCESS') ? (new ProductTemplate(rrpTmp.data)) : null;
+
+        return rrpTmp;
       }));
   }
 

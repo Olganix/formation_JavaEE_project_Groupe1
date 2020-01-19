@@ -27,7 +27,7 @@ export class User {
     }
 
     /* tslint:disable:no-string-literal */
-    if ( (obj !== undefined) && (obj !== null) && (obj.hasOwnProperty('role')) && (obj['role'] !== null)) {        // todo faire mieux (voir stephane peut etre), mais le si je ne fais rien, on une string a la place d'un userRole. si javascript ca passe, pas en typescript. =>
+    if ( (obj !== undefined) && (obj !== null) && (obj.hasOwnProperty('role')) && (obj['role'] !== null)) {
 
       switch (obj['role']) {
         case 'INDIVIDUAL': this.role = UserRole.INDIVIDUAL; break;

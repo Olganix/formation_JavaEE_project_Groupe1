@@ -26,12 +26,15 @@
     </div>
 
     <div class="informations-affichage col-6">
+
+      <!--
       <div class="commerce-affichage">
         <h4>Daily Juicery </h4>
         <p class="adresse-affichage"><i class="fas fa-location-arrow"></i> / 380 rue Léon Gambetta, 59000 LILLE </p>
         <p class="adresse-affichage"><span class="icones-affichage"><i class="fas fa-mobile-alt"> / </i> </span> 03 20 30 79 73 </p>
         <p class="adresse-affichage"><span class="icones-affichage"><i class="far fa-envelope"></i> / </span> thedailyjuicery@gmail.com </p>
       </div>
+      -->
       <h5>- <a [routerLink]="'/productSheet/' + productTemplate.id">{{productTemplate.name}}</a> -</h5>
       <p class="composition-affichage">{{productTemplate.description}}</p>
       <p class="key-allergene"> > Sans-gluten > Sportif </p>
@@ -44,7 +47,7 @@
           </div>
         </div>
         <div class="bloc-quantite-produit col-6">
-          <input id="quantite-produit" class="quantite-produit" type="text" name="quantite" placeholder="1" >
+          <input class="quantite-produit" type="text" name="quantite" placeholder="1" >
           <div class="plus-moins">
             <i class="fas fa-plus-circle"></i>
             <i class="fas fa-minus-circle"></i>
@@ -54,12 +57,6 @@
     </div>
     <div class="bloc-panier">
       <a href=""><div id ="bouton-panier" class="bouton-panier"><i class="fas fa-shopping-bag"></i>AJOUTER AU PANIER</div></a>
-    </div>
-  </div>
-
-  <div class="bloc-affichage-produit col-12">
-    <div class="img-affichage col-6 no-gutters">
-      <img class="img col-12" src="/assets/img/produit/eclairchocoloat-mathieu.jpg" alt="">
     </div>
   </div>
 

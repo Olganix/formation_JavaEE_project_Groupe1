@@ -4,8 +4,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -19,8 +22,23 @@ public class SchedulerHoursRange extends DbObject {
 	@Column(nullable = false)
 	private int endTime;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne  @XmlTransient @JsonIgnore
 	private SchedulerDay parent;
+	
+	
+	
+	
+	
+	
+	
+	public SchedulerHoursRange(SchedulerHoursRange other, SchedulerDay parent) {					//constructeurde copie
+		super();
+		this.startTime = other.startTime;
+		this.endTime = other.endTime;
+		this.parent = parent;
+	}
+	
+	
 	
 	//---------------------------------
 

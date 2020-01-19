@@ -12,6 +12,9 @@
 
         <app-commerce-merchant-view *ngFor="let c of commerces" [commerce]="c" ></app-commerce-merchant-view>
 
+        <div class="bouton-ajouter" class="cercle-plus" >
+          <span id ="" class="plus" [routerLink]="'merchant/productTemplate/addOrUpdate'" ><i class="fas fa-plus"></i>Ajouter une nouvelle fiche commerce</span>
+        </div>
 
       </div>
 

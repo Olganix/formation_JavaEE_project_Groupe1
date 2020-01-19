@@ -1,6 +1,6 @@
 export class Address {
 
-  private _id: string;
+  private _id: number;
   private _address: string;
   private _addressExtra: string;
   private _postalCode: string;
@@ -16,7 +16,8 @@ export class Address {
     }
   }
 
-  setAll(address: string, addressExtra: string, postalCode: string, cityName: string, stateName: string, longitude: number, latitude: number) {
+  setAddress(id: number, address: string, addressExtra: string, postalCode: string, cityName: string, stateName: string, longitude: number, latitude: number) {
+    this._id = id;
     this._address = address;
     this._addressExtra = addressExtra;
     this._postalCode = postalCode;
@@ -87,11 +88,11 @@ export class Address {
   }
 
 
-  get id(): string {
+  get id(): number {
     return this._id;
   }
 
-  set id(value: string) {
+  set id(value: number) {
     this._id = value;
   }
 }

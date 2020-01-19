@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row col-12">
       <h2 class="titre-produit col-12" id="il-faut-aller-ici-produits">// VOTRE COMMERCE</h2>
-      <p class="text-titre-produit col-12">Retrouvez tous les dÃ©tails de votre commerce.</p>
+      <p class="text-titre-produit col-12">Retrouvez tous les détails de votre commerce.</p>
 
       <div class="bloc-ouverture-commerce col-12 no-gutters" id="il-faut-aller-ici-commerces">
         <div class="bloc-vitrine col-6 no-gutters">
@@ -21,6 +21,9 @@
             <div class="bloc-ouverture ">
               <a href="#"><div id ="bouton-ouverture" class="bouton-ouverture">{{ commerce.isOpened ? 'OUVERT' : 'FERME' }}</div></a>
             </div>
+
+      <div class="bloc-information-horaire col-12">
+        <app-scheduler-week-txt [scheduler]="commerce.schedulerWeek" [schedulerType]="SchedulerWeekType.OPEN"></app-scheduler-week-txt>
 
           </div>
 
