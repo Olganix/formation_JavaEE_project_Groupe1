@@ -47,7 +47,7 @@ public class ProductTemplate extends DbObject {
 	@Column(nullable = false)
 	private double salePrice;
 	
-	private boolean timeControlStatus;					// for automatic switch on hours.
+	private boolean timeControlStatus = true;					// for automatic switch on hours.
 	
 	@XmlTransient
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

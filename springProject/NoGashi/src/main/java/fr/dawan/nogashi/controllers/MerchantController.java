@@ -457,7 +457,8 @@ public class MerchantController
 					isModifed = true;
 				}
 				
-				if( (c.getSchedulerWeek() != null) && (!c_bdd.getSchedulerWeek().equals(c.getSchedulerWeek())) )	
+				//if( (c.getSchedulerWeek() != null) && (!c_bdd.getSchedulerWeek().equals(c.getSchedulerWeek())) )
+				if (c.getSchedulerWeek() != null)			// pas le temps de dev plus TODO rajouter verifications minimumm (cf angular, mais c'est la partie front est j'ai pas confiance)
 				{
 					c_bdd.setSchedulerWeek(c.getSchedulerWeek());
 					isModifed = true;
@@ -703,6 +704,8 @@ public class MerchantController
     {
 		System.out.println("/merchant/productTemplate/addOrUpdate");
 		System.out.println(pt);
+		System.out.println("****************************** getSchedulerWeekForSaleAndUnsold : "+ pt.getSchedulerWeekForSaleAndUnsold() );
+		
 		
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -806,7 +809,10 @@ public class MerchantController
 					isModifed = true;
 				}
 				
-				if( (pt.getSchedulerWeekForSaleAndUnsold() != null) && (!pt_bdd.getSchedulerWeekForSaleAndUnsold().equals(pt.getSchedulerWeekForSaleAndUnsold())) )	
+				
+				
+				//if( (pt.getSchedulerWeekForSaleAndUnsold() != null) && (!pt_bdd.getSchedulerWeekForSaleAndUnsold().equals(pt.getSchedulerWeekForSaleAndUnsold())) )
+				if (pt.getSchedulerWeekForSaleAndUnsold() != null)					// parce que pas de temps , TODO verifier qu'il y a le minimum d'info necessaire (cf check fais dans le angular, mais c'est du front, pas confiance humpmmmmm)
 				{
 					pt_bdd.setSchedulerWeekForSaleAndUnsold(pt.getSchedulerWeekForSaleAndUnsold());
 					isModifed = true;

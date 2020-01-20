@@ -27,7 +27,6 @@
         <figure class="work-img no-gutters">
           <img class="img col-12" src="/assets/img/produit/{{((this.form1.value.image !== null) && (this.form1.value.image.trim() !== '') ) ? this.form1.value.image :  defaultImage}}" alt="image du produit">
           <input class="input-chargement" formControlName="image" name="image" type="file" placeholder="Image du produit" > <!-- Todo upload -->
-          <span class="text-danger" *ngIf="controlImage(); let message">{{message}}</span>
           <figcaption>
             <div class="fond-filtre" ></div>
             <div class="note">
@@ -47,15 +46,11 @@
           <div class="affichage col-12">
             <div class="grand-bloc-input-3">
               <div class="bloc-input3">
-                <div class="font-input3-bis">
-                  <i class="fas fa-asterisk"></i><input class="input3" formControlName="salePrice" name="salePrice" type="number" placeholder="Nouveau Prix" required>
-                </div>
+                <div class="font-input3-bis"><i class="fas fa-asterisk"></i><input class="input3" formControlName="salePrice" name="salePrice" type="number" placeholder="Nouveau Prix" required></div>
                 <span class="text-danger-input3" *ngIf="controlSalePrice(); let message">{{message}}</span>
               </div>
               <div class="bloc-input3">
-                <div class="font-input3">
-                  <i class="fas fa-asterisk"></i><input class="input3"  formControlName="price" name="price" type="number" placeholder="Prix Barré" required>
-                </div>
+                <div class="font-input3"><i class="fas fa-asterisk"></i><input class="input3"  formControlName="price" name="price" type="number" placeholder="Prix Barré" required></div>
                 <span class="text-danger-input3" *ngIf="controlPrice(); let message">{{message}}</span>
               </div>
             </div>
@@ -80,7 +75,12 @@
             <p class="offre-disponible"><i class="fas fa-asterisk"></i> Offre disponible jusqu'à {{productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges[0].endTime}}.</p>
           </div>
           -->
-       </div>
+
+          <app-scheduler-week-txt [scheduler]="schedulerWeekForSaleAndUnsold.group[0]" [schedulerType]="SchedulerWeekType.PRODUCT_PROMOTION" [editMode]="true" (schedulerChange)="this.schedulerWeekForSaleAndUnsold.group[0] = $event" ></app-scheduler-week-txt>
+          <app-scheduler-week-txt [scheduler]="schedulerWeekForSaleAndUnsold.group[1]" [schedulerType]="SchedulerWeekType.PRODUCT_UNSOLD" [editMode]="true" (schedulerChange)="this.schedulerWeekForSaleAndUnsold.group[1] = $event" ></app-scheduler-week-txt>
+          <span class="text-danger" *ngIf="schedulerWeekForSaleAndUnsold_onError">Des horaires de mise en promotion et invendu du produit est obligatoire</span>
+
+        </div>
     </div>
 
   </div>
@@ -98,30 +98,19 @@
         </div>
         <div class="composition-produit">
           <h5><i class="fas fa-caret-right"></i> Emballage</h5>
-          <p class="composition-affichage">
-            <input formControlName="isPackaged" name="isPackaged" type="checkbox"  >
-          </p>
+          <p class="composition-affichage"><input formControlName="isPackaged" name="isPackaged" type="checkbox" ></p>
           <hr>
         </div>
         <div class="composition-produit col-12">
           <h5><i class="fas fa-caret-right"></i> Code Produit </h5>
-          <p class="composition-affichage">
-            <input class="input" formControlName="externalCode" name="externalCode" type="text" placeholder="Code Produit" >
-          </p>
+          <p class="composition-affichage"><input class="input" formControlName="externalCode" name="externalCode" type="text" placeholder="Code Produit" ></p>
           <hr>
         </div>
         <div class="composition-produit">
           <h5><i class="fas fa-caret-right"></i> Promotion et Invendu Automatique </h5>
-          <p class="composition-affichage">
-            <input formControlName="timeControlStatus" name="timeControlStatus" type="checkbox" >
-          </p>
+          <p class="composition-affichage"><input formControlName="timeControlStatus" name="timeControlStatus" type="checkbox" ></p>
           <hr>
         </div>
-
-
-        <app-scheduler-week-txt [scheduler]="this.schedulerWeekForSaleAndUnsold.group[0]" [schedulerType]="SchedulerWeekType.PRODUCT_PROMOTION" [editMode]="true" (schedulerChange)="this.schedulerWeekForSaleAndUnsold.group[0] = $event" ></app-scheduler-week-txt>
-        <app-scheduler-week-txt [scheduler]="this.schedulerWeekForSaleAndUnsold.group[1]" [schedulerType]="SchedulerWeekType.PRODUCT_PROMOTION" [editMode]="true" (schedulerChange)="this.schedulerWeekForSaleAndUnsold.group[1] = $event" ></app-scheduler-week-txt>
-        <span class="text-danger" *ngIf="schedulerWeekForSaleAndUnsold_onError">Des horaires de mise en promotion et invendu du produit est obligatoire</span>
 
         <div class="composition-produit">
           <h5><i class="fas fa-caret-right"></i> Durée maximale dans le panier </h5>
@@ -148,10 +137,6 @@
           <p  class="avertissement-inscription" *ngIf="form1.invalid" >* Veuillez remplir tous les champs pour valider la fiche produit.</p>
         </div>
       </div>
-
-
-
-
 
     </div>
    </div>

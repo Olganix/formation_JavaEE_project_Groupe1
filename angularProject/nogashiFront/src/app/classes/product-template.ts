@@ -31,7 +31,7 @@ export class ProductTemplate {
   }
 
   toHttpObject() {                                    // class with functions => json/object
-    return {id: this._id, name: this._name, description: this._description, externalCode: this._externalCode, isPackaged: this._isPackaged, price: this._price, salePrice: this._salePrice, timeControlStatus: this._timeControlStatus, schedulerWeekForSaleAndUnsold: this.schedulerWeekForSaleAndUnsold, maxDurationCart: this._maxDurationCart, image: this._image };
+    return {id: this._id, name: this._name, description: this._description, externalCode: this._externalCode, isPackaged: this._isPackaged, price: this._price, salePrice: this._salePrice, timeControlStatus: this._timeControlStatus, schedulerWeekForSaleAndUnsold: this.schedulerWeekForSaleAndUnsold.toHttpObject(), maxDurationCart: this._maxDurationCart, image: this._image };
   }
 
   setFromAddForm(id: number, name: string, description: string, externalCode: string, isPackaged: boolean, price: number, salePrice: number, timeControlStatus: boolean, maxDurationCart: number, image: string) {

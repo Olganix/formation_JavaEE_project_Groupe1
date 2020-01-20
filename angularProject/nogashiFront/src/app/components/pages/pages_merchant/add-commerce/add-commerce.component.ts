@@ -121,11 +121,11 @@ export class AddCommerceComponent implements OnInit {
             if (rrp.status === 'SUCCESS') {
               this.__setFormData(new Commerce(rrp.data));
             } else {
-              console.log('Echec de la recuperation de la liste des fiches produits : ' + rrp.errormessage);
+              console.log('Echec de la recuperation d\'un commerce : ' + rrp.errormessage);
             }
           },
           error => {
-            console.log('Echec de la recuperation de la liste des fiches produits : ', error);
+            console.log('Echec de la recuperation d\'un commerce : ', error);
           });
       }
     }
@@ -148,7 +148,7 @@ export class AddCommerceComponent implements OnInit {
     this.address_latitude.setValue(c.address.latitude);
 
     this.schedulerWeek_onError = false;
-    this.schedulerWeek = new SchedulerWeek();     // Todo avec la reaffectation, le onChange fonctionn mais la connection inverse est rompu. comme si ... je ne sais pas voir avec scheduler-week-txt.component.
+    this.schedulerWeek = new SchedulerWeek();
     this.schedulerWeek.copy(c.schedulerWeek);
 
     this.defaultLogo = c.pictureLogo;

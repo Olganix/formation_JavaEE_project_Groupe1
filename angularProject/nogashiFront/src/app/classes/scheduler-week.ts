@@ -1,9 +1,7 @@
 import {SchedulerDay} from './scheduler-day';
-import {SchedulerWeekType} from '../enum/scheduler-week-type.enum';
+import {SchedulerWeekType, SchedulerWeekType_toDisplayString} from '../enum/scheduler-week-type.enum';
 import {SchedulerHoursRange} from './scheduler-hours-range';
-import {DayOfWeek, DayOfWeek_toDisplayString} from '../enum/day-of-week.enum';
-import {Utils} from './utils';
-import {UserRole} from '../enum/user-role.enum';
+import {DayOfWeek_toDisplayString} from '../enum/day-of-week.enum';
 
 
 export class SchedulerWeek {
@@ -47,7 +45,25 @@ export class SchedulerWeek {
     }
   }
 
+
+  toHttpObject(): any {
+    const obj = {name: this._name, description: this._description, type: SchedulerWeekType_toDisplayString(this._type), group: [], days: [] };
+    if (this._type === SchedulerWeekType.GROUP ) {
+      for (const sw of this._group) {
+        obj.group.push( sw.toHttpObject() );
+      }
+    } else {
+      for (const sd of this._days) {
+        obj.days.push( sd.toHttpObject() );
+      }
+    }
+    return obj;
+  }
+
   copy(other: SchedulerWeek) {
+    if (other === null) {
+      return;
+    }
     this._name = other._name;
     this._description = other._description;
     this._type = other._type;

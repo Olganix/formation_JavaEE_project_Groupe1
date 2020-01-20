@@ -60,10 +60,12 @@
           </select>
         </div>
 
-        <!-- todo -->
-        <div class="bloc-quantite-produit col-6" *ngIf="productTemplate.schedulerWeekForSaleAndUnsold && productTemplate.schedulerWeekForSaleAndUnsold.days && (productTemplate.schedulerWeekForSaleAndUnsold.days.length==2) && productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges && (productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges.length>=1) ">
-          <p class="offre-disponible"><i class="fas fa-asterisk"></i> Offre disponible jusqu'à {{productTemplate.schedulerWeekForSaleAndUnsold.days[0].hoursRanges[0].endTime}}.</p>
+        <div class="bloc-quantite-produit col-6" *ngIf="productTemplate.schedulerWeekForSaleAndUnsold && productTemplate.schedulerWeekForSaleAndUnsold.group && productTemplate.schedulerWeekForSaleAndUnsold.group.length!=0">
+          <p class="offre-disponible">
+            <app-scheduler-week-txt [scheduler]="productTemplate.schedulerWeekForSaleAndUnsold.group[0]" [schedulerType]="SchedulerWeekType.PRODUCT_PROMOTION" ></app-scheduler-week-txt>
+          </p>
         </div>
+
       </div>
     </div>
 

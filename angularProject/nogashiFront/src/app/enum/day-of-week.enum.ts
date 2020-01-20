@@ -22,6 +22,20 @@ export function DayOfWeek_toDisplayString(day: DayOfWeek): string {
   return '';
 }
 
+
+export function DayOfWeek_toHttpObjectString(day: DayOfWeek): string {
+  switch (day) {
+    case DayOfWeek.MONDAY:    return 'MONDAY';
+    case DayOfWeek.TUESDAY:   return 'TUESDAY';
+    case DayOfWeek.WEDNESDAY: return 'WEDNESDAY';
+    case DayOfWeek.THURSDAY:  return 'THURSDAY';
+    case DayOfWeek.FRIDAY:    return 'FRIDAY';
+    case DayOfWeek.SATURDAY:  return 'SATURDAY';
+    case DayOfWeek.SUNDAY:    return 'SUNDAY';
+  }
+  return '';
+}
+
 export function DayOfWeek_parseFromDisplay(day: string): DayOfWeek {
 
   switch(day) {

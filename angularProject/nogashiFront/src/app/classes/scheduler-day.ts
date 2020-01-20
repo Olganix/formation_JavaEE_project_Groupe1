@@ -1,7 +1,7 @@
 import {SchedulerHoursRange} from './scheduler-hours-range';
-import {DayOfWeek, DayOfWeek_toDisplayString} from '../enum/day-of-week.enum';
+import {DayOfWeek, DayOfWeek_toDisplayString, DayOfWeek_toHttpObjectString} from '../enum/day-of-week.enum';
 import {Utils} from './utils';
-import {SchedulerWeekType} from '../enum/scheduler-week-type.enum';
+import {SchedulerWeekType, SchedulerWeekType_toDisplayString} from '../enum/scheduler-week-type.enum';
 
 export class SchedulerDay {
 
@@ -40,7 +40,20 @@ export class SchedulerDay {
     }
   }
 
+
+  toHttpObject(): any {
+    const obj = {day: DayOfWeek_toHttpObjectString(this._day), hoursRanges: [] };
+    for (const shr of this._hoursRanges) {
+      obj.hoursRanges.push( shr.toHttpObject() );
+    }
+    return obj;
+  }
+
   copy(other: SchedulerDay) {
+    if (other === null) {
+      return;
+    }
+
     this._day = other._day;
 
     this._hoursRanges = [];

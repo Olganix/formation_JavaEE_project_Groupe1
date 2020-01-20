@@ -28,7 +28,6 @@ public class SchedulerWeek extends DbObject {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(nullable = false)
 	private String name;									//name and description are for inernal use (because different context will use this classe, but all are save in the same table, so )
 	private String description; 
 	

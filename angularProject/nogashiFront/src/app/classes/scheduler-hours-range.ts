@@ -1,4 +1,5 @@
 import {Utils} from './utils';
+import {DayOfWeek_toDisplayString} from '../enum/day-of-week.enum';
 
 export class SchedulerHoursRange {
 
@@ -19,8 +20,14 @@ export class SchedulerHoursRange {
     }
   }
 
+  toHttpObject(): any { return {startTime: this._startTime, endTime: this._endTime}; }
+
 
   copy(other: SchedulerHoursRange) {
+    if (other === null) {
+      return;
+    }
+
     this._startTime = other._startTime;
     this._endTime = other._endTime;
   }

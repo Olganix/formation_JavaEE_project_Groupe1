@@ -53,7 +53,7 @@ export class AddProductTemplateComponent implements OnInit {
     this.id = new FormControl(id, [ Validators.required ]);
     this.name = new FormControl(null, [ Validators.required ]);
     this.description = new FormControl(null, [ Validators.required ]);
-    this.externalCode = new FormControl(null, [ Validators.required ]);
+    this.externalCode = new FormControl(null, [ ]);
     this.isPackaged = new FormControl(true, []);
     this.price = new FormControl(null, [ Validators.required ]);
     this.salePrice = new FormControl(null, [ Validators.required ]);
@@ -62,15 +62,18 @@ export class AddProductTemplateComponent implements OnInit {
     this.schedulerWeekForSaleAndUnsold_onError = false;
     this.schedulerWeekForSaleAndUnsold = new SchedulerWeek();
     this.schedulerWeekForSaleAndUnsold.type = SchedulerWeekType.GROUP;
+    this.schedulerWeekForSaleAndUnsold.group = [];
     let swTmp = new SchedulerWeek();
     swTmp.type = SchedulerWeekType.PRODUCT_PROMOTION;
+    swTmp.days = [];
     this.schedulerWeekForSaleAndUnsold.group.push(swTmp);
     swTmp = new SchedulerWeek();
     swTmp.type = SchedulerWeekType.PRODUCT_UNSOLD;
+    swTmp.days = [];
     this.schedulerWeekForSaleAndUnsold.group.push(swTmp);
 
     this.maxDurationCart = new FormControl(20, [ Validators.required ]);
-    this.image = new FormControl(null, [ Validators.required ]);
+    this.image = new FormControl(null, [ ]);
 
 
     this.form1 = this.fb.group({
@@ -99,11 +102,11 @@ export class AddProductTemplateComponent implements OnInit {
             if (rrp.status === 'SUCCESS') {
               this.__setFormData(new ProductTemplate(rrp.data));
             } else {
-              console.log('Echec de la recuperation de la liste des fiches produits : ' + rrp.errormessage);
+              console.log('Echec de la recuperation de la fiche produit : ' + rrp.errormessage);
             }
           },
           error => {
-            console.log('Echec de la recuperation de la liste des fiches produits : ', error);
+            console.log('Echec de la recuperation de la fiche produit : ', error);
           });
       }
     }
@@ -119,9 +122,19 @@ export class AddProductTemplateComponent implements OnInit {
     this.salePrice.setValue(pt.salePrice);
     this.timeControlStatus.setValue(pt.timeControlStatus);
 
-    this.schedulerWeekForSaleAndUnsold = new SchedulerWeek();     // Todo avec la reaffectation, le onChange fonctionn mais la connection inverse est rompu. comme si ... je ne sais pas voir avec scheduler-week-txt.component.
-    this.schedulerWeekForSaleAndUnsold.copy(pt.schedulerWeekForSaleAndUnsold);
     this.schedulerWeekForSaleAndUnsold_onError = false;
+    this.schedulerWeekForSaleAndUnsold = new SchedulerWeek();
+    this.schedulerWeekForSaleAndUnsold.type = SchedulerWeekType.GROUP;
+    this.schedulerWeekForSaleAndUnsold.group = [];
+    let swTmp = new SchedulerWeek();
+    swTmp.type = SchedulerWeekType.PRODUCT_PROMOTION;
+    swTmp.days = [];
+    this.schedulerWeekForSaleAndUnsold.group.push(swTmp);
+    swTmp = new SchedulerWeek();
+    swTmp.type = SchedulerWeekType.PRODUCT_UNSOLD;
+    swTmp.days = [];
+    this.schedulerWeekForSaleAndUnsold.group.push(swTmp);
+    this.schedulerWeekForSaleAndUnsold.copy(pt.schedulerWeekForSaleAndUnsold);
 
     this.maxDurationCart.setValue(pt.maxDurationCart);
     this.defaultImage = pt.image;
@@ -132,21 +145,21 @@ export class AddProductTemplateComponent implements OnInit {
     e.preventDefault();
     e.stopPropagation();
 
-    if (this.form1.valid) {
+    this.schedulerWeekForSaleAndUnsold_onError = false;
+    if ((this.schedulerWeekForSaleAndUnsold.type !== SchedulerWeekType.GROUP) ||      // check if there is a minimum required.
+      (this.schedulerWeekForSaleAndUnsold.group.length !== 2) ||
+      (this.schedulerWeekForSaleAndUnsold.group[0].type !== SchedulerWeekType.PRODUCT_PROMOTION) ||
+      (this.schedulerWeekForSaleAndUnsold.group[1].type !== SchedulerWeekType.PRODUCT_UNSOLD) ||
+      (this.schedulerWeekForSaleAndUnsold.group[0].days.length === 0) ||
+      (this.schedulerWeekForSaleAndUnsold.group[1].days.length === 0) ||
+      (this.schedulerWeekForSaleAndUnsold.group[0].days[0].hoursRanges.length === 0) ||
+      (this.schedulerWeekForSaleAndUnsold.group[1].days[0].hoursRanges.length === 0)
+    ) {
+      this.schedulerWeekForSaleAndUnsold_onError = true;
+      return false;
+    }
 
-      this.schedulerWeekForSaleAndUnsold_onError = false;
-      if ((this.schedulerWeekForSaleAndUnsold.type !== SchedulerWeekType.GROUP) ||      // check if there is a minimum required.
-          (this.schedulerWeekForSaleAndUnsold.group.length !== 2) ||
-          (this.schedulerWeekForSaleAndUnsold.group[0].type !== SchedulerWeekType.PRODUCT_PROMOTION) ||
-          (this.schedulerWeekForSaleAndUnsold.group[1].type !== SchedulerWeekType.PRODUCT_UNSOLD) ||
-          (this.schedulerWeekForSaleAndUnsold.group[0].days.length === 0) ||
-          (this.schedulerWeekForSaleAndUnsold.group[1].days.length === 0) ||
-          (this.schedulerWeekForSaleAndUnsold.group[0].days[0].hoursRanges.length === 0) ||
-          (this.schedulerWeekForSaleAndUnsold.group[1].days[0].hoursRanges.length === 0)
-          ) {
-        this.schedulerWeekForSaleAndUnsold_onError = true;
-        return false;
-      }
+    if (this.form1.valid) {
 
       console.log('form:');
       console.log(this.form1.value);
@@ -185,15 +198,6 @@ export class AddProductTemplateComponent implements OnInit {
     if (this.name.touched) {
       if (this.name.hasError('required')) {
         return `Le nom du produit est obligatoire`;
-      }
-    }
-    return null;
-  }
-
-  public controlImage(): string {
-    if (this.image.touched) {
-      if (this.image.hasError('required')) {
-        return `Une image du produit est obligatoire`;
       }
     }
     return null;
