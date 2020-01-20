@@ -1,0 +1,77 @@
+
+name : Omnia
+
+Adresse : 
+9 RUE ESQUERMOISE
+59800
+LILLE
+
+latitude : 50.637417
+
+longitute : 3.062463
+
+tel : 03 20 57 55 66
+
+SIREN: 362 521 879 15034
+
+IBAN: FR12 1234 1564 1234 1234 12
+
+BIC: 12648
+
+logo : omnia.jpg
+
+********************
+
+COMMERCE
+
+name : Omnia
+
+uniqueIdName : Rihour
+
+Adresse : 
+9 RUE ESQUERMOISE
+59800
+LILLE
+
+latitude : 50.637417
+
+longitute : 3.062463
+
+Description : L'Omnia propose de partager avec vous sa cuisine variée et généreuse, sa capacité d'accueil, son concept animation afin d'y vivre des moments chaleureux et conviviaux.
+
+logo : omnia.jpg
+
+description : omnia_desc.jpg
+
+SIRET: 362 521 879 15489
+
+
+horaires :
+Lundi - Jeudi
+12h00 - 14h00
+19h00 - 23h30
+Vendredi - Samedi
+12h00 - 14h00
+19h00 - 00h00
+Dimanche
+12h00 - 14h00
+19h00 - 23h30
+
+
+
+Pub, Brasserie
+
+
+************************
+
+PRODUIT
+
+name : Saumonette
+
+Description : Saumonette, et sauce safranée, purée d'algues
+
+IMG: saumonette.jpg
+
+Prix : 16,50
+
+SalePrice : 13.50
