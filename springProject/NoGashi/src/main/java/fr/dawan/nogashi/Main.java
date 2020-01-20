@@ -35,6 +35,21 @@ import fr.dawan.nogashi.enums.UserRole;
 
 public class Main 
 {
+	
+	// 8h00 omnia. apres casino (par rapport a Dawan)
+	// mail entreprise.
+	
+	//-diagrame sequence : insister sur sur le produit / promotion / invendu
+	//-explication personnes
+	//-priorité ordre : shoppincart, maps et filtre, upload.
+	//-technologie et question apres demo.
+	//-presentation de code.
+	// faire un graph des technologie (front back)
+	//A-expliquer code function de verifconnxion dans controller
+	//-dire quelque sont les fonctionnalités prevue pas implementé.
+
+	
+	
 	public static EntityManager em;
 	public static EntityTransaction et;
 	
@@ -157,6 +172,53 @@ public class Main
 			lshr.add(shr_am);
 			lshr.add(shr_pm);
 		}
+		
+		
+		SchedulerWeek swTmp2 = new SchedulerWeek();			// template de product
+		swTmp.setName("Horaire de product");
+		swTmp2.setType(SchedulerWeekType.GROUP);
+		List<SchedulerWeek> swTmp2_g =  swTmp2.getGroup();
+		
+		SchedulerWeek swTmp2_a = new SchedulerWeek();			// horaire promotion
+		swTmp2_a.setType(SchedulerWeekType.PRODUCT_PROMOTION);
+		List<SchedulerDay> lsd2_a = swTmp2_a.getDays();
+		
+		// Exemple d'horaires d'ouverture.
+		SchedulerHoursRange shr2_a = new SchedulerHoursRange();
+		shr2_a.setStartTime(18 * 60);		// 18h00
+		shr2_a.setEndTime(19 * 60);	// 19h00
+		
+		SchedulerDay sd2;
+		for(int i= 0; i <= 5; i++) { 		// Monday -> Friday
+			sd2 = new SchedulerDay();
+			sd2.setDay( DayOfWeek.values()[i] );
+			lsd2_a.add(sd2);
+			List<SchedulerHoursRange> lshr = sd2.getHoursRanges();
+			
+			lshr.add(shr2_a);
+		}
+
+		SchedulerWeek swTmp2_b = new SchedulerWeek();			// horaire promotion
+		swTmp2_b.setType(SchedulerWeekType.PRODUCT_UNSOLD);
+		List<SchedulerDay> lsd2_b = swTmp2_a.getDays();
+		
+		// Exemple d'horaires d'ouverture.
+		SchedulerHoursRange shr2_b = new SchedulerHoursRange();
+		shr2_b.setStartTime(19 * 60);		// 18h00
+		shr2_b.setEndTime(19 * 60 + 30);	// 19h30
+		
+		for(int i= 0; i <= 5; i++) { 		// Monday -> Friday
+			sd2 = new SchedulerDay();
+			sd2.setDay( DayOfWeek.values()[i] );
+			lsd2_b.add(sd2);
+			List<SchedulerHoursRange> lshr = sd2.getHoursRanges();
+			
+			lshr.add(shr2_b);
+		}
+		
+		
+		
+		
 		
 		/* ---------- COMMERCES ---------- */
 		Commerce mBC_c1 = new Commerce("Basilic & Co", "362 521 879 00033", new Address("80 rue Nationale", "", "59800", "Lille", "France", 3.059697, 50.635931), "basilic.png", "basilic_desc.jpg", "24, c'est le nombre de restaurants que compte désormais le réseau Basilic & Co, depuis l'ouverture de son nouveau point de vente de Tours Nord. Depuis début Novembre 2019, Aurélien Harnay et Geoffrey Vilain vous accueillent au 42 rue Daniel Mayer, en plein coeur de Monconseil. Très impliqués localement, ils s'investissent pour faire de leur pizzeria de terroir l'un des lieux de vie incontournables du quartier. Leur ouverture s'est traduite par un succès retentissant, pour le plus grand bonheur des Tourangeaux !", new SchedulerWeek(swTmp), "Nationale"); mBC_c1.setMerchant(mBC);		
