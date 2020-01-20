@@ -356,13 +356,22 @@ input[type="checkbox"]:checked {
 
 
 /* Bouton ajouter une nouvelle fiche produit */
+.bloc-affichage-produit {
+  padding-top: 10px;
+  padding-bottom: 25px;
+  margin-top: 30px;
+  background-color: var(--couleurBlancCreme);
+  display: flex;
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+}
+
 .bouton-ajouter {
   width: 185px;
   font-family: sans-serif;
   font-size: 0.75em;
   font-weight: 600;
   text-transform: uppercase;
-  text-align: center;
+  text-align: right;
   color: var(--couleurVerte);
   background: var(--couleurNoir);
   box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
@@ -383,14 +392,15 @@ input[type="checkbox"]:checked {
 }
 
 .cercle-plus {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background-color: var(--couleurVerte);
   border-radius: 50%;
   margin-left: -20px;
   margin-top: 15px;
   -webkit-transition: all 0.5s ease-out;
   transition: all 0.2s ease-out;
+
 }
 
 .cercle-plus:hover {
@@ -400,7 +410,7 @@ input[type="checkbox"]:checked {
 }
 
 .fa-plus {
-  font-size: 1.5em;
+  font-size: 2em;
   color: var(--couleurNoir);
   margin-left: 50%;
   margin-top: 50%;

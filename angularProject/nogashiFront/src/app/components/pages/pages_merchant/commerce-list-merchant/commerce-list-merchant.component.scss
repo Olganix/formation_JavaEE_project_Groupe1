@@ -1,3 +1,5 @@
+
+
 .titre-rechercher-commerces {
   font-family: 'Ubuntu', sans-serif;
   font-size: 1.6em;
@@ -20,6 +22,15 @@
 
 
 /* Bouton ajouter une nouvelle fiche commerce */
+.bloc-ouverture-commerce {
+  padding-top: 15px;
+  padding-bottom: 30px;
+  margin-top: 30px;
+  background-color: var(--couleurBlancCreme);
+  display: flex;
+  box-shadow: 10px 15px 20px 2px rgba(0,0,0,0.15);
+}
+
 .bouton-ajouter {
   width: 185px;
   font-family: sans-serif;
@@ -47,8 +58,8 @@
 }
 
 .cercle-plus {
-  width: 40px;
-  height: 40px;
+  width: 70px;
+  height: 70px;
   background-color: var(--couleurVerte);
   border-radius: 50%;
   margin-left: -20px;
@@ -64,7 +75,7 @@
 }
 
 .fa-plus {
-  font-size: 1.5em;
+  font-size: 3em;
   color: var(--couleurNoir);
   margin-left: 50%;
   margin-top: 50%;

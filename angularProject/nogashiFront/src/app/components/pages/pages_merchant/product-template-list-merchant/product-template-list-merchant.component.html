@@ -159,9 +159,22 @@
         <app-product-template-merchant-view  *ngFor="let pt of productTemplates" [productTemplate]="pt" ></app-product-template-merchant-view>
 
 
-        <div class="bouton-ajouter" class="cercle-plus" >
-          <span id ="" class="plus" routerLink="/merchant/productTemplate/addOrUpdate" ><i class="fas fa-plus"></i>Ajouter une nouvelle fiche produit</span>
+
+        <!-- Section ajouter une nouvelle fiche produit -->
+        <div class="bloc-affichage-produit col-12">
+
+          <div class="bloc-vitrine col-6 no-gutters">
+          </div>
+
+          <div class="detail-commerce col-6">
+            <div class="bouton-ajouter" class="cercle-plus" >
+              <a id ="" class="plus" title="Ajouter une nouvelle fiche produit" routerLink="/merchant/productTemplate/addOrUpdate" ><i class="fas fa-plus"></i></a>
+            </div>
+          </div>
+
         </div>
+
+
 
 
         <div class="bloc-pagination col-12">
