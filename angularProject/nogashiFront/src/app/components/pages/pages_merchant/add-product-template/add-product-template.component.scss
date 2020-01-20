@@ -217,6 +217,21 @@ figure:hover figcaption {
   display: block;
 }
 
+.titre-choix-horaires {
+  font-family: 'roboto', sans-serif;
+  font-size: 1.3em;
+  font-weight: 600;
+  text-align: center;
+  color: var(--couleurNoir);
+  margin-top: 145px;
+  margin-bottom: 15px;
+}
+
+.grand-bloc-horaires {
+  width: 100%;
+  display: flex;
+}
+
 .textarea {
   font-family: 'roboto', sans-serif;
   font-size: 1em;
@@ -533,7 +548,7 @@ input[type="checkbox"]:checked {
 
 .bloc-composition-produit {
   background-color: var(--couleurGrisClair);
-  margin-top: 130px;
+  margin-top: 40px;
   padding-bottom: 50px;
 }
 

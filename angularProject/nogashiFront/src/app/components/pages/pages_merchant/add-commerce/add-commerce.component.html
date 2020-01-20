@@ -2,15 +2,18 @@
 
 <!-- TODO si le css merde, ajouter les div de commerce-sheet -->
 
-<div class="row">
+<section class="section-fiche-produit">
+  <div class="container">
+    <div class="row col-12">
 
-  <form [formGroup]="form1" (submit)="onSubmit($event)" >
 
-    <div class="bloc-ouverture-commerce col-12 no-gutters" id="il-faut-aller-ici-commerces">
+    <form [formGroup]="form1" (submit)="onSubmit($event)" >
+    <div class="super-bloc-fiche-produit" >
       <input formControlName="id" name="id" class="hidden" type="text">
+      <h2 class="titre-modifications-commerce col-12" id="il-faut-aller-ici-produits"><i class="far fa-edit"></i> / MODIFICATIONS FICHE COMMERCE</h2>
 
-      <div>
-        <img class="" src="/assets/img/commerce/{{((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : defaultLogo}}" alt="logo du commerce">
+      <div class="bloc-img">
+        <img class="img" src="/assets/img/commerce/{{((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : defaultLogo}}" alt="logo du commerce">
         <input formControlName="pictureLogo" name="pictureLogo" type="file" placeholder="Logo du commerce" > <!-- Todo upload -->
         <span class="text-danger" *ngIf="controlPictureLogo(); let message">{{message}}</span>
       </div>
@@ -86,4 +89,7 @@
       </div>
     </div>
   </form>
-</div>
+
+   </div>
+  </div>
+</section>
