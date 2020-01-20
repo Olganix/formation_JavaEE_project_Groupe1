@@ -148,7 +148,9 @@ export class ConnexionService {
   getLocalConnectedRole() {
     return (this.connectedUser != null) ? this.connectedUser.role : null;
   }
-
+  getLocalConnectedUser() {
+    return this.connectedUser;
+  }
 
 
   getProductsTemplates() {

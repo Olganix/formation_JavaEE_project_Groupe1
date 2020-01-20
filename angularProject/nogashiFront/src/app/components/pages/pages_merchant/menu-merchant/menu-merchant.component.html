@@ -1,0 +1,55 @@
+
+
+<div class="background"> <!-- Background => Dévoilement du footer-->
+  <section class="section-bonjour-compte">
+    <div class="container">
+      <div class="row">
+        <div class="bloc-bonjour-compte col-12">
+          <div class="bloc-avatar">
+            <img class="img-bonjour" src="/assets/img/profil/{{connexionService.getLocalConnectedUser().avatarFilename}}" alt="photo de {{connexionService.getLocalConnectedName()}}">
+          </div>
+          <div class="bloc-bonjour">
+            <h2>Compte commerçant - Bonjour {{connexionService.getLocalConnectedName()}}</h2>
+            <p class="message-bonjour"><i class="fas fa-quote-left"></i> Bienvenue sur votre compte commerçant. Ici, vous pouvez gérer vos commerces et vos produits en vente. <i class="fas fa-quote-right"></i>
+            </p>
+          </div>
+        </div>
+
+        <div class="grand-bloc-onglets">
+          <div class="bloc-onglet">
+            <a (click)="showSection(0)">
+              <div class="onglet">
+                <p class="nom-onglet">
+                  <a>Mes Commerces</a>
+                </p>
+              </div>
+            </a>
+            <a (click)="showSection(1)">
+              <div class="onglet2">
+                <p class="nom-onglet">
+                  <a>Commandes en Cours</a>
+                </p>
+              </div>
+            </a>
+            <a (click)="showSection(2)">
+              <div class="onglet3">
+                <p class="nom-onglet">
+                  <a>Mes Produits</a>
+                </p>
+              </div>
+            </a>
+            <a>
+              <div class="onglet4">
+                <p class="nom-onglet">
+                  Comptes Employés
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div> <!-- Fin du Background => Dévoilement du footer-->

@@ -5,10 +5,10 @@
       <div class="row">
         <div class="bloc-bonjour-compte col-12">
           <div class="bloc-avatar">
-            <img class="img-bonjour" src="/assets/img/profil/profil.png" alt="photo de l'utilisateur">
+            <img class="img-bonjour" src="/assets/img/profil/{{connexionService.getLocalConnectedUser().avatarFilename}}" alt="photo de {{connexionService.getLocalConnectedName()}}">
           </div>
           <div class="bloc-bonjour">
-            <h2>Bonjour Gilles</h2>
+            <h2>Bonjour {{connexionService.getLocalConnectedName()}}</h2>
             <p class="message-bonjour"><i class="fas fa-quote-left"></i> Bienvenue sur votre compte. Retrouvez toutes vos informations personnelles et vos préférences. <i class="fas fa-quote-right"></i>
             </p>
           </div>

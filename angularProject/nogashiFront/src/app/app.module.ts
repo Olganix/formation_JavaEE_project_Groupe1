@@ -95,6 +95,7 @@ import { ProductListComponent } from './components/pages/pages_common/product-li
 import { ProductTemplateCommonViewComponent } from './components/pages/pages_common/product-template-common-view/product-template-common-view.component';
 import { CartByCommerceComponent } from './components/pages/pages_common/cart-by-commerce/cart-by-commerce.component';
 import { ProductItemInCartByCommerceComponent } from './components/pages/pages_common/product-item-in-cart-by-commerce/product-item-in-cart-by-commerce.component';
+import { MenuMerchantComponent } from './components/pages/pages_merchant/menu-merchant/menu-merchant.component';
 
 
 
@@ -229,13 +230,14 @@ const appRoutes: Routes =
     ProductListComponent,
     ProductTemplateCommonViewComponent,
     CartByCommerceComponent,
-    ProductItemInCartByCommerceComponent
+    ProductItemInCartByCommerceComponent,
+    MenuMerchantComponent
 ], imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),              // les routes seront accessibles via la constante appRoutes
+    RouterModule.forRoot(appRoutes, {scrollPositionRestoration: 'enabled'}),              // les routes seront accessibles via la constante appRoutes
     ReactiveFormsModule,
     EditorModule
   ],

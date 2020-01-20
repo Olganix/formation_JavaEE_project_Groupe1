@@ -1,69 +1,20 @@
 
-<div class="background"> <!-- Background => Dévoilement du footer-->
-  <section class="section-bonjour-compte">
-    <div class="container">
-      <div class="row">
-        <div class="bloc-bonjour-compte col-12">
-          <div class="bloc-avatar">
-            <img class="img-bonjour" src="/assets/img/profil/profil.png" alt="photo de l'utilisateur">
-          </div>
-          <div class="bloc-bonjour">
-            <h2>Bonjour Big Fernand</h2>
-            <p class="message-bonjour"><i class="fas fa-quote-left"></i> Bienvenue sur votre compte. Retrouvez toutes vos informations personnelles et vos préférences. <i class="fas fa-quote-right"></i>
-            </p>
-          </div>
-        </div>
 
-        <div class="grand-bloc-onglets">
-          <div class="bloc-onglet">
-            <a href="#il-faut-aller-ici-commerces">
-              <div class="onglet">
-                <p class="nom-onglet">
-                  <a routerLink="/merchant/commerces">Mes Commerces</a>
-                </p>
-              </div>
-            </a>
-            <a href="#il-faut-aller-ici-commandes">
-              <div class="onglet2">
-                <p class="nom-onglet">
-                  <a routerLink="/merchant/commands">Commandes en Cours</a>
-                </p>
-              </div>
-            </a>
-            <a href="#il-faut-aller-ici-produits">
-              <div class="onglet3">
-                <p class="nom-onglet">
-                  <a routerLink="/merchant/productTemplates">Mes Produits</a>
-                </p>
-              </div>
-            </a>
-            <a href="#il-faut-aller-ici-comptes">
-              <div class="onglet4">
-                <p class="nom-onglet">
-                  Comptes Employés
-                </p>
-              </div>
-            </a>
-          </div>
-        </div>
+  <app-menu-merchant [sectionDisplayed]="sectionDisplayed" (sectionChange)="this.sectionDisplayed = $event"></app-menu-merchant>
 
-      </div>
-    </div>
-  </section>
 
-  <app-commerce-list-merchant></app-commerce-list-merchant>
-  <app-command-list-merchant></app-command-list-merchant>
-  <app-product-template-list-merchant></app-product-template-list-merchant>
+  <app-commerce-list-merchant *ngIf="(sectionDisplayed < 1)"></app-commerce-list-merchant>
+  <app-command-list-merchant *ngIf="Math.abs(sectionDisplayed) == 1"></app-command-list-merchant>
+  <app-product-template-list-merchant *ngIf="((sectionDisplayed + 1) % 3 == 0)"></app-product-template-list-merchant>
 
 
 
 
   <!-- BOUTON UP -->
   <div class="fond-up">
-    <div id="bouton-up" class="bouton-up">
+    <div id="bouton-up" class="bouton-up" (click)="scrollToTop()">
       <i class="fas fa-chevron-up"></i>
     </div>
   </div>
 
-</div> <!-- Fin du Background => Dévoilement du footer-->
 

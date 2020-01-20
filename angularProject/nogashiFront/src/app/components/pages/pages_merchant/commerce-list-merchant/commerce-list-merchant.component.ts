@@ -3,6 +3,7 @@ import {ProductTemplate} from '../../../../classes/product-template';
 import {MerchantService} from '../../../../services/merchant.service';
 import {RestResponse} from '../../../../classes/rest-response';
 import {Commerce} from '../../../../classes/commerce';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-commerce-list-merchant',

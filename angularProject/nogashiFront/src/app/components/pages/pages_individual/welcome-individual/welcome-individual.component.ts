@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ConnexionService} from '../../../../services/connexion.service';
 
 @Component({
   selector: 'app-welcome-individual',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeIndividualComponent implements OnInit {
 
-  constructor() { }
+  constructor(private connexionService: ConnexionService
+          ) { }
 
   ngOnInit() {
   }

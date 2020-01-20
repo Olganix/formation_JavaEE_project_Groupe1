@@ -1,0 +1,61 @@
+Checklist
+
+Wamp
+    supprimer BDD
+
+Spring
+    tomcat
+    main.java
+
+Webstorm
+    ng serve
+    
+Fakesmtp
+
+Powerpoint
+
+omnia.txt
+ 
+
+étendre l'écran
+
+
+
+************* Présentation diapo ************
+
+
+
+
+
+
+
+******************************
+************ Démo ************
+******************************
+
+*********** Anonyme **********
+
+- Page d'accueil
+- FAQ
+- Mentions légales
+- Tchat
+
+
+
+********* Marchand ***********
+
+- Créer un compte Omnia
+- Récupérer le mail de validation
+- Se connecter
+
+- Créer un commerce
+- Ajouter un nouveau produit
+
+- Se déconnecter
+
+
+******** Particulier *********
+
+- Se connecter
+- Rechercher un produit
+- Ajouter un produit au panier
