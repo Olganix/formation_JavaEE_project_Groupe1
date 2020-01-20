@@ -22,11 +22,14 @@ import fr.dawan.nogashi.beans.Merchant;
 import fr.dawan.nogashi.beans.Product;
 import fr.dawan.nogashi.beans.ProductTemplate;
 import fr.dawan.nogashi.beans.RestResponse;
+import fr.dawan.nogashi.beans.SchedulerDay;
+import fr.dawan.nogashi.beans.SchedulerHoursRange;
 import fr.dawan.nogashi.beans.SchedulerWeek;
 import fr.dawan.nogashi.beans.ShoppingCartByCommerce;
 import fr.dawan.nogashi.beans.User;
 import fr.dawan.nogashi.daos.GenericDao;
 import fr.dawan.nogashi.enums.RestResponseStatus;
+import fr.dawan.nogashi.enums.SchedulerWeekType;
 import fr.dawan.nogashi.enums.UserRole;
 import fr.dawan.nogashi.listeners.StartListener;
 
@@ -732,6 +735,30 @@ public class MerchantController
 		}
 		
 		
+		
+		if (pt.getSchedulerWeekForSaleAndUnsold() != null)					// parent est ignoré pour le json et pour le xml, donc on doit le remettre en place, sinon ca ne marchera pas avec Hibernate/jpa.
+		{
+			SchedulerWeek sw = pt.getSchedulerWeekForSaleAndUnsold();
+			if(sw.getType() == SchedulerWeekType.GROUP )
+			{
+				for(SchedulerWeek swt : sw.getGroup())
+				{
+					for(SchedulerDay sd : swt.getDays())
+					{
+						sd.setParent(swt);
+						for(SchedulerHoursRange shr : sd.getHoursRanges())
+							shr.setParent(sd);
+					}
+				}
+			}else {
+				for(SchedulerDay sd : sw.getDays())
+				{
+					sd.setParent(sw);
+					for(SchedulerHoursRange shr : sd.getHoursRanges())
+						shr.setParent(sd);
+				}
+			}
+		}
 
 		
 		ProductTemplate pt_bdd = null;

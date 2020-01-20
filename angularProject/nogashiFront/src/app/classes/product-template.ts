@@ -1,5 +1,6 @@
 import {ProductDetail} from './product-detail';
 import {SchedulerWeek} from './scheduler-week';
+import {Address} from './address';
 
 export class ProductTemplate {
 
@@ -27,6 +28,14 @@ export class ProductTemplate {
   constructor(obj?: object) {                         // json/object => class with functions
     if (obj !== null) {
       Object.assign(this, obj);                       // le json via http crée une liste d'objects, mais pas de Users, donc ici on essaye de regle le soucis, avec un Pip dans le service.
+    }
+
+    /* tslint:disable:no-string-literal */
+    if ( (obj !== undefined) && (obj !== null) ) {
+
+      if ((obj.hasOwnProperty('schedulerWeekForSaleAndUnsold')) && (obj['schedulerWeekForSaleAndUnsold'] !== null)) {
+        this._schedulerWeekForSaleAndUnsold = new SchedulerWeek(obj['schedulerWeekForSaleAndUnsold']);
+      }
     }
   }
 

@@ -126,7 +126,7 @@ export class SchedulerWeekTxtComponent implements OnInit, OnChanges {
     }
 
     const timeZoneOffset = (new Date()).getTimezoneOffset();
-    this.edit_scheduler_simplified.day.hoursRanges.push({startTime: (this.ip_hourStart_h * 60 + this.ip_hourStart_min - timeZoneOffset), endTime: (this.ip_hourEnd_h * 60 + this.ip_hourEnd_min - timeZoneOffset)});
+    this.edit_scheduler_simplified.day.hoursRanges.push(new SchedulerHoursRange({startTime: (this.ip_hourStart_h * 60 + this.ip_hourStart_min - timeZoneOffset), endTime: (this.ip_hourEnd_h * 60 + this.ip_hourEnd_min - timeZoneOffset)}));
   }
   removeHoursRange(index: number, e) {
     e.preventDefault();

@@ -60,9 +60,15 @@
           </select>
         </div>
 
-        <div class="bloc-quantite-produit col-6" *ngIf="productTemplate.schedulerWeekForSaleAndUnsold && productTemplate.schedulerWeekForSaleAndUnsold.group && productTemplate.schedulerWeekForSaleAndUnsold.group.length!=0">
+        <!-- TODO display unsold, + conditions -->
+        <div class="bloc-quantite-produit col-6" *ngIf="((connexionService.getLocalConnectedRole() === UserRole.MERCHANT) || (connexionService.getLocalConnectedRole() === UserRole.INDIVIDUAL)) &&   productTemplate.schedulerWeekForSaleAndUnsold && productTemplate.schedulerWeekForSaleAndUnsold.group && productTemplate.schedulerWeekForSaleAndUnsold.group.length!=0">
           <p class="offre-disponible">
             <app-scheduler-week-txt [scheduler]="productTemplate.schedulerWeekForSaleAndUnsold.group[0]" [schedulerType]="SchedulerWeekType.PRODUCT_PROMOTION" ></app-scheduler-week-txt>
+          </p>
+        </div>
+        <div class="bloc-quantite-produit col-6" *ngIf="((connexionService.getLocalConnectedRole() === UserRole.MERCHANT) || (connexionService.getLocalConnectedRole() === UserRole.ASSOCIATION)) &&   productTemplate.schedulerWeekForSaleAndUnsold && productTemplate.schedulerWeekForSaleAndUnsold.group && productTemplate.schedulerWeekForSaleAndUnsold.group.length>1">
+          <p class="offre-disponible">
+            <app-scheduler-week-txt [scheduler]="productTemplate.schedulerWeekForSaleAndUnsold.group[1]" [schedulerType]="SchedulerWeekType.PRODUCT_UNSOLD" ></app-scheduler-week-txt>
           </p>
         </div>
 
