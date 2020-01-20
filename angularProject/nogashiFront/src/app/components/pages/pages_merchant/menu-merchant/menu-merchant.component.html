@@ -17,21 +17,24 @@
 
         <div class="grand-bloc-onglets">
           <div class="bloc-onglet">
-            <a (click)="showSection(0)">
-              <div class="onglet">
-                <p class="nom-onglet">
-                  <a>Mes Commerces</a>
-                </p>
-              </div>
-            </a>
-            <a (click)="showSection(1)">
-              <div class="onglet2">
-                <p class="nom-onglet">
-                  <a>Commandes en Cours</a>
-                </p>
-              </div>
-            </a>
-            <a (click)="showSection(2)">
+            <!-- <a (click)="showSection(0)"> -->
+            <a routerLink="/merchant/commerces">
+               <div class="onglet">
+                 <p class="nom-onglet">
+                   <a>Mes Commerces</a>
+                 </p>
+               </div>
+             </a>
+             <!--  <a (click)="showSection(1)"> -->
+            <a routerLink="/merchant/commands">
+                <div class="onglet2">
+                  <p class="nom-onglet">
+                    <a>Commandes en Cours</a>
+                  </p>
+                </div>
+              </a>
+             <!-- <a (click)="showSection(2)"> -->
+            <a routerLink="/merchant/productTemplates">
               <div class="onglet3">
                 <p class="nom-onglet">
                   <a>Mes Produits</a>
