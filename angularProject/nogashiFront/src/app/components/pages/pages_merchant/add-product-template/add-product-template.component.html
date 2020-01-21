@@ -57,7 +57,7 @@
          </div>
         </div>
 
-        <div class="commerce-affichage">
+        <div class="commerce-affichage col-12">
           <div class="Lieu-affichage col-8">
             <label for="liste-mois" class="label-formulaire"> Votre produit est disponible ici :</label>
             <select id="liste-mois" class="liste-mois col-12">
@@ -76,14 +76,26 @@
           </div>
           -->
 
-          <app-scheduler-week-txt [scheduler]="schedulerWeekForSaleAndUnsold.group[0]" [schedulerType]="SchedulerWeekType.PRODUCT_PROMOTION" [editMode]="true" (schedulerChange)="this.schedulerWeekForSaleAndUnsold.group[0] = $event" ></app-scheduler-week-txt>
-          <app-scheduler-week-txt [scheduler]="schedulerWeekForSaleAndUnsold.group[1]" [schedulerType]="SchedulerWeekType.PRODUCT_UNSOLD" [editMode]="true" (schedulerChange)="this.schedulerWeekForSaleAndUnsold.group[1] = $event" ></app-scheduler-week-txt>
-          <span class="text-danger" *ngIf="schedulerWeekForSaleAndUnsold_onError">Des horaires de mise en promotion et invendu du produit est obligatoire</span>
 
         </div>
     </div>
+</div>
 
+  <div class="container">
+    <div class="row">
+      <h1 class="titre-choix-horaires col-12">// CHOIX DES HORAIRES</h1>
+      <div class="grand-bloc-horaires">
+          <div class="bloc-bloc-horaires col-6">
+            <app-scheduler-week-txt [scheduler]="schedulerWeekForSaleAndUnsold.group[0]" [schedulerType]="SchedulerWeekType.PRODUCT_PROMOTION" [editMode]="true" (schedulerChange)="this.schedulerWeekForSaleAndUnsold.group[0] = $event" ></app-scheduler-week-txt>
+          </div>
+          <div class="bloc-bloc-horaires col-6">
+            <app-scheduler-week-txt [scheduler]="schedulerWeekForSaleAndUnsold.group[1]" [schedulerType]="SchedulerWeekType.PRODUCT_UNSOLD" [editMode]="true" (schedulerChange)="this.schedulerWeekForSaleAndUnsold.group[1] = $event" ></app-scheduler-week-txt>
+            <span class="text-danger" *ngIf="schedulerWeekForSaleAndUnsold_onError">Des horaires de mise en promotion et invendu du produit est obligatoire</span>
+          </div>
+        </div>
+     </div>
   </div>
+
   <div class="container">
     <div class="row">
       <div class="bloc-composition-produit col-12">

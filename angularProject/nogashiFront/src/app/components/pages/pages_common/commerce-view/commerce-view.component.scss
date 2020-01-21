@@ -90,6 +90,7 @@ body {
 }
 
 .bloc-information-commerce {
+  height: 190px;
   background-color: var(--couleurNoir);
 }
 
@@ -158,8 +159,8 @@ body {
   font-size: 1em;
   font-weight: 600;
   text-transform: uppercase;
-  color: var(--couleurNoir);
-  background: var(--couleurVertCorrect);
+  color: var(--couleurBlanc);
+  background: var(--couleurRougeIncorrect);
   box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
   border: 2px solid var(--couleurBlancCreme);
   border-radius: 28px;

@@ -1,18 +1,21 @@
 .bloc-horaires {
-  background-color: var(--couleurGrisClair);
-  border-top: 1px solid var(--couleurNoir);
   padding-top: 15px;
   padding-bottom: 15px;
+
 }
+
 
 .titre-horaires {
   font-family: 'Ubuntu', sans-serif;
-  font-size: 1.3em;
+  font-size: 1.1em;
   font-weight: 600;
+  text-align: center;
   text-decoration: underline var(--couleurBlancCreme);
   color: var(--couleurNoir);
-  padding-top: 20px;
-  margin-left: 30px;
+}
+
+.fond-horaires {
+
 }
 
 .fa-clock {
@@ -20,8 +23,8 @@
 }
 
 .bloc-text-horaires {
-  margin-left: 60px;
   display: flex;
+
 }
 
 .text-jour {
@@ -62,14 +65,17 @@
   padding-top: 30px;
   padding-bottom: 30px;
   margin-bottom: 30px;
+  -webkit-box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+  -moz-box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+  box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
 }
 
 .text-edition {
   font-family: 'Ubuntu', sans-serif;
-  font-size: 1.1em;
+  font-size: 1em;
   font-weight: 600;
   color: var(--couleurBlancCreme);
-  margin-left: 60px;
+  margin-left: 30px;
   margin-bottom: 7px;
 }
 
@@ -104,7 +110,7 @@
 }
 
 .bloc-edition {
-  margin-left: 60px;
+  margin-left: 30px;
 }
 
 .bloc-select {
@@ -128,7 +134,7 @@
   color: var(--couleurNoir);
   border: 1.5px solid #000;
   border-radius: 5px;
-  padding-left: 10px;
+  padding-left: 0px;
 }
 
 .liste-deroulante2 {

@@ -1,12 +1,21 @@
 
 
+
+  <app-menu-merchant></app-menu-merchant>
+
+  <app-commerce-list-merchant></app-commerce-list-merchant>
+  <app-command-list-merchant></app-command-list-merchant>
+  <app-product-template-list-merchant></app-product-template-list-merchant>
+
+
+<!-- TODO une seule page avec le menu et les components qui se masquent quand on clique sur un des boutons
   <app-menu-merchant [sectionDisplayed]="sectionDisplayed" (sectionChange)="this.sectionDisplayed = $event"></app-menu-merchant>
 
 
   <app-commerce-list-merchant *ngIf="(sectionDisplayed < 1)"></app-commerce-list-merchant>
   <app-command-list-merchant *ngIf="Math.abs(sectionDisplayed) == 1"></app-command-list-merchant>
   <app-product-template-list-merchant *ngIf="((sectionDisplayed + 1) % 3 == 0)"></app-product-template-list-merchant>
-
+-->
 
 
 

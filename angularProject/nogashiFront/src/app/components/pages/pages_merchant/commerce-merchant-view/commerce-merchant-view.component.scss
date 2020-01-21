@@ -10,7 +10,7 @@ a {
 
 .bloc-ouverture-commerce {
   padding-top: 15px;
-  padding-bottom: 6px;
+  padding-bottom: 15px;
   margin-top: 30px;
   background-color: var(--couleurBlancCreme);
   display: flex;
@@ -56,6 +56,8 @@ a {
 
 .bloc-information-commerce {
   background-color: var(--couleurNoir);
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 .nom-commerce {
@@ -112,8 +114,7 @@ a {
 
 .bloc-ouverture {
   text-align: center;
-  padding-bottom: 25px;
-  margin-top: 25px;
+  padding-bottom: 20px;
 
 }
 
@@ -123,8 +124,8 @@ a {
   font-size: 1em;
   font-weight: 600;
   text-transform: uppercase;
-  color: var(--couleurNoir);
-  background: var(--couleurVertCorrect);
+  color: var(--couleurBlancCreme);
+  background: var(--couleurRougeIncorrect);
   box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
   border: 2px solid var(--couleurBlancCreme);
   border-radius: 28px;
@@ -137,7 +138,7 @@ a {
 
 .bouton-ouverture:hover {
   color: var(--couleurBlancCreme);
-  background: var(--couleurRougeIncorrect);
+  background: var(--couleurVertCorrect);
   border: 2px solid var(--couleurBlancCreme);
   border-radius: 28px;
 }
