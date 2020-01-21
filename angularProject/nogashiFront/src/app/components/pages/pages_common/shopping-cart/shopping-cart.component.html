@@ -1,5 +1,5 @@
 
-<app-command-steps></app-command-steps>
+<app-command-steps [step]="0" ></app-command-steps>
 
 <!-- SECTION -> Panier-commande -->
 <section class="section-resumer-commande">
@@ -16,7 +16,9 @@
             <p class="titre-commerce2">Commerces<i class="fas fa-sort-down"></i></p>
           </div>
 
-            <app-cart-by-commerce *ngFor="let scbc of shoppingCart.shoppingCartByCommerces" [shoppingCartByCommerce]="scbc"></app-cart-by-commerce>
+          <div *ngIf="shoppingCart">
+            <app-cart-by-commerce *ngFor="let scbc of groupByCommerce_ProductTemplate" [groupByCommerce_ProductTemplate]="scbc"></app-cart-by-commerce>
+          </div>
 
           <div class="time">
             <p class="texte-time"><i class="fas fa-exclamation-circle"></i> Veuillez récupérer vos produits avant : 18h00</p>
@@ -24,14 +26,14 @@
         </div>
 
 
-        <div class="bloc-prix-affichage col-12">
+        <div class="bloc-prix-affichage col-12" *ngIf="shoppingCart">
           <div class="text-total">Total Panier :</div>
-          <div class="prix-affichage">114,90 €</div>
+          <div class="prix-affichage">{{shoppingCart.price}} €</div>
         </div>
 
         <div class="bloc-bouton-commande col-12">
           <div class="bloc-payer">
-            <a href="paiement.html"><div id ="bouton-payer" class="bouton-payer">PAYER</div></a>
+            <a routerLink="/commandRecap" ><div id ="bouton-payer" class="bouton-payer">PAYER</div></a>
           </div>
         </div>
       </div>

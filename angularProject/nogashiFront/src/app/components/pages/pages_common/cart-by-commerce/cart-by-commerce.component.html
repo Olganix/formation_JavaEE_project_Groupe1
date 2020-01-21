@@ -4,7 +4,7 @@
 
 <div class="bloc-commerce-commande">
   <div class="bloc-titre-commerce">
-    <h3 class="titre-commerce">- {{shoppingCartByCommerce.commerce.name}} - {{shoppingCartByCommerce.commerce.uniqueIdName}} -</h3>
+    <h3 class="titre-commerce">- {{groupByCommerce_ProductTemplate.scbc.commerce.name}} - {{groupByCommerce_ProductTemplate.scbc.commerce.uniqueIdName}} -</h3>
     <i class="fas fa-map-marker-alt"></i>
   </div>
   <table class="table-commande col-12">
@@ -20,14 +20,14 @@
     </thead>
 
 
-    <app-product-item-in-cart-by-commerce *ngFor="let p of shoppingCartByCommerce.products" [product]="p"></app-product-item-in-cart-by-commerce>
+    <app-product-item-in-cart-by-commerce *ngFor="let lpt of groupByCommerce_ProductTemplate.lpt" [lpt]="lpt"></app-product-item-in-cart-by-commerce>
 
 
   </table>
 
   <div class="bloc-prix-affichage col-12">
-    <div class="text-total">Total panier chez {{shoppingCartByCommerce.commerce.name}} - {{shoppingCartByCommerce.commerce.uniqueIdName}} : </div>
-    <div class="prix-affichage">{{shoppingCartByCommerce.price}} €</div>
+    <div class="text-total">Total panier chez {{groupByCommerce_ProductTemplate.scbc.commerce.name}} - {{groupByCommerce_ProductTemplate.scbc.commerce.uniqueIdName}} : </div>
+    <div class="prix-affichage">{{groupByCommerce_ProductTemplate.scbc.price}} €</div>
   </div>
 
   <div class="time">

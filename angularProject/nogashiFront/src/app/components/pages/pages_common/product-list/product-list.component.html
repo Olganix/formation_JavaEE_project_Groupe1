@@ -162,7 +162,7 @@
 
       <div class="bloc-affichage col-10">
 
-        <app-product-template-common-view *ngFor="let pt of productTemplates" [productTemplate]="pt" ></app-product-template-common-view>
+        <app-product-template-common-view *ngFor="let pt of productTemplateListForAdd.productTemplates" [productTemplate]="pt" [productTemplateListForAdd]="productTemplateListForAdd" ></app-product-template-common-view>
 
 
         <div class="bloc-pagination col-12">

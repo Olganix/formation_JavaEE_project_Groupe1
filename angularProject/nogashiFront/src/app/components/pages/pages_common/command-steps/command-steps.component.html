@@ -1,20 +1,30 @@
 <!-- SECTION -> Etapes de commande -->
 <section class="section-etapes-commande">
+
   <div class="bloc-etapes">
-    <div class="etape-panier">
-      <p class="mot-panier">1.Panier</p>
+
+    <div [ngClass]="step===0 ? 'etape-panier' : 'etape-resumer-commande'" >
+      <p [ngClass]="step===0 ? 'mot-panier' : 'mot-etape-resumer'" >1.Panier</p>
     </div>
+
     <i class="fas fa-angle-double-right"></i>
-    <div class="etape-resumer-commande">
-      <p class="mot-etape-resumer">2.Resumer</p>
+
+    <div [ngClass]="step===1 ? 'etape-panier' : 'etape-resumer-commande'" >
+      <p [ngClass]="step===1 ? 'mot-panier' : 'mot-etape-resumer'" >2.Resumer</p>
     </div>
+
     <i class="fas fa-angle-double-right"></i>
-    <div class="etape-paiement">
-      <p class="mot-paiement">3.Paiement</p>
+
+    <div [ngClass]="step===2 ? 'etape-panier' : 'etape-paiement'" >
+      <p [ngClass]="step===2 ? 'mot-panier' : 'mot-paiement'" >3.Paiement</p>
     </div>
+
     <i class="fas fa-angle-double-right"></i>
-    <div class="etape-confirmation-commande">
-      <p class="mot-etape-confirmation">4.Confirmation</p>
+
+    <div [ngClass]="step===3 ? 'etape-panier' : 'etape-confirmation-commande'" >
+      <p [ngClass]="step===3 ? 'mot-panier' : 'mot-etape-confirmation'" >4.Confirmation</p>
     </div>
+
+
   </div>
 </section>

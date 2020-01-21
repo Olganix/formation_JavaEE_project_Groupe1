@@ -49,7 +49,6 @@ public class ProductTemplate extends DbObject {
 	
 	private boolean timeControlStatus = true;					// for automatic switch on hours.
 	
-	@XmlTransient
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private SchedulerWeek schedulerWeekForSaleAndUnsold;	// horaires pour definir les periodes / heures ou le produit pourra être vendu en promotion, et de meme pour le status invendu.  
 	

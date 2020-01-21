@@ -28,7 +28,7 @@ public class Buyer extends User {
 	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "buyer")
 	private List<Subscription> subscriptions = new ArrayList<Subscription>();
 	
-	@OneToOne(mappedBy = "buyer", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "buyer")
 	private ShoppingCart shoppingCart;
 	@XmlTransient @JsonIgnore @OneToMany(mappedBy = "buyer")
 	private List<ShoppingCart> historicShoppingCarts;

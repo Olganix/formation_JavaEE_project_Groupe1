@@ -8,7 +8,7 @@ import {ShoppingCartByCommerce} from '../../../../classes/shopping-cart-by-comme
 })
 export class CartByCommerceComponent implements OnInit {
 
-  @Input() shoppingCartByCommerce: ShoppingCartByCommerce;
+  @Input() groupByCommerce_ProductTemplate: any;
 
   constructor() { }
 

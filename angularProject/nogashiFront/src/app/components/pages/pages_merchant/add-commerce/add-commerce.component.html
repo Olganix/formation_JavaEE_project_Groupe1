@@ -11,7 +11,7 @@
 
       <div>
         <img class="" src="/assets/img/commerce/{{((this.form1.value.pictureLogo !== null) && (this.form1.value.pictureLogo.trim() !== '') ) ? this.form1.value.pictureLogo : defaultLogo}}" alt="logo du commerce">
-        <input formControlName="pictureLogo" name="pictureLogo" type="file" placeholder="Logo du commerce" > <!-- Todo upload -->
+        <input formControlName="pictureLogo" name="pictureLogo" type="file" placeholder="Logo du commerce" > <!-- Todo upload  https://blog.jscrambler.com/implementing-file-upload-using-node-and-angular/ -->
         <span class="text-danger" *ngIf="controlPictureLogo(); let message">{{message}}</span>
       </div>
 

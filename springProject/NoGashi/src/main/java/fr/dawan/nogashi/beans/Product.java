@@ -7,8 +7,13 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import fr.dawan.nogashi.enums.ProductStatus;
 
@@ -19,7 +24,7 @@ public class Product extends ProductTemplate {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@OneToOne
+	@OneToOne @LazyCollection(LazyCollectionOption.FALSE)
 	private ProductTemplate reference;								// Product are created from a productTemplate. (but could override value for adaptive situation, so that extends the ProductTemplate)
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Commerce commerce;
@@ -29,7 +34,7 @@ public class Product extends ProductTemplate {
 	@Column(length = 500)
 	private String typedName = null;								// ajoute une info qui personalise le produit (par rapport au ProductTemplate), genre "cramé"
 	
-	@ManyToOne
+	@ManyToOne @XmlTransient @JsonIgnore
 	private ShoppingCartByCommerce shoppingCart;
 	
 	

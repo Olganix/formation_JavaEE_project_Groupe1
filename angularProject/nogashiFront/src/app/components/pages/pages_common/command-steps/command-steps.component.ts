@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-command-steps',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./command-steps.component.scss']
 })
 export class CommandStepsComponent implements OnInit {
+
+  @Input() step: number;
 
   constructor() { }
 

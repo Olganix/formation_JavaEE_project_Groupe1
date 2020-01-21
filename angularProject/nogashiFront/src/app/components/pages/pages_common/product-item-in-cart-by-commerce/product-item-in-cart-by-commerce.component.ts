@@ -8,7 +8,7 @@ import {Product} from '../../../../classes/product';
 })
 export class ProductItemInCartByCommerceComponent implements OnInit {
 
-  @Input() product: Product;
+  @Input() lpt: any;
 
   constructor() { }
 

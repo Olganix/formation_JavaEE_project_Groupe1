@@ -7,10 +7,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,10 +32,10 @@ public class ShoppingCart extends DbObject {
 	private double price;
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne @XmlTransient @JsonIgnore
 	private Buyer buyer;
 	
-	@OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL) @XmlTransient @JsonIgnore
+	@OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)  @LazyCollection(LazyCollectionOption.FALSE)	
 	private List<ShoppingCartByCommerce> shoppingCartByCommerces = new ArrayList<ShoppingCartByCommerce>();
 	
 	
@@ -75,12 +78,26 @@ public class ShoppingCart extends DbObject {
 		}
 	}
 	
+	
+	public void calculPrice(){
+		
+		this.price = 0;
+		for(ShoppingCartByCommerce scbc : shoppingCartByCommerces)
+		{
+			scbc.calculPrice();
+			this.price += scbc.getPrice();
+		}
+	}
+	
+	
 	//-------------------------------
 	
 
 	public ShoppingCart(Buyer buyer) {
 		super();
 		this.buyer = buyer;
+		if(this.buyer!=null)
+			this.buyer.setShoppingCart(this);
 	}
 
 	public ShoppingCart() {
@@ -96,7 +113,16 @@ public class ShoppingCart extends DbObject {
 		return buyer;
 	}
 	public void setBuyer(Buyer buyer) {
+		if(this.buyer == buyer)
+			return;
+		
+		if(this.buyer!=null)
+			this.buyer.setShoppingCart(null);
+		
 		this.buyer = buyer;
+		
+		if(this.buyer!=null)
+			this.buyer.setShoppingCart(this);
 	}
 	public ShoppingCartStatus getStatus() {
 		return status;

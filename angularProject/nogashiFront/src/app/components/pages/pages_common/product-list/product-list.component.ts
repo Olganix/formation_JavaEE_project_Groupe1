@@ -3,6 +3,7 @@ import {BuyerService} from '../../../../services/buyer.service';
 import {RestResponse} from '../../../../classes/rest-response';
 import {ProductTemplate} from '../../../../classes/product-template';
 import {ActivatedRoute} from '@angular/router';
+import {ProductTemplateListForAdd} from '../../../../classes/product-template-list-for-add';
 
 @Component({
   selector: 'app-product-list',
@@ -11,50 +12,24 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
 
-  productTemplates: ProductTemplate[];
+  productTemplateListForAdd: ProductTemplateListForAdd;
 
   constructor(private buyerService: BuyerService,
               private route: ActivatedRoute
             ) { }
 
   ngOnInit() {
-
-
-    this.buyerService.getProductTemplates().subscribe(
+    this.buyerService.getProductTemplatesForAdd().subscribe(
       (rrp: RestResponse) => {
 
         if (rrp.status === 'SUCCESS') {
-
-          this.productTemplates = [];
-          for (const pt of rrp.data) {
-            this.productTemplates.push( new ProductTemplate(pt) );
-          }
-
-          this.productTemplates = rrp.data;
+          this.productTemplateListForAdd = new ProductTemplateListForAdd(rrp.data);
         } else {
           console.log('Echec de la recuperation de la liste des productTemplates : ' + rrp.errormessage);
         }
       },
       error => {
         console.log('Echec de la recuperation de la liste des productTemplates : ', error);
-      });
-
-
-    this.buyerService.getProductsByName(name).subscribe(
-      (rrp: RestResponse) => {
-
-        if (rrp.status === 'SUCCESS') {
-
-          this.productTemplates = [];
-          for (const tmp of rrp.data) {
-            this.productTemplates.push(new ProductTemplate(tmp));
-          }
-        } else {
-          console.log('Echec de la recuperation de la liste des products : ' + rrp.errormessage);
-        }
-      },
-      error => {
-        console.log('Echec de la recuperation de la liste des products : ', error);
       });
   }
 

@@ -1,6 +1,5 @@
 package fr.dawan.nogashi.beans;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;

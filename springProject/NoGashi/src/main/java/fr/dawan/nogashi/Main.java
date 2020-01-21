@@ -181,6 +181,7 @@ public class Main
 		
 		SchedulerWeek swTmp2_a = new SchedulerWeek();			// horaire promotion
 		swTmp2_a.setType(SchedulerWeekType.PRODUCT_PROMOTION);
+		swTmp2_g.add(swTmp2_a);
 		List<SchedulerDay> lsd2_a = swTmp2_a.getDays();
 		
 		// Exemple d'horaires d'ouverture.
@@ -200,7 +201,9 @@ public class Main
 
 		SchedulerWeek swTmp2_b = new SchedulerWeek();			// horaire promotion
 		swTmp2_b.setType(SchedulerWeekType.PRODUCT_UNSOLD);
+		swTmp2_g.add(swTmp2_b);
 		List<SchedulerDay> lsd2_b = swTmp2_a.getDays();
+		
 		
 		// Exemple d'horaires d'ouverture.
 		SchedulerHoursRange shr2_b = new SchedulerHoursRange();
@@ -235,6 +238,8 @@ public class Main
 		enuma.addCommerceCategory(new CommerceCategory("Boulangerie"));
 		enuma.addCommerceCategory(new CommerceCategory("Restaurant")); */
 		
+		
+		//Todo faire , new SchedulerWeek(swTmp2) a chaque , mais j'ai peur que ca decale des id et perturbe la demo.
 		// TODO déplacer les ingredients de la description de chaque produit vers ProductDetail.
 		/* ---------- PRODUITS BASILIC AND CO ---------- */
 		// https://www.basilic-and-co.com/carte-pizzas
@@ -443,7 +448,13 @@ public class Main
 		
 		for(Commerce c : lc)
 		{
-			List<Product> lpt = c.getProducts();
+			//List<Product> lpt = c.getProducts();						//marche pas
+			List<Product> lpt = new ArrayList<Product>();
+			try {
+				lpt = dao.findBySomething(Product.class, "commerce", c, em);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			List<Integer> lpti = new ArrayList<Integer>();
 			for(int i = 0; i < lpt.size(); i++)
@@ -629,13 +640,10 @@ public class Main
 				return;
 			buyer = lb.get(0);
 			
-			List<ShoppingCart> lsc = dao.findBySomething(ShoppingCart.class, "buyer", buyer, em);
-			if(lsc.size()!=0)
-			{
-				sc = lsc.get(0);
-				System.out.println("ShoppingCart attendu pour tester le remplissage de la bdd :"+ sc);		//todo remove this print.
-				return;
-			}
+			sc = buyer.getShoppingCart();
+			if(sc==null)
+				sc = new ShoppingCart(buyer);
+			
 			
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -654,8 +662,8 @@ public class Main
 			lm = dao.findNamed(Merchant.class, "name", "Big Fernand", em);
 			if(lm.size()!=0)
 			{
-				System.out.println("tata");
 				m = lm.get(0);
+				System.out.println("tata" + m);
 				
 				lc = dao.findBySomething(Commerce.class, "merchant", m, em);
 			}
@@ -668,29 +676,37 @@ public class Main
 		
 		
 		
-		sc = new ShoppingCart(buyer);
 		
 		List<Product> lp = new ArrayList<Product>();
 		
 		for(Commerce c : lc)
 		{
-			List<Product> lpt = c.getProducts();
+			System.out.println(c);
+			
+			//List<Product> lpt = c.getProducts();						// marche pas , j'ai perdu du temps 
+			List<Product> lpt = new ArrayList<Product>();
+			try {
+				lpt = dao.findBySomething(Product.class, "commerce", c, em);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			 
 			
 			List<Integer> lpti = new ArrayList<Integer>();
 			for(int i = 0; i < lpt.size(); i++)
 				lpti.add(i);
 			
 			int nbProducts = (int)Math.round(Math.random() * lpti.size());
+			System.out.println("nbProducts : "+ nbProducts +" lpti.size() : "+ lpti.size());
+			
+			
 			for(int i = 0;  i< nbProducts; i++)
 			{
 				int index = (int)Math.round(Math.random() * (lpti.size() - 1));
 				
 				ShoppingCartByCommerce scbc = sc.getShoppingCartByCommerce(c);
 				if(scbc==null)
-				{
 					scbc = new ShoppingCartByCommerce(c, sc);
-					sc.addShoppingCartByCommerces(scbc);
-				}
 				
 				scbc.addProduct( lpt.get(lpti.get(index)) );
 				lpti.remove((int)index);
@@ -702,6 +718,13 @@ public class Main
 		{
 			et.begin();
 			
+			System.out.println(sc);
+			for(ShoppingCartByCommerce scbc : sc.getShoppingCartByCommerces())
+			{
+				System.out.println(scbc);
+				em.persist(scbc);
+			}
+				
 			em.persist(sc);
 			em.persist(m);						//to save Commerce and ProducTemplate
 			em.persist(buyer);					//normally also save shoppingCart

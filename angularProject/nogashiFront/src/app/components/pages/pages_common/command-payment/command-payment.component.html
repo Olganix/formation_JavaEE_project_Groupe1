@@ -1,5 +1,5 @@
 
-<app-command-steps></app-command-steps>
+<app-command-steps  [step]="2" ></app-command-steps>
 
 <section class="section-paiement">
   <div class="container">
@@ -56,7 +56,7 @@
 
             <div class="bloc-date">
               <div class="mois-carte">
-                <label for="mois" class="label-formulaire"><i class="fas fa-asterisk"></i> Mois</label>
+                <label  class="label-formulaire"><i class="fas fa-asterisk"></i> Mois</label>
                 <select id="liste-mois" class="liste-mois">
                   <option>Janvier</option>
                   <option>Fevrier</option>
@@ -73,7 +73,7 @@
                 </select>
               </div>
               <div class="annee-carte">
-                <label for="annee" class="label-formulaire"><i class="fas fa-asterisk"></i> Annee</label>
+                <label  class="label-formulaire"><i class="fas fa-asterisk"></i> Annee</label>
                 <select id="liste-annee" class="liste-annee">
                   <option>2019</option>
                   <option>2020</option>
@@ -88,14 +88,14 @@
 
             <div class="bloc-checkbox">
               <input  id="checkbox" class="checkbox" type="checkbox">
-              <label class="label" for="scales"> Sauvegarder la carte pour de futur achats</label>
+              <label class="label" > Sauvegarder la carte pour de futur achats</label>
             </div>
 
 
           </form>
 
           <div class="bloc-payer col-12">
-            <a href="commandConfirmation"><div id="bouton-payer" class="bouton-payer">VALIDATION PAIEMENT</div></a>          </div>
+            <a routerLink="/commandConfirmation"><div class="bouton-payer">VALIDATION PAIEMENT</div></a>          </div>
           <p class="texte-privacy">By making a purchase, you accept the <span class="mot-privacy">Terms of Service</span> and <span class="mot-privacy">Privacy Policy</span>.
             Any subscriptions will automatically renew and your credit card will be
             charged the subscription fee. You can cancel or modify your plan at any

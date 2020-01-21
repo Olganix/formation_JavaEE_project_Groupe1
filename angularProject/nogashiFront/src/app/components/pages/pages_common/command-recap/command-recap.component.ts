@@ -12,6 +12,7 @@ import {ShoppingCartByCommerce} from '../../../../classes/shopping-cart-by-comme
 export class CommandRecapComponent implements OnInit {
 
   shoppingCart: ShoppingCart;
+  groupByCommerce_ProductTemplate: any;
 
   constructor(private buyerService: BuyerService,
         ) { }
@@ -22,13 +23,8 @@ export class CommandRecapComponent implements OnInit {
       (rrp: RestResponse) => {
 
         if (rrp.status === 'SUCCESS') {
-
-          this.shoppingCart.shoppingCartByCommerces = [];
-          for (const scbc of rrp.data) {
-            this.shoppingCart.shoppingCartByCommerces.push( new ShoppingCartByCommerce(scbc) );
-          }
-
-          this.shoppingCart.shoppingCartByCommerces = rrp.data;
+          this.shoppingCart = new ShoppingCart(rrp.data);
+          this.init();
         } else {
           console.log('Echec de la recuperation du shoppingCart : ' + rrp.errormessage);
         }
@@ -36,6 +32,37 @@ export class CommandRecapComponent implements OnInit {
       error => {
         console.log('Echec de la recuperation du shoppingCart : ', error);
       });
+  }
+
+
+  init() {
+
+    this.groupByCommerce_ProductTemplate = [];
+    for (const scbc of this.shoppingCart.shoppingCartByCommerces) {
+
+      const productTemplates = [];
+      for (const p of scbc.products) {
+        const ptId = p.reference.id;
+
+        let isFound = false;
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < productTemplates.length; i++) {
+          if (productTemplates[i].pt.id === ptId) {
+            isFound = true;
+            productTemplates[i].lp.push(p);
+            break;
+          }
+        }
+        if (!isFound) {
+          productTemplates.push({pt: p.reference, lp:  [p]} );
+        }
+      }
+
+      this.groupByCommerce_ProductTemplate.push({scbc, lpt: productTemplates});
+    }
+
+    console.log('this.groupByCommerce_ProductTemplate :')
+    console.log(this.groupByCommerce_ProductTemplate);
   }
 
 }

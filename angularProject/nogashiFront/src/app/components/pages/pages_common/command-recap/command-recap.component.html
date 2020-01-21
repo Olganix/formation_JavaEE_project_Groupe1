@@ -1,5 +1,5 @@
 
-<app-command-steps></app-command-steps>
+<app-command-steps [step]="1" ></app-command-steps>
 
 <section class="section-resumer-commande">
   <div class="container">
@@ -13,7 +13,9 @@
         <br>
       </div>
 
-      <app-cart-by-commerce *ngFor="let scbc of shoppingCart.shoppingCartByCommerces" [shoppingCartByCommerce]="scbc"></app-cart-by-commerce>
+      <div *ngIf="shoppingCart">
+        <app-cart-by-commerce *ngFor="let scbc of groupByCommerce_ProductTemplate" [groupByCommerce_ProductTemplate]="scbc"></app-cart-by-commerce>
+      </div>
 
       <div class="bloc-prix-affichage col-12">
         <div class="text-total">Total Panier :</div>
@@ -22,10 +24,10 @@
 
       <div class="bloc-bouton-commande col-12">
         <div class="bloc-retour-panier">
-          <a href="shoppingCart"><div id ="bouton-retour" class="bouton-retour">PANIER</div></a>
+          <a routerLink="/shoppingCart"><div id ="bouton-retour" class="bouton-retour">PANIER</div></a>
         </div>
         <div class="bloc-payer">
-          <a href="paiement.html"><div id ="bouton-payer" class="bouton-payer">PAYER</div></a>
+          <a routerLink="/commandPayment"><div id ="bouton-payer" class="bouton-payer">PAYER</div></a>
         </div>
       </div>
     </div>

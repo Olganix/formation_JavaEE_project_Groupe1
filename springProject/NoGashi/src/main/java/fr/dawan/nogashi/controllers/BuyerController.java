@@ -3,7 +3,6 @@ package fr.dawan.nogashi.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.dawan.nogashi.beanJson.ProductTemplateListForAdd;
 import fr.dawan.nogashi.beans.Buyer;
 import fr.dawan.nogashi.beans.Commerce;
 import fr.dawan.nogashi.beans.Product;
@@ -139,6 +139,58 @@ public class BuyerController
 	*********************************************************************************************************************************************/
 	
 	
+	/****************************************************************************************
+	*										getProductTemplatesForAdd						* 
+	*****************************************************************************************
+	*
+	* Liste tous les ProductTemplates , les commerce associé (utilisation de ProductTemplateListForAdd au lieu de les commerces attachéqs qui créer des boucle infini si non transient/jsonIgnore), et donne le nombre de product qui ne sont pasa dans une shopping cart.
+	*/
+	@GetMapping(path="/productTemplatesForAdd", produces = "application/json")
+	public RestResponse<ProductTemplateListForAdd> getProductTemplatesForAdd(HttpSession session)
+    {
+		EntityManager em = StartListener.createEntityManager();
+		
+		// Check si le User de la session est Buyer
+		Buyer buyer = checkAllowToDoThat(session, em);
+		if(buyer==null)
+		{
+			em.close();
+			return new RestResponse<ProductTemplateListForAdd>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+	
+		
+		ProductTemplateListForAdd ptla = new ProductTemplateListForAdd();
+		try 
+		{
+			List<ProductTemplate> lpt = dao.findAll(ProductTemplate.class, em, true);
+			for(ProductTemplate pt : lpt)
+			{
+				for(Commerce c : pt.getCommerces())
+				{
+					Integer nbProducts = 0; 
+					for(Product p : c.getProducts())
+						if(p.getShoppingCart()==null)
+							nbProducts++;
+					
+					
+					ptla.add(pt, c, nbProducts);
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			em.close();
+			return new RestResponse<ProductTemplateListForAdd>(RestResponseStatus.FAIL, null, 1, "Error: on getProductTemplatesForAdd operation");
+		}
+		
+		em.close();
+		return new RestResponse<ProductTemplateListForAdd>(RestResponseStatus.SUCCESS, ptla);
+    }
+	
+	
+	
+	
 	
 	/****************************************************************************************
 	*										getProductTemplates							* 
@@ -179,6 +231,58 @@ public class BuyerController
 		return new RestResponse<List<ProductTemplate>>(RestResponseStatus.SUCCESS, listProductTemplates);
     }
 	
+	
+	
+	/****************************************************************************************
+	*										getCommerceForAProductTemplate					* 
+	*****************************************************************************************
+	*
+	* Liste tous les ProductTemplates
+	*/
+	@GetMapping(path="/productTemplate/{id}/commerces", produces = "application/json")
+	public RestResponse<List<Commerce>> getCommerceForAProductTemplate(@PathVariable(name="id") int id,HttpSession session)
+    {
+		EntityManager em = StartListener.createEntityManager();
+		
+		// Check si le User de la session est Buyer
+		Buyer buyer = checkAllowToDoThat(session, em);
+		if(buyer==null)
+		{
+			em.close();
+			return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
+		}
+		
+		
+	
+		
+    	// Recupere la liste de tous les Commerce
+		List<Commerce> lc = new ArrayList<Commerce>();
+		try 
+		{
+			ProductTemplate pt = dao.find(ProductTemplate.class, id, em);
+			if(pt==null)
+			{
+				em.close();
+				return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 1, "Error: ProductTempalte not found.");
+			}
+			lc = dao.findBySomething(Commerce.class, "commerces", pt, em);
+			for(Commerce cTmp : lc)
+				System.out.println(cTmp);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			em.close();
+			return new RestResponse<List<Commerce>>(RestResponseStatus.FAIL, null, 1, "Error: on getproductTemplates operation");
+		}
+		
+		em.close();
+		return new RestResponse<List<Commerce>>(RestResponseStatus.SUCCESS, lc);
+    }
+	
+	
+	
+
 	
 	
 	
@@ -251,7 +355,14 @@ public class BuyerController
 		{	
 			Commerce c = dao.find(Commerce.class, id_c, em);
 			if(c!=null)
-				listProducts = dao.findBySomething(Product.class, "commerce", c, em);
+			{
+				List<Product> lp = dao.findBySomething(Product.class, "commerce", c, em);
+				for(Product p : lp)
+					if(p.getShoppingCart()==null)						//on ne prend pas les product attaché a une shoppingcart , carils sont reservés.
+						listProducts.add(p); 
+			}
+			
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -310,18 +421,24 @@ public class BuyerController
 			return new RestResponse<ShoppingCart>(RestResponseStatus.FAIL, null, 5, "Error: User is not allowed to perform this operation");
 		}
 		
-    	// Recupere le ShoppingCart du Buyer via son name
-		List<ShoppingCart> list_sc = new ArrayList<ShoppingCart>();
-		ShoppingCart sc = null;
+		
+		ShoppingCart sc = buyer.getShoppingCart();
+		if(sc==null)
+		{
+			sc = new ShoppingCart(buyer);
+		}
+		
+		sc.calculPrice();
+		
 		try 
-		{	
-			list_sc = dao.findBySomething(ShoppingCart.class, "buyer", buyer, em, false);
-			if (list_sc.get(0)!=null)
-				sc = list_sc.get(0);
+		{
+			dao.saveOrUpdate(sc, em);
+			dao.saveOrUpdate(buyer, em);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		
 		em.close();
 		return new RestResponse<ShoppingCart>(RestResponseStatus.SUCCESS, sc);
@@ -330,15 +447,15 @@ public class BuyerController
 	
 	
 	/*****************************************************************************************
-	*										addProductsToShoppingCart										* 
+	*										addProductsToShoppingCart						* 
 	*****************************************************************************************
 	*
 	* Ajoute une ligne de producTemplate au ShoppingCart, et du coup on ajoute au ShoppingCart x products associés.
 	* Puis, on retire les Products au Commerce
 	* 
 	*/
-	@GetMapping(path="/cart/add/{id_pt}/{id_c}", produces = "application/json")
-	public RestResponse<ShoppingCart> addProductsToShoppingCart(@PathVariable(name="id_pt") int id_pt, @PathVariable(name="id_c") int id_c, HttpSession session, Locale locale, Model model)
+	@GetMapping(path="/cart/add/{id_pt}/{id_c}/{number}", produces = "application/json")
+	public RestResponse<ShoppingCart> addProductsToShoppingCart(@PathVariable(name="id_pt") int id_pt, @PathVariable(name="id_c") int id_c, @PathVariable(name="number") int number, HttpSession session, Locale locale, Model model)
     {
 		EntityManager em = StartListener.createEntityManager();
 		
@@ -351,114 +468,89 @@ public class BuyerController
 		}
 		
 	
-		List<Product> listProductsToAdd = new ArrayList<Product>();
+		// Recup le Commerce via l'id_c en param
 		Commerce c = null;
-		ShoppingCartByCommerce scbc = null;
+		try {
+			c = dao.find(Commerce.class, id_c, em);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			
+			em.close();
+			return new RestResponse<ShoppingCart>(RestResponseStatus.FAIL, null, 1, "Error: on Commerce not found");
+		}
+		
 		
 		// Recup le ShoppingCart du buyer ou en cree un nouveau s'il n'existe pas
 		ShoppingCart sc = buyer.getShoppingCart();
-		double totalShoppingCart = 0, totalShoppingCartByCommerce = 0;
-		if (sc != null) { // sc existe
-			
-			// Recup le ShoppingCartByCommerce du ShoppingCart ou en crée un nouveau s'il n'existe pas
-			scbc = sc.getShoppingCartByCommerce(id_c);
-			if (scbc != null) { 						// scbc existe (donc, appartient au sc)
-				
-				totalShoppingCart = sc.getPrice();
-				totalShoppingCartByCommerce = scbc.getPrice();
-				c = scbc.getCommerce(); 				// Recup le Commerce lié au ShoppingCartByCommerce
-				System.out.println("Recup le Commerce lié au ShoppingCartByCommerce, scbc existait : " + c);
-	
-			} else { // scbc n'existait pas
-				
-				totalShoppingCart = sc.getPrice();
-				
-				// Recup le Commerce via l'id_c en param
-				try {
-					c = dao.find(Commerce.class, id_c, em);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					
-					em.close();
-					return new RestResponse<ShoppingCart>(RestResponseStatus.FAIL, null, 1, "Error: on add ProductTemplate to ShoppingCart");
-				}				
-				
-				scbc = new ShoppingCartByCommerce(); 	// On le cree
-				scbc.setCommerce(c); 					// Attribue le commerce au ShoppingCartByCommerce
-				scbc.setShoppingCart(sc); 				// On l'associe au ShoppingCart existant
-				sc.addShoppingCartByCommerces(scbc); 	// Ajoute le nouveau ShoppingCartByCommerce au ShoppingCart existant
-				
-				System.out.println("Recup le Commerce lié au ShoppingCartByCommerce, scbc n'existait pas : " + c);
-			}
-			
-		} else { 												// le ShoppingCart n'existait pas (donc le ShoppingCartByCommerce non plus)
-			
-			// Recup le Commerce via l'id_c en param
-			try {
-				c = dao.find(Commerce.class, id_c, em);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-				
-				em.close();
-				return new RestResponse<ShoppingCart>(RestResponseStatus.FAIL, null, 1, "Error: on add ProductTemplate to ShoppingCart");
-			}
-			
-			sc = new ShoppingCart(); 					// On le cree
-			scbc = new ShoppingCartByCommerce(); 		// On cree aussi un ShoppingCartByCommerce
-			scbc.setCommerce(c); 						// Attribue le commerce au ShoppingCartByCommerce
-			scbc.setShoppingCart(sc); 					// On l'associe au nouveau ShoppingCart
-			sc.addShoppingCartByCommerces(scbc); 		// Ajoute le nouveau ShoppingCartByCommerce au ShoppingCart existant
-			
-			System.out.println("Recup le Commerce lié au ShoppingCartByCommerce, sc et scbc n'existaient pas : " + c);
-		}
-
-		
-		System.out.println("c.getProducts()" + c.getProducts());	
+		if(sc==null)
+			sc = new ShoppingCart(buyer);
 		
 		
-		// Liste les products a ajouter au ShoppingCartByCommerce et calcule les totaux
-		for (Product p : c.getProducts()) {
-			if (p.getReference().getId() == id_pt) {
-				listProductsToAdd.add(p);
-					
-				if (p.getStatus() == ProductStatus.AVAILABLE)
-					totalShoppingCartByCommerce += p.getPrice();
-				else if (p.getStatus() == ProductStatus.PROMOTION)
-					totalShoppingCartByCommerce += p.getSalePrice();
-				else if (p.getStatus() == ProductStatus.UNSOLD)
-					totalShoppingCartByCommerce += 0;
-			}
-		}	
-		
-		totalShoppingCart += totalShoppingCartByCommerce;	
-		sc.setPrice(totalShoppingCart);
-		scbc.setPrice(totalShoppingCartByCommerce);
-		
-		sc.setStatus(ShoppingCartStatus.IN_PROGRESS);
-		scbc.setStatus(ShoppingCartStatus.IN_PROGRESS);
-		
+		// Recup le ShoppingCartByCommerce du ShoppingCart ou en crée un nouveau s'il n'existe pas
+		ShoppingCartByCommerce scbc = sc.getShoppingCartByCommerce(id_c);
+		if(scbc==null)
+			scbc = new ShoppingCartByCommerce(c, sc);
 		
 		try 
 		{
-			// Ajoute les products au ShoppingCartByCommerce et les retire du Commerce
-			for (Product p : listProductsToAdd) {
-				
-				scbc.addProduct(p);			
-				c.removeProduct(p);
-				p.setStatus(ProductStatus.RESERVED);	
-				
-				dao.saveOrUpdate(c, em);
-				dao.saveOrUpdate(p, em);
+			// Liste les products a ajouter au ShoppingCartByCommerce et calcule les totaux
+			List<Product> listToAdd = new ArrayList<Product>();
+			int number_tmp = number;
+			for (Product p : c.getProducts())
+			{
+				if ((p.getReference().getId() == id_pt) && (p.getShoppingCart()==null))				//ceux attaché a une shoppingcart ne peuvent etre pris.
+				{
+					listToAdd.add(p);
+					
+					number_tmp--;
+					if(number_tmp==0)
+						break;
+				}
 			}
-			dao.saveOrUpdate(scbc, em);
-			dao.saveOrUpdate(sc, em);
 			
+			for (Product p : listToAdd)
+			{
+				scbc.addProduct(p);
+				c.removeProduct(p);
+			}
+			
+			if(listToAdd.size()!=0)
+			{
+				scbc.calculPrice();
+				sc.calculPrice();
+				
+				sc.setStatus(ShoppingCartStatus.IN_PROGRESS);
+				scbc.setStatus(ShoppingCartStatus.IN_PROGRESS);
+
+				
+				
+				System.out.println("a3");
+				for (Product p : listToAdd)
+				{
+					p.setStatus(ProductStatus.RESERVED);
+					dao.saveOrUpdate(p, em);
+				}
+
+				System.out.println("a2");
+				dao.saveOrUpdate(buyer, em);
+				
+				System.out.println("a1");
+				dao.saveOrUpdate(c, em);
+				
+				System.out.println("a5");
+				for(ShoppingCartByCommerce scbc2 : sc.getShoppingCartByCommerces())
+					dao.saveOrUpdate(scbc2, em);
+				
+				System.out.println("a6");
+				dao.saveOrUpdate(sc, em);
+			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		
 			em.close();
 			return new RestResponse<ShoppingCart>(RestResponseStatus.FAIL, null, 1, "Error: on add ProductTemplate to ShoppingCart");
-		}	
+		}
+	
 		
 		em.close();
 		return new RestResponse<ShoppingCart>(RestResponseStatus.SUCCESS, null);
