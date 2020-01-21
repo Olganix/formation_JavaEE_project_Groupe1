@@ -27,12 +27,31 @@
 }
 
 .bloc-img {
+  background-color: var(--couleurGrisClair);
   display: block;
-  margin-left: 50%;
-  transform: translate(-30%);
+  margin-top: 50px;
+  padding-top: 30px;
+  padding-bottom: 45px;
 }
 
 .img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  margin-left: 45%;
+  -webkit-box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+  -moz-box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+  box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+}
+
+.input-img {
+  margin-left: 38%;
+}
+
+.input-img2 {
+  margin-left: 30%;
+  margin-top: 20px;
 }
 
 .super-bloc-fiche-produit {
@@ -41,10 +60,19 @@
   margin-top: 150px;
 }
 
+.grand-bloc-image {
+  display: flex;
+  margin-top: 40px;
+}
+
 .img-vitrine {
-  height: 400px;
-  background-color: var(--couleurGrisClair);
-  margin-top: 15px;
+  width: 100%;
+  height: 288px;
+  padding: 15px;
+  margin-top: 90px;
+  -webkit-box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+  -moz-box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+  box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
 }
 
 .detail-commerce {
@@ -52,9 +80,134 @@
 }
 
 .bloc-information-commerce {
+  width: 100%;
   background-color: var(--couleurNoir);
+  margin-top: 70px;
+  margin-bottom: 90px;
+}
+
+.titre-choix-commerce {
+  font-family: 'roboto', sans-serif;
+  font-size: 1.3em;
+  font-weight: 600;
+  text-align: center;
+  color: var(--couleurBlancCreme);
+  margin-top: 50px;
+}
+
+.bloc-input {
+  display: block;
+  padding-top: 20px;
+  padding-bottom: 90px;
+  margin-left: 30%;
 
 }
+.div-input {
+  display: flex;
+
+}
+
+.input {
+  width: 400px;
+  height: 30px;
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  color: var(--couleurNoir);
+  border: 1.5px solid #000;
+  border-radius: 5px;
+  padding-left: 10px;
+  display: block;
+  -webkit-box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+  -moz-box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+  box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+}
+
+.input2 {
+  width: 400px;
+  height: 30px;
+  font-family: 'roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  color: var(--couleurNoir);
+  border: 1.5px solid #000;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin-left: 20px;
+  display: block;
+  -webkit-box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+  -moz-box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+  box-shadow: 21px 24px 9px -17px rgba(0,0,0,0.14);
+}
+
+.label {
+  font-size: 1em;
+  color: var(--couleurBlancCreme);
+  margin-top: 20px;
+  margin-left: 25px;
+}
+
+.fa-asterisk {
+  font-size: 0.85em;
+  color: var(--couleurVerte);
+  margin-right: 7px;
+}
+
+
+.textarea {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.95em;
+  font-weight: 400;
+  width: 400px;
+  height: 300px;
+  padding: 10px;
+}
+
+
+select:focus {
+  background-color: var(--couleurVerte);
+  border: none;
+}
+
+input[type=text]:focus {
+  background-color: var(--couleurVerte);
+  border: none;
+}
+
+input[type=password]:focus {
+  background-color: var(--couleurVerte);
+  border: none;
+}
+
+
+input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+}
+
+
+input[type=checkbox] {
+  -border-radius: 4px;
+  height: 15px;
+  width: 15px;
+  background: #fff;
+  border: 1px solid var(--couleurNoir);
+}
+
+input[type="checkbox"]:checked {
+  background: var(--couleurVerte);
+  position: relative;
+  &:before {
+    font-family: FontAwesome;
+    content: '\f00c';
+    display: block;
+    color: grey;
+    font-size: 13px;
+    position: absolute;
+  }
+}
+
 
 .nom-commerce {
   font-family: 'Ubuntu', sans-serif;
@@ -143,7 +296,32 @@
   border-radius: 28px;
 }
 
-.bloc-information-horaire {
-  padding-top: 30px;
+.bouton-sauvegarder {
+  width: 185px;
+  font-family: sans-serif;
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--couleurVerte);
+  background: var(--couleurNoir);
+  box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--couleurVerte);
+  border-radius: 28px;
+  padding: 14px 20px 14px 20px;
+  margin-left: 50%;
+  transform: translate(-60%);
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
 }
+
+.bouton-sauvegarder:hover {
+  color: var(--couleurBlancCreme);
+  background: var(--couleurNoir);
+  border: 2px solid var(--couleurBlancCreme);
+  border-radius: 28px;
+  padding: 16px 20px 16px 20px;
+}
+
 
